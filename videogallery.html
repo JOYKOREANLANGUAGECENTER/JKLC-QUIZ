@@ -35,7 +35,7 @@
             <div class="flex items-center gap-3">
                 <div id="status-chip" class="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold rounded flex items-center gap-1 border border-slate-200">
                     <div id="status-dot" class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
-                    <span id="status-text">SYSTEM OFFLINE</span>
+                    <span id="status-text">CONNECTING...</span>
                 </div>
                 <button id="admin-toggle-btn" onclick="toggleAdminView()" class="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition">
                     <i data-lucide="lock" class="w-3.5 h-3.5" id="lock-icon"></i>
@@ -221,6 +221,10 @@
                 dot.className = "w-1.5 h-1.5 rounded-full bg-red-500";
                 text.innerText = "CONN ERROR";
                 chip.className = "px-2 py-1 bg-red-50 text-red-600 text-[9px] font-bold rounded flex items-center gap-1 border border-red-100";
+            } else if (type === 'connecting') {
+                dot.className = "w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce";
+                text.innerText = "CONNECTING...";
+                chip.className = "px-2 py-1 bg-amber-50 text-amber-600 text-[9px] font-bold rounded flex items-center gap-1 border border-amber-100";
             }
             if(detail) console.log(`[Status Update] ${detail}`);
         };
@@ -237,11 +241,12 @@
 
         // Initialize App Function
         const startApp = async () => {
+            setStatus('connecting');
             try {
                 // 1. Firebase 초기화 확인
                 setDebugText("Checking environment...");
                 if (typeof __firebase_config === 'undefined') {
-                    setLoadingText("시스템 설정을 불러올 수 없습니다. 잠시만 기다려 주세요.");
+                    setLoadingText("시스템 설정 대기 중... 계속 오프라인이면 새로고침 하세요.");
                     return;
                 }
 
@@ -250,11 +255,10 @@
                 const app = initializeApp(config);
                 db = getFirestore(app);
                 auth = getAuth(app);
-                appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-academy-v3';
+                appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-academy-v4';
 
                 // 2. 인증 시도 (Rule 3)
-                setLoadingText("보안 세션 연결 중...");
-                setDebugText("Authenticating anonymously...");
+                setLoadingText("학원 클라우드 세션 연결 중...");
                 
                 try {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -269,17 +273,17 @@
                 // 3. 상태 변경 감지
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
-                        setLoadingText("학원 영상 데이터를 동기화하는 중...");
-                        setDebugText(`Authenticated as: ${user.uid.substring(0,8)}...`);
+                        setLoadingText("영상 데이터 불러오기 시작...");
                         setupSync();
                     } else {
-                        setLoadingText("인증 대기 중...");
+                        // 세션 유실 시 재연결 시도
+                        signInAnonymously(auth).catch(e => console.error(e));
                     }
                 });
             } catch (e) {
                 console.error("Critical System Error:", e);
                 setStatus('error');
-                setLoadingText("연결 오류가 발생했습니다. 브라우저를 새로고침 해주세요.");
+                setLoadingText("연결에 실패했습니다. 새로고침을 권장합니다.");
                 setDebugText(e.message);
             }
         };
@@ -301,9 +305,11 @@
                 }, (err) => {
                     console.error("Firestore Sync Error:", err);
                     setStatus('error', "Firestore sync failed.");
+                    setLoadingText("데이터를 가져오는 중 오류가 발생했습니다.");
                 });
             } catch (e) {
                 console.error("Sync Setup Failed:", e);
+                setStatus('error');
             }
         }
 
@@ -382,19 +388,8 @@
             const btn = document.getElementById('btn-save');
 
             if (!db || !auth) {
-                msg.innerText = "시스템 초기화가 완료되지 않았습니다. 잠시만 기다려 주세요.";
-                msg.className = "text-center mt-4 font-bold text-xs text-amber-600 block bg-amber-50 p-3 rounded-xl";
-                msg.classList.remove('hidden');
+                alert("시스템이 아직 준비되지 않았습니다. 잠시만 기다려 주세요.");
                 return;
-            }
-
-            // 만약 인증이 풀렸다면 재시도 (Rule 3 준수)
-            if (!auth.currentUser) {
-                msg.innerText = "보안 세션을 재연결 중입니다...";
-                msg.className = "text-center mt-4 font-bold text-xs text-blue-500 block";
-                msg.classList.remove('hidden');
-                try { await signInAnonymously(auth); } catch(e) {}
-                if(!auth.currentUser) return;
             }
 
             const urlInput = document.getElementById('youtube-url');
@@ -411,14 +406,14 @@
 
             const vidId = extractId(urlInput.value);
             if (!vidId || !titleInput.value.trim()) {
-                msg.innerText = "유튜브 URL과 제목은 필수 입력 항목입니다.";
+                msg.innerText = "유튜브 URL과 제목을 정확히 입력해 주세요.";
                 msg.className = "text-center mt-4 font-bold text-xs text-red-500 block bg-red-50 p-3 rounded-xl";
                 msg.classList.remove('hidden');
                 return;
             }
 
             btn.disabled = true;
-            btn.innerText = "데이터를 클라우드에 전송 중...";
+            btn.innerText = "저장하는 중...";
 
             try {
                 const col = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
@@ -428,11 +423,10 @@
                     category: catInput.value,
                     pdfUrl: pdfInput.value.trim(),
                     desc: descInput.value.trim(),
-                    createdAt: Date.now(),
-                    userId: auth.currentUser.uid
+                    createdAt: Date.now()
                 });
                 
-                msg.innerText = "성공적으로 저장되었습니다! 갤러리에서 확인하세요.";
+                msg.innerText = "저장되었습니다! 갤러리로 이동합니다.";
                 msg.className = "text-center mt-4 font-bold text-xs text-green-600 block bg-green-50 p-3 rounded-xl";
                 msg.classList.remove('hidden');
                 
@@ -442,8 +436,8 @@
                     showView('gallery'); 
                 }, 1500);
             } catch (e) {
-                console.error("Firestore Add Doc Error:", e);
-                msg.innerText = "데이터베이스 저장 오류: " + e.message;
+                console.error("Save error:", e);
+                msg.innerText = "저장 실패: " + e.message;
                 msg.className = "text-center mt-4 font-bold text-xs text-red-500 block bg-red-50 p-3 rounded-xl";
                 msg.classList.remove('hidden');
             } finally {
@@ -454,11 +448,11 @@
         };
 
         window.deleteVideo = async (dbId) => {
-            if (!db || !confirm("이 영상을 학원 갤러리에서 영구히 삭제하시겠습니까?")) return;
+            if (!db || !confirm("이 영상을 삭제하시겠습니까?")) return;
             try { 
                 await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'videos', dbId)); 
             } catch (e) { 
-                console.error("Delete Error:", e); 
+                console.error("Delete error:", e); 
             }
         };
 
@@ -475,7 +469,7 @@
                 grid.innerHTML = `
                     <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100">
                         <i data-lucide="video-off" class="mx-auto text-slate-200 mb-4 w-12 h-12"></i>
-                        <p class="text-slate-400 font-medium italic">등록된 영상이 없습니다. 관리자 모드에서 첫 영상을 등록해 보세요.</p>
+                        <p class="text-slate-400 font-medium italic">등록된 영상이 없습니다. 관리자 모드에서 영상을 추가해 보세요.</p>
                     </div>`;
             } else {
                 filtered.forEach(video => {
