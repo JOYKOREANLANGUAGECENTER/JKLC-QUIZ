@@ -10,15 +10,29 @@
     <style>
         body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background-color: #f8fafc; }
         .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
-        .option-btn { transition: all 0.2s ease; border: 2px solid #e2e8f0; }
+        
+        /* 옵션 버튼 기본 스타일 */
+        .option-btn { transition: all 0.2s ease; border: 2px solid #e2e8f0; position: relative; }
         .option-btn:hover:not(:disabled) { border-color: #93c5fd; background-color: #eff6ff; }
-        .option-btn.selected { border-color: #2563eb; background-color: #eff6ff; }
+        
+        /* 선택되었을 때 하이라이트 */
+        .option-btn.selected { border-color: #2563eb; background-color: #eff6ff; transform: scale(1.01); }
+        
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* 체크 아이콘 애니메이션 */
-        .check-icon { opacity: 0; transform: scale(0.5); transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .selected .check-icon { opacity: 1; transform: scale(1); }
+        /* 체크 아이콘 애니메이션: 기본적으로 숨김 */
+        .check-icon-svg { 
+            opacity: 0; 
+            transform: scale(0.3); 
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); 
+        }
+        
+        /* 선택된 버튼 내부의 체크 아이콘 표시 */
+        .selected .check-icon-svg { 
+            opacity: 1; 
+            transform: scale(1); 
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -43,7 +57,7 @@
     <main class="flex-grow flex items-center justify-center p-4">
         <div class="w-full max-w-2xl bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100">
             
-            <!-- 1. Start Screen (모든 내용을 div 안으로 옮겼습니다) -->
+            <!-- 1. Start Screen -->
             <div id="start-screen" class="p-8 md:p-12 text-center fade-in">
                 <div class="mb-8 overflow-hidden rounded-2xl shadow-md border border-gray-100">
                     <img src="leveltestimg.png" alt="Level Test" class="w-full h-auto object-cover" onerror="this.src='https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=800'">
@@ -82,7 +96,7 @@
                     </div>
 
                     <div id="options-container" class="mt-10 space-y-3">
-                        <!-- Options via JS -->
+                        <!-- Options injected via JS -->
                     </div>
                 </div>
 
@@ -128,11 +142,11 @@
         </div>
     </main>
 
-    <!-- Footer (컬러 로고 복원됨) -->
+    <!-- Footer -->
     <footer class="bg-white py-12 border-t border-slate-100 mt-auto">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <img src="logo.png" class="h-10 mx-auto mb-4" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-2 leading-relaxed">JOY Korean Language Center</p>
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-2 leading-relaxed">JOY Korean Language Center</p>
             <p class="text-[9px] font-bold text-slate-300 uppercase tracking-widest">&copy; 2026 JKLC. All rights reserved.</p>
         </div>
     </footer>
@@ -185,14 +199,14 @@
             },
             {
                 q: "8. '사랑해요'는 미얀마어로 무슨 뜻입니까?",
-                mm: "'사랑해요' ရဲ့ အဓိပ္ပါယ်က ဘာလဲ။",
+                mm: "'사랑해요' ရဲ့ အဓิပ္ပါယ်က ဘာလဲ။",
                 options: ["ဝမ်းနည်းပါတယ်", "ချစ်တယ်", "ပျော်ပါတယ်", "ဆာလောင်တယ်"],
                 ans: 1
             },
             {
-                q: "9. '한국 (Korea)'의 수도는 어디입니까?",
-                mm: "ကိုရီးယားနိုင်ငံရဲ့ မြို့တော်က ဘယ်မြို့လဲ။",
-                options: ["ဘန်ကောက်", "ရန်ကုန်", "ဆိုးလ် (Seoul)", "တိုကျို"],
+                q: "9. 한국의 대표적인 매운 음식은 무엇입니까?",
+                mm: "ကိုရီးယားနိုင်ငံရဲ့ ကိုယ်စားပြု အစပ်အစားအစာက ဘာလဲ။",
+                options: ["초밥 (Sushi)", "쌀국수 (Noodle)", "김치 (Kimchi)", "햄버거 (Burger)"],
                 ans: 2
             },
             {
@@ -209,9 +223,7 @@
             selected: null,
 
             start() {
-                // 시작 화면 div 전체를 숨김
                 document.getElementById('start-screen').classList.add('hidden');
-                // 퀴즈 화면 div 표시
                 document.getElementById('quiz-screen').classList.remove('hidden');
                 this.render();
             },
@@ -233,8 +245,8 @@
                     btn.className = 'w-full text-left p-5 rounded-2xl option-btn font-bold text-slate-700 bg-white flex justify-between items-center border-2 border-slate-100';
                     btn.innerHTML = `
                         <span>${opt}</span> 
-                        <div class="w-7 h-7 rounded-full border-2 border-slate-200 flex-shrink-0 check-circle bg-white flex items-center justify-center">
-                            <i data-lucide="check" class="w-4 h-4 text-white check-icon"></i>
+                        <div class="w-7 h-7 rounded-full border-2 border-slate-200 flex-shrink-0 check-circle bg-white flex items-center justify-center transition-colors">
+                            <i data-lucide="check" class="w-4 h-4 text-white check-icon-svg"></i>
                         </div>`;
                     btn.onclick = () => this.select(idx, btn);
                     container.appendChild(btn);
@@ -248,14 +260,18 @@
 
             select(idx, el) {
                 this.selected = idx;
+                
                 document.querySelectorAll('.option-btn').forEach(b => {
                     b.classList.remove('selected');
                     const circle = b.querySelector('.check-circle');
                     circle.classList.remove('bg-blue-600', 'border-blue-600');
+                    circle.classList.add('bg-white', 'border-slate-200');
                 });
+
                 el.classList.add('selected');
-                const check = el.querySelector('.check-circle');
-                check.classList.add('bg-blue-600', 'border-blue-600');
+                const checkCircle = el.querySelector('.check-circle');
+                checkCircle.classList.remove('bg-white', 'border-slate-200');
+                checkCircle.classList.add('bg-blue-600', 'border-blue-600');
 
                 const nextBtn = document.getElementById('next-btn');
                 nextBtn.disabled = false;
