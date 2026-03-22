@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 구글 폰트: 한국어와 미얀마어(Pyidaungsu) 지원 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --jklc-blue: #0070BB;
@@ -57,29 +59,44 @@
 
     <div id="app" class="quiz-container relative overflow-hidden">
         <!-- 상단 컬러 바 -->
-        <div class="h-2 w-full flex">
+        <div class="h-2 w-full flex sticky top-0 z-50">
             <div class="flex-1 bg-[#FFD700]"></div>
             <div class="flex-1 bg-[#0070BB]"></div>
             <div class="flex-1 bg-[#228B22]"></div>
             <div class="flex-1 bg-[#ED1C24]"></div>
         </div>
 
+        <!-- [NEW] 상단 네비게이션 및 로고 영역 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center">
+            <div class="flex gap-2">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Home">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Quiz List">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <div class="w-10 md:w-16"></div> <!-- 우측 밸런스를 위한 빈 공간 -->
+        </nav>
+
         <!-- 1. 시작 화면 -->
         <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-32 mb-6 drop-shadow-md" onerror="this.src='https://via.placeholder.com/150?text=JOY+KOREAN'">
+            <!-- 시작 페이지 로고 강조 -->
+            <img src="logo.png" alt="JKLC Logo" class="h-32 mb-6 drop-shadow-md" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
             <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">기초 인사와 표현</h1>
             <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Basic Expressions Quiz</p>
             
-            <div class="bg-blue-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500">
-                <p class="text-xs text-blue-900 font-bold mb-1">WELCOME TO JKLC</p>
+            <div class="bg-blue-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full">
+                <p class="text-xs text-blue-900 font-black mb-1">WELCOME TO JKLC</p>
                 <p class="text-sm text-blue-800 font-medium leading-relaxed">
                     오늘 배운 한국어 인사말을 복습해볼까요? <br>
                     총 10문제이며, 한 문제당 10점입니다.
                 </p>
             </div>
 
-            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95">
-                START (စတင်ပါ)
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> START (စတင်ပါ)
             </button>
             <p class="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Hledan · Yangon · Myanmar</p>
         </div>
@@ -100,7 +117,7 @@
             <!-- 보기 리스트 -->
             <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
 
-            <!-- 하단 결과/다음 버튼 구역 (정답 체크 후에만 나타남) -->
+            <!-- 하단 결과/다음 버튼 구역 -->
             <div id="feedback-area" class="hidden">
                 <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
                     <div class="flex items-center mb-2">
@@ -108,43 +125,51 @@
                         <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
                     </div>
                     <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
-                    <!-- 정답 후에만 나타나는 선생님의 힌트 구역 -->
                     <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
                          <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
                          <p id="hint-text" class="text-xs font-medium"></p>
                     </div>
                 </div>
-                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95">
-                    다음 문제 (နောက်တစ်ခု)
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
 
         <!-- 3. 결과 화면 -->
         <div id="result-screen" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+            <!-- 결과 화면 로고 -->
+            <img src="logo.png" alt="JKLC Logo" class="h-16 mb-4 opacity-50" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
             <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
             <p class="text-slate-400 font-bold mb-10 tracking-widest uppercase text-[10px]">Quiz Completed</p>
             
             <div class="w-full bg-blue-600 rounded-[3rem] p-10 mb-10 text-white shadow-2xl relative overflow-hidden">
                 <div class="absolute -top-6 -right-6 opacity-10">
-                    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <i data-lucide="star" class="w-32 h-32 text-white"></i>
                 </div>
                 <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
                 <div class="text-8xl font-black" id="final-score">0</div>
                 <p class="mt-6 font-bold text-lg" id="final-comment"></p>
             </div>
 
-            <button onclick="location.reload()" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition">
-                다시 하기 (Restart)
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
             </button>
-            <button onclick="location.href='index.html'" class="mt-6 text-xs font-bold text-blue-500 border-b border-blue-500 pb-0.5">
-                목록으로 돌아가기
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 전체 목록으로
             </button>
         </div>
 
+        <!-- Footer -->
+        <footer class="p-6 text-center border-t border-slate-50 mt-auto">
+            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
     </div>
 
     <script>
+        // Lucide 아이콘 초기화
+        lucide.createIcons();
+
         const quizData = [
             {
                 q: "미얀마어 'မင်္ဂလာပါ' (만났을 때 하는 인사)는 한국어로 무엇인가요?",
@@ -249,7 +274,7 @@
                 
                 current.options.forEach((opt, index) => {
                     const btn = document.createElement('button');
-                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50";
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white";
                     btn.innerText = opt;
                     btn.onclick = () => quiz.checkAnswer(index, btn);
                     optionsContainer.appendChild(btn);
@@ -300,7 +325,6 @@
                 hintText.innerText = current.hint;
                 
                 area.classList.remove('hidden');
-                // 피드백이 나타나면 자동으로 화면을 아래로 스크롤하여 다음 버튼이 보이게 합니다.
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             },
             next: () => {
