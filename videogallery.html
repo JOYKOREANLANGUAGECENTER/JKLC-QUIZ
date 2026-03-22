@@ -1,541 +1,257 @@
-<!DOCTYPE html>
-<html lang="my">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JKLC - Media Hub (Admin Mode)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background-color: #f8fafc; }
-        .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
-        .video-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .video-card:hover { transform: translateY(-5px); }
-        .aspect-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-        .aspect-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 1rem; }
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .loader { border-top-color: #3b82f6; animation: spinner 1.5s linear infinite; }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
-</head>
-<body class="min-h-screen flex flex-col overflow-x-hidden">
 
-    <!-- 상단 브랜드 컬러 바 -->
-    <div class="h-2 jklc-gradient w-full"></div>
 
-    <!-- 헤더 -->
-    <header class="bg-white/90 backdrop-blur-md shadow-sm py-4 sticky top-0 z-50 border-b border-slate-100">
-        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2" onclick="showView('gallery')">
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-10 w-auto">
-                <span class="font-black text-xl tracking-tighter text-slate-800 uppercase">Media Hub</span>
-            </a>
-            <div class="flex items-center gap-3">
-                <div id="status-chip" class="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold rounded flex items-center gap-1 border border-slate-200">
-                    <div id="status-dot" class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
-                    <span id="status-text">CONNECTING...</span>
-                </div>
-                <button id="admin-toggle-btn" onclick="toggleAdminView()" class="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition">
-                    <i data-lucide="lock" class="w-3.5 h-3.5" id="lock-icon"></i>
-                    <span id="admin-btn-text">Admin Login</span>
-                </button>
-            </div>
-        </div>
-    </header>
 
-    <!-- 관리자 비밀번호 모달 -->
-    <div id="password-modal" class="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-2xl scale-in">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
-                    <i data-lucide="shield-ellipsis" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-xl font-black text-slate-800">Admin Access</h3>
-                <p class="text-slate-500 text-sm mt-1 font-medium">관리자 비밀번호를 입력하세요.</p>
-            </div>
-            <input type="password" id="admin-pw-input" placeholder="••••" 
-                   class="w-full text-center text-2xl tracking-[1em] py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 transition mb-4">
-            <div class="flex gap-2">
-                <button onclick="closePasswordModal()" class="flex-1 py-4 text-slate-400 font-bold text-sm uppercase tracking-widest hover:bg-slate-50 rounded-2xl transition">Cancel</button>
-                <button onclick="verifyPassword()" class="flex-1 bg-blue-600 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition">Unlock</button>
-            </div>
-            <p id="pw-error" class="text-red-500 text-[10px] font-bold mt-4 text-center hidden">비밀번호가 일치하지 않습니다.</p>
-        </div>
-    </div>
 
-    <!-- 메인 컨텐츠 -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-12">
-        
-        <!-- [관리자 페이지] 영상 등록 섹션 -->
-        <section id="admin-section" class="hidden mb-16 fade-in">
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-blue-900/5 border-2 border-blue-50 max-w-4xl mx-auto overflow-hidden relative">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-xl font-black text-slate-800 flex items-center gap-3">
-                        <span class="p-2 bg-blue-600 text-white rounded-xl"><i data-lucide="plus" class="w-5 h-5"></i></span>
-                        새 학습 영상 및 자료 등록
-                    </h2>
-                    <button onclick="logoutAdmin()" class="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition">Admin Logout</button>
-                </div>
+붙여넣은 텍스트 (1).txt
+문서
+이 페이지 분석 좀 해줘..커넥팅에서 진행이 안된다 뭐가 문제지
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                    <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
-                            <i data-lucide="youtube" class="w-3 h-3 text-red-500"></i> YouTube URL
-                        </label>
-                        <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=..." 
-                               class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
-                            <i data-lucide="layers" class="w-3 h-3"></i> Category
-                        </label>
-                        <select id="video-category" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-bold">
-                            <option value="lesson">Lessons (수업용)</option>
-                            <option value="review">Reviews (수강후기)</option>
-                            <option value="culture">K-Culture (문화체험)</option>
-                            <option value="topik">TOPIK (시험대비)</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                    <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
-                            <i data-lucide="type" class="w-3 h-3"></i> Video Title
-                        </label>
-                        <input type="text" id="video-title" placeholder="영상 제목 (예: 기초 문법 1강)" 
-                               class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
-                            <i data-lucide="file-text" class="w-3 h-3 text-blue-500"></i> Learning Material (PDF Link)
-                        </label>
-                        <input type="text" id="pdf-url" placeholder="학습자료 주소(Google Drive 등)를 넣으세요" 
-                               class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium">
-                    </div>
-                </div>
+7s 동안 생각함
+문제 핵심은 거의 확실하게 이 페이지가 “일반 웹호스팅”에서 돌아가는데, 코드는 “특정 실행 환경에서 자동 주입되는 변수”를 기대하고 있다는 점입니다. 그래서 CONNECTING...에서 멈출 가능성이 큽니다. 
 
-                <div class="mb-8 space-y-1.5">
-                    <label class="text-[10px] font-black text-slate-400 uppercase ml-2">Simple Description</label>
-                    <textarea id="video-desc" rows="2" placeholder="영상에 대한 짧은 설명을 입력하세요." 
-                              class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium"></textarea>
-                </div>
 
-                <button onclick="saveVideo()" id="btn-save" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] hover:bg-blue-700 transition shadow-xl shadow-blue-200 flex items-center justify-center gap-2">
-                    <i data-lucide="save" class="w-5 h-5"></i> 저장하고 갤러리에 추가하기
-                </button>
-                <div id="save-msg" class="hidden text-center mt-4 font-bold text-xs uppercase tracking-widest p-3 rounded-xl"></div>
-            </div>
-        </section>
+가장 의심되는 부분은 여기입니다.
 
-        <!-- [갤러리 페이지] 공통 영역 -->
-        <section id="gallery-section">
-            <div class="text-center mb-12 fade-in">
-                <span class="inline-block px-4 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Online Learning Space</span>
-                <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">JOY 영상 학습관</h1>
-                <p class="text-slate-500 font-medium max-w-2xl mx-auto">
-                    언제 어디서나 복습할 수 있는 온라인 강의와 학습 자료를 만나보세요. 
-                    <br><span class="text-blue-600 font-bold italic">သင်ယူမှုဗီဒီယိုနှင့် သင်ခန်းစာများကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</span>
-                </p>
-            </div>
+if (typeof __firebase_config === 'undefined') {
+    setLoadingText("시스템 설정 대기 중... 계속 오프라인이면 새로고침 하세요.");
+    return;
+}
+이 코드 때문에 __firebase_config가 없으면 startApp()이 중간에서 바로 종료됩니다. 그런데 상태칩은 이미 CONNECTING...으로 바꿔놓은 뒤라서, 결과적으로 화면에는 계속 connecting처럼 보이게 됩니다. 즉, Firebase 자체 문제라기보다, Firebase 설정값이 페이지에 전달되지 않는 구조일 가능성이 가장 큽니다. 
 
-            <!-- 메인 플레이어 (팝업 형태) -->
-            <div id="preview-section" class="hidden mb-16 fade-in">
-                <div class="bg-slate-900 rounded-[3rem] p-4 md:p-8 shadow-2xl relative">
-                    <button onclick="closePlayer()" class="absolute -top-3 -right-3 md:top-6 md:right-6 bg-white text-slate-900 rounded-full p-2 shadow-xl z-20 hover:scale-110 transition">
-                        <i data-lucide="x" class="w-6 h-6"></i>
-                    </button>
-                    <div class="aspect-video z-10">
-                        <iframe id="main-player" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    <div class="mt-8 flex flex-col md:flex-row md:items-center justify-between px-4 pb-4 gap-4">
-                        <div>
-                            <h3 class="text-white text-2xl font-black" id="current-playing-title">영상 제목</h3>
-                            <p class="text-slate-400 text-sm mt-1" id="current-playing-desc">설명</p>
-                        </div>
-                        <div id="pdf-action-area"></div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- 필터링 -->
-            <div class="flex flex-wrap gap-2 mb-10 justify-center">
-                <button onclick="filterVideos('all')" class="filter-btn px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-widest shadow-lg">All</button>
-                <button onclick="filterVideos('lesson')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-blue-50 transition">Lessons</button>
-                <button onclick="filterVideos('topik')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-amber-50 transition">TOPIK</button>
-                <button onclick="filterVideos('review')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-green-50 transition">Reviews</button>
-                <button onclick="filterVideos('culture')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-red-50 transition">K-Culture</button>
-            </div>
+보통 이런 __firebase_config, __initial_auth_token, __app_id 같은 변수는 일반적인 GitHub Pages나 일반 HTML 업로드 환경에서는 자동으로 생기지 않습니다. 지금 코드에는 아래처럼 그 변수들이 “이미 존재한다고 가정”되어 있습니다. 
 
-            <!-- 영상 그리드 -->
-            <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
-                <div class="col-span-full flex flex-col items-center justify-center py-20" id="loading-state">
-                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-200 h-10 w-10 mb-4"></div>
-                    <p class="text-slate-400 font-medium" id="loading-text">서버 연결 정보를 확인 중입니다...</p>
-                    <p id="debug-text" class="text-[10px] text-slate-300 mt-2 font-mono"></p>
-                </div>
-            </div>
-        </section>
 
-    </main>
+그래서 지금 증상은 대개 둘 중 하나입니다.
 
-    <!-- 푸터 -->
-    <footer class="bg-white py-16 border-t border-slate-100 mt-20">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-8 mx-auto mb-6">
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-4 leading-relaxed">
-                JOY KOREAN LANGUAGE CENTER <br>
-                YANGON · HLEDAN
-            </p>
-            <p class="text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC Media Hub. All rights reserved.</p>
-        </div>
-    </footer>
+GitHub Pages / 일반 호스팅에 올렸는데
+__firebase_config가 없어서 앱이 초기화조차 못 함
 
-    <!-- Firebase SDK & Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+Firebase는 초기화됐지만
+Authentication 또는 Firestore 규칙 때문에 실제 연결이 실패함
+다만 이 경우엔 보통 CONN ERROR로 바뀌거나 콘솔에 에러가 찍힙니다. 지금처럼 계속 connecting이면 1번 가능성이 더 큽니다. 
 
-        // Global State
-        let db, auth, appId;
-        let currentVideos = [];
-        let currentFilter = 'all';
-        let isAdmin = localStorage.getItem('jklc_admin_auth') === 'true';
-        let isSystemReady = false;
 
-        const setStatus = (type, detail = "") => {
-            const dot = document.getElementById('status-dot');
-            const text = document.getElementById('status-text');
-            const chip = document.getElementById('status-chip');
-            if (!dot || !text || !chip) return;
+추가로 체크해야 할 부분도 있습니다.
 
-            if (type === 'connected') {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse";
-                text.innerText = "LIVE SYNC";
-                chip.className = "px-2 py-1 bg-green-50 text-green-600 text-[9px] font-bold rounded flex items-center gap-1 border border-green-100";
-                isSystemReady = true;
-            } else if (type === 'error') {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-red-500";
-                text.innerText = "CONN ERROR";
-                chip.className = "px-2 py-1 bg-red-50 text-red-600 text-[9px] font-bold rounded flex items-center gap-1 border border-red-100";
-            } else if (type === 'connecting') {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce";
-                text.innerText = "CONNECTING...";
-                chip.className = "px-2 py-1 bg-amber-50 text-amber-600 text-[9px] font-bold rounded flex items-center gap-1 border border-amber-100";
-            }
-            if(detail) console.log(`[Status Update] ${detail}`);
-        };
+signInAnonymously(auth)를 사용하고 있으므로, Firebase 콘솔에서 Authentication > Sign-in method > Anonymous가 켜져 있어야 합니다. 꺼져 있으면 인증이 실패할 수 있습니다. 하지만 이 코드에서는 인증 에러를 console.error만 하고 화면 상태를 명확히 바꾸지 않아서, 사용자 입장에서는 그냥 멈춘 것처럼 보일 수 있습니다. 
 
-        const setLoadingText = (t) => {
-            const el = document.getElementById('loading-text');
-            if (el) el.innerText = t;
-        };
 
-        const setDebugText = (t) => {
-            const el = document.getElementById('debug-text');
-            if (el) el.innerText = t;
-        };
+또 Firestore 경로는 다음처럼 잡혀 있습니다.
 
-        // Initialize App Function
-        const startApp = async () => {
-            setStatus('connecting');
-            try {
-                // 1. Firebase 초기화 확인
-                setDebugText("Checking environment...");
-                if (typeof __firebase_config === 'undefined') {
-                    setLoadingText("시스템 설정 대기 중... 계속 오프라인이면 새로고침 하세요.");
-                    return;
-                }
+collection(db, 'artifacts', appId, 'public', 'data', 'videos')
+문법상 가능하지만, 보안 규칙이 이 경로를 허용하지 않으면 onSnapshot이 실패합니다. 그러면 콘솔에 Firestore permission 관련 에러가 나올 수 있습니다. 
 
-                setDebugText("Initializing Firebase...");
-                const config = JSON.parse(__firebase_config);
-                const app = initializeApp(config);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-academy-v4';
 
-                // 2. 인증 시도 (Rule 3)
-                setLoadingText("학원 클라우드 세션 연결 중...");
-                
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                } catch (authError) {
-                    console.error("Auth error:", authError);
-                }
+정리하면, 지금 가장 가능성 높은 원인은 이겁니다.
 
-                // 3. 상태 변경 감지
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        setLoadingText("영상 데이터 불러오기 시작...");
-                        setupSync();
-                    } else {
-                        // 세션 유실 시 재연결 시도
-                        signInAnonymously(auth).catch(e => console.error(e));
-                    }
-                });
-            } catch (e) {
-                console.error("Critical System Error:", e);
-                setStatus('error');
-                setLoadingText("연결에 실패했습니다. 새로고침을 권장합니다.");
-                setDebugText(e.message);
-            }
-        };
+이 코드는 원래 특정 환경용으로 만들어졌고, 현재 배포한 페이지에서는 __firebase_config 같은 전역 변수가 없어서 Firebase 초기화가 시작조차 안 된다. 
 
-        // Real-time Sync Setup (Rule 1 & 2)
-        function setupSync() {
-            try {
-                const videosCol = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
-                
-                onSnapshot(query(videosCol), (snap) => {
-                    currentVideos = snap.docs.map(d => ({ dbId: d.id, ...d.data() }))
-                                        .sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-                    
-                    const loader = document.getElementById('loading-state');
-                    if (loader) loader.classList.add('hidden');
-                    
-                    setStatus('connected', "Synced with Firestore successfully.");
-                    renderVideos(currentFilter);
-                }, (err) => {
-                    console.error("Firestore Sync Error:", err);
-                    setStatus('error', "Firestore sync failed.");
-                    setLoadingText("데이터를 가져오는 중 오류가 발생했습니다.");
-                });
-            } catch (e) {
-                console.error("Sync Setup Failed:", e);
-                setStatus('error');
-            }
-        }
 
-        // Admin Auth
-        window.toggleAdminView = () => {
-            if (isAdmin) {
-                showView('admin');
-            } else {
-                document.getElementById('password-modal').classList.remove('hidden');
-                document.getElementById('admin-pw-input').focus();
-            }
-        };
+고쳐야 하는 방법은 이렇게 가면 됩니다.
 
-        window.closePasswordModal = () => {
-            document.getElementById('password-modal').classList.add('hidden');
-            document.getElementById('pw-error').classList.add('hidden');
-            document.getElementById('admin-pw-input').value = '';
-        };
+방법 1. 실제 Firebase 설정을 코드에 직접 넣기
+지금처럼 __firebase_config를 기다리지 말고, 본인 Firebase 프로젝트 설정값으로 직접 초기화해야 합니다.
 
-        window.verifyPassword = () => {
-            const input = document.getElementById('admin-pw-input').value;
-            if (input === '4747') {
-                isAdmin = true;
-                localStorage.setItem('jklc_admin_auth', 'true');
-                updateAdminUI();
-                closePasswordModal();
-                showView('admin');
-            } else {
-                document.getElementById('pw-error').classList.remove('hidden');
-                document.getElementById('admin-pw-input').value = '';
-            }
-        };
+예시:
 
-        window.logoutAdmin = () => {
-            isAdmin = false;
-            localStorage.removeItem('jklc_admin_auth');
-            updateAdminUI();
-            showView('gallery');
-        };
+const firebaseConfig = {
+  apiKey: "실제값",
+  authDomain: "실제값",
+  projectId: "실제값",
+  storageBucket: "실제값",
+  messagingSenderId: "실제값",
+  appId: "실제값"
+};
 
-        window.showView = (view) => {
-            const gallery = document.getElementById('gallery-section');
-            const admin = document.getElementById('admin-section');
-            if (view === 'admin' && isAdmin) {
-                gallery.classList.add('hidden');
-                admin.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                gallery.classList.remove('hidden');
-                admin.classList.add('hidden');
-            }
-        };
+const app = initializeApp(firebaseConfig);
+db = getFirestore(app);
+auth = getAuth(app);
+appId = 'jklc-academy-v4';
+그리고 이 부분은 제거하거나 바꾸면 됩니다.
 
-        function updateAdminUI() {
-            const btn = document.getElementById('admin-toggle-btn');
-            const text = document.getElementById('admin-btn-text');
-            const icon = document.getElementById('lock-icon');
-            if (!btn) return;
+if (typeof __firebase_config === 'undefined') {
+    setLoadingText("시스템 설정 대기 중...");
+    return;
+}
+const config = JSON.parse(__firebase_config);
+즉, 자동주입 변수 방식 → 직접 config 방식으로 바꾸는 게 필요합니다. 
 
-            if (isAdmin) {
-                text.innerText = "Admin View";
-                btn.classList.replace('bg-slate-900', 'bg-blue-600');
-                if(icon) icon.setAttribute('data-lucide', 'settings');
-            } else {
-                text.innerText = "Admin Login";
-                btn.classList.replace('bg-blue-600', 'bg-slate-900');
-                if(icon) icon.setAttribute('data-lucide', 'lock');
-            }
-            lucide.createIcons();
-            renderVideos(currentFilter);
-        }
 
-        // Action: Save Video (Rule 1)
-        window.saveVideo = async () => {
-            const msg = document.getElementById('save-msg');
-            const btn = document.getElementById('btn-save');
+방법 2. Firebase 콘솔 설정 확인
+Authentication에서 Anonymous 로그인 활성화
+Firestore Database 생성 여부 확인
+보안 규칙에서 읽기/쓰기 허용 여부 확인
 
-            if (!db || !auth) {
-                alert("시스템이 아직 준비되지 않았습니다. 잠시만 기다려 주세요.");
-                return;
-            }
+개발 중 테스트라면 임시로 규칙을 완화해 확인할 수 있습니다.
 
-            const urlInput = document.getElementById('youtube-url');
-            const titleInput = document.getElementById('video-title');
-            const catInput = document.getElementById('video-category');
-            const pdfInput = document.getElementById('pdf-url');
-            const descInput = document.getElementById('video-desc');
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /artifacts/{appId}/public/data/videos/{docId} {
+      allow read, write: if true;
+    }
+  }
+}
+운영 전에는 반드시 더 안전하게 바꿔야 합니다.
 
-            const extractId = (url) => {
-                const reg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                const match = url.match(reg);
-                return (match && match[2].length === 11) ? match[2] : null;
-            };
+추가로 코드상 위험한 부분도 하나 있습니다. 관리자 비밀번호가 프론트에 하드코딩돼 있습니다.
 
-            const vidId = extractId(urlInput.value);
-            if (!vidId || !titleInput.value.trim()) {
-                msg.innerText = "유튜브 URL과 제목을 정확히 입력해 주세요.";
-                msg.className = "text-center mt-4 font-bold text-xs text-red-500 block bg-red-50 p-3 rounded-xl";
-                msg.classList.remove('hidden');
-                return;
-            }
+if (input === '4747')
+이건 페이지 소스만 보면 누구나 알 수 있어서 보안상 거의 의미가 없습니다. 관리자 기능은 Firebase Auth 사용자 계정 + Firestore 규칙으로 막는 방식이 맞습니다. 
 
-            btn.disabled = true;
-            btn.innerText = "저장하는 중...";
 
-            try {
-                const col = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
-                await addDoc(col, {
-                    id: vidId,
-                    title: titleInput.value.trim(),
-                    category: catInput.value,
-                    pdfUrl: pdfInput.value.trim(),
-                    desc: descInput.value.trim(),
-                    createdAt: Date.now()
-                });
-                
-                msg.innerText = "저장되었습니다! 갤러리로 이동합니다.";
-                msg.className = "text-center mt-4 font-bold text-xs text-green-600 block bg-green-50 p-3 rounded-xl";
-                msg.classList.remove('hidden');
-                
-                urlInput.value = ''; titleInput.value = ''; pdfInput.value = ''; descInput.value = '';
-                setTimeout(() => { 
-                    msg.classList.add('hidden'); 
-                    showView('gallery'); 
-                }, 1500);
-            } catch (e) {
-                console.error("Save error:", e);
-                msg.innerText = "저장 실패: " + e.message;
-                msg.className = "text-center mt-4 font-bold text-xs text-red-500 block bg-red-50 p-3 rounded-xl";
-                msg.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `<i data-lucide="save" class="w-5 h-5"></i> 저장하고 갤러리에 추가하기`;
-                lucide.createIcons();
-            }
-        };
+제가 보기에 우선순위는 딱 이 순서입니다.
 
-        window.deleteVideo = async (dbId) => {
-            if (!db || !confirm("이 영상을 삭제하시겠습니까?")) return;
-            try { 
-                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'videos', dbId)); 
-            } catch (e) { 
-                console.error("Delete error:", e); 
-            }
-        };
+브라우저 개발자도구 콘솔에서 __firebase_config is undefined 또는 관련 메시지 확인
 
-        // Render Functions
-        function renderVideos(filter = 'all') {
-            currentFilter = filter;
-            const grid = document.getElementById('video-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            const filtered = filter === 'all' ? currentVideos : currentVideos.filter(v => v.category === filter);
-            
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100">
-                        <i data-lucide="video-off" class="mx-auto text-slate-200 mb-4 w-12 h-12"></i>
-                        <p class="text-slate-400 font-medium italic">등록된 영상이 없습니다. 관리자 모드에서 영상을 추가해 보세요.</p>
-                    </div>`;
-            } else {
-                filtered.forEach(video => {
-                    const card = document.createElement('div');
-                    card.className = 'video-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col group fade-in';
-                    card.innerHTML = `
-                        <div class="relative cursor-pointer overflow-hidden" onclick="openMainPlayer('${video.id}', '${video.title.replace(/'/g, "\\'")}', '${video.desc?.replace(/'/g, "\\'")}', '${video.pdfUrl}')">
-                            <img src="https://img.youtube.com/vi/${video.id}/mqdefault.jpg" alt="${video.title}" class="w-full h-48 object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/40 transition-all flex items-center justify-center">
-                                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-2xl opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                    <i data-lucide="play" class="w-7 h-7 fill-current"></i>
-                                </div>
-                            </div>
-                            <span class="absolute top-4 left-4 px-3 py-1 bg-white shadow-lg rounded-full text-[8px] font-black uppercase tracking-widest text-slate-800">${video.category}</span>
-                            ${video.pdfUrl ? `<div class="absolute bottom-4 right-4 bg-red-500 text-white p-1.5 rounded-lg shadow-lg"><i data-lucide="file-text" class="w-3 h-3"></i></div>` : ''}
-                        </div>
-                        <div class="p-6 relative">
-                            ${isAdmin ? `<button onclick="window.deleteVideo('${video.dbId}')" class="absolute top-6 right-6 text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100"><i data-lucide="trash-2" class="w-4 h-4"></i></button>` : ''}
-                            <h4 class="font-bold text-slate-800 mb-2 pr-6 line-clamp-1 group-hover:text-blue-600 transition">${video.title}</h4>
-                            <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2 h-8">${video.desc || 'သင်ခန်းစာအကျဉ်းချုပ်မရှိပါ။'}</p>
-                            <div class="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between">
-                                <span class="text-[9px] font-bold text-slate-300 uppercase">${new Date(video.createdAt).toLocaleDateString()}</span>
-                                ${video.pdfUrl ? `<a href="${video.pdfUrl}" target="_blank" class="flex items-center gap-1 text-[10px] font-black text-red-500 hover:underline"><i data-lucide="download" class="w-3 h-3"></i> PDF 자료</a>` : '<span class="text-[9px] text-slate-200 font-bold uppercase">No PDF</span>'}
-                            </div>
-                        </div>`;
-                    grid.appendChild(card);
-                });
-            }
-            lucide.createIcons();
-            updateFilterButtons(filter);
-        }
+현재 배포 환경이 GitHub Pages 같은 일반 정적호스팅인지 확인
 
-        function updateFilterButtons(type) {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => {
-                const isActive = btn.innerText.toLowerCase().includes(type) || (type === 'all' && btn.innerText === 'All');
-                btn.className = isActive ? "filter-btn px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-widest shadow-lg" : "filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition";
-            });
-        }
+코드에서 __firebase_config 방식 제거하고 실제 Firebase config 직접 입력
 
-        window.filterVideos = (type) => renderVideos(type);
+Firebase Anonymous Auth 활성화
 
-        window.openMainPlayer = (id, title, desc, pdfUrl) => {
-            const section = document.getElementById('preview-section');
-            const player = document.getElementById('main-player');
-            const titleEl = document.getElementById('current-playing-title');
-            const descEl = document.getElementById('current-playing-desc');
-            const pdfArea = document.getElementById('pdf-action-area');
-            player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
-            titleEl.innerText = title;
-            descEl.innerText = desc || "추가 설명이 없습니다.";
-            pdfArea.innerHTML = (pdfUrl && pdfUrl !== "undefined" && pdfUrl !== "") ? `<a href="${pdfUrl}" target="_blank" class="flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-2xl font-black text-sm hover:bg-red-700 transition shadow-lg"><i data-lucide="file-down" class="w-5 h-5"></i> 자료 받기</a>` : '';
-            section.classList.remove('hidden');
-            lucide.createIcons();
-            window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-        };
+Firestore 규칙 확인
 
-        window.closePlayer = () => {
-            document.getElementById('main-player').src = "";
-            document.getElementById('preview-section').classList.add('hidden');
-        };
+원하시면 제가 이 파일을 기준으로 GitHub Pages에서 바로 동작하는 버전으로 수정한 코드를 바로 만들어드릴게요.
 
-        // Bootstrapping
+
+어 만들어줘
+
+
+27s 동안 생각함
+Jklc-media-hub-fixed
+· html
+      const required = ['apiKey', 'authDomain', 'projectId', 'appId'];
+      const missing = required.filter(k => !firebaseConfig[k] || firebaseConfig[k].includes('YOUR_'));
+      if (missing.length > 0) {
+        throw new Error('Firebase 설정값 누락: ' + missing.join(', '));
+      }
+    }
+
+    async function startApp() {
+      setStatus('connecting');
+      try {
+        setDebugText('Checking Firebase config...');
+        validateFirebaseConfig();
+
+        setDebugText('Initializing Firebase...');
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+        appId = APP_ID;
+
+        setLoadingText('학원 클라우드 세션 연결 중...');
+        setDebugText('Signing in anonymously...');
+        await signInAnonymously(auth);
+
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setLoadingText('영상 데이터 불러오는 중...');
+            setDebugText('UID: ' + user.uid);
+            setupSync();
+          } else {
+            setStatus('error', 'No auth session.');
+            setLoadingText('로그인 세션 생성 실패');
+          }
+        });
+      } catch (e) {
+        console.error('Critical System Error:', e);
+        setStatus('error');
+        setLoadingText('연결에 실패했습니다. Firebase 설정을 확인하세요.');
+        setDebugText(e.message);
+      }
+    }
+
+    function setupSync() {
+      try {
+        const videosCol = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
+        onSnapshot(query(videosCol), (snap) => {
+          currentVideos = snap.docs
+            .map(d => ({ dbId: d.id, ...d.data() }))
+            .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+          const loader = document.getElementById('loading-state');
+          if (loader) loader.classList.add('hidden');
+
+          setStatus('connected', 'Synced with Firestore successfully.');
+          renderVideos(currentFilter);
+        }, (err) => {
+          console.error('Firestore Sync Error:', err);
+          setStatus('error', 'Firestore sync failed.');
+          setLoadingText('데이터를 가져오는 중 오류가 발생했습니다.');
+          setDebugText(err.message || 'Firestore error');
+        });
+      } catch (e) {
+        console.error('Sync Setup Failed:', e);
+        setStatus('error');
+        setLoadingText('실시간 연결 구성 실패');
+        setDebugText(e.message);
+      }
+    }
+
+    window.toggleAdminView = () => {
+      if (isAdmin) {
+        showView('admin');
+      } else {
+        document.getElementById('password-modal').classList.remove('hidden');
+        document.getElementById('admin-pw-input').focus();
+      }
+    };
+
+    window.closePasswordModal = () => {
+      document.getElementById('password-modal').classList.add('hidden');
+      document.getElementById('pw-error').classList.add('hidden');
+      document.getElementById('admin-pw-input').value = '';
+    };
+
+    window.verifyPassword = () => {
+      const input = document.getElementById('admin-pw-input').value;
+      if (input === '4747') {
+        isAdmin = true;
+        localStorage.setItem('jklc_admin_auth', 'true');
         updateAdminUI();
-        startApp();
-        lucide.createIcons();
-    </script>
-</body>
-</html>
+수정본 만들어뒀어요.
+
+핵심 수정은 이것만 했습니다.
+
+__firebase_config 의존성 제거
+
+일반 웹호스팅/GitHub Pages에서도 돌아가게 변경
+
+Firebase 설정값 직접 넣는 방식으로 변경
+
+연결 실패 시 에러 문구가 더 잘 보이게 수정
+
+이제 해야 할 건 딱 3가지입니다.
+
+캔버스에 만든 jklc-media-hub-fixed.html 코드에서 이 부분을 본인 Firebase 값으로 바꾸기
+
+const firebaseConfig = {
+  apiKey: 'YOUR_API_KEY',
+  authDomain: 'YOUR_PROJECT.firebaseapp.com',
+  projectId: 'YOUR_PROJECT_ID',
+  storageBucket: 'YOUR_PROJECT.firebasestorage.app',
+  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+  appId: 'YOUR_APP_ID'
+};
+Firebase 콘솔에서 확인
+
+Authentication → Anonymous 활성화
+
+Firestore Database 생성
+
+규칙 테스트용으로 읽기/쓰기 허용 확인
+
+기존 HTML 대신 이 코드로 교체해서 배포
+
+추가로 지금 관리자 비밀번호 4747은 프론트에 그대로 보여서 보안상 약합니다. 일단 테스트용으로는 가능하지만, 나중엔 Firebase 로그인 방식으로 바꾸는 게 맞아요.
+
+원하시면 다음으로 바로
+“내 Firebase 프로젝트 값 넣는 자리까지 포함해서 완성본”
+형태로 더 정리해드릴게요.
+
+
+
+
