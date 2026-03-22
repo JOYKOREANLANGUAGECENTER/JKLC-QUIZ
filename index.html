@@ -33,21 +33,25 @@
             <a href="#" class="flex items-center gap-3">
                 <img src="logo.png" alt="JKLC Logo" class="h-10 md:h-12 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
                 <div class="flex flex-col">
-                  
                 </div>
             </a>
             
-            <!-- Music Player Status Indicator -->
-            <div id="music-status" class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
-                <div class="flex items-end h-5 gap-0.5" id="wave-container">
-                    <span class="music-bar"></span><span class="music-bar" style="animation-delay: 0.2s"></span><span class="music-bar" style="animation-delay: 0.4s"></span>
+            <!-- Music Player Status Indicator & Toggle Button -->
+            <div id="music-container" class="hidden md:flex items-center gap-2">
+                <div id="music-status" class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                    <div class="flex items-end h-5 gap-0.5" id="wave-container">
+                        <span class="music-bar"></span><span class="music-bar" style="animation-delay: 0.2s"></span><span class="music-bar" style="animation-delay: 0.4s"></span>
+                    </div>
+                    <span id="music-text" class="text-[9px] font-black text-blue-600 uppercase tracking-widest">BGM Playing</span>
                 </div>
-                <span class="text-[9px] font-black text-blue-600 uppercase tracking-widest">BGM Playing</span>
+                <button id="music-toggle" class="p-2 bg-white rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm flex items-center justify-center">
+                    <i data-lucide="volume-2" class="w-4 h-4" id="toggle-icon"></i>
+                </button>
             </div>
 
             <div class="flex gap-2">
                 <a href="leveltest.html" class="hidden sm:flex bg-yellow-400 text-slate-900 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-yellow-500 transition shadow-md items-center gap-2">
-                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> Test
+                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> Level Test
                 </a>
                 <a href="https://www.facebook.com/profile.php?id=61555324649048" target="_blank" class="bg-[#1877F2] text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
                     <i data-lucide="facebook" class="w-4 h-4"></i> Consult
@@ -82,7 +86,7 @@
             </div>
             <div class="relative">
                 <div class="absolute -inset-4 bg-blue-50 rounded-[3rem] -rotate-2"></div>
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/mainimg.png"?auto=format&fit=crop&q=80&w=1000" alt="Students Learning" class="relative rounded-[2.5rem] shadow-2xl object-cover h-[350px] md:h-[500px] w-full">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/mainimg.png" alt="Students Learning" class="relative rounded-[2.5rem] shadow-2xl object-cover h-[350px] md:h-[500px] w-full">
             </div>
         </div>
     </section>
@@ -158,7 +162,6 @@
                         <div>
                             <div class="flex items-center gap-3 mb-4">
                                 <img src="logo.png" alt="JKLC" class="h-10 w-auto brightness-0 invert" onerror="this.style.display='none'">
-                                
                             </div>
                             <p class="text-slate-400 font-medium tracking-tight">Any questions? We are here to help you.</p>
                         </div>
@@ -233,28 +236,55 @@
     <script>
         lucide.createIcons();
 
-        // [AUTO-PLAY LOGIC] for logosong2.mp3
+        // Music Control Logic
         const audio = document.getElementById('logo-song');
-        const musicStatus = document.getElementById('music-status');
+        const musicContainer = document.getElementById('music-container');
         const waveContainer = document.getElementById('wave-container');
+        const musicToggle = document.getElementById('music-toggle');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const musicText = document.getElementById('music-text');
         let hasStarted = false;
+
+        // Function to toggle play/stop
+        const toggleMusic = (e) => {
+            if (e) e.stopPropagation();
+            if (audio.paused) {
+                audio.play();
+                waveContainer.classList.add('playing');
+                musicText.innerText = "BGM Playing";
+                musicText.classList.remove('text-slate-400');
+                musicText.classList.add('text-blue-600');
+                toggleIcon.setAttribute('data-lucide', 'volume-2');
+            } else {
+                audio.pause();
+                waveContainer.classList.remove('playing');
+                musicText.innerText = "BGM Stopped";
+                musicText.classList.remove('text-blue-600');
+                musicText.classList.add('text-slate-400');
+                toggleIcon.setAttribute('data-lucide', 'volume-x');
+            }
+            lucide.createIcons();
+        };
 
         const startMusic = () => {
             if (hasStarted) return;
             audio.play().then(() => {
                 hasStarted = true;
-                musicStatus.classList.remove('hidden');
+                musicContainer.classList.remove('hidden');
                 waveContainer.classList.add('playing');
-                // Clean up listeners after first activation
+                // Clean up initial start listeners
                 ['click', 'touchstart', 'scroll', 'wheel'].forEach(type => {
                     window.removeEventListener(type, startMusic);
                 });
             }).catch(e => {
-                console.log("Autoplay blocked by browser. Interaction required.");
+                console.log("Autoplay blocked. Waiting for interaction.");
             });
         };
 
-        // Listen for ANY user interaction to start the music
+        // Handle the stop button click
+        musicToggle.addEventListener('click', toggleMusic);
+
+        // Listen for ANY user interaction to start the music initially
         window.addEventListener('click', startMusic);
         window.addEventListener('touchstart', startMusic);
         window.addEventListener('scroll', startMusic);
