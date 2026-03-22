@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - Level Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background-color: #f8fafc; }
+        .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
+        .option-btn { transition: all 0.2s ease; border: 2px solid #e2e8f0; }
+        .option-btn:hover:not(:disabled) { border-color: #93c5fd; background-color: #eff6ff; }
+        .option-btn.selected { border-color: #2563eb; background-color: #eff6ff; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Bar -->
+    <div class="h-2 jklc-gradient w-full"></div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="logo.png" alt="JKLC Logo" class="h-10 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+                <span class="font-black text-xl tracking-tighter text-slate-800">LEVEL TEST</span>
+            </a>
+            <a href="index.html" class="text-sm text-slate-500 hover:text-blue-600 font-bold flex items-center gap-1 transition">
+                <i data-lucide="home" class="w-4 h-4"></i> Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100">
+            
+            <!-- 1. Start Screen -->
+            <div id="start-screen" class="p-8 md:p-12 text-center fade-in">
+                <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="brain-circuit" class="w-10 h-10 text-blue-600"></i>
+                </div>
+                <h1 class="text-3xl font-black text-slate-900 mb-4 tracking-tight">ကိုရီးယားစာ အရည်အချင်းစစ်ဆေးခြင်း</h1>
+                <p class="text-slate-500 mb-2 font-medium">내 한국어 실력은 어느 정도일까요?</p>
+                <p class="text-sm text-slate-400 mb-10 leading-relaxed">မေးခွန်း ၁၀ ခုကို ဖြေဆိုပြီး သင့်အတွက် အသင့်တော်ဆုံးအတန်းကို ရှာဖွေလိုက်ပါ။</p>
+                
+                <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl text-lg shadow-lg transform active:scale-95 transition flex justify-center items-center gap-2">
+                    စတင်ပါ (Start Test) <i data-lucide="play" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- 2. Quiz Screen -->
+            <div id="quiz-screen" class="hidden flex-col h-full fade-in">
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-100 h-2">
+                    <div id="progress-bar" class="bg-blue-600 h-2 transition-all duration-500 w-0"></div>
+                </div>
+                
+                <div class="p-8 md:p-10">
+                    <div class="flex justify-between items-center mb-10">
+                        <span id="q-counter" class="text-xs font-black text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full uppercase tracking-widest">Question 1 / 10</span>
+                        <div class="flex items-center gap-1 text-slate-300">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span class="text-[10px] font-bold">JKLC TEST</span>
+                        </div>
+                    </div>
+
+                    <div class="min-h-[140px]">
+                        <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 leading-snug mb-4">
+                            질문이 여기에 표시됩니다.
+                        </h2>
+                        <p id="question-mm" class="text-blue-600 font-bold text-lg leading-relaxed">
+                            မြန်မာဘာသာပြန် မေးခွန်း။
+                        </p>
+                    </div>
+
+                    <div id="options-container" class="mt-10 space-y-3">
+                        <!-- Options injected via JS -->
+                    </div>
+                </div>
+
+                <div class="p-6 bg-slate-50 border-t border-slate-100 flex justify-end">
+                    <button id="next-btn" onclick="quiz.next()" disabled class="bg-slate-300 text-slate-500 font-black py-3 px-10 rounded-xl transition flex items-center gap-2 cursor-not-allowed uppercase text-xs tracking-widest">
+                        Next <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Result Screen -->
+            <div id="result-screen" class="hidden p-8 md:p-12 text-center fade-in">
+                <h2 class="text-2xl font-black text-slate-900 mb-2 tracking-tight">테스트 결과 (Result)</h2>
+                <p class="text-slate-400 mb-8 font-medium">စမ်းသပ်မှု အောင်မြင်စွာ ပြီးဆုံးသွားပါပြီ။</p>
+                
+                <div class="relative w-48 h-48 mx-auto mb-8">
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                        <circle class="text-slate-100" stroke-width="3" stroke="currentColor" fill="none" cx="18" cy="18" r="16" />
+                        <circle id="score-circle" class="text-blue-600" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round" stroke="currentColor" fill="none" cx="18" cy="18" r="16" />
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span id="final-score" class="text-5xl font-black text-slate-900 leading-none">0</span>
+                        <span class="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Points</span>
+                    </div>
+                </div>
+
+                <div id="rec-box" class="bg-blue-50 rounded-3xl p-8 mb-10 border border-blue-100">
+                    <span class="inline-block px-3 py-1 bg-blue-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full mb-4">Recommended Class</span>
+                    <h3 id="rec-title" class="text-2xl font-black text-slate-900 mb-3">추천 반 이름</h3>
+                    <p id="rec-desc" class="text-slate-600 text-sm leading-relaxed font-medium">설명이 여기에 표시됩니다.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="https://www.facebook.com/profile.php?id=61555324649048" target="_blank" class="w-full bg-[#1877F2] hover:bg-[#166fe5] text-white font-black py-4 rounded-2xl shadow-xl transition flex justify-center items-center gap-2 text-sm uppercase tracking-widest">
+                        <i data-lucide="facebook" class="w-5 h-5"></i> Consult Now
+                    </a>
+                    <a href="index.html" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 text-sm uppercase tracking-widest">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-10 border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <img src="logo.png" class="h-8 mx-auto mb-4 opacity-20 grayscale" onerror="this.style.display='none'">
+            <p class="text-[9px] font-black text-slate-300 uppercase tracking-[0.4em]">JOY Korean Language Center</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const questions = [
+            {
+                q: "1. 한국어로 'မင်္ဂလာပါ'에 해당하는 인사는?",
+                mm: "ကိုရီးယားလို 'မင်္ဂလာပါ' ကို ဘယ်လိုနှုတ်ဆက်သလဲ။",
+                options: ["감사합니다", "안녕하세요", "미안합니다", "축하합니다"],
+                ans: 1
+            },
+            {
+                q: "2. 'ကျေးဇူးတင်ပါတယ်'를 한국어로 말하면?",
+                mm: "'ကျေးဇူးတင်ပါတယ်' ကို ကိုရီးယားလို ဘယ်လိုပြောသလဲ။",
+                options: ["괜찮아요", "사랑해요", "감사합니다", "여보세요"],
+                ans: 2
+            },
+            {
+                q: "3. 'ဆရာ/ဆရာမ'를 한국어로 무엇이라고 합니까?",
+                mm: "ဆရာ/ဆရာမ ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                options: ["학생", "의사", "선생님", "경찰"],
+                ans: 2
+            },
+            {
+                q: "4. 다음 중 숫자가 아닌 것은?",
+                mm: "အောက်ပါတို့အနက် နံပါတ်မဟုတ်သောအရာမှာ အဘယ်နည်း။",
+                options: ["하나", "둘", "사과", "셋"],
+                ans: 2
+            },
+            {
+                q: "5. 'သောက်သုံးရေ'를 뜻하는 한국어 단어는?",
+                mm: "ရေ ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                options: ["불", "물", "밥", "술"],
+                ans: 1
+            },
+            {
+                q: "6. 'ဟုတ်ကဲ့'를 뜻하는 한국어 대답은?",
+                mm: "ဟုတ်ကဲ့ ကို ကိုရီးယားလို ဘယ်လိုပြန်ဖြေမလဲ။",
+                options: ["아니요", "네", "아마도", "글쎄요"],
+                ans: 1
+            },
+            {
+                q: "7. 'စာသင်ကျောင်း'을 한국어로 무엇이라고 합니까?",
+                mm: "စာသင်ကျောင်း ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                options: ["학교", "병원", "시장", "은행"],
+                ans: 0
+            },
+            {
+                q: "8. 'ကိုရီးယားနိုင်ငံ'을 뜻하는 단어는?",
+                mm: "ကိုရီးယားနိုင်ငံ ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                options: ["미국", "일본", "미얀마", "한국"],
+                ans: 3
+            },
+            {
+                q: "9. 'ချစ်တယ်'를 뜻하는 한국어 표현은?",
+                mm: "ချစ်တယ် ကို ကိုရီးယားလို ဘယ်လိုပြောသလဲ။",
+                options: ["미안해요", "축하해요", "사랑해요", "좋아해요"],
+                ans: 2
+            },
+            {
+                q: "10. 헤어질 때 (Goodbye) 하는 인사는?",
+                mm: "ပြန်တော့မယ့်အချိန်မှာ ဘယ်လိုနှုတ်ဆက်စကား ပြောမလဲ။",
+                options: ["반갑습니다", "어서 오세요", "안녕히 가세요", "잘 먹겠습니다"],
+                ans: 2
+            }
+        ];
+
+        const quiz = {
+            index: 0,
+            score: 0,
+            selected: null,
+
+            start() {
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('quiz-screen').classList.remove('hidden');
+                this.render();
+            },
+
+            render() {
+                const q = questions[this.index];
+                this.selected = null;
+                
+                document.getElementById('q-counter').innerText = `Question ${this.index + 1} / ${questions.length}`;
+                document.getElementById('progress-bar').style.width = `${((this.index) / questions.length) * 100}%`;
+                document.getElementById('question-text').innerText = q.q;
+                document.getElementById('question-mm').innerText = q.mm;
+                
+                const container = document.getElementById('options-container');
+                container.innerHTML = '';
+                
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'w-full text-left p-5 rounded-2xl option-btn font-bold text-slate-700 bg-white flex justify-between items-center';
+                    btn.innerHTML = `<span>${opt}</span> <div class="w-6 h-6 rounded-full border-2 border-slate-200 flex-shrink-0 check"></div>`;
+                    btn.onclick = () => this.select(idx, btn);
+                    container.appendChild(btn);
+                });
+
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.disabled = true;
+                nextBtn.className = "bg-slate-300 text-slate-500 font-black py-3 px-10 rounded-xl transition flex items-center gap-2 cursor-not-allowed uppercase text-xs tracking-widest";
+            },
+
+            select(idx, el) {
+                this.selected = idx;
+                document.querySelectorAll('.option-btn').forEach(b => {
+                    b.classList.remove('selected');
+                    b.querySelector('.check').innerHTML = '';
+                    b.querySelector('.check').classList.remove('bg-blue-600', 'border-blue-600');
+                });
+                el.classList.add('selected');
+                const check = el.querySelector('.check');
+                check.classList.add('bg-blue-600', 'border-blue-600');
+                check.innerHTML = `<svg class="w-full h-full text-white p-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
+
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.disabled = false;
+                nextBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-10 rounded-xl shadow-lg transition flex items-center gap-2 active:scale-95 uppercase text-xs tracking-widest";
+            },
+
+            next() {
+                if (this.selected === questions[this.index].ans) this.score += 10;
+                this.index++;
+                if (this.index < questions.length) this.render();
+                else this.result();
+            },
+
+            result() {
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+
+                const finalScore = document.getElementById('final-score');
+                const scoreCircle = document.getElementById('score-circle');
+                let count = 0;
+                const timer = setInterval(() => {
+                    if (count >= this.score) {
+                        clearInterval(timer);
+                        finalScore.innerText = this.score;
+                        scoreCircle.setAttribute('stroke-dasharray', `${this.score}, 100`);
+                    } else {
+                        count += 2;
+                        finalScore.innerText = count;
+                        scoreCircle.setAttribute('stroke-dasharray', `${count}, 100`);
+                    }
+                }, 20);
+
+                const title = document.getElementById('rec-title');
+                const desc = document.getElementById('rec-desc');
+                
+                if (this.score <= 40) {
+                    title.innerHTML = "기초 입문반 <br><span class='text-lg font-normal text-blue-600'>(အခြေခံ ကိုရီးယားစာ အတန်း)</span>";
+                    desc.innerText = "걱정 마세요! '가나다라'부터 아주 쉽고 재미있게 가르쳐 드립니다. JOY한국어학원에서 첫걸음을 시작해 보세요!";
+                } else if (this.score <= 80) {
+                    title.innerHTML = "초중급 회화반 <br><span class='text-lg font-normal text-blue-600'>(အခြေခံ စကားပြောအတန်း)</span>";
+                    desc.innerText = "기초가 아주 튼튼하시네요! 이제 배운 표현들을 활용해서 진짜 한국 사람처럼 말하는 연습을 시작할 때입니다.";
+                } else {
+                    title.innerHTML = "TOPIK / EPS 시험반 <br><span class='text-lg font-normal text-blue-600'>(TOPIK အတန်း)</span>";
+                    desc.innerText = "훌륭합니다! 한국어 실력이 매우 높습니다. 조금만 더 공부하면 한국 취업이나 유학의 꿈을 곧 이룰 수 있습니다!";
+                }
+            }
+        };
+    </script>
+</body>
+</html>
