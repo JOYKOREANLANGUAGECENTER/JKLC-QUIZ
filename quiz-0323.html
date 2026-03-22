@@ -166,7 +166,11 @@
         </footer>
     </div>
 
+    <!-- 효과음 오디오 객체 미리 로드 -->
     <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
         lucide.createIcons();
 
         const quizData = [
@@ -199,7 +203,7 @@
                 rationale: "정답은 '선생님'입니다. 미얀마어로는 'ဆရာ/ဆရာမ'입니다."
             },
             {
-                q: "ရေ (Water) ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                q: "ရေ (Water) ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ।",
                 options: ["물", "우유", "술", "차"],
                 correct: 0,
                 hint: "우리가 매일 마시는 투명한 액체입니다.",
@@ -227,14 +231,14 @@
                 rationale: "정답은 '의자'입니다. 미얀마어로는 'ကုလားထိုင်'입니다."
             },
             {
-                q: "သူငယ်ချင်း (Friend) ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                q: "သူငယ်ချင်း (Friend) ကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ।",
                 options: ["친구", "부모님", "형제", "남남"],
                 correct: 0,
                 hint: "친하게 지내는 또래 사람을 말합니다.",
                 rationale: "정답은 '친구'입니다. 미얀마어로는 'သူငယ်ချင်း'입니다."
             },
             {
-                q: "ကိုရီးယား (Korea) နိုင်ငံကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ။",
+                q: "ကိုရီးယား (Korea) နိုင်ငံကို ကိုရီးယားလို ဘယ်လိုခေါ်သလဲ।",
                 options: ["미국", "일본", "한국", "미얀마"],
                 correct: 2,
                 hint: "수도가 서울인 나라의 이름입니다.",
@@ -293,9 +297,15 @@
                 if (isCorrect) {
                     state.score += 10;
                     btn.classList.add('correct');
+                    // 정답 효과음 재생
+                    sndCorrect.currentTime = 0;
+                    sndCorrect.play();
                 } else {
                     btn.classList.add('wrong');
                     allButtons[current.correct].classList.add('correct');
+                    // 오답 효과음 재생
+                    sndWrong.currentTime = 0;
+                    sndWrong.play();
                 }
                 
                 quiz.showFeedback(isCorrect);
