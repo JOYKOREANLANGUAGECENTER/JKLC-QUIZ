@@ -33,7 +33,7 @@
                 <span class="font-black text-xl tracking-tighter text-slate-800 uppercase">Media Hub</span>
             </a>
             <div class="flex items-center gap-3">
-                <div id="status-chip" class="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold rounded flex items-center gap-1">
+                <div id="status-chip" class="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold rounded flex items-center gap-1 border border-slate-200">
                     <div id="status-dot" class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>
                     <span id="status-text">CONNECTING</span>
                 </div>
@@ -173,7 +173,7 @@
             <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
                 <div class="col-span-full flex flex-col items-center justify-center py-20" id="loading-state">
                     <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-200 h-10 w-10 mb-4"></div>
-                    <p class="text-slate-400 font-medium" id="loading-text">연결을 시도 중입니다...</p>
+                    <p class="text-slate-400 font-medium" id="loading-text">서버 연결 중입니다...</p>
                 </div>
             </div>
         </section>
@@ -209,7 +209,8 @@
             const dot = document.getElementById('status-dot');
             const text = document.getElementById('status-text');
             const chip = document.getElementById('status-chip');
-            
+            if (!dot || !text || !chip) return;
+
             if (type === 'connected') {
                 dot.className = "w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse";
                 text.innerText = "LIVE SYNC";
@@ -226,66 +227,62 @@
             if (el) el.innerText = t;
         };
 
-        // Firebase Initialization
-        const initFirebase = () => {
+        // Initialize App Function
+        const startApp = async () => {
             try {
-                if (typeof __firebase_config === 'undefined' || !__firebase_config) {
-                    throw new Error("Missing Firebase Config");
-                }
+                // 1. Firebase 초기화
                 const config = JSON.parse(__firebase_config);
                 const app = initializeApp(config);
                 db = getFirestore(app);
                 auth = getAuth(app);
-                appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-media-pro-v2';
-                return true;
-            } catch (e) {
-                console.error("Firebase Init Failed:", e);
-                setStatus('error');
-                setLoadingText("시스템 초기화 오류. 새로고침을 해주세요.");
-                return false;
-            }
-        };
+                appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-media-pro-final';
 
-        // Auth & Sync Logic
-        const startApp = async () => {
-            if (!initFirebase()) return;
-
-            setLoadingText("사용자 인증 중...");
-            try {
+                // 2. 인증 시도 (Rule 3)
+                setLoadingText("사용자 인증 중...");
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
                     await signInAnonymously(auth);
                 }
-            } catch (err) {
-                console.error("Auth Fail:", err);
-                // 익명 로그인 실패 시 재시도 로직이나 안내가 필요할 수 있음
-            }
 
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    setLoadingText("영상 목록을 불러오는 중...");
-                    const videosCol = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
-                    
-                    // RULE 1 & 2 준수: 단순 쿼리 및 실시간 스냅샷
-                    onSnapshot(query(videosCol), (snap) => {
-                        currentVideos = snap.docs.map(d => ({ dbId: d.id, ...d.data() }))
-                                            .sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-                        
-                        const loader = document.getElementById('loading-state');
-                        if (loader) loader.classList.add('hidden');
-                        
-                        setStatus('connected');
-                        renderVideos(currentFilter);
-                    }, (err) => {
-                        console.error("Sync Error:", err);
+                // 3. 상태 변경 감지
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        setLoadingText("데이터를 동기화 중...");
+                        setupSync();
+                    } else {
                         setStatus('error');
-                    });
-                }
-            });
+                        setLoadingText("인증에 실패했습니다. 새로고침 하세요.");
+                    }
+                });
+            } catch (e) {
+                console.error("Initialization error:", e);
+                setStatus('error');
+                setLoadingText("연결 오류: 시스템 설정을 확인 중입니다.");
+            }
         };
 
-        // Admin Management
+        // Real-time Sync Setup (Rule 1 & 2)
+        function setupSync() {
+            const videosCol = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
+            
+            onSnapshot(query(videosCol), (snap) => {
+                currentVideos = snap.docs.map(d => ({ dbId: d.id, ...d.data() }))
+                                    .sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+                
+                const loader = document.getElementById('loading-state');
+                if (loader) loader.classList.add('hidden');
+                
+                setStatus('connected');
+                renderVideos(currentFilter);
+            }, (err) => {
+                console.error("Sync Error:", err);
+                setStatus('error');
+                setLoadingText("동기화 오류가 발생했습니다.");
+            });
+        }
+
+        // Admin Auth
         window.toggleAdminView = () => {
             if (isAdmin) {
                 showView('admin');
@@ -339,24 +336,28 @@
             const btn = document.getElementById('admin-toggle-btn');
             const text = document.getElementById('admin-btn-text');
             const icon = document.getElementById('lock-icon');
+            if (!btn) return;
+
             if (isAdmin) {
                 text.innerText = "Admin View";
-                if(btn) btn.classList.replace('bg-slate-900', 'bg-blue-600');
+                btn.classList.replace('bg-slate-900', 'bg-blue-600');
                 if(icon) icon.setAttribute('data-lucide', 'settings');
             } else {
                 text.innerText = "Admin Login";
-                if(btn) btn.classList.replace('bg-blue-600', 'bg-slate-900');
+                btn.classList.replace('bg-blue-600', 'bg-slate-900');
                 if(icon) icon.setAttribute('data-lucide', 'lock');
             }
             lucide.createIcons();
             renderVideos(currentFilter);
         }
 
-        // CRUD Actions
+        // Action: Save Video (Rule 1)
         window.saveVideo = async () => {
-            if (!db || !auth.currentUser) {
-                alert("현재 시스템에 연결되어 있지 않습니다. 잠시 후 다시 시도하거나 페이지를 새로고침 하세요.");
-                return;
+            if (!db || !auth) return;
+
+            // 만약 인증이 풀렸다면 재시도
+            if (!auth.currentUser) {
+                try { await signInAnonymously(auth); } catch(e) {}
             }
 
             const urlInput = document.getElementById('youtube-url');
@@ -385,7 +386,8 @@
             btn.innerText = "클라우드 저장 중...";
 
             try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'videos'), {
+                const col = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
+                await addDoc(col, {
                     id: vidId,
                     title: titleInput.value.trim(),
                     category: catInput.value,
@@ -393,14 +395,15 @@
                     desc: descInput.value.trim(),
                     createdAt: Date.now()
                 });
-                msg.innerText = "저장 완료!";
-                msg.className = "text-center mt-4 font-bold text-xs text-green-500 block";
+                msg.innerText = "데이터베이스 저장 완료!";
+                msg.className = "text-center mt-4 font-bold text-xs text-green-600 block";
                 msg.classList.remove('hidden');
                 
                 urlInput.value = ''; titleInput.value = ''; pdfInput.value = ''; descInput.value = '';
                 setTimeout(() => { msg.classList.add('hidden'); showView('gallery'); }, 1500);
             } catch (e) {
-                msg.innerText = "저장 실패: " + e.message;
+                console.error("Save Error:", e);
+                msg.innerText = "연결 끊김: " + e.message;
                 msg.className = "text-center mt-4 font-bold text-xs text-red-500 block";
                 msg.classList.remove('hidden');
             } finally {
@@ -413,10 +416,10 @@
         window.deleteVideo = async (dbId) => {
             if (!db || !confirm("영상을 삭제하시겠습니까?")) return;
             try { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'videos', dbId)); } 
-            catch (e) { console.error("삭제 실패:", e); }
+            catch (e) { console.error("Delete Error:", e); }
         };
 
-        // Render Helpers
+        // Render Functions
         function renderVideos(filter = 'all') {
             currentFilter = filter;
             const grid = document.getElementById('video-grid');
@@ -429,7 +432,7 @@
                 grid.innerHTML = `
                     <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100">
                         <i data-lucide="video-off" class="mx-auto text-slate-200 mb-4 w-12 h-12"></i>
-                        <p class="text-slate-400 font-medium italic">표시할 영상이 없습니다. 관리자 모드에서 영상을 추가해주세요.</p>
+                        <p class="text-slate-400 font-medium italic">등록된 영상이 없습니다. 관리자 모드에서 추가해 보세요.</p>
                     </div>`;
             } else {
                 filtered.forEach(video => {
@@ -492,7 +495,7 @@
             document.getElementById('preview-section').classList.add('hidden');
         };
 
-        // Initialize App
+        // Bootstrapping
         updateAdminUI();
         startApp();
         lucide.createIcons();
