@@ -1,136 +1,224 @@
-
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOY Korean Language Center - Quiz Hub</title>
+    <title>JOY 한국어학원 - JKLC</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
-        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; }
-        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
-        
-        .quiz-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent; }
-        .quiz-card:hover { transform: translateY(-3px); border-color: var(--k); box-shadow: 0 12px 20px -5px rgba(0, 112, 187, 0.1); }
-        
-        .badge-today { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-        /* 배경음악 관련 스타일 추가 */
-        .music-playing { animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        body { font-family: 'Noto Sans KR', sans-serif; scroll-behavior: smooth; }
+        .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
+        .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <div class="jklc-top-bar"></div>
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- 배경음악 파일 및 제어 버튼 추가 -->
-    <audio id="bgm" src="logosong.mp3" loop prefetch></audio>
-    <div class="fixed top-6 right-6 z-[100]">
-        <button id="music-toggle" class="bg-white/90 backdrop-blur-md p-3 rounded-full shadow-xl border border-slate-200 flex items-center justify-center w-12 h-12">
-            <span id="music-icon" class="text-xl">🔇</span>
-        </button>
-    </div>
+    <!-- 상단 브랜드 컬러 바 -->
+    <div class="h-2 jklc-gradient w-full"></div>
 
-    <div class="max-w-md mx-auto w-full p-6 flex-1">
-        <header class="text-center py-8">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" 
-                 alt="JKLC 로고" class="h-28 mx-auto mb-4 drop-shadow-md">
-            <h1 class="text-3xl font-black text-slate-800 tracking-tight">JOY 한국어학원</h1>
-            <p class="text-blue-600 font-bold mt-1 tracking-widest uppercase text-[10px]">Daily Quiz Hub</p>
-        </header>
-
-        <!-- 1. 오늘의 퀴즈 섹션 -->
-        <section class="mb-12">
-            <h3 class="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4 flex items-center">
-                <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-ping"></span>
-                Today's Quiz
-            </h3>
-            
-            <a href="quiz-0322.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
-                <div class="relative z-10">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 22</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight">Day 2: 시장에서 물건 사기</h2>
-                    <p class="text-sm font-bold opacity-80">စျေးဝယ်ရာတွင် အသုံးပြုသော စကားလုံးများ</p>
-                    <div class="mt-8 flex items-center font-black text-sm">
-                        퀴즈 시작하기 <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M13 5l7 7-7 7M5 12h14"/></svg>
-                    </div>
-                </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🇰🇷</div>
-            </a>
-        </section>
-
-        <!-- 2. 전체 퀴즈 목록 -->
-        <section class="space-y-4">
-            <div class="flex items-center justify-between px-2 mb-4">
-                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Quizzes</h3>
-                <span class="text-[10px] font-bold text-slate-300 italic font-['Pyidaungsu']">ယခင်ပဟေဠိများ</span>
-            </div>
-
-            <a href="quiz-0321.html" class="quiz-card group block bg-white p-5 rounded-[2rem] shadow-sm flex justify-between items-center border border-slate-50">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="text-[10px] font-bold text-slate-400">2026. 03. 21</span>
-                    </div>
-                    <h4 class="text-lg font-black text-slate-800 group-hover:text-blue-600 transition-colors">Day 1: 기초 인사와 표현</h4>
-                    <p class="text-xs text-slate-400 font-bold mt-1 tracking-tight font-['Pyidaungsu']">အခြေခံ နှုတ်ဆက်စကား</p>
-                </div>
-                <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC Logo" class="h-12 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tighter leading-none text-slate-800 uppercase">JOY KOREAN</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Language Center</span>
                 </div>
             </a>
-
-            <div class="p-10 border-2 border-dashed border-slate-100 rounded-[2.2rem] text-center">
-                <p class="text-[10px] text-slate-300 font-black italic tracking-widest uppercase">Keep Learning Every Day!</p>
+            <div class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-500">
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#quiz" class="hover:text-blue-600 transition">Daily Quiz</a>
+                <a href="#reviews" class="hover:text-blue-600 transition">Reviews</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Location</a>
             </div>
-        </section>
+            <a href="https://www.facebook.com/JKLC2024" target="_blank" class="bg-[#1877F2] text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                <i data-lucide="facebook" class="w-4 h-4"></i> Consult
+            </a>
+        </div>
+    </nav>
 
-        <footer class="mt-20 text-center pb-12">
-            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase mb-1">© JOY KOREAN LANGUAGE CENTER</p>
-            <p class="text-[8px] text-slate-300 font-bold">Hledan, Yangon, Myanmar</p>
-        </footer>
-    </div>
+    <!-- Hero Section -->
+    <section class="relative py-16 md:py-24 overflow-hidden bg-white">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative z-10 text-center md:text-left">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-6 tracking-[0.2em]">Premium Academy in Hledan</span>
+                <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-[1.2] tracking-tighter mb-6">
+                    Master Korean <br> <span class="text-blue-600 underline decoration-yellow-400 decoration-4">With Joy.</span>
+                </h1>
+                <p class="text-lg text-slate-500 font-medium mb-10 leading-relaxed max-w-lg">
+                    미얀마 양곤 흘레단 중심에서 한국인 원장님이 직접 가르칩니다. <br>기초부터 TOPIK까지, JKLC와 함께 즐겁게 공부하세요!
+                </p>
+                <div id="quiz" class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/quiz.html" class="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-blue-200 hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                        <i data-lucide="gamepad-2" class="w-5 h-5"></i> 오늘의 퀴즈 풀기
+                    </a>
+                    <a href="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/board.html" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black transition flex items-center justify-center gap-2">
+                        <i data-lucide="message-square" class="w-5 h-5"></i> 게시판 바로가기
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-blue-50 rounded-[3rem] -rotate-2"></div>
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000" alt="Students Learning" class="relative rounded-[2.5rem] shadow-2xl object-cover h-[400px] md:h-[550px] w-full">
+            </div>
+        </div>
+    </section>
 
-    <!-- 배경음악 자동재생 로직 추가 -->
+    <!-- Review Section (Korean Reviews) -->
+    <section id="reviews" class="py-24 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-xs font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Student Voices</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">수강생 리얼 후기</h3>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="flex gap-1 text-yellow-400 mb-6">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg">"한국인 원장님께서 직접 발음을 교정해 주셔서 정말 좋아요. 이제 한국 친구들과 자연스럽게 대화할 수 있게 되었습니다!"</p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs shadow-inner">MT</div>
+                        <div class="text-left">
+                            <p class="font-black text-sm text-slate-800">Ma Thiri</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Intermediate Class</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="flex gap-1 text-yellow-400 mb-6">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg">"혼자 공부할 때는 막막했는데 학원에서 체계적으로 배우니까 실력이 금방 늘어요. 흘레단 역이랑 가까워서 퇴근하고 오기 편합니다."</p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-black text-green-600 text-xs shadow-inner">KZ</div>
+                        <div class="text-left">
+                            <p class="font-black text-sm text-slate-800">Kyaw Zin</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Evening TOPIK Class</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div>
+                        <div class="flex gap-1 text-yellow-400 mb-6">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg">"매일 올라오는 온라인 퀴즈가 공부에 정말 큰 도움이 돼요. 선생님들이 학생들 한 명 한 명 세심하게 챙겨주시는 게 느껴집니다."</p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-black text-red-600 text-xs shadow-inner">AM</div>
+                        <div class="text-left">
+                            <p class="font-black text-sm text-slate-800">Aung Myo</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">EPS-TOPIK Class</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Map Section (Updated with Precise Link) -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="bg-slate-900 rounded-[3.5rem] p-8 md:p-16 text-white overflow-hidden relative shadow-2xl">
+                <div class="relative z-10 grid lg:grid-cols-5 gap-12 items-center">
+                    
+                    <!-- Left: Contact Info -->
+                    <div class="lg:col-span-2 space-y-10">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <img src="logo.png" alt="JKLC" class="h-10 w-auto brightness-0 invert" onerror="this.style.display='none'">
+                                <h2 class="text-4xl font-black tracking-tighter italic leading-none">JOY KOREAN</h2>
+                            </div>
+                            <p class="text-slate-400 font-medium">Any questions? We are here to help you.</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <a href="tel:09787442387" class="flex items-center gap-5 group">
+                                <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-blue-600 transition shadow-lg">
+                                    <i data-lucide="phone" class="w-6 h-6"></i>
+                                </div>
+                                <span class="font-bold text-lg leading-none">09 787 442 387</span>
+                            </a>
+                            <a href="mailto:jklc2024@gmail.com" class="flex items-center gap-5 group">
+                                <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-blue-600 transition shadow-lg">
+                                    <i data-lucide="mail" class="w-6 h-6"></i>
+                                </div>
+                                <span class="font-bold text-lg leading-none">jklc2024@gmail.com</span>
+                            </a>
+                            <div class="flex items-center gap-5 group">
+                                <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center shadow-lg">
+                                    <i data-lucide="phone-forwarded" class="w-6 h-6 text-purple-400"></i>
+                                </div>
+                                <span class="font-bold text-lg italic text-purple-200 leading-none">Viber: 09 787 442 387</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                                <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Office Hours</h4>
+                                <p class="text-sm font-black">09:00 - 18:00</p>
+                                <p class="text-[10px] text-slate-400 mt-1 italic">Mon - Sat (Closed Sunday)</p>
+                            </div>
+                            <a href="https://www.facebook.com/JKLC2024" target="_blank" class="bg-[#1877F2] p-6 rounded-2xl flex flex-col items-center justify-center hover:scale-[1.05] transition shadow-xl">
+                                <i data-lucide="facebook" class="w-6 h-6 mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Facebook</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Precise Google Map -->
+                    <div class="lg:col-span-3 h-[450px] w-full rounded-[2.5rem] overflow-hidden border-8 border-white/5 shadow-inner relative">
+                        <!-- Precise Map Pinpoint based on 16°49'55.3"N 96°07'23.5"E -->
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.12345!2d96.123194!3d16.832028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDQ5JzU1LjMiTiA5NsKwMDcnMjMuNSJF!5e0!3m2!1sko!2smm!4v1711070000000!5m2!1sko!2smm" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <!-- Overlay Tag -->
+                        <div class="absolute top-6 left-6 bg-white text-slate-900 px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-2xl tracking-[0.2em]">
+                            📍 JKLC Official Location
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-16">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-30 grayscale" onerror="this.style.display='none';">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 최고의 한국어 교육 센터
+            </p>
+            <div class="flex justify-center gap-6 text-slate-300 mb-8">
+                <a href="https://www.facebook.com/JKLC2024" class="hover:text-blue-600 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <a href="mailto:jklc2024@gmail.com" class="hover:text-blue-600 transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+            <p class="text-[9px] font-bold text-slate-400">&copy; 2026 JKLC. All rights reserved. Yangon, Myanmar.</p>
+        </div>
+    </footer>
+
     <script>
-        const bgm = document.getElementById('bgm');
-        const musicToggle = document.getElementById('music-toggle');
-        const musicIcon = document.getElementById('music-icon');
-        let isPlaying = false;
-
-        const initAudio = () => {
-            if (!isPlaying) {
-                bgm.play().then(() => {
-                    isPlaying = true;
-                    musicIcon.innerText = "🎵";
-                    musicToggle.classList.add('music-playing');
-                }).catch(e => console.log("재생 대기 중..."));
-            }
-            if (isPlaying) {
-                document.removeEventListener('click', initAudio);
-                document.removeEventListener('touchstart', initAudio);
-                window.removeEventListener('scroll', initAudio);
-            }
-        };
-
-        document.addEventListener('click', initAudio);
-        document.addEventListener('touchstart', initAudio);
-        window.addEventListener('scroll', initAudio, { passive: true });
-
-        musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (isPlaying) {
-                bgm.pause();
-                musicIcon.innerText = "🔇";
-                musicToggle.classList.remove('music-playing');
-            } else {
-                bgm.play();
-                musicIcon.innerText = "🎵";
-                musicToggle.classList.add('music-playing');
-            }
-            isPlaying = !isPlaying;
-        });
+        lucide.createIcons();
     </script>
 </body>
 </html>
