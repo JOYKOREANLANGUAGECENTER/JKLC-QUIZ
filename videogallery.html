@@ -19,6 +19,12 @@
         .loader { border-top-color: #3b82f6; animation: spinner 1.5s linear infinite; }
         @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .pinned-badge { background: linear-gradient(to right, #ef4444, #f59e0b); }
+        
+        /* [추가] 이미지 가장자리 흐리게 처리하는 마스크 효과 */
+        .fade-edges {
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 85%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 85%);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden">
@@ -29,10 +35,9 @@
     <!-- Header -->
     <header class="bg-white/90 backdrop-blur-md shadow-sm py-4 sticky top-0 z-50 border-b border-slate-100">
         <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <!-- [수정] 로고 클릭 시 학원 메인 홈으로 이동 -->
+            <!-- [수정] 로고 옆 글자 삭제 -->
             <a href="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/index.html" class="flex items-center gap-2">
                 <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-10 w-auto">
-                <span class="font-black text-xl tracking-tighter text-slate-800 uppercase">E-LEARNING STATION</span>
             </a>
             <div class="flex items-center gap-3">
                 <!-- Home Button -->
@@ -142,10 +147,15 @@
 
         <!-- [Gallery Page] -->
         <section id="gallery-section">
-            <div class="text-center mb-12 fade-in">
+            <div class="text-center mb-12 fade-in flex flex-col items-center">
                 <span class="inline-block px-4 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Online Learning Space</span>
-                <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">JOY E-LEARNING STATION</h1>
-                <p class="text-slate-500 font-medium max-w-2xl mx-auto">
+                
+                <!-- [수정] 텍스트 대신 이미지 배치 및 효과 적용 -->
+                <div class="relative w-full max-w-md mb-6">
+                    <img src="elearning.png" alt="E-Learning Station" class="w-full h-auto mx-auto fade-edges">
+                </div>
+
+                <p class="text-slate-500 font-medium max-w-2xl mx-auto mt-2">
                     언제 어디서나 공부할 수 있는 온라인 강의와 K-CULTURE를 만나보세요. 
                     <br><span class="text-blue-600 font-bold italic">သင်ယူမှုဗီဒီယိုနှင့် သင်ခန်းစာများကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</span>
                 </p>
@@ -220,22 +230,18 @@
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // =========================================================================
-        // [User Config] Intro Videos YouTube IDs
-        // =========================================================================
         const INTRODUCTION_VIDEOS = [
             {
-                id: "jkWdWCiMW9o", // Update with your actual YouTube ID
+                id: "jkWdWCiMW9o",
                 title: "JOY 한국어학원 Introduction 1",
                 desc: "JKLC의 첫 번째 소개 영상입니다."
             },
             {
-                id: "P3bL0EAvqW4", // Update with your actual YouTube ID
+                id: "P3bL0EAvqW4",
                 title: "JOY 한국어학원 Introduction 2",
                 desc: "JKLC의 두 번째 소개 영상입니다."
             }
         ];
-        // =========================================================================
 
         const myFirebaseConfig = {
             apiKey: "AIzaSyAFFQWVtWTNMEnBioxHfgDAFbKOzgccbsk",
