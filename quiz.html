@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -6,9 +6,10 @@
     <title>JOY Korean Language Center - Quiz Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
-        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; }
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; scroll-behavior: smooth; }
         .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
         
         .quiz-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent; }
@@ -16,23 +17,30 @@
         
         .badge-today { animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-        /* 배경음악 관련 스타일 추가 */
-        .music-playing { animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
     <div class="jklc-top-bar"></div>
 
-    <!-- 배경음악 파일 및 제어 버튼 추가 -->
-    
+    <!-- 상단 네비게이션: DAILY QUIZ 문구와 BGM 버튼 제거 -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-md mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo.png" alt="JKLC" class="h-8 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+            </a>
+            <div class="flex items-center">
+                <!-- 홈 버튼만 유지 -->
+                <a href="index.html" class="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                    <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                </a>
+            </div>
+        </div>
+    </nav>
 
-    <div class="max-w-md mx-auto w-full p-6 flex-1">
+    <div class="max-w-md mx-auto w-full p-6 flex-grow">
         <header class="text-center py-8">
             <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" 
-                 alt="JKLC 로고" class="h-28 mx-auto mb-4 drop-shadow-md">
-           
+                 alt="JKLC 로고" class="h-24 mx-auto mb-4 drop-shadow-md">
             <p class="text-blue-600 font-bold mt-1 tracking-widest uppercase text-[10px]">Daily Quiz Hub</p>
         </header>
 
@@ -80,52 +88,23 @@
                 <p class="text-[10px] text-slate-300 font-black italic tracking-widest uppercase">Keep Learning Every Day!</p>
             </div>
         </section>
-
-        <footer class="mt-20 text-center pb-12">
-            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase mb-1">© JOY KOREAN LANGUAGE CENTER</p>
-            <p class="text-[8px] text-slate-300 font-bold">Hledan, Yangon, Myanmar</p>
-        </footer>
     </div>
 
-    <!-- 배경음악 자동재생 로직 추가 -->
+    <!-- 하단 학원 로고 및 푸터 -->
+    <footer class="mt-20 py-16 bg-white border-t border-slate-100 text-center">
+        <div class="max-w-md mx-auto px-6">
+            <img src="logo.png" alt="JKLC" class="h-12 mx-auto mb-6" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 최고의 한국어 교육 센터
+            </p>
+            <p class="text-[8px] text-slate-300 font-bold uppercase tracking-widest">&copy; 2026 JKLC. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
-        const bgm = document.getElementById('bgm');
-        const musicToggle = document.getElementById('music-toggle');
-        const musicIcon = document.getElementById('music-icon');
-        let isPlaying = false;
-
-        const initAudio = () => {
-            if (!isPlaying) {
-                bgm.play().then(() => {
-                    isPlaying = true;
-                    musicIcon.innerText = "🎵";
-                    musicToggle.classList.add('music-playing');
-                }).catch(e => console.log("재생 대기 중..."));
-            }
-            if (isPlaying) {
-                document.removeEventListener('click', initAudio);
-                document.removeEventListener('touchstart', initAudio);
-                window.removeEventListener('scroll', initAudio);
-            }
-        };
-
-        document.addEventListener('click', initAudio);
-        document.addEventListener('touchstart', initAudio);
-        window.addEventListener('scroll', initAudio, { passive: true });
-
-        musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (isPlaying) {
-                bgm.pause();
-                musicIcon.innerText = "🔇";
-                musicToggle.classList.remove('music-playing');
-            } else {
-                bgm.play();
-                musicIcon.innerText = "🎵";
-                musicToggle.classList.add('music-playing');
-            }
-            isPlaying = !isPlaying;
-        });
+        // Lucide 아이콘 초기화
+        lucide.createIcons();
     </script>
 </body>
 </html>
