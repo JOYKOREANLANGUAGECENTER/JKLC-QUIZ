@@ -166,7 +166,11 @@
         </footer>
     </div>
 
+    <!-- 효과음 오디오 객체 미리 로드 -->
     <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
         // Lucide 아이콘 초기화
         lucide.createIcons();
 
@@ -294,9 +298,15 @@
                 if (isCorrect) {
                     state.score += 10;
                     btn.classList.add('correct');
+                    // 정답 효과음 재생
+                    sndCorrect.currentTime = 0;
+                    sndCorrect.play();
                 } else {
                     btn.classList.add('wrong');
                     allButtons[current.correct].classList.add('correct');
+                    // 오답 효과음 재생
+                    sndWrong.currentTime = 0;
+                    sndWrong.play();
                 }
                 
                 quiz.showFeedback(isCorrect);
