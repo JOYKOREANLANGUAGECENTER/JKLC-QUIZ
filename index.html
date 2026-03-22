@@ -13,7 +13,7 @@
         .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
         
-        /* Music Playing Animation */
+        /* 음악 재생 바 애니메이션 */
         .music-bar { display: inline-block; width: 3px; height: 15px; background: #2563eb; margin: 0 1px; border-radius: 2px; }
         .playing .music-bar { animation: wave 1s infinite ease-in-out; }
         @keyframes wave { 0%, 100% { height: 8px; } 50% { height: 20px; } }
@@ -21,20 +21,19 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- Audio Element (logosong2.mp3) -->
+    <!-- 배경음악 파일 -->
     <audio id="logo-song" src="logosong2.mp3" loop></audio>
 
-    <!-- Top Branding Bar -->
+    <!-- 상단 브랜드 컬러 바 -->
     <div class="h-2 jklc-gradient w-full"></div>
 
-    <!-- Navigation -->
+    <!-- 네비게이션 -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
                 <img src="logo.png" alt="JKLC Logo" class="h-10 md:h-12 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
             </a>
             
-            <!-- Music Player Status Indicator -->
             <div id="music-container" class="hidden md:flex items-center gap-2">
                 <div id="music-status" class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
                     <div class="flex items-end h-5 gap-0.5" id="wave-container">
@@ -89,15 +88,14 @@
         </div>
     </section>
 
-    <!-- Review Section (Myanmar Translation) -->
+    <!-- Review Section -->
     <section id="reviews" class="py-24 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-xs font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Student Voice</h2>
                 <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">수강생 리얼 후기</h3>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Review Cards... -->
+            <div class="grid md:grid-cols-3 gap-8 text-left">
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
                     <div>
                         <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
@@ -105,18 +103,18 @@
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs shadow-inner">MT</div>
-                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight">Ma Thiri</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">TOPIK Class</p></div>
+                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight text-left">Ma Thiri</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">TOPIK Class</p></div>
                     </div>
                 </div>
                 <!-- Review 2 -->
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
                     <div>
                         <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ 스사သင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
+                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ စာသင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-black text-green-600 text-xs shadow-inner">KZ</div>
-                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight">Kyaw Zin</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Speaking Class</p></div>
+                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight text-left">Kyaw Zin</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Speaking Class</p></div>
                     </div>
                 </div>
                 <!-- Review 3 -->
@@ -127,7 +125,7 @@
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-black text-red-600 text-xs shadow-inner">AM</div>
-                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight">Aung Myo</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">EPS-TOPIK Class</p></div>
+                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight text-left">Aung Myo</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">EPS-TOPIK Class</p></div>
                     </div>
                 </div>
             </div>
@@ -150,7 +148,6 @@
                         </div>
                         
                         <div class="space-y-4">
-                            <!-- Basic Contact -->
                             <div class="grid grid-cols-1 gap-4">
                                 <a href="tel:09787442387" class="flex items-center gap-4 group bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition border border-white/10">
                                     <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg"><i data-lucide="phone" class="w-5 h-5"></i></div>
@@ -162,14 +159,12 @@
                                 </a>
                             </div>
 
-                            <!-- SNS Links -->
                             <div class="grid grid-cols-2 gap-4">
                                 <a href="https://www.facebook.com/profile.php?id=61555324649048" target="_blank" class="flex items-center gap-3 p-4 rounded-2xl bg-[#1877F2]/10 hover:bg-[#1877F2]/20 border border-[#1877F2]/30 transition group">
                                     <i data-lucide="facebook" class="w-5 h-5 text-[#1877F2]"></i>
                                     <span class="text-xs font-black uppercase tracking-widest">Facebook</span>
                                 </a>
                                 <a href="https://www.tiktok.com/@jklc2024" target="_blank" class="flex items-center gap-3 p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 transition group">
-                                    <!-- TikTok Logo SVG -->
                                     <svg class="w-5 h-5 fill-white" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
                                     <span class="text-xs font-black uppercase tracking-widest">TikTok</span>
                                 </a>
@@ -177,10 +172,10 @@
                                     <i data-lucide="youtube" class="w-5 h-5 text-red-600"></i>
                                     <span class="text-xs font-black uppercase tracking-widest">YouTube</span>
                                 </a>
-                                <!-- [MODIFIED] Viber clickable link -->
+                                <!-- [MODIFIED] 업로드하신 viber2.png 파일 적용 -->
                                 <a href="viber://chat?number=%2B959787442387" class="flex items-center gap-3 p-4 rounded-2xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 transition group">
                                     <div class="w-5 h-5 flex items-center justify-center">
-                                        <i data-lucide="phone-forwarded" class="w-5 h-5 text-purple-400 group-hover:text-purple-300"></i>
+                                        <img src="viber2.png" alt="Viber" class="w-5 h-5 object-contain" onerror="this.src='https://via.placeholder.com/32?text=V'">
                                     </div>
                                     <span class="text-xs font-black uppercase tracking-widest text-purple-200">Viber Chat</span>
                                 </a>
@@ -189,7 +184,7 @@
                     </div>
 
                     <!-- Right: Map -->
-                    <div class="lg:col-span-3 h-[400px] md:h-[450px] w-full rounded-[2.5rem] overflow-hidden border-8 border-white/5 shadow-inner relative">
+                    <div class="lg:col-span-3 h-[400px] md:h-[450px] w-full rounded-[2.5rem] overflow-hidden border-8 border-white/5 shadow-inner relative text-slate-900">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.12345!2d96.123194!3d16.832028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDQ5JzU1LjMiTiA5NsKwMDcnMjMuNSJF!5e0!3m2!1sko!2smm!4v1711070000000!5m2!1sko!2smm" 
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
@@ -207,15 +202,16 @@
         <div class="max-w-6xl mx-auto px-4 text-center">
             <img src="logo.png" alt="JKLC" class="h-8 mx-auto mb-6" onerror="this.style.display='none';">
             
-            <!-- Footer SNS Icons -->
             <div class="flex justify-center gap-4 mb-6">
                 <a href="https://www.facebook.com/profile.php?id=61555324649048" target="_blank" class="p-2.5 bg-white border border-slate-200 rounded-full text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition shadow-sm"><i data-lucide="facebook" class="w-5 h-5"></i></a>
                 <a href="https://www.tiktok.com/@jklc2024" target="_blank" class="p-2.5 bg-white border border-slate-200 rounded-full text-slate-900 hover:bg-black hover:text-white transition shadow-sm">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
                 </a>
                 <a href="https://www.youtube.com/@jklc2024" target="_blank" class="p-2.5 bg-white border border-slate-200 rounded-full text-red-600 hover:bg-red-600 hover:text-white transition shadow-sm"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-                <!-- [NEW] Viber Footer Icon -->
-                <a href="viber://chat?number=%2B959787442387" class="p-2.5 bg-white border border-slate-200 rounded-full text-purple-600 hover:bg-purple-600 hover:text-white transition shadow-sm"><i data-lucide="phone-forwarded" class="w-5 h-5"></i></a>
+                <!-- [MODIFIED] 푸터 바이버 아이콘도 viber2.png로 교체 -->
+                <a href="viber://chat?number=%2B959787442387" class="p-2.5 bg-white border border-slate-200 rounded-full text-purple-600 hover:bg-purple-600 hover:text-white transition shadow-sm flex items-center justify-center">
+                    <img src="viber2.png" alt="Viber" class="w-5 h-5 object-contain" onerror="this.src='https://via.placeholder.com/32?text=V'">
+                </a>
             </div>
 
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
