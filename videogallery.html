@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JKLC - Media Gallery</title>
+    <title>JKLC - Media Hub (Admin Mode)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,193 +14,477 @@
         .video-card:hover { transform: translateY(-5px); }
         .aspect-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .aspect-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 1rem; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .loader { border-top-color: #3b82f6; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col overflow-x-hidden">
 
     <!-- 상단 브랜드 컬러 바 -->
     <div class="h-2 jklc-gradient w-full"></div>
 
     <!-- 헤더 -->
-    <header class="bg-white/80 backdrop-blur-md shadow-sm py-4 sticky top-0 z-50 border-b border-slate-100">
+    <header class="bg-white/90 backdrop-blur-md shadow-sm py-4 sticky top-0 z-50 border-b border-slate-100">
         <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2">
-                <img src="logo.png" alt="JKLC Logo" class="h-10 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
-                <span class="font-black text-xl tracking-tighter text-slate-800">MEDIA HUB</span>
+            <a href="#" class="flex items-center gap-2" onclick="showView('gallery')">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-10 w-auto">
+                <span class="font-black text-xl tracking-tighter text-slate-800 uppercase">Media Hub</span>
             </a>
-            <nav class="hidden md:flex gap-6">
-                <a href="index.html" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Home</a>
-                <a href="quiz.html" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Quiz</a>
-                <a href="leveltest.html" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Level Test</a>
-            </nav>
-            <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-blue-600 transition md:hidden">
-                <i data-lucide="home" class="w-5 h-5"></i>
-            </a>
+            <div class="flex items-center gap-3">
+                <div id="admin-indicator" class="hidden px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded flex items-center gap-1">
+                    <i data-lucide="shield-check" class="w-3 h-3"></i> ADMIN MODE
+                </div>
+                <button id="admin-toggle-btn" onclick="toggleAdminView()" class="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition">
+                    <i data-lucide="lock" class="w-3.5 h-3.5" id="lock-icon"></i>
+                    <span id="admin-btn-text">Admin Login</span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- 관리자 비밀번호 모달 -->
+    <div id="password-modal" class="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-2xl scale-in">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                    <i data-lucide="shield-ellipsis" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-black text-slate-800">Admin Access</h3>
+                <p class="text-slate-500 text-sm mt-1 font-medium">관리자 비밀번호를 입력하세요.</p>
+            </div>
+            <input type="password" id="admin-pw-input" placeholder="••••" 
+                   class="w-full text-center text-2xl tracking-[1em] py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 transition mb-4">
+            <div class="flex gap-2">
+                <button onclick="closePasswordModal()" class="flex-1 py-4 text-slate-400 font-bold text-sm uppercase tracking-widest hover:bg-slate-50 rounded-2xl transition">Cancel</button>
+                <button onclick="verifyPassword()" class="flex-1 bg-blue-600 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition">Unlock</button>
+            </div>
+            <p id="pw-error" class="text-red-500 text-[10px] font-bold mt-4 text-center hidden">비밀번호가 일치하지 않습니다.</p>
+        </div>
+    </div>
 
     <!-- 메인 컨텐츠 -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-12">
         
-        <!-- 섹션 타이틀 -->
-        <div class="text-center mb-16">
-            <span class="inline-block px-4 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Online Learning Space</span>
-            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">JOY 영상 학습관</h1>
-            <p class="text-slate-500 font-medium max-w-2xl mx-auto">
-                언제 어디서나 복습할 수 있는 온라인 강의와 수강생들의 생생한 후기 영상을 만나보세요. 
-                <br><span class="text-blue-600 font-bold italic">သင်ယူမှုဗီဒီယိုများကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</span>
-            </p>
-        </div>
+        <!-- [관리자 페이지] 영상 등록 섹션 -->
+        <section id="admin-section" class="hidden mb-16 fade-in">
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-blue-900/5 border-2 border-blue-50 max-w-4xl mx-auto overflow-hidden relative">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-xl font-black text-slate-800 flex items-center gap-3">
+                        <span class="p-2 bg-blue-600 text-white rounded-xl"><i data-lucide="plus" class="w-5 h-5"></i></span>
+                        새 학습 영상 및 자료 등록
+                    </h2>
+                    <button onclick="logoutAdmin()" class="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition">Admin Logout</button>
+                </div>
 
-        <!-- 유튜브 링크 입력 도구 (관리용/미리보기) -->
-        <div class="mb-16 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 max-w-3xl mx-auto">
-            <div class="flex flex-col md:flex-row gap-4">
-                <div class="flex-grow relative">
-                    <div class="absolute inset-y-0 left-4 flex items-center text-slate-400">
-                        <i data-lucide="link" class="w-4 h-4"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
+                            <i data-lucide="youtube" class="w-3 h-3 text-red-500"></i> YouTube URL
+                        </label>
+                        <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=..." 
+                               class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium">
                     </div>
-                    <input type="text" id="youtube-url" placeholder="유튜브 링크를 붙여넣으세요 (Paste YouTube Link)" 
-                           class="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 transition font-medium text-sm">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
+                            <i data-lucide="layers" class="w-3 h-3"></i> Category
+                        </label>
+                        <select id="video-category" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-bold">
+                            <option value="lesson">Lessons (수업용)</option>
+                            <option value="review">Reviews (수강후기)</option>
+                            <option value="culture">K-Culture (문화체험)</option>
+                            <option value="topik">TOPIK (시험대비)</option>
+                        </select>
+                    </div>
                 </div>
-                <button onclick="previewVideo()" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2">
-                    영상 확인 <i data-lucide="play" class="w-4 h-4"></i>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
+                            <i data-lucide="type" class="w-3 h-3"></i> Video Title
+                        </label>
+                        <input type="text" id="video-title" placeholder="영상 제목 (예: 기초 문법 1강)" 
+                               class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-black text-slate-400 uppercase ml-2 flex items-center gap-1">
+                            <i data-lucide="file-text" class="w-3 h-3 text-blue-500"></i> Learning Material (PDF Link)
+                        </label>
+                        <input type="text" id="pdf-url" placeholder="학습자료 주소(Google Drive 등)를 넣으세요" 
+                               class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium">
+                    </div>
+                </div>
+
+                <div class="mb-8 space-y-1.5">
+                    <label class="text-[10px] font-black text-slate-400 uppercase ml-2">Simple Description</label>
+                    <textarea id="video-desc" rows="2" placeholder="영상에 대한 짧은 설명을 입력하세요." 
+                              class="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition text-sm font-medium"></textarea>
+                </div>
+
+                <button onclick="saveVideo()" id="btn-save" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] hover:bg-blue-700 transition shadow-xl shadow-blue-200 flex items-center justify-center gap-2">
+                    <i data-lucide="save" class="w-5 h-5"></i> 저장하고 갤러리에 추가하기
                 </button>
+                <div id="save-msg" class="hidden text-center mt-4 font-bold text-xs uppercase tracking-widest"></div>
             </div>
-            <p id="error-msg" class="text-red-500 text-[10px] font-bold mt-3 ml-2 hidden">올바른 유튜브 링크가 아닙니다.</p>
-        </div>
+        </section>
 
-        <!-- 메인 플레이어 영역 (미리보기 시 노출) -->
-        <div id="preview-section" class="hidden mb-20 fade-in">
-            <div class="bg-slate-900 rounded-[3rem] p-4 md:p-8 shadow-2xl">
-                <div class="aspect-video">
-                    <iframe id="main-player" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-                <div class="mt-6 px-4">
-                    <h3 class="text-white text-xl font-bold" id="preview-title">새로 추가된 영상 미리보기</h3>
-                    <p class="text-slate-400 text-sm mt-2">유튜브 링크를 통해 불러온 영상입니다.</p>
+        <!-- [갤러리 페이지] 공통 영역 -->
+        <section id="gallery-section">
+            <div class="text-center mb-12 fade-in">
+                <span class="inline-block px-4 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Online Learning Space</span>
+                <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">JOY 영상 학습관</h1>
+                <p class="text-slate-500 font-medium max-w-2xl mx-auto">
+                    언제 어디서나 복습할 수 있는 온라인 강의와 학습 자료를 만나보세요. 
+                    <br><span class="text-blue-600 font-bold italic">သင်ယူမှုဗီဒီယိုနှင့် သင်ခန်းစာများကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</span>
+                </p>
+            </div>
+
+            <!-- 메인 플레이어 (팝업 형태) -->
+            <div id="preview-section" class="hidden mb-16 fade-in">
+                <div class="bg-slate-900 rounded-[3rem] p-4 md:p-8 shadow-2xl relative">
+                    <button onclick="closePlayer()" class="absolute -top-3 -right-3 md:top-6 md:right-6 bg-white text-slate-900 rounded-full p-2 shadow-xl z-20 hover:scale-110 transition">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                    <div class="aspect-video z-10">
+                        <iframe id="main-player" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="mt-8 flex flex-col md:flex-row md:items-center justify-between px-4 pb-4 gap-4">
+                        <div>
+                            <h3 class="text-white text-2xl font-black" id="current-playing-title">영상 제목</h3>
+                            <p class="text-slate-400 text-sm mt-1" id="current-playing-desc">설명</p>
+                        </div>
+                        <div id="pdf-action-area"></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 카테고리 필터 -->
-        <div class="flex flex-wrap gap-2 mb-10 justify-center">
-            <button onclick="filterVideos('all')" class="px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-widest shadow-lg">All</button>
-            <button onclick="filterVideos('lesson')" class="px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-blue-50 transition">Lessons</button>
-            <button onclick="filterVideos('review')" class="px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-green-50 transition">Reviews</button>
-            <button onclick="filterVideos('culture')" class="px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-red-50 transition">K-Culture</button>
-        </div>
+            <!-- 필터링 -->
+            <div class="flex flex-wrap gap-2 mb-10 justify-center">
+                <button onclick="filterVideos('all')" class="filter-btn px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-widest shadow-lg">All</button>
+                <button onclick="filterVideos('lesson')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-blue-50 transition">Lessons</button>
+                <button onclick="filterVideos('topik')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-amber-50 transition">TOPIK</button>
+                <button onclick="filterVideos('review')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-green-50 transition">Reviews</button>
+                <button onclick="filterVideos('culture')" class="filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-red-50 transition">K-Culture</button>
+            </div>
 
-        <!-- 영상 그리드 -->
-        <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- 영상 카드들은 JS에서 생성됩니다 -->
-        </div>
+            <!-- 영상 그리드 -->
+            <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
+                <div class="col-span-full flex flex-col items-center justify-center py-20">
+                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-200 h-10 w-10 mb-4"></div>
+                    <p class="text-slate-400 font-medium">실시간 데이터를 동기화 중...</p>
+                </div>
+            </div>
+        </section>
 
     </main>
 
     <!-- 푸터 -->
-    <footer class="bg-white py-16 border-t border-slate-100">
+    <footer class="bg-white py-16 border-t border-slate-100 mt-20">
         <div class="max-w-6xl mx-auto px-4 text-center">
-            <img src="logo.png" alt="JKLC" class="h-8 mx-auto mb-6" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-8 mx-auto mb-6">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-4 leading-relaxed">
                 JOY KOREAN LANGUAGE CENTER <br>
                 YANGON · HLEDAN
             </p>
-            <div class="flex justify-center gap-4 mb-8 text-slate-400">
-                <a href="#" class="hover:text-blue-600 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                <a href="#" class="hover:text-pink-600 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                <a href="#" class="hover:text-red-600 transition"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-            </div>
-            <p class="text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC. All rights reserved.</p>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC Media Hub. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        lucide.createIcons();
+    <!-- Firebase SDK & Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // 관리하기 편하도록 여기에 유튜브 영상 ID와 정보를 넣으세요.
-        // ID는 유튜브 링크의 v= 뒤에 있는 문자열입니다. (예: https://www.youtube.com/watch?v=dQw4w9WgXcQ -> dQw4w9WgXcQ)
-        const videoList = [
-            { id: "dQw4w9WgXcQ", title: "가나다라 기초 발음 수업", category: "lesson", desc: "한국어의 기본 자음과 모음을 배워봅시다." },
-            { id: "M7lc1UVf-VE", title: "수강생 Ma Thiri 인터뷰", category: "review", desc: "JOY학원에서 6개월 공부하고 TOPIK 4급 합격한 비결!" },
-            { id: "9bZkp7q19f0", title: "한국 음식 문화 체험", category: "culture", desc: "김치와 비빔밥, 한국의 맛을 느껴봐요." },
-            { id: "L_jWHffIx5E", title: "TOPIK 읽기 전략 강의", category: "lesson", desc: "시간 단축을 위한 읽기 비법 대공개!" },
-            { id: "jNQXAC9IVRw", title: "K-Pop 댄스 동아리 발표", category: "culture", desc: "JKLC 학생들이 준비한 신나는 댄스 공연" },
-            { id: "2g811Eo7K8U", title: "EPS-TOPIK 실전 모의고사", category: "lesson", desc: "시험 전 반드시 봐야 할 필수 어휘 정리" }
-        ];
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-media-pro';
 
-        function renderVideos(filter = 'all') {
-            const grid = document.getElementById('video-grid');
-            grid.innerHTML = '';
-            
-            const filtered = filter === 'all' ? videoList : videoList.filter(v => v.category === filter);
-            
-            filtered.forEach(video => {
-                const card = document.createElement('div');
-                card.className = 'video-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col group';
-                card.innerHTML = `
-                    <div class="relative cursor-pointer" onclick="openMainPlayer('${video.id}')">
-                        <img src="https://img.youtube.com/vi/${video.id}/maxresdefault.jpg" alt="${video.title}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center text-blue-600 shadow-xl transform scale-90 group-hover:scale-100 transition">
-                                <i data-lucide="play" class="w-6 h-6 fill-current"></i>
-                            </div>
-                        </div>
-                        <span class="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-[8px] font-black uppercase tracking-widest text-slate-800">
-                            ${video.category}
-                        </span>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="font-bold text-slate-800 mb-2 line-clamp-1">${video.title}</h4>
-                        <p class="text-slate-500 text-xs leading-relaxed line-clamp-2">${video.desc}</p>
-                    </div>
-                `;
-                grid.appendChild(card);
+        let currentVideos = [];
+        let currentFilter = 'all';
+        let isAdmin = false;
+
+        // 1. 인증 및 데이터 시작
+        const init = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (err) { console.error(err); }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) startListening();
+        });
+
+        // 2. 실시간 감시
+        function startListening() {
+            const videosCollection = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
+            onSnapshot(query(videosCollection), (snapshot) => {
+                currentVideos = snapshot.docs.map(doc => ({
+                    dbId: doc.id,
+                    ...doc.data()
+                })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                renderVideos(currentFilter);
             });
-            lucide.createIcons();
         }
 
+        // 3. 관리자 비밀번호 확인
+        window.toggleAdminView = () => {
+            if (isAdmin) {
+                showView('admin');
+            } else {
+                document.getElementById('password-modal').classList.remove('hidden');
+                document.getElementById('admin-pw-input').focus();
+            }
+        };
+
+        window.closePasswordModal = () => {
+            document.getElementById('password-modal').classList.add('hidden');
+            document.getElementById('pw-error').classList.add('hidden');
+            document.getElementById('admin-pw-input').value = '';
+        };
+
+        window.verifyPassword = () => {
+            const input = document.getElementById('admin-pw-input').value;
+            const error = document.getElementById('pw-error');
+            if (input === '4747') {
+                isAdmin = true;
+                localStorage.setItem('jklc_admin', 'true');
+                updateAdminUI();
+                closePasswordModal();
+                showView('admin');
+            } else {
+                error.classList.remove('hidden');
+                document.getElementById('admin-pw-input').value = '';
+            }
+        };
+
+        function updateAdminUI() {
+            const btn = document.getElementById('admin-toggle-btn');
+            const text = document.getElementById('admin-btn-text');
+            const icon = document.getElementById('lock-icon');
+            const indicator = document.getElementById('admin-indicator');
+
+            if (isAdmin) {
+                text.innerText = "Admin Page";
+                icon.setAttribute('data-lucide', 'settings');
+                indicator.classList.remove('hidden');
+                btn.classList.replace('bg-slate-900', 'bg-blue-600');
+            } else {
+                text.innerText = "Admin Login";
+                icon.setAttribute('data-lucide', 'lock');
+                indicator.classList.add('hidden');
+                btn.classList.replace('bg-blue-600', 'bg-slate-900');
+            }
+            lucide.createIcons();
+            renderVideos(currentFilter);
+        }
+
+        window.logoutAdmin = () => {
+            isAdmin = false;
+            localStorage.removeItem('jklc_admin');
+            updateAdminUI();
+            showView('gallery');
+        };
+
+        // 4. 페이지 전환
+        window.showView = (view) => {
+            const gallery = document.getElementById('gallery-section');
+            const admin = document.getElementById('admin-section');
+            
+            if (view === 'admin' && isAdmin) {
+                gallery.classList.add('hidden');
+                admin.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                gallery.classList.remove('hidden');
+                admin.classList.add('hidden');
+            }
+        };
+
+        // 5. 저장
+        window.saveVideo = async () => {
+            const urlInput = document.getElementById('youtube-url');
+            const titleInput = document.getElementById('video-title');
+            const catInput = document.getElementById('video-category');
+            const pdfInput = document.getElementById('pdf-url');
+            const descInput = document.getElementById('video-desc');
+            const btn = document.getElementById('btn-save');
+            const msg = document.getElementById('save-msg');
+
+            const videoId = extractVideoId(urlInput.value);
+            if (!videoId || !titleInput.value.trim()) {
+                msg.innerText = "유튜브 주소와 제목은 필수입니다.";
+                msg.className = "text-center mt-4 font-bold text-xs uppercase tracking-widest text-red-500 block";
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "저장 중...";
+
+            try {
+                const col = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
+                await addDoc(col, {
+                    id: videoId,
+                    title: titleInput.value.trim(),
+                    category: catInput.value,
+                    pdfUrl: pdfInput.value.trim(),
+                    desc: descInput.value.trim(),
+                    createdAt: Date.now()
+                });
+
+                msg.innerText = "성공적으로 저장되었습니다!";
+                msg.className = "text-center mt-4 font-bold text-xs uppercase tracking-widest text-green-500 block";
+                
+                // 초기화
+                urlInput.value = ''; titleInput.value = ''; pdfInput.value = ''; descInput.value = '';
+                
+                setTimeout(() => { 
+                    msg.classList.add('hidden'); 
+                    showView('gallery');
+                }, 1500);
+
+            } catch (e) {
+                msg.innerText = "오류 발생: " + e.message;
+                msg.className = "text-center mt-4 font-bold text-xs uppercase tracking-widest text-red-500 block";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="save" class="w-5 h-5"></i> 저장하고 갤러리에 추가하기`;
+                lucide.createIcons();
+            }
+        };
+
+        window.deleteVideo = async (dbId) => {
+            if (!confirm("정말 이 영상을 삭제하시겠습니까?")) return;
+            try {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'videos', dbId));
+            } catch (e) { console.error(e); }
+        };
+
+        // 6. 렌더링 및 유틸
         function extractVideoId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function previewVideo() {
-            const urlInput = document.getElementById('youtube-url');
-            const videoId = extractVideoId(urlInput.value);
-            const errorMsg = document.getElementById('error-msg');
+        function renderVideos(filter = 'all') {
+            currentFilter = filter;
+            const grid = document.getElementById('video-grid');
+            grid.innerHTML = '';
             
-            if (videoId) {
-                errorMsg.classList.add('hidden');
-                openMainPlayer(videoId);
-                window.scrollTo({ top: document.getElementById('preview-section').offsetTop - 100, behavior: 'smooth' });
+            const filtered = filter === 'all' ? currentVideos : currentVideos.filter(v => v.category === filter);
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100">
+                        <i data-lucide="video-off" class="mx-auto text-slate-200 mb-4 w-12 h-12"></i>
+                        <p class="text-slate-400 font-medium italic">표시할 영상이 없습니다.</p>
+                    </div>
+                `;
             } else {
-                errorMsg.classList.remove('hidden');
+                filtered.forEach(video => {
+                    const card = document.createElement('div');
+                    card.className = 'video-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 flex flex-col group fade-in';
+                    card.innerHTML = `
+                        <div class="relative cursor-pointer overflow-hidden" onclick="openMainPlayer('${video.id}', '${video.title.replace(/'/g, "\\'")}', '${video.desc?.replace(/'/g, "\\'")}', '${video.pdfUrl}')">
+                            <img src="https://img.youtube.com/vi/${video.id}/mqdefault.jpg" alt="${video.title}" class="w-full h-48 object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/40 transition-all flex items-center justify-center">
+                                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-2xl opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                    <i data-lucide="play" class="w-7 h-7 fill-current"></i>
+                                </div>
+                            </div>
+                            <span class="absolute top-4 left-4 px-3 py-1 bg-white shadow-lg rounded-full text-[8px] font-black uppercase tracking-widest text-slate-800">
+                                ${video.category}
+                            </span>
+                            ${video.pdfUrl ? `
+                            <div class="absolute bottom-4 right-4 bg-red-500 text-white p-1.5 rounded-lg shadow-lg">
+                                <i data-lucide="file-text" class="w-3 h-3"></i>
+                            </div>
+                            ` : ''}
+                        </div>
+                        <div class="p-6 relative">
+                            ${isAdmin ? `
+                            <button onclick="window.deleteVideo('${video.dbId}')" class="absolute top-6 right-6 text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            ` : ''}
+                            <h4 class="font-bold text-slate-800 mb-2 pr-6 line-clamp-1 group-hover:text-blue-600 transition">${video.title}</h4>
+                            <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-2 h-8">${video.desc || 'သင်ခန်းစာအကျဉ်းချုပ်မရှိပါ။'}</p>
+                            
+                            <div class="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between">
+                                <span class="text-[9px] font-bold text-slate-300 uppercase">${new Date(video.createdAt).toLocaleDateString()}</span>
+                                ${video.pdfUrl ? `
+                                <a href="${video.pdfUrl}" target="_blank" class="flex items-center gap-1 text-[10px] font-black text-red-500 hover:underline">
+                                    <i data-lucide="download" class="w-3 h-3"></i> PDF 자료
+                                </a>
+                                ` : '<span class="text-[9px] text-slate-200 font-bold uppercase">No PDF</span>'}
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
             }
+            lucide.createIcons();
+            updateFilterButtons(filter);
         }
 
-        function openMainPlayer(id) {
-            const section = document.getElementById('preview-section');
-            const player = document.getElementById('main-player');
-            player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
-            section.classList.remove('hidden');
-        }
-
-        function filterVideos(type) {
-            renderVideos(type);
-            // 버튼 스타일 업데이트
-            const buttons = document.querySelectorAll('button[onclick^="filterVideos"]');
+        function updateFilterButtons(type) {
+            const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
-                if (btn.innerText.toLowerCase() === type || (type === 'all' && btn.innerText === 'All')) {
-                    btn.className = "px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-widest shadow-lg";
+                const isActive = btn.innerText.toLowerCase().includes(type) || (type === 'all' && btn.innerText === 'All');
+                if (isActive) {
+                    btn.className = "filter-btn px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-widest shadow-lg";
                 } else {
-                    btn.className = "px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition";
+                    btn.className = "filter-btn px-6 py-2.5 rounded-full bg-white text-slate-500 border border-slate-200 text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition";
                 }
             });
         }
 
+        window.filterVideos = (type) => renderVideos(type);
+
+        window.openMainPlayer = (id, title, desc, pdfUrl) => {
+            const section = document.getElementById('preview-section');
+            const player = document.getElementById('main-player');
+            const titleEl = document.getElementById('current-playing-title');
+            const descEl = document.getElementById('current-playing-desc');
+            const pdfArea = document.getElementById('pdf-action-area');
+
+            player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+            titleEl.innerText = title;
+            descEl.innerText = desc || "추가 설명이 없습니다.";
+            
+            pdfArea.innerHTML = pdfUrl && pdfUrl !== "undefined" && pdfUrl !== "" ? `
+                <a href="${pdfUrl}" target="_blank" class="flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-700 transition shadow-lg shadow-red-500/20">
+                    <i data-lucide="file-down" class="w-5 h-5"></i> 학습자료 다운로드
+                </a>
+            ` : '';
+
+            section.classList.remove('hidden');
+            lucide.createIcons();
+            window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
+        };
+
+        window.closePlayer = () => {
+            const section = document.getElementById('preview-section');
+            const player = document.getElementById('main-player');
+            player.src = "";
+            section.classList.add('hidden');
+        };
+
         // 초기 실행
-        window.onload = () => renderVideos();
+        init();
+        lucide.createIcons();
+        if(localStorage.getItem('jklc_admin') === 'true') {
+            isAdmin = true;
+            updateAdminUI();
+        }
     </script>
 </body>
 </html>
