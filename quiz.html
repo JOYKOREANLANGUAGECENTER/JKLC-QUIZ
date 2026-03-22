@@ -1,0 +1,136 @@
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Quiz Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; }
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .quiz-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent; }
+        .quiz-card:hover { transform: translateY(-3px); border-color: var(--k); box-shadow: 0 12px 20px -5px rgba(0, 112, 187, 0.1); }
+        
+        .badge-today { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+        /* 배경음악 관련 스타일 추가 */
+        .music-playing { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <div class="jklc-top-bar"></div>
+
+    <!-- 배경음악 파일 및 제어 버튼 추가 -->
+    <audio id="bgm" src="logosong.mp3" loop prefetch></audio>
+    <div class="fixed top-6 right-6 z-[100]">
+        <button id="music-toggle" class="bg-white/90 backdrop-blur-md p-3 rounded-full shadow-xl border border-slate-200 flex items-center justify-center w-12 h-12">
+            <span id="music-icon" class="text-xl">🔇</span>
+        </button>
+    </div>
+
+    <div class="max-w-md mx-auto w-full p-6 flex-1">
+        <header class="text-center py-8">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" 
+                 alt="JKLC 로고" class="h-28 mx-auto mb-4 drop-shadow-md">
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight">JOY 한국어학원</h1>
+            <p class="text-blue-600 font-bold mt-1 tracking-widest uppercase text-[10px]">Daily Quiz Hub</p>
+        </header>
+
+        <!-- 1. 오늘의 퀴즈 섹션 -->
+        <section class="mb-12">
+            <h3 class="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4 flex items-center">
+                <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-ping"></span>
+                Today's Quiz
+            </h3>
+            
+            <a href="quiz-0322.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+                <div class="relative z-10">
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 22</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight">Day 2: 시장에서 물건 사기</h2>
+                    <p class="text-sm font-bold opacity-80">စျေးဝယ်ရာတွင် အသုံးပြုသော စကားလုံးများ</p>
+                    <div class="mt-8 flex items-center font-black text-sm">
+                        퀴즈 시작하기 <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M13 5l7 7-7 7M5 12h14"/></svg>
+                    </div>
+                </div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🇰🇷</div>
+            </a>
+        </section>
+
+        <!-- 2. 전체 퀴즈 목록 -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between px-2 mb-4">
+                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Quizzes</h3>
+                <span class="text-[10px] font-bold text-slate-300 italic font-['Pyidaungsu']">ယခင်ပဟေဠိများ</span>
+            </div>
+
+            <a href="quiz-0321.html" class="quiz-card group block bg-white p-5 rounded-[2rem] shadow-sm flex justify-between items-center border border-slate-50">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="text-[10px] font-bold text-slate-400">2026. 03. 21</span>
+                    </div>
+                    <h4 class="text-lg font-black text-slate-800 group-hover:text-blue-600 transition-colors">Day 1: 기초 인사와 표현</h4>
+                    <p class="text-xs text-slate-400 font-bold mt-1 tracking-tight font-['Pyidaungsu']">အခြေခံ နှုတ်ဆက်စကား</p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+
+            <div class="p-10 border-2 border-dashed border-slate-100 rounded-[2.2rem] text-center">
+                <p class="text-[10px] text-slate-300 font-black italic tracking-widest uppercase">Keep Learning Every Day!</p>
+            </div>
+        </section>
+
+        <footer class="mt-20 text-center pb-12">
+            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase mb-1">© JOY KOREAN LANGUAGE CENTER</p>
+            <p class="text-[8px] text-slate-300 font-bold">Hledan, Yangon, Myanmar</p>
+        </footer>
+    </div>
+
+    <!-- 배경음악 자동재생 로직 추가 -->
+    <script>
+        const bgm = document.getElementById('bgm');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        let isPlaying = false;
+
+        const initAudio = () => {
+            if (!isPlaying) {
+                bgm.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.innerText = "🎵";
+                    musicToggle.classList.add('music-playing');
+                }).catch(e => console.log("재생 대기 중..."));
+            }
+            if (isPlaying) {
+                document.removeEventListener('click', initAudio);
+                document.removeEventListener('touchstart', initAudio);
+                window.removeEventListener('scroll', initAudio);
+            }
+        };
+
+        document.addEventListener('click', initAudio);
+        document.addEventListener('touchstart', initAudio);
+        window.addEventListener('scroll', initAudio, { passive: true });
+
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isPlaying) {
+                bgm.pause();
+                musicIcon.innerText = "🔇";
+                musicToggle.classList.remove('music-playing');
+            } else {
+                bgm.play();
+                musicIcon.innerText = "🎵";
+                musicToggle.classList.add('music-playing');
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+</body>
+</html>
