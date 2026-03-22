@@ -172,7 +172,7 @@
             <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
                 <div class="col-span-full flex flex-col items-center justify-center py-20">
                     <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-200 h-10 w-10 mb-4"></div>
-                    <p class="text-slate-400 font-medium">실시간 데이터를 동기화 중...</p>
+                    <p class="text-slate-400 font-medium" id="loading-text">실시간 데이터를 동기화 중...</p>
                 </div>
             </div>
         </section>
@@ -197,44 +197,68 @@
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
+        // Firebase 설정 (환경에서 제공하는 config 사용)
         const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-media-pro';
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'jklc-media-pro-v1';
 
         let currentVideos = [];
         let currentFilter = 'all';
         let isAdmin = false;
 
-        // 1. 인증 및 데이터 시작
+        // 로딩 텍스트 업데이트 유틸리티
+        const setLoadingText = (text) => {
+            const el = document.getElementById('loading-text');
+            if (el) el.innerText = text;
+        };
+
+        // 1. 인증 프로세스 (RULE 3 준수)
         const init = async () => {
             try {
+                setLoadingText("인증 서버에 연결 중...");
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
                     await signInAnonymously(auth);
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error("Auth Error:", err); 
+                setLoadingText("인증 오류가 발생했습니다. 새로고침 해주세요.");
+            }
         };
 
+        // 인증 상태 변경 감지 및 데이터 리스너 시작
         onAuthStateChanged(auth, (user) => {
-            if (user) startListening();
+            if (user) {
+                setLoadingText("데이터베이스에서 영상을 불러오는 중...");
+                startListening();
+            }
         });
 
-        // 2. 실시간 감시
+        // 2. 실시간 데이터 리스너 (RULE 1 & 2 준수)
         function startListening() {
             const videosCollection = collection(db, 'artifacts', appId, 'public', 'data', 'videos');
-            onSnapshot(query(videosCollection), (snapshot) => {
-                currentVideos = snapshot.docs.map(doc => ({
-                    dbId: doc.id,
-                    ...doc.data()
-                })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-                renderVideos(currentFilter);
-            });
+            
+            // 실시간 스냅샷 설정 (성공 및 에러 콜백 포함)
+            const unsubscribe = onSnapshot(query(videosCollection), 
+                (snapshot) => {
+                    currentVideos = snapshot.docs.map(doc => ({
+                        dbId: doc.id,
+                        ...doc.data()
+                    })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                    
+                    renderVideos(currentFilter);
+                }, 
+                (error) => {
+                    console.error("Firestore Error:", error);
+                    setLoadingText("데이터를 가져오지 못했습니다. 관리자에게 문의하세요.");
+                }
+            );
         }
 
-        // 3. 관리자 비밀번호 확인
+        // 3. 관리자 제어 로직
         window.toggleAdminView = () => {
             if (isAdmin) {
                 showView('admin');
@@ -255,7 +279,7 @@
             const error = document.getElementById('pw-error');
             if (input === '4747') {
                 isAdmin = true;
-                localStorage.setItem('jklc_admin', 'true');
+                localStorage.setItem('jklc_admin_auth', 'true');
                 updateAdminUI();
                 closePasswordModal();
                 showView('admin');
@@ -288,12 +312,12 @@
 
         window.logoutAdmin = () => {
             isAdmin = false;
-            localStorage.removeItem('jklc_admin');
+            localStorage.removeItem('jklc_admin_auth');
             updateAdminUI();
             showView('gallery');
         };
 
-        // 4. 페이지 전환
+        // 4. 네비게이션
         window.showView = (view) => {
             const gallery = document.getElementById('gallery-section');
             const admin = document.getElementById('admin-section');
@@ -308,7 +332,7 @@
             }
         };
 
-        // 5. 저장
+        // 5. 비디오 저장 로직
         window.saveVideo = async () => {
             const urlInput = document.getElementById('youtube-url');
             const titleInput = document.getElementById('video-title');
@@ -342,7 +366,7 @@
                 msg.innerText = "성공적으로 저장되었습니다!";
                 msg.className = "text-center mt-4 font-bold text-xs uppercase tracking-widest text-green-500 block";
                 
-                // 초기화
+                // 폼 리셋
                 urlInput.value = ''; titleInput.value = ''; pdfInput.value = ''; descInput.value = '';
                 
                 setTimeout(() => { 
@@ -351,6 +375,7 @@
                 }, 1500);
 
             } catch (e) {
+                console.error("Save failed:", e);
                 msg.innerText = "오류 발생: " + e.message;
                 msg.className = "text-center mt-4 font-bold text-xs uppercase tracking-widest text-red-500 block";
             } finally {
@@ -364,10 +389,10 @@
             if (!confirm("정말 이 영상을 삭제하시겠습니까?")) return;
             try {
                 await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'videos', dbId));
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Delete Error:", e); }
         };
 
-        // 6. 렌더링 및 유틸
+        // 6. UI 렌더링 및 유틸리티
         function extractVideoId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
@@ -385,7 +410,7 @@
                 grid.innerHTML = `
                     <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100">
                         <i data-lucide="video-off" class="mx-auto text-slate-200 mb-4 w-12 h-12"></i>
-                        <p class="text-slate-400 font-medium italic">표시할 영상이 없습니다.</p>
+                        <p class="text-slate-400 font-medium italic">표시할 영상이 없습니다. 관리자 모드에서 영상을 추가해주세요.</p>
                     </div>
                 `;
             } else {
@@ -460,7 +485,7 @@
             titleEl.innerText = title;
             descEl.innerText = desc || "추가 설명이 없습니다.";
             
-            pdfArea.innerHTML = pdfUrl && pdfUrl !== "undefined" && pdfUrl !== "" ? `
+            pdfArea.innerHTML = (pdfUrl && pdfUrl !== "undefined" && pdfUrl !== "") ? `
                 <a href="${pdfUrl}" target="_blank" class="flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-700 transition shadow-lg shadow-red-500/20">
                     <i data-lucide="file-down" class="w-5 h-5"></i> 학습자료 다운로드
                 </a>
@@ -478,10 +503,12 @@
             section.classList.add('hidden');
         };
 
-        // 초기 실행
+        // 초기 앱 구동
         init();
         lucide.createIcons();
-        if(localStorage.getItem('jklc_admin') === 'true') {
+        
+        // 기존 관리자 세션 체크
+        if(localStorage.getItem('jklc_admin_auth') === 'true') {
             isAdmin = true;
             updateAdminUI();
         }
