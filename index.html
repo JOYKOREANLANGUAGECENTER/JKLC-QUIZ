@@ -112,7 +112,7 @@
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
                     <div>
                         <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ စာသင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
+                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ 스사သင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-black text-green-600 text-xs shadow-inner">KZ</div>
@@ -177,10 +177,13 @@
                                     <i data-lucide="youtube" class="w-5 h-5 text-red-600"></i>
                                     <span class="text-xs font-black uppercase tracking-widest">YouTube</span>
                                 </a>
-                                <div class="flex items-center gap-3 p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20">
-                                    <i data-lucide="phone-forwarded" class="w-5 h-5 text-purple-400"></i>
-                                    <span class="text-[10px] font-black uppercase tracking-tight text-purple-200">Viber Only</span>
-                                </div>
+                                <!-- [MODIFIED] Viber clickable link -->
+                                <a href="viber://chat?number=%2B959787442387" class="flex items-center gap-3 p-4 rounded-2xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 transition group">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i data-lucide="phone-forwarded" class="w-5 h-5 text-purple-400 group-hover:text-purple-300"></i>
+                                    </div>
+                                    <span class="text-xs font-black uppercase tracking-widest text-purple-200">Viber Chat</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -211,6 +214,8 @@
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"/></svg>
                 </a>
                 <a href="https://www.youtube.com/@jklc2024" target="_blank" class="p-2.5 bg-white border border-slate-200 rounded-full text-red-600 hover:bg-red-600 hover:text-white transition shadow-sm"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                <!-- [NEW] Viber Footer Icon -->
+                <a href="viber://chat?number=%2B959787442387" class="p-2.5 bg-white border border-slate-200 rounded-full text-purple-600 hover:bg-purple-600 hover:text-white transition shadow-sm"><i data-lucide="phone-forwarded" class="w-5 h-5"></i></a>
             </div>
 
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
