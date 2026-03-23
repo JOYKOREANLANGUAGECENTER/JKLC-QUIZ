@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOY Korean Language Center - Hospital Conversation Quiz</title>
-    <!-- Tailwind CSS 사용 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 구글 폰트: 한국어(Noto Sans KR)와 미얀마어(Noto Sans Myanmar, Pyidaungsu) 최적화 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
@@ -73,7 +70,7 @@
                 <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Home">
                     <i data-lucide="home" class="w-4 h-4"></i>
                 </a>
-                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Quiz List">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Quiz List">
                     <i data-lucide="list" class="w-4 h-4"></i>
                 </a>
             </div>
@@ -105,22 +102,18 @@
 
         <!-- 2. 퀴즈 진행 화면 -->
         <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in">
-            <!-- 진행률 표시 -->
             <div class="flex justify-between items-center mb-8">
                 <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
                 <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
             </div>
 
-            <!-- 문제 텍스트 -->
             <div class="mb-6 text-left">
                 <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
                 <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
             </div>
 
-            <!-- 보기 리스트 -->
             <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
 
-            <!-- 하단 결과/다음 버튼 구역 -->
             <div id="feedback-area" class="hidden text-left">
                 <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
                     <div class="flex items-center mb-2">
@@ -140,19 +133,24 @@
         </div>
 
         <!-- 3. 결과 화면 -->
-        <div id="result-screen" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-16 mb-4 opacity-50">
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
             <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
-            <p class="text-slate-400 font-bold mb-10 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
             
-            <div class="w-full bg-blue-600 rounded-[3rem] p-10 mb-10 text-white shadow-2xl relative overflow-hidden">
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden">
                 <div class="absolute -top-6 -right-6 opacity-10">
                     <i data-lucide="trophy" class="w-32 h-32 text-white"></i>
                 </div>
                 <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
-                <div class="text-8xl font-black tracking-tighter" id="final-score">0</div>
-                <p class="mt-6 font-bold text-lg leading-snug" id="final-comment"></p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
             </div>
+
+            <!-- 틀린 문제 다시 보기 버튼 (조건부 노출) -->
+            <button id="review-btn" onclick="quiz.showReview()" class="hidden w-full bg-amber-500 text-white font-black py-5 rounded-2xl hover:bg-amber-600 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="search" class="w-5 h-5"></i> 틀린 문제 다시 보기
+            </button>
 
             <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
                 <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
@@ -160,6 +158,20 @@
             <button onclick="location.href='index.html'" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
                 <i data-lucide="home" class="w-4 h-4"></i> 메인 홈으로
             </button>
+        </div>
+
+        <!-- 4. 틀린 문제 리뷰 화면 -->
+        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto">
+            <div class="flex items-center gap-3 mb-6">
+                <button onclick="quiz.backToResult()" class="p-2 bg-slate-100 rounded-full text-slate-500">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">틀린 문제 복습하기</h2>
+            </div>
+            
+            <div id="review-list" class="space-y-6 pb-10">
+                <!-- 틀린 문제들이 여기에 생성됩니다 -->
+            </div>
         </div>
 
         <!-- Footer -->
@@ -260,7 +272,8 @@
         let state = {
             currentIndex: 0,
             score: 0,
-            answered: false
+            answered: false,
+            wrongAnswers: [] // 틀린 문제들을 담을 배열
         };
 
         const quiz = {
@@ -314,6 +327,11 @@
                 } else {
                     btn.classList.add('wrong');
                     allButtons[current.correct].classList.add('correct');
+                    // 틀린 문제 정보를 저장
+                    state.wrongAnswers.push({
+                        ...current,
+                        userChoice: current.options[selectedIndex]
+                    });
                     sndWrong.currentTime = 0;
                     sndWrong.play();
                 }
@@ -359,6 +377,11 @@
                 document.getElementById('result-screen').classList.remove('hidden');
                 document.getElementById('final-score').innerText = state.score;
                 
+                // 틀린 문제가 있을 때만 '다시 보기' 버튼 노출
+                if (state.wrongAnswers.length > 0) {
+                    document.getElementById('review-btn').classList.remove('hidden');
+                }
+
                 let comment = "";
                 if (state.score === 100) comment = "와우! 완벽합니다! <br>(အရမ်းတော်တယ်!)";
                 else if (state.score >= 80) comment = "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)";
@@ -367,6 +390,48 @@
                 
                 document.getElementById('final-comment').innerHTML = comment;
                 lucide.createIcons();
+            },
+            showReview: () => {
+                document.getElementById('result-screen').classList.add('hidden');
+                document.getElementById('review-screen').classList.remove('hidden');
+                
+                const list = document.getElementById('review-list');
+                list.innerHTML = '';
+                
+                state.wrongAnswers.forEach((item, index) => {
+                    const reviewItem = document.createElement('div');
+                    reviewItem.className = "bg-white p-5 rounded-3xl border border-slate-100 shadow-sm";
+                    reviewItem.innerHTML = `
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-[10px] font-black">!</span>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Question</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 leading-snug mb-1">${item.q}</h4>
+                        <p class="text-xs text-slate-400 font-medium mb-4 font-['Pyidaungsu']">${item.m}</p>
+                        
+                        <div class="space-y-2 mb-4">
+                            <div class="p-3 bg-red-50 rounded-xl border border-red-100">
+                                <p class="text-[9px] font-black text-red-400 uppercase mb-1">내 선택 (Your Answer)</p>
+                                <p class="text-xs font-bold text-red-700">${item.userChoice}</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-xl border border-green-100">
+                                <p class="text-[9px] font-black text-green-400 uppercase mb-1">정답 (Correct Answer)</p>
+                                <p class="text-xs font-bold text-green-700">${item.options[item.correct]}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-widest">Explanation</p>
+                            <p class="text-[11px] font-medium text-slate-600 leading-relaxed">${item.rationale}</p>
+                        </div>
+                    `;
+                    list.appendChild(reviewItem);
+                });
+                lucide.createIcons();
+            },
+            backToResult: () => {
+                document.getElementById('review-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
             }
         };
     </script>
