@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THIRI 실전 면접 대본 (한/미얀마 병기)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP & RESPONSIVE LAYOUT */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 0;
+  padding: 40px 20px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* 화면(Screen)에서의 슬라이드 스타일 (잘리지 않게 자동 조절) */
+.slide-container {
+  background-color: #F8FAFC;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 100%;
+  max-width: 1100px; /* 좌우 잘림 방지 (반응형) */
+  min-height: 650px; /* 위아래 잘림 방지 (내용 많으면 늘어남) */
+  height: auto;
+  padding: 50px 60px;
+  position: relative;
+  overflow: visible; 
+}
+
+/* Background Design */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 50%, #F59E0B 100%);
+  z-index: 0;
+}
+
+.slide-container::after {
+  content: '조이한국어학원 | Joy Korean Language Academy';
+  position: absolute;
+  bottom: 15px;
+  right: 40px;
+  font-size: 14px;
+  color: #94A3B8;
+  font-weight: 700;
+  z-index: 0;
+}
+
+.slide-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. CONSISTENT TYPOGRAPHY */
+h1, h2, h3 {
+  color: #0F172A;
+  font-family: 'Noto Serif KR', serif;
+  margin: 0;
+}
+
+.slide-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: left;
+  width: 100%;
+  color: #0F172A;
+  border-bottom: 3px solid #F59E0B;
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-title .my-text {
+  font-size: 17px;
+  color: #475569;
+  font-weight: 500;
+  margin-top: 5px;
+  font-family: 'Noto Sans Myanmar', sans-serif;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Title Layout */
+.title-layout {
+  text-align: center;
+  background-color: #FFFFFF;
+  padding: 50px 70px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  border: 1px solid #E2E8F0;
+  border-top: 6px solid #1D4ED8;
+  margin: auto;
+  width: 90%;
+}
+
+.title-layout .badge {
+  background-color: #1D4ED8;
+  color: #FFFFFF;
+  padding: 8px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.title-layout h1 {
+  font-size: 46px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.title-layout .sub-title-ko {
+  margin-top: 30px;
+  font-size: 22px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.title-layout .sub-title-my {
+  font-size: 18px;
+  color: #64748B;
+  margin-top: 8px;
+  font-weight: 500;
+  font-family: 'Noto Sans Myanmar', sans-serif;
+}
+
+/* Script Layout (Dialogue style) */
+.script-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 공간 확보를 위해 간격 축소 */
+}
+
+.qa-block {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 15px 25px; /* 공간 확보를 위해 여백 축소 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Professor Bubble */
+.prof-dialogue {
+  background-color: #EFF6FF;
+  border-left: 5px solid #1D4ED8;
+  padding: 12px 18px;
+  border-radius: 8px;
+}
+
+.role-tag.prof {
+  color: #1D4ED8;
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Student Bubble */
+.student-dialogue {
+  background-color: #FFFBEB;
+  border-left: 5px solid #F59E0B;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-left: 20px;
+}
+
+.role-tag.student {
+  color: #D97706;
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Text Styles inside Dialogue */
+.ko-line {
+  font-size: 17px; /* 한글 폰트 크기 조정 */
+  color: #0F172A;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.my-line {
+  font-size: 14px; /* 미얀마어 폰트 크기 조정 */
+  color: #475569;
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  line-height: 1.6;
+}
+
+/* Bleed Image Right (For Final Slide) */
+.slide-container.bleed-image-layout {
+  align-items: center;
+  flex-direction: row;
+  padding: 0 !important;
+  background-color: #0F172A;
+}
+
+.bleed-image-layout > .content-container {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  z-index: 2;
+}
+
+.bleed-image-layout > .image-container {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.bleed-image-layout img.bleed-image-side {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bleed-text-side h2 {
+  color: #F59E0B;
+  font-size: 42px;
+  margin-bottom: 10px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.bleed-text-side p {
+  color: #F8FAFC;
+  font-size: 22px;
+  line-height: 1.6;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.bleed-text-side .my-text-highlight {
+  color: #F59E0B;
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+
+/* =========================================
+   3. PERFECT PRINT CSS (인쇄/PDF 저장용 완벽 세팅)
+   ========================================= */
+@media print {
+  @page {
+    size: A4 landscape; /* A4 가로 방향 강제 설정 */
+    margin: 0; /* 브라우저 기본 여백 제거 */
+  }
+  
+  body {
+    background-color: #FFFFFF;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+  
+  .slide-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    min-height: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    padding: 10mm 15mm; /* 인쇄용 안전 여백 */
+    margin: 0;
+    page-break-after: always; /* 페이지 넘김 강제 */
+    page-break-inside: avoid;
+    justify-content: center; /* 세로 중앙 정렬 */
+  }
+
+  .title-layout {
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid #E2E8F0;
+  }
+}
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title Slide -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <span class="badge"><i class="fa-solid fa-microphone-lines"></i> 1:1 실전 면접 트레이닝</span>
+        <h1>충남대학교 컴퓨터공학과<br>면접 대본 (Script)</h1>
+        
+        <p class="sub-title-ko">미얀마 유학생 THIRI 맞춤형 실전 모의 면접</p>
+        <p class="sub-title-my">မြန်မာကျောင်းသူ သီရိ (THIRI) အတွက် အထူးပြင်ဆင်ထားသော လက်တွေ့ အင်တာဗျူး လေ့ကျင့်ရန် စာသား</p>
+    </div>
+</div>
+
+<!-- Slide 2: Q1 -->
+<div class="slide-container" id="slide2">
+    <div class="slide-title">
+        1. 자기소개
+        <span class="my-text">၁။ ကိုယ်တိုင်မိတ်ဆက်ခြင်း</span>
+    </div>
+    <div class="content-area">
+        <div class="script-container">
+            <!-- Q1 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">자기 소개 해보세요.</div>
+                    <div class="my-line">ကိုယ့်ကိုယ်ကိုယ် မိတ်ဆက်ပေးပါ။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">저는 미얀마에서 온 THIRI 라고 합니다. 제 나이는 20살입니다.</div>
+                    <div class="my-line">ကျွန်မကတော့ မြန်မာနိုင်ငံကလာတဲ့ သီရိ လို့ ခေါ်ပါတယ်။ အသက်ကတော့ ၂၀ နှစ်ပါ။</div>
+                    
+                    <div class="ko-line" style="margin-top: 10px;">저희 가족은 저와 어머니 둘입니다. 취미는 노래 듣기입니다.</div>
+                    <div class="my-line">မိသားစုကတော့ ကျွန်မနဲ့ အမေ နှစ်ယောက်တည်း ရှိပါတယ်။ ဝါသနာကတော့ သီချင်းနားထောင်တာပါ။</div>
+                    
+                    <div class="ko-line" style="margin-top: 10px;">저는 2025년에 고등학교를 졸업하고, 한국으로 유학을 준비중입니다.</div>
+                    <div class="my-line">ကျွန်မ ၂၀၂၅ ခုနှစ်မှာ အထက်တန်းကျောင်း ပြီးဆုံးခဲ့ပြီး ကိုရီးယားကို ပညာသင်သွားဖို့ ပြင်ဆင်နေပါတယ်။</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Q2 & Q3 -->
+<div class="slide-container" id="slide3">
+    <div class="slide-title">
+        2. 국가 및 대학 선택 이유
+        <span class="my-text">၂။ နိုင်ငံနှင့် တက္ကသိုလ် ရွေးချယ်ရသည့် အကြောင်းရင်း</span>
+    </div>
+    <div class="content-area">
+        <div class="script-container">
+            <!-- Q2 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">왜 한국을 선택 하셨나요? (왜 한국에 오고 싶었어요?)</div>
+                    <div class="my-line">ဘာလို့ ကိုရီးယားကို ရွေးချယ်ခဲ့တာလဲ။ (ဘာလို့ ကိုရီးယားကို လာချင်ခဲ့တာလဲ။)</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">한국의 훌륭한 교육시스템 아래에서 직접 공부를 해보고 싶었습니다.</div>
+                    <div class="my-line">ကိုရီးယားရဲ့ အကောင်းဆုံး ပညာရေးစနစ်အောက်မှာ ကိုယ်တိုင် သင်ယူလေ့လာချင်လို့ပါ။</div>
+                </div>
+            </div>
+            
+            <!-- Q3 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">충남 대학교를 선택한 이유가 있나요?</div>
+                    <div class="my-line">ချွန်းနမ် တက္ကသိုလ်(Chungnam National Univ.) ကို ရွေးချယ်ရတဲ့ အကြောင်းရင်း ရှိပါသလား။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">네, 대전에 위치해 교통이 편리하고, 교수님들께서도 모두 훌륭하신 분이라고 들었습니다.</div>
+                    <div class="my-line">ဟုတ်ကဲ့၊ ဒယ်ဂျွန်း (Daejeon) မြို့မှာ တည်ရှိလို့ သွားလာရေး အဆင်ပြေပြီး ပါမောက္ခတွေ အားလုံးကလည်း အရမ်းတော်ကြတယ်လို့ ကြားသိရလို့ပါ။</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Q4 & Q5 -->
+<div class="slide-container" id="slide4">
+    <div class="slide-title">
+        3. 전공 선택 이유
+        <span class="my-text">၃။ မေဂျာ ရွေးချယ်ရသည့် အကြောင်းရင်း</span>
+    </div>
+    <div class="content-area">
+        <div class="script-container">
+            <!-- Q4 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">어떤 전공을 지원하셨나요?</div>
+                    <div class="my-line">ဘယ်မေဂျာကို လျှောက်ထားတာလဲ။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">저는 컴퓨터 공학을 전공하고 싶습니다.</div>
+                    <div class="my-line">ကျွန်မ ကွန်ပျူတာ အင်ဂျင်နီယာမေဂျာကို တက်ရောက်ချင်ပါတယ်။</div>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">이유는요?</div>
+                    <div class="my-line">အကြောင်းရင်းကရော။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">제가 컴퓨터 공학을 전공하고 싶은 이유는 어릴적부터 컴퓨터에 관심이 많았고, 컴퓨터를 통해서 미얀마 IT 산업에 도움이 되고 싶기 때문입니다.</div>
+                    <div class="my-line">ကျွန်မ ကွန်ပျူတာ အင်ဂျင်နီယာမေဂျာကို ရွေးချယ်ရတဲ့ အကြောင်းရင်းကတော့ ငယ်ငယ်ကတည်းက ကွန်ပျူတာကို စိတ်ဝင်စားခဲ့ပြီး ကွန်ပျူတာကတစ်ဆင့် မြန်မာနိုင်ငံရဲ့ IT နယ်ပယ်ကို အထောက်အကူ ပြုချင်လို့ပါ။</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Q6 & Q7 -->
+<div class="slide-container" id="slide5">
+    <div class="slide-title">
+        4. 학업 계획 및 졸업 후 진로
+        <span class="my-text">၄။ ပညာသင်ကြားရေး အစီအစဉ်နှင့် ဘွဲ့ရပြီးနောက် အနာဂတ်လမ်းကြောင်း</span>
+    </div>
+    <div class="content-area">
+        <div class="script-container">
+            <!-- Q6 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">우리 학교에서 공부하게 된다면 구체적으로 어떻게 공부하실 건가요? (학업계획)</div>
+                    <div class="my-line">ဒီကျောင်းမှာ ပညာသင်ရမယ်ဆိုရင် တိတိကျကျ ဘယ်လို လေ့လာသွားမလဲ။ (ပညာသင်ကြားရေး အစီအစဉ်)</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">제가 아직 한국어가 부족한 부분이 있어서 1학년 때는 한국어와 컴퓨터 기초를 단단히 다지고, 고학년이 되면 좀 더 전문적으로 공부하고 싶습니다.</div>
+                    <div class="my-line">ကျွန်မ ကိုရီးယားစာ အားနည်းတဲ့အပိုင်းလေးတွေ ရှိသေးလို့ ပထမနှစ်မှာ ကိုရီးယားစာနဲ့ ကွန်ပျူတာ အခြေခံကို သေချာခိုင်မာအောင် လုပ်ပြီး အထက်တန်းနှစ်ရောက်ရင် ပိုပြီး ကျွမ်းကျင်စွာ လေ့လာချင်ပါတယ်။</div>
+                </div>
+            </div>
+            
+            <!-- Q7 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">졸업 후 계획은요? (졸업 후 진로)</div>
+                    <div class="my-line">ဘွဲ့ရပြီးရင် အစီအစဉ်ကရော။ (ဘွဲ့ရပြီးနောက် အနာဂတ်လမ်းကြောင်း)</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">저는 졸업 후 미얀마로 돌아가 컴퓨터에 관심이 있는 학생들을 상대로 컴퓨터를 가르치는 선생님이 되고 싶습니다.</div>
+                    <div class="my-line">ကျွန်မ ဘွဲ့ရပြီးရင် မြန်မာနိုင်ငံကို ပြန်သွားပြီး ကွန်ပျူတာ စိတ်ဝင်စားတဲ့ ကျောင်းသားတွေကို ကွန်ပျူတာ သင်ပေးတဲ့ ဆရာမ ဖြစ်ချင်ပါတယ်။</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Q8 & Q9 -->
+<div class="slide-container" id="slide6">
+    <div class="slide-title">
+        5. 유학 생활 적응 및 경비
+        <span class="my-text">၅။ နိုင်ငံခြား ပညာသင်ဘဝ အသားကျမှုနှင့် ပညာသင်စရိတ်</span>
+    </div>
+    <div class="content-area">
+        <div class="script-container">
+            <!-- Q8 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">한국에 오면 미얀마랑 모든것이 다를텐데 잘 적응하실 수 있으실까요?</div>
+                    <div class="my-line">ကိုရီးယားကို ရောက်လာရင် မြန်မာနိုင်ငံနဲ့ အရာရာ ကွာခြားနေမှာကို ကောင်းကောင်း အသားကျနိုင်ပါ့မလား။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">저는 어릴적부터 어떤 환경에서도 잘 적응해왔기 때문에 걱정하지 않습니다.</div>
+                    <div class="my-line">ကျွန်မက ငယ်ငယ်ကတည်းက ဘယ်လိုပတ်ဝန်းကျင်မှာမဆို သေချာ အသားကျအောင် နေနိုင်တဲ့အတွက် စိတ်မပူပါဘူး။</div>
+                </div>
+            </div>
+            
+            <!-- Q9 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">유학경비나 생활비는 어떻게 마련하실건가요?</div>
+                    <div class="my-line">ပညာသင်စရိတ်နဲ့ နေထိုင်စရိတ်ကို ဘယ်လို ပြင်ဆင်မလဲ။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">어머니가 지원해주실겁니다. 어머니가 지원해주시겠지만, 저도 장학금 제도를 자세히 알아보고 장학금을 받을 수 있도록 열심히 노력할 것입니다.</div>
+                    <div class="my-line">အမေက ထောက်ပံ့ပေးမှာပါ။ အမေက ထောက်ပံ့ပေးမှာ ဖြစ်ပေမယ့်၊ ကျွန်မကိုယ်တိုင်လည်း ပညာသင်ဆု (Scholarship) အစီအစဉ်တွေကို သေချာလေ့လာပြီး ပညာသင်ဆု ရရှိအောင် ကြိုးစားသွားပါမယ်။</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Q10 & Q11 -->
+<div class="slide-container" id="slide7">
+    <div class="slide-title">
+        6. 한국어 학습 및 마지막 인사
+        <span class="my-text">၆။ ကိုရီးယားဘာသာစကား လေ့လာခြင်းနှင့် နောက်ဆုံး နှုတ်ဆက်စကား</span>
+    </div>
+    <div class="content-area">
+        <div class="script-container">
+            <!-- Q10 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">한국어 공부할 때 어려운 점은 없었나요?</div>
+                    <div class="my-line">ကိုရီးယားစာ လေ့လာတဲ့အခါ အခက်အခဲ မရှိခဲ့ဘူးလား။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">책으로만 공부를 했기 때문에 발음을 잘 알지 못했는데, 드라마를 보면서 발음도 많이 알게되었습니다.</div>
+                    <div class="my-line">စာအုပ်နဲ့ပဲ လေ့လာခဲ့လို့ အသံထွက်ကို ကောင်းကောင်း မသိခဲ့ပေမယ့် ဒရာမာတွေကို ကြည့်ရင်းနဲ့ အသံထွက်တွေကို အများကြီး သိလာခဲ့ပါတယ်။</div>
+                </div>
+            </div>
+            
+            <!-- Q11 -->
+            <div class="qa-block">
+                <div class="prof-dialogue">
+                    <div class="role-tag prof"><i class="fa-solid fa-user-tie"></i> 교수님 (ပါမောက္ခ)</div>
+                    <div class="ko-line">마지막으로 하시고 싶은 말은?</div>
+                    <div class="my-line">နောက်ဆုံးအနေနဲ့ ပြောချင်တာ ရှိပါသလား။</div>
+                </div>
+                <div class="student-dialogue">
+                    <div class="role-tag student"><i class="fa-solid fa-user-graduate"></i> THIRI (သီရိ)</div>
+                    <div class="ko-line">저에게 충남대학교에서 공부할 기회를 주신다면 교수님을 실망시키지 않도록 열심히 노력하겠습니다. 면접에 귀중한 시간을 내어주셔서 감사드립니다.</div>
+                    <div class="my-line">ကျွန်မကို ချွန်းနမ်တက္ကသိုလ်မှာ ပညာသင်ကြားဖို့ အခွင့်အရေးပေးမယ်ဆိုရင် ပါမောက္ခ စိတ်ပျက်ရအောင် မလုပ်ဘဲ ကြိုးကြိုးစားစား လေ့လာသွားပါမယ်။ အင်တာဗျူးအတွက် တန်ဖိုးရှိတဲ့ အချိန်ကို ပေးတဲ့အတွက် ကျေးဇူးတင်ပါတယ်။</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Closing Encouragement -->
+<div class="slide-container bleed-image-layout" id="slide8">
+    <div class="content-container">
+        <div class="bleed-text-side">
+            <h2><i class="fa-solid fa-fire"></i> 띠리씨! 힘내세요!</h2>
+            <div class="my-text-highlight" style="font-size: 24px; color:#F59E0B;">သီရိ! ခွန်အားမွေးပါ!</div>
+            
+            <p>무엇보다 중요한건<br>자세와 자신감!!</p>
+            <div class="my-text-highlight" style="font-size: 18px;">အရေးအကြီးဆုံးက<br>ကိုယ်နေဟန်ထားနဲ့ ယုံကြည်မှုပါပဲ!!</div>
+            
+            <p style="margin-top: 25px;">모르더라도<br>겁먹지말고 당당하게!</p>
+            <div class="my-text-highlight" style="font-size: 18px;">မသိရင်တောင်<br>မကြောက်ဘဲ ရဲရဲဝင့်ဝင့် ဖြေဆိုပါ!</div>
+        </div>
+    </div>
+    <div class="image-container">
+        <img class="bleed-image-side" src="http://googleusercontent.com/image_collection/image_retrieval/6558566490241255960" alt="Confident young asian female student ready for an interview">
+    </div>
+</div>
+
+</body>
+</html>
