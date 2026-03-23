@@ -36,10 +36,10 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-md mx-auto px-6 h-16 flex justify-between items-center">
             <a href="index.html" class="flex items-center">
-                <img src="logo.png" alt="JKLC" class="h-8 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-8 w-auto">
             </a>
             <div class="flex items-center">
-                <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                <a href="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
                     <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
                 </a>
             </div>
@@ -60,27 +60,28 @@
                 Today's Quiz
             </h3>
             
-            <a href="quiz-0323.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+            <!-- [수정] Day 4 병원 퀴즈로 메인 화면 업데이트 -->
+            <a href="quiz.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
                 <div class="relative z-10">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 23</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight">Day 3: 기초 한국어 어휘</h2>
-                    <p class="text-sm font-bold opacity-80">ကိုရီးယားစာ အခြေခံစကားလုံးများ</p>
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 24</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight">Day 4: 병원에서 대화하기</h2>
+                    <p class="text-sm font-bold opacity-80">ဆေးရုံတွင် အသုံးပြုသော စကားလုံးများ</p>
                     <div class="mt-8 flex items-center font-black text-sm">
                         퀴즈 시작하기 <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🍎</div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🏥</div>
             </a>
         </section>
 
-        <!-- 전체 퀴즈 목록 섹션 (페이지당 5개씩 노출) -->
+        <!-- 전체 퀴즈 목록 섹션 -->
         <section class="space-y-4">
             <div class="flex items-center justify-between px-2 mb-4">
                 <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Quizzes</h3>
                 <span id="page-indicator" class="text-[10px] font-bold text-blue-500">Page 1</span>
             </div>
 
-            <!-- 이 자리에 5개씩 퀴즈가 자바스크립트로 들어갑니다 -->
+            <!-- 목록 컨테이너 -->
             <div id="quiz-list-container" class="space-y-4"></div>
 
             <!-- 페이지 이동 버튼 -->
@@ -89,7 +90,6 @@
                     <i data-lucide="chevron-left" class="w-4 h-4"></i> Prev
                 </button>
                 <div id="page-dots" class="flex gap-1.5">
-                    <!-- 페이지 위치 표시 점 -->
                 </div>
                 <button id="next-page" onclick="changePage(1)" class="page-btn flex items-center gap-2 text-xs font-black text-slate-400 hover:text-blue-600 transition uppercase tracking-widest">
                     Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
@@ -104,7 +104,7 @@
 
     <footer class="mt-20 py-16 bg-white border-t border-slate-100 text-center">
         <div class="max-w-md mx-auto px-6">
-            <img src="logo.png" alt="JKLC" class="h-12 mx-auto mb-6" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-12 mx-auto mb-6">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed text-center">
                 JOY KOREAN LANGUAGE CENTER <br>
                 양곤 흘레단 최고의 한국어 교육 센터
@@ -114,11 +114,15 @@
     </footer>
 
     <script>
-        /* [현식님을 위한 가이드] 
-           새로운 퀴즈를 만들면 아래 'allQuizzes' 배열의 맨 윗부분에 
-           내용을 추가해주시면 자동으로 목록이 업데이트됩니다.
-        */
+        // [업데이트] Day 4 데이터 추가
         const allQuizzes = [
+            {
+                date: "2026. 03. 24",
+                day: "Day 4",
+                title: "병원에서 대화하기",
+                desc: "ဆေးရုံတွင် အသုံးပြုသော စကားလုံးများ",
+                link: "quiz.html"
+            },
             {
                 date: "2026. 03. 23",
                 day: "Day 3",
@@ -140,10 +144,9 @@
                 desc: "အခြေခံ နှုတ်ဆက်စကား",
                 link: "quiz-0321.html"
             }
-            /* 퀴즈가 늘어나면 여기에 계속 추가하시면 됩니다 */
         ];
 
-        const itemsPerPage = 5; // 한 페이지에 보여줄 개수
+        const itemsPerPage = 5; 
         let currentPage = 1;
 
         function renderQuizzes() {
@@ -151,12 +154,10 @@
             const pageIndicator = document.getElementById('page-indicator');
             const totalPages = Math.ceil(allQuizzes.length / itemsPerPage);
             
-            // 현재 페이지에 해당하는 데이터만 추출 (슬라이싱)
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const paginatedItems = allQuizzes.slice(start, end);
 
-            // 목록 비우고 새로 그리기
             container.innerHTML = '';
             
             paginatedItems.forEach(quiz => {
@@ -176,29 +177,25 @@
                 `;
             });
 
-            // 페이지 버튼 상태 업데이트
             document.getElementById('prev-page').disabled = (currentPage === 1);
             document.getElementById('next-page').disabled = (currentPage === totalPages || totalPages === 0);
             pageIndicator.innerText = `Page ${currentPage} / ${totalPages || 1}`;
             
-            // 페이지 점 표시
             const dotsContainer = document.getElementById('page-dots');
             dotsContainer.innerHTML = '';
             for(let i=1; i<=totalPages; i++) {
                 dotsContainer.innerHTML += `<div class="w-1.5 h-1.5 rounded-full ${i === currentPage ? 'bg-blue-600' : 'bg-slate-200'}"></div>`;
             }
 
-            lucide.createIcons(); // 아이콘 새로고침
+            lucide.createIcons();
         }
 
         function changePage(step) {
             currentPage += step;
             renderQuizzes();
-            // 페이지 이동 시 상단으로 부드럽게 스크롤
             document.getElementById('quiz-list-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // 초기 실행
         window.onload = () => {
             lucide.createIcons();
             renderQuizzes();
