@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국대학교 모의 면접 가이드 (한/미얀마 병기)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e5e7eb;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 30px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #F8FAFC;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans KR', sans-serif;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px 60px;
+  position: relative;
+  width: 1280px;
+}
+
+/* Background Design: Professional Academic */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 50%, #F59E0B 100%);
+  z-index: 0;
+}
+
+.slide-container::after {
+  content: 'Joy Korean Language Academy';
+  position: absolute;
+  bottom: 15px;
+  right: 40px;
+  font-size: 14px;
+  color: #94A3B8;
+  font-weight: 700;
+  z-index: 0;
+}
+
+.slide-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. CONSISTENT TYPOGRAPHY */
+/* Headings Font */
+.slide-container h1,
+.slide-container h2,
+.slide-container h3 {
+  color: #0F172A;
+  font-family: 'Noto Serif KR', serif;
+  margin: 0;
+}
+
+/* Myanmar Text Setup */
+.my-text {
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+.my-title {
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  color: #D4AF37;
+  font-size: 22px;
+  display: block;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* Consistent Font Sizes */
+.slide-container h1 {
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.slide-container .slide-title {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: left;
+  width: 100%;
+  color: #0F172A;
+  border-bottom: 3px solid #F59E0B;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-title .my-text {
+  font-size: 18px;
+  color: #475569;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.slide-container h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 5px;
+}
+
+.slide-container p {
+  line-height: 1.5;
+  margin: 0;
+}
+
+.slide-container .subtitle {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 15px auto;
+  color: #475569;
+}
+
+.slide-container .content-area {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 3. LAYOUT DEFINITIONS */
+
+/* Title Layout */
+.title-layout {
+  text-align: center;
+  background-color: #FFFFFF;
+  padding: 50px 70px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  border: 1px solid #E2E8F0;
+  border-top: 6px solid #1D4ED8;
+}
+
+.title-layout .badge {
+  background-color: #1D4ED8;
+  color: #FFFFFF;
+  padding: 8px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.title-layout .sub-title-ko {
+  margin-top: 30px;
+  font-size: 22px;
+  color: #334155;
+  font-weight: 700;
+}
+.title-layout .sub-title-my {
+  font-size: 18px;
+  color: #64748B;
+  margin-top: 5px;
+}
+
+/* Section Title Layout */
+.section-title-layout {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  background-color: #0F172A;
+  border-radius: 16px;
+  padding: 60px;
+}
+
+.section-title-layout h2 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+}
+
+.section-title-layout .my-sec-title {
+  color: #F59E0B;
+  font-size: 24px;
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  margin-bottom: 25px;
+}
+
+.section-title-layout p {
+  font-size: 24px;
+  margin: 0 auto 10px auto;
+  max-width: 900px;
+  color: #E2E8F0;
+}
+
+.section-title-layout .my-sec-desc {
+  font-size: 18px;
+  color: #94A3B8;
+  font-family: 'Noto Sans Myanmar', sans-serif;
+}
+
+.section-title-layout hr {
+  background-color: #1D4ED8;
+  border: none;
+  height: 4px;
+  margin: 30px auto;
+  width: 100px;
+}
+
+/* Two/Three Column Layout */
+.two-column {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 100%;
+}
+.three-column {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+}
+
+.tiled > div {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  border-top: 5px solid #1D4ED8;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.tiled .q-box {
+  background-color: #F8FAFC;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #1D4ED8;
+}
+
+.q-box .my-text {
+  font-size: 14px;
+  color: #475569;
+}
+
+.tiled .a-box {
+  margin-bottom: 15px;
+}
+
+.a-box .ko-text {
+  font-size: 16px;
+  color: #1E293B;
+  font-weight: 500;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.a-box .my-text {
+  font-size: 14px;
+  color: #334155;
+}
+
+/* Stacked Layout for long QnAs */
+.stacked-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.stacked-item {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  border-left: 5px solid #1D4ED8;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 20px 25px;
+}
+.stacked-item .title-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+.stacked-item .title-box h3 {
+  font-size: 20px;
+  color: #1D4ED8;
+  margin: 0;
+}
+.stacked-item .title-box .my-title-inline {
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  color: #F59E0B;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Image Wrapper Layout */
+.image-wrapper {
+  border-radius: 12px;
+  height: 450px;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border: 4px solid #FFFFFF;
+}
+
+.image-wrapper img {
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.content-box {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Styled Bullet Points Layout */
+.bullet-list {
+  width: 100%;
+}
+
+.bullet-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bullet-list li {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  padding: 20px 25px 20px 75px;
+  position: relative;
+  border: 1px solid #E2E8F0;
+  border-left: 5px solid #1D4ED8;
+}
+
+.bullet-list i {
+  color: #F59E0B;
+  font-size: 26px;
+  left: 20px;
+  position: absolute;
+  top: 25px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bullet-list li strong {
+  color: #0F172A;
+  font-weight: 900;
+  font-size: 20px;
+  display: block;
+  font-family: 'Noto Serif KR', serif;
+  margin-bottom: 5px;
+}
+.bullet-list li .my-title-small {
+  font-family: 'Noto Sans Myanmar', sans-serif;
+  color: #1D4ED8;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.bullet-list li .ko-text {
+  font-size: 16px;
+  color: #334155;
+  margin-bottom: 5px;
+}
+.bullet-list li .my-text {
+  font-size: 14px;
+}
+
+/* Quote Layout */
+.quote-layout {
+  margin: 0 auto;
+  text-align: center;
+  width: 90%;
+  background-color: #0F172A;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.quote-layout blockquote {
+  color: #FFFFFF;
+  font-size: 34px;
+  font-weight: 700;
+  font-family: 'Noto Serif KR', serif;
+  line-height: 1.5;
+  margin: 0 0 30px 0;
+  padding: 0 20px;
+  position: relative;
+}
+
+.quote-layout blockquote .my-text {
+  font-size: 20px;
+  color: #F59E0B;
+  display: block;
+  margin-top: 15px;
+}
+
+.quote-layout cite {
+  color: #94A3B8;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.contact-box {
+  background: #FFFFFF;
+  border-radius: 50px;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #0F172A;
+  font-weight: 700;
+  font-size: 18px;
+}
+.contact-box .my-text-small {
+  display: block;
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+  margin-top: 3px;
+}
+    </style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <span class="badge">조이한국어학원 특별 기획</span>
+        <span class="my-title" style="margin-top: 0; margin-bottom: 15px; font-size: 18px;">Joy ကိုရီးယားဘာသာစကားသင်တန်းကျောင်း အထူးအစီအစဉ်</span>
+        <h1>한국대학교 유학<br>모의 면접 가이드</h1>
+        <span class="my-title" style="font-size: 26px;">တောင်ကိုရီးယား တက္ကသိုလ် ပညာသင်ဆုအတွက်<br>လက်တွေ့ အင်တာဗျူး အမေးအဖြေ လမ်းညွှန်</span>
+        
+        <p class="sub-title-ko">미얀마 유학생의 성공적인 한국 대학 입학을 위한 완벽 대비</p>
+        <p class="sub-title-my">မြန်မာကျောင်းသားများ တောင်ကိုရီးယား တက္ကသိုလ်သို့ အောင်မြင်စွာ ဝင်ခွင့်ရရှိရေးအတွက် အပြည့်အဝ ပြင်ဆင်မှု</p>
+    </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-container" id="slide2" style="padding: 0;">
+    <div class="section-title-layout" style="border-radius: 0;">
+        <hr>
+        <h2>PART 1. 기본 질문</h2>
+        <span class="my-sec-title">PART 1. အခြေခံမေးခွန်းများ</span>
+        <p>자기소개 및 지원 동기 : 면접의 첫인상을 결정짓는 가장 중요한 단계입니다.</p>
+        <p class="my-sec-desc">ကိုယ်တိုင်မိတ်ဆက်ခြင်းနှင့် လျှောက်ထားရသည့် အကြောင်းရင်း: အင်တာဗျူး၏ ပထမဆုံးအထင်အမြင်ကို ဆုံးဖြတ်ပေးမည့် အရေးကြီးဆုံးအဆင့်ဖြစ်သည်။</p>
+    </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-container" id="slide3">
+    <div class="slide-title">
+        자기소개와 대학 지원 동기
+        <span class="my-text">ကိုယ်တိုင်မိတ်ဆက်ခြင်းနှင့် တက္ကသိုလ် လျှောက်ထားရသည့် အကြောင်းရင်း</span>
+    </div>
+    <div class="content-area">
+        <div class="three-column tiled">
+            <div>
+                <div class="q-box">
+                    <h3>1. 간단한 자기소개</h3>
+                    <p class="my-text">၁. အတိုချုံး မိတ်ဆက်ခြင်း</p>
+                </div>
+                <div class="a-box">
+                    <p class="ko-text">본인의 이름, 국적(미얀마), 나이, 그리고 한국어 학습 기간 등을 포함하여 1분 내외로 외우지 않은 듯 자연스럽게 대화하듯 소개하는 연습을 하세요.</p>
+                    <p class="my-text">မိမိ၏ အမည်၊ နိုင်ငံသား(မြန်မာ)၊ အသက်နှင့် ကိုရီးယားဘာသာစကား သင်ယူခဲ့သည့် ကာလများကို ထည့်သွင်း၍ (၁) မိနစ်ခန့် အလွတ်ကျက်ထားသလိုမဟုတ်ဘဲ သဘာဝကျကျ စကားပြောသကဲ့သို့ မိတ်ဆက်လေ့ကျင့်ပါ။</p>
+                </div>
+            </div>
+            <div>
+                <div class="q-box">
+                    <h3>2. 왜 '한국'인가요?</h3>
+                    <p class="my-text">၂. ဘာကြောင့် 'ကိုရီးယား' လဲ?</p>
+                </div>
+                <div class="a-box">
+                    <p class="ko-text">단순한 K-Pop이나 드라마에 대한 호감보다는, 한국의 우수한 교육 시스템, 특정 산업의 발전 등 학업이나 본인의 목표와 연결된 명확한 이유를 제시해야 합니다.</p>
+                    <p class="my-text">K-Pop သို့မဟုတ် ဒရာမာကို သဘောကျရုံထက် ကိုရီးယား၏ အကောင်းဆုံး ပညာရေးစနစ်၊ သီးခြားစက်မှုလုပ်ငန်းများ တိုးတက်မှု စသည့် ပညာရေး သို့မဟုတ် မိမိ၏ ရည်မှန်းချက်များနှင့် ချိတ်ဆက်ထားသော ရှင်းလင်းသည့် အကြောင်းပြချက်ကို တင်ပြရမည်။</p>
+                </div>
+            </div>
+            <div>
+                <div class="q-box">
+                    <h3>3. 한국대학교 선택 이유</h3>
+                    <p class="my-text">၃. တက္ကသိုလ်ကို ရွေးချယ်ရသည့် အကြောင်းရင်း</p>
+                </div>
+                <div class="a-box">
+                    <p class="ko-text">우수한 교수진, 잘 갖춰진 유학생 지원 프로그램, 지원하는 전공의 특화된 커리큘럼 등 다른 대학이 아닌 '한국대학교'만의 장점을 미리 조사하여 답변하세요.</p>
+                    <p class="my-text">အကောင်းဆုံး ပါမောက္ခများ၊ ပြည့်စုံသော နိုင်ငံခြားကျောင်းသား ထောက်ပံ့မှုအစီအစဉ်၊ လျှောက်ထားသည့် မေဂျာ၏ အထူးပြုသင်ရိုးညွှန်းတမ်း စသည့် အခြားတက္ကသိုလ်များမဟုတ်ဘဲ 'ယခုတက္ကသိုလ်' ၏ အားသာချက်များကို ကြိုတင်လေ့လာပြီး ဖြေဆိုပါ။</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide-container" id="slide4" style="padding: 0;">
+    <div class="section-title-layout" style="border-radius: 0;">
+        <hr>
+        <h2>PART 2. 전공 및 학업 계획</h2>
+        <span class="my-sec-title">PART 2. မေဂျာနှင့် ပညာသင်ကြားရေး အစီအစဉ်</span>
+        <p>명확한 목표와 강한 학업 의지를 보여주는 전문적인 답변을 준비하세요.</p>
+        <p class="my-sec-desc">ရှင်းလင်းသော ရည်မှန်းချက်နှင့် ခိုင်မာသော ပညာသင်ကြားရေးဆန္ဒကို ပြသနိုင်မည့် ကျွမ်းကျင်သောအဖြေကို ပြင်ဆင်ပါ။</p>
+    </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-container" id="slide5">
+    <div class="slide-title">
+        전공 선택과 미래 설계
+        <span class="my-text">မေဂျာရွေးချယ်ခြင်းနှင့် အနာဂတ် အစီအစဉ်</span>
+    </div>
+    <div class="content-area">
+        <div class="stacked-list">
+            <div class="stacked-item">
+                <div class="title-box">
+                    <h3>■ Q4. 전공 선택 이유:</h3>
+                    <span class="my-title-inline">■ Q4. မေဂျာ ရွေးချယ်ရသည့် အကြောင်းရင်း:</span>
+                </div>
+                <p class="ko-text" style="margin-bottom: 5px;">본인의 적성이나 미얀마에서의 과거 경험이 전공 선택에 어떤 긍정적인 영향을 미쳤는지 구체적이고 논리적으로 설명하세요.</p>
+                <p class="my-text">မိမိ၏ ဝါသနာ သို့မဟုတ် မြန်မာနိုင်ငံမှ ယခင်အတွေ့အကြုံများက မေဂျာရွေးချယ်မှုအပေါ် မည်သို့ အပြုသဘောဆောင်သော သက်ရောက်မှုရှိခဲ့ကြောင်း တိကျပြီး ယုတ္တိရှိရှိ ရှင်းပြပါ။</p>
+            </div>
+            <div class="stacked-item">
+                <div class="title-box">
+                    <h3>■ Q5. 구체적인 학업 계획:</h3>
+                    <span class="my-title-inline">■ Q5. တိကျသော ပညာသင်ကြားရေး အစီအစဉ်:</span>
+                </div>
+                <p class="ko-text" style="margin-bottom: 5px;">1학년 때는 한국어와 전공 기초에 집중하고, 고학년이 되면 어떤 심화 과정을 연구하고 싶은지 학년별로 체계적인 계획을 세우세요.</p>
+                <p class="my-text">ပထမနှစ်တွင် ကိုရီးယားဘာသာစကားနှင့် မေဂျာအခြေခံကို အာရုံစိုက်ပြီး အထက်တန်းနှစ်ရောက်လျှင် မည်သည့် အဆင့်မြင့်သင်တန်းကို လေ့လာလိုကြောင်း နှစ်အလိုက် စနစ်ကျသော အစီအစဉ်ကို ရေးဆွဲပါ။</p>
+            </div>
+            <div class="stacked-item">
+                <div class="title-box">
+                    <h3>■ Q6. 졸업 후 진로 목표:</h3>
+                    <span class="my-title-inline">■ Q6. ဘွဲ့ရပြီးနောက် အနာဂတ် ရည်မှန်းချက်:</span>
+                </div>
+                <p class="ko-text" style="margin-bottom: 5px;">한국에서의 전문적인 취업을 희망하는지, 아니면 미얀마로 돌아가 배운 지식을 활용해 국가 발전에 기여할 것인지 뚜렷한 비전을 제시하세요.</p>
+                <p class="my-text">ကိုရီးယားတွင် ကျွမ်းကျင်လုပ်ငန်းခွင် ဝင်လိုသလား၊ သို့မဟုတ် မြန်မာနိုင်ငံသို့ ပြန်သွားပြီး သင်ယူခဲ့သော ပညာရပ်များဖြင့် နိုင်ငံဖွံ့ဖြိုးရေးအတွက် အထောက်အကူပြုမည်လားဆိုသော ရှင်းလင်းသည့် မျှော်မှန်းချက်ကို ပြသပါ။</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-container" id="slide6" style="padding: 0;">
+    <div class="section-title-layout" style="border-radius: 0;">
+        <hr>
+        <h2 style="color: #F59E0B;">PART 3. 유학 생활 및 적응</h2>
+        <span class="my-sec-title" style="color: #FCD34D;">PART 3. နိုင်ငံခြား ပညာသင်ဘဝနှင့် အသားကျမှု</span>
+        <p>타지에서의 낯선 생활을 잘 버텨낼 수 있는 현실적인 적응 능력과 계획을 평가합니다.</p>
+        <p class="my-sec-desc">တိုင်းတစ်ပါးမှ 낯선 ဘဝကို ကောင်းစွာ ရင်ဆိုင်ကျော်ဖြတ်နိုင်မည့် လက်တွေ့ကျသော အသားကျနိုင်စွမ်းနှင့် အစီအစဉ်များကို အကဲဖြတ်သည်။</p>
+    </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-container" id="slide7">
+    <div class="slide-title">
+        한국 문화 적응과 현실적인 재정 계획
+        <span class="my-text">ကိုရီးယားယဉ်ကျေးမှု အသားကျမှုနှင့် လက်တွေ့ကျသော ဘဏ္ဍာရေး အစီအစဉ်</span>
+    </div>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <div class="q-box">
+                    <h3>Q7. 낯선 문화와 환경 적응</h3>
+                    <p class="my-text">Q7. 낯선 ယဉ်ကျေးမှုနှင့် ပတ်ဝန်းကျင် အသားကျမှု</p>
+                </div>
+                <div class="a-box">
+                    <p class="ko-text">미얀마와 한국은 문화나 날씨가 크게 다릅니다. 이때는 '조이한국어학원'에서 한국 문화를 미리 충분히 학습했으며, 새로운 것을 받아들이는 열린 마음을 가지고 있어 현지 적응에 전혀 문제가 없다는 자신감을 보여주는 것이 중요합니다.</p>
+                    <p class="my-text" style="font-size: 13.5px;">မြန်မာနိုင်ငံနှင့် ကိုရီးယားသည် ယဉ်ကျေးမှု သို့မဟုတ် ရာသီဥတု များစွာ ကွာခြားသည်။ ထိုအချိန်တွင် 'Joy ကိုရီးယားဘာသာစကားသင်တန်းကျောင်း' မှ ကိုရီးယားယဉ်ကျေးမှုကို ကြိုတင်၍ လုံလောက်စွာ သင်ယူခဲ့ပြီး အသစ်အဆန်းများကို လက်ခံနိုင်သော ပွင့်လင်းသည့် စိတ်ထားရှိသဖြင့် ဒေသခံပတ်ဝန်းကျင်နှင့် အသားကျရန် ပြဿနာမရှိကြောင်း ယုံကြည်မှုကို ပြသရန် အရေးကြီးသည်။</p>
+                </div>
+            </div>
+            <div>
+                <div class="q-box">
+                    <h3>Q8. 유학 경비 및 생활비 마련</h3>
+                    <p class="my-text">Q8. ပညာသင်စရိတ်နှင့် နေထိုင်စရိတ် ပြင်ဆင်မှု</p>
+                </div>
+                <div class="a-box">
+                    <p class="ko-text">유학 생활 중 경제적인 부분은 매우 현실적인 문제입니다. 부모님의 안정적인 재정 지원, 미리 준비해 둔 유학 자금, 또는 교내외 장학금 신청 계획 등을 구체적이고 현실적으로 대답하여 면접관을 안심시켜야 합니다. (아르바이트에만 의존하겠다는 답변은 피하세요.)</p>
+                    <p class="my-text" style="font-size: 13.5px;">ပညာသင်ဘဝတွင် စီးပွားရေးအပိုင်းသည် အလွန် လက်တွေ့ကျသော ပြဿနာဖြစ်သည်။ မိဘများ၏ တည်ငြိမ်သော ဘဏ္ဍာရေးထောက်ပံ့မှု၊ ကြိုတင်ပြင်ဆင်ထားသော ပညာသင်ရန်ပုံငွေ သို့မဟုတ် ကျောင်းတွင်း/ကျောင်းပြင် ပညာသင်ဆု လျှောက်ထားမည့် အစီအစဉ်များကို တိကျပြီး လက်တွေ့ကျကျ ဖြေဆိုကာ အင်တာဗျူးစစ်ဆေးသူကို စိတ်အေးစေရမည်။ (အချိန်ပိုင်းအလုပ်တစ်ခုတည်းကိုသာ အားကိုးမည်ဟူသော အဖြေကို ရှောင်ကြဉ်ပါ။)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-container" id="slide8" style="padding: 0;">
+    <div class="section-title-layout" style="border-radius: 0;">
+        <hr>
+        <h2>PART 4. 돌발 질문 및 마무리</h2>
+        <span class="my-sec-title">PART 4. မမျှော်လင့်သော မေးခွန်းများနှင့် နိဂုံးချုပ်</span>
+        <p>예상치 못한 질문에도 당황하지 않는 순발력과 진정성 있는 태도를 보여주세요.</p>
+        <p class="my-sec-desc">မမျှော်လင့်ထားသော မေးခွန်းများတွင်လည်း မထိတ်လန့်ဘဲ ချက်ချင်းတုံ့ပြန်နိုင်စွမ်းနှင့် ရိုးသားသော စိတ်နေသဘောထားကို ပြသပါ။</p>
+    </div>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide-container" id="slide9">
+    <div class="slide-title">
+        소통 능력 어필과 마지막 한마디
+        <span class="my-text">ဆက်သွယ်ပြောဆိုနိုင်စွမ်းကို ပြသခြင်းနှင့် နောက်ဆုံးစကား</span>
+    </div>
+    <div class="content-area">
+        <div class="stacked-list">
+            <div class="stacked-item" style="padding: 15px 25px;">
+                <div class="title-box">
+                    <h3>Q9. 한국어 학습의 어려움과 극복:</h3>
+                    <span class="my-title-inline">Q9. ကိုရီးယားဘာသာစကား လေ့လာရာတွင် အခက်အခဲများနှင့် ကျော်ဖြတ်ခြင်း:</span>
+                </div>
+                <p class="ko-text" style="margin-bottom: 5px;">가장 어려웠던 한국어 문법이나 발음에 대해 솔직하게 이야기하되, 그것을 극복하기 위해 조이한국어학원에서 어떤 노력을 했고 어떻게 개선되었는지를 긍정적으로 강조하세요.</p>
+                <p class="my-text">အခက်ခဲဆုံး ကိုရီးယားသဒ္ဒါ သို့မဟုတ် အသံထွက်အကြောင်း ရိုးသားစွာ ပြောပြသော်လည်း၊ ယင်းကို ကျော်ဖြတ်ရန် Joy သင်တန်းကျောင်းတွင် မည်သို့ ကြိုးစားခဲ့ပြီး မည်သို့ တိုးတက်လာကြောင်း အပြုသဘောဆောင်ကာ အလေးပေးပြောပါ။</p>
+            </div>
+            <div class="stacked-item" style="padding: 15px 25px;">
+                <div class="title-box">
+                    <h3>Q10. 마지막으로 하고 싶은 말:</h3>
+                    <span class="my-title-inline">Q10. နောက်ဆုံးအနေဖြင့် ပြောချင်သောစကား:</span>
+                </div>
+                <p class="ko-text" style="margin-bottom: 5px;">"특별히 없습니다"라고 대답하기보다는, 한국대학교에 꼭 입학하여 수학하고 싶다는 강력한 열정을 다시 한번 어필하거나, 유학생 지원 프로그램에 대한 가벼운 질문을 던져 깊은 인상을 남기세요.</p>
+                <p class="my-text">"အထူးတလည် မရှိပါ" ဟု ဖြေဆိုခြင်းထက်၊ ယခုတက္ကသိုလ်သို့ မဖြစ်မနေ ဝင်ခွင့်ရ၍ ပညာသင်လိုကြောင်း ပြင်းပြသော စိတ်အားထက်သန်မှုကို ထပ်မံပြသပါ သို့မဟုတ် နိုင်ငံခြားကျောင်းသား ထောက်ပံ့ရေး အစီအစဉ်နှင့် ပတ်သက်၍ ပေါ့ပါးသော မေးခွန်းတစ်ခုမေးကာ နက်ရှိုင်းသော အထင်အမြင်ကို ချန်ထားခဲ့ပါ။</p>
+            </div>
+            <div class="stacked-item" style="padding: 15px 25px;">
+                <div class="title-box">
+                    <h3>돌발 꼬리 질문 대비 훈련:</h3>
+                    <span class="my-title-inline">အဆက်မပြတ် မေးခွန်းများအတွက် ကြိုတင်လေ့ကျင့်ခြင်း:</span>
+                </div>
+                <p class="ko-text" style="margin-bottom: 5px;">긴장한 상태에서는 한국어가 잘 나오지 않을 수 있습니다. 면접관이 답변 중간에 구체적인 설명을 요구하는 꼬리 질문을 던지더라도, 당황하지 않고 침착하게 대답하는 모의 훈련을 반복하세요.</p>
+                <p class="my-text">စိုးရိမ်နေချိန်တွင် ကိုရီးယားစကား ကောင်းစွာ မထွက်နိုင်ပါ။ အင်တာဗျူးစစ်ဆေးသူက အဖြေကြားတွင် တိကျသော ရှင်းလင်းချက်တောင်းသည့် ဆက်တိုက်မေးခွန်းများ မေးလာလျှင်တောင်၊ မထိတ်လန့်ဘဲ တည်ငြိမ်စွာ ဖြေဆိုနိုင်မည့် အစမ်းလေ့ကျင့်မှုများကို ထပ်ခါတလဲလဲ ပြုလုပ်ပါ။</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10 -->
+<div class="slide-container" id="slide10">
+    <div class="slide-title">
+        면접 성공을 위한 핵심 태도
+        <span class="my-text">အင်တာဗျူး အောင်မြင်ရေးအတွက် အဓိက စိတ်နေသဘောထား</span>
+    </div>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="bullet-list" style="justify-content: center;">
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-face-smile"></i>
+                        <strong>바른 자세와 밝은 표정</strong>
+                        <span class="my-title-small">မှန်ကန်သော ကိုယ်နေဟန်ထားနှင့် တောက်ပသော မျက်နှာအမူအရာ</span>
+                        <p class="ko-text">면접장에 들어서는 순간부터 첫인상이 결정됩니다. 항상 자신감 있는 표정과 바른 자세를 유지하세요.</p>
+                        <p class="my-text">အင်တာဗျူးခန်းထဲ ဝင်လာသည့် အချိန်မှစ၍ ပထမဆုံးအထင်အမြင်ကို ဆုံးဖြတ်သည်။ အမြဲတမ်း ယုံကြည်မှုရှိသော မျက်နှာအမူအရာနှင့် မှန်ကန်သော ကိုယ်နေဟန်ထားကို ထိန်းသိမ်းပါ။</p>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-eye"></i>
+                        <strong>정확한 시선 처리</strong>
+                        <span class="my-title-small">တိကျသော အကြည့်ထားသိုမှု</span>
+                        <p class="ko-text">답변을 할 때는 허공을 보지 말고, 면접관의 눈을 부드럽게 맞추며 대화하는 진정성 있는 느낌을 전달해야 합니다.</p>
+                        <p class="my-text">ဖြေဆိုချိန်တွင် လေဟာပြင်ကို မကြည့်ဘဲ၊ အင်တာဗျူးစစ်ဆေးသူ၏ မျက်လုံးကို ညင်သာစွာကြည့်ရင်း စကားပြောဆိုသည့် ရိုးသားသော ခံစားချက်ကို ပေးပို့ရမည်။</p>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-volume-high"></i>
+                        <strong>크고 또렷한 목소리</strong>
+                        <span class="my-title-small">ကျယ်လောင်၍ ရှင်းလင်းသော အသံ</span>
+                        <p class="ko-text">긴장하더라도 목소리는 크고 분명하게 내야 합니다. 우물쭈물하지 말고, 한국어 발음에 신경 쓰며 천천히 또렷하게 말하는 연습을 하세요.</p>
+                        <p class="my-text">စိုးရိမ်နေလျှင်တောင် အသံကို ကျယ်ကျယ်နှင့် ရှင်းရှင်းလင်းလင်း ထုတ်ရမည်။ တွန့်ဆုတ်မနေဘဲ ကိုရီးယားအသံထွက်ကို ဂရုစိုက်ကာ ဖြည်းဖြည်းနှင့် ရှင်းလင်းစွာ ပြောဆိုလေ့ကျင့်ပါ။</p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="image-wrapper" style="height: 100%;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/15332999532615791244" alt="Confident asian student in professional interview setting">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11 -->
+<div class="slide-container" id="slide11" style="padding: 0;">
+    <div class="content-area" style="background-color: #0F172A; justify-content: center; align-items: center; width: 100%; height: 100%;">
+        <div class="quote-layout" style="box-shadow: none;">
+            <blockquote>
+                준비된 자에게 기회가 옵니다.<br>조이한국어학원이 여러분의 빛나는<br>한국 유학의 꿈을 진심으로 응원합니다!
+                <span class="my-text">ပြင်ဆင်ထားသူများထံ အခွင့်အရေး ရောက်လာသည်။<br>Joy ကိုရီးယားဘာသာစကားသင်တန်းကျောင်းက သင်တို့၏ တောက်ပသော<br>ကိုရီးယားပညာသင် အိပ်မက်ကို စိတ်ရင်းမှန်ဖြင့် အားပေးထောက်ခံပါသည်။</span>
+            </blockquote>
+            <cite>- 조이한국어학원 강사진 일동 -<br><span style="font-size: 16px; color:#64748B;">- Joy ကိုရီးယားဘာသာစကားသင်တန်းကျောင်း ဆရာ/ဆရာမများ -</span></cite>
+            
+            <div style="margin-top: 40px;">
+                <div class="contact-box">
+                    자신감을 가지세요! 반복적인 모의 면접 연습이 합격의 지름길입니다.<br>
+                    <span class="my-text-small">ယုံကြည်မှုထားပါ။ ထပ်ခါတလဲလဲ လက်တွေ့အင်တာဗျူး လေ့ကျင့်ခြင်းသည် အောင်မြင်မှု၏ ဖြတ်လမ်းဖြစ်သည်။</span>
+                </div>
+                <p style="color: #94A3B8; font-size: 16px; margin-top: 15px;">● 조이한국어학원 양곤 센터 | 실전 모의 면접 안내 데스크</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+```
