@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - School Conversation Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+        .wrong {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        <!-- 상단 컬러 바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <!-- 상단 네비게이션 및 로고 영역 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Home">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Quiz List">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto">
+            <div class="w-10 md:w-16"></div> 
+        </nav>
+
+        <!-- 1. 시작 화면 -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+            <div class="w-20 h-20 bg-green-50 text-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="school" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">학교에서 대화하기</h1>
+            <p class="text-green-600 font-bold text-sm mb-10 italic uppercase tracking-widest">School Conversation Quiz</p>
+            
+            <div class="bg-green-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-green-500 w-full">
+                <p class="text-[10px] text-green-900 font-black mb-1 tracking-widest uppercase">Campus Life</p>
+                <p class="text-sm text-green-800 font-medium leading-relaxed">
+                    학교에서 친구, 선생님과 나누는 대화를 알아봅시다!<br>
+                    <span class="font-bold">ကျောင်းတွင် သူငယ်ချင်းများ၊ ဆရာများနှင့် ပြောဆိုသော စကားများကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+            <p class="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Hledan · Yangon · Myanmar</p>
+        </div>
+
+        <!-- 2. 퀴즈 진행 화면 -->
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. 결과 화면 -->
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2 font-['Noto_Sans_KR']">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="graduation-cap" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button id="review-btn" onclick="quiz.showReview()" class="hidden w-full bg-amber-500 text-white font-black py-5 rounded-2xl hover:bg-amber-600 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="search" class="w-5 h-5"></i> 틀린 문제 다시 보기
+            </button>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            <button onclick="location.href='index.html'" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i> 메인 홈으로
+            </button>
+        </div>
+
+        <!-- 4. 틀린 문제 리뷰 화면 -->
+        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto">
+            <div class="flex items-center gap-3 mb-6">
+                <button onclick="quiz.backToResult()" class="p-2 bg-slate-100 rounded-full text-slate-500">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">틀린 문제 복습하기</h2>
+            </div>
+            
+            <div id="review-list" class="space-y-6 pb-10"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="p-6 text-center border-t border-slate-50 mt-auto">
+            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        lucide.createIcons();
+
+        const quizData = [
+            {
+                q: "처음 만난 학급 친구에게 자신을 소개할 때 가장 알맞은 표현은 무엇입니까?",
+                m: "အတန်းဖော်အသစ်ကို ကိုယ့်ကိုယ်ကိုယ် မိတ်ဆက်တဲ့အခါ အသင့်တော်ဆုံး စကားစုက ဘာလဲ။",
+                options: ["반갑습니다. 저는 ○○입니다.", "여기가 어디예요?", "연필 좀 빌려주세요.", "학교가 커요."],
+                correct: 0,
+                hint: "자신의 이름을 밝히고 처음 만났을 때 하는 인사를 생각해보세요.",
+                rationale: "처음 만났을 때는 '반갑습니다'라는 인사와 함께 이름을 말하는 것이 정중합니다."
+            },
+            {
+                q: "교실 위치를 모를 때 친구에게 어떻게 물어봐야 합니까?",
+                m: "စာသင်ခန်း ဘယ်မှာရှိလဲဆိုတာ မသိတဲ့အခါ သူငယ်ချင်းကို ဘယ်လိုမေးရမလဲ။",
+                options: ["교실에 가요.", "교실이 어디에 있어요?", "교실이 예뻐요.", "교실에 없어요."],
+                correct: 1,
+                hint: "'어디'라는 의문사를 사용하여 장소를 물어보는 표현을 찾아보세요.",
+                rationale: "장소의 위치를 물을 때는 '장소 + 이/가 어디에 있어요?'라고 질문합니다."
+            },
+            {
+                q: "수업 시간에 필기도구가 없을 때 친구에게 빌리는 표현으로 알맞은 것은?",
+                m: "စာသင်နေချိန်မှာ ခဲတံ၊ ဘောပင် မပါလာတဲ့အခါ သူငယ်ချင်းဆီကနေ ဘယ်လို ငှားမလဲ။",
+                options: ["볼펜 좀 빌려줄 수 있어요?", "볼펜이 많아요.", "볼펜을 샀어요.", "볼펜이 안 나와요."],
+                correct: 0,
+                hint: "부탁을 할 때 사용하는 '~ㄹ 수 있어요?' 표현을 사용해 보세요.",
+                rationale: "물건을 빌려달라고 요청할 때는 '빌려줄 수 있어요?' 또는 '빌려주세요'라고 말합니다."
+            },
+            {
+                q: "수업에 늦게 도착했을 때 선생님께 드리는 사과 표현은 무엇입니까?",
+                m: "အတန်းထဲကို နောက်ကျမှ ရောက်လာတဲ့အခါ ဆရာ/ဆရာမကို ဘယ်လို တောင်းပန်မလဲ။",
+                options: ["수업이 끝났어요.", "일찍 왔어요.", "늦어서 죄송합니다.", "공부하기 싫어요."],
+                correct: 2,
+                hint: "'늦다'라는 단어를 사용한 사과 표현을 찾아보세요.",
+                rationale: "지각을 했을 때는 '늦어서 죄송합니다/미안합니다'라고 말하는 것이 예의입니다."
+            },
+            {
+                q: "선생님이 수업 중에 \"책 50페이지를 펴세요\"라고 하셨습니다. 학생이 해야 할 행동은?",
+                m: "ဆရာက \"စာအုပ် စာမျက်နှာ ၅၀ ကို ဖွင့်ပါ\" လို့ ပြောရင် ဘာလုပ်ရမလဲ။",
+                options: ["책을 가방에 넣는다.", "책을 친구에게 준다.", "책의 50쪽을 찾아서 펼친다.", "책을 새로 산다."],
+                correct: 2,
+                hint: "'펴다'는 닫혀 있는 것을 여는 행동을 의미합니다.",
+                rationale: "페이지를 펴라는 말은 해당 쪽수를 찾아서 펼치라는 지시입니다."
+            },
+            {
+                q: "오늘 숙제가 있는지 궁금할 때 친구에게 어떻게 질문합니까?",
+                m: "ဒီနေ့ အိမ်စာ ရှိ၊ မရှိ သိချင်တဲ့အခါ သူငယ်ချင်းကို ဘယ်လို မေးမလဲ။",
+                options: ["숙제가 너무 많아요.", "오늘 숙제가 뭐예요?", "숙제를 다 했어요.", "숙제가 재미없어요."],
+                correct: 1,
+                hint: "질문을 할 때는 끝을 올리고 의문사 '뭐'를 사용해보세요.",
+                rationale: "숙제의 내용을 물을 때는 '숙제가 뭐예요?'라고 질문합니다."
+            },
+            {
+                q: "점심시간에 친구와 함께 식사하고 싶을 때 제안하는 말로 알맞은 것은?",
+                m: "နေ့လယ်စာစားချိန်မှာ သူငယ်ချင်းနဲ့ အတူတူ ထမင်းစားဖို့ ဘယ်လို ဖိတ်ခေါ်မလဲ။",
+                options: ["혼자 밥을 먹어요.", "같이 점심 먹으러 갈까요?", "밥이 맛없어요.", "배가 안 고파요."],
+                correct: 1,
+                hint: "함께 무엇인가를 하자고 제안할 때 사용하는 '~ㄹ까요?' 표현을 찾아보세요.",
+                rationale: "동반 행동을 제안할 때는 '같이 ~ㄹ까요?'라는 표현을 주로 사용합니다."
+            },
+            {
+                q: "선생님의 설명을 잘 못 알아들었을 때 다시 부탁하는 표현은?",
+                m: "ဆရာ ရှင်းပြတာကို သေချာနားမလည်တဲ့အခါ နောက်တစ်ခေါက် ပြန်ပြောပေးဖို့ ဘယ်လို တောင်းဆိုမလဲ။",
+                options: ["다 알아요.", "조용히 하세요.", "다시 한번 말씀해 주세요.", "집에 가고 싶어요."],
+                correct: 2,
+                hint: "'다시(Again)'와 '말씀하다(Speak)'를 포함한 정중한 표현을 골라보세요.",
+                rationale: "이해하지 못해 재설명을 부탁할 때는 '다시 한번 말씀해 주세요'라고 정중히 말합니다."
+            },
+            {
+                q: "시험 날짜를 알고 싶을 때 친구에게 물어보는 표현은?",
+                m: "စာမေးပွဲရက်ကို သိချင်တဲ့အခါ သူငယ်ချင်းကို ဘယ်လိုမေးမလဲ။",
+                options: ["시험이 너무 어려워요.", "시험 공부를 해요.", "시험이 언제예요?", "시험이 끝났어요."],
+                correct: 2,
+                hint: "시간을 물어보는 의문사 '언제(When)'를 사용해 보세요.",
+                rationale: "날짜나 시간을 물을 때는 '언제예요?'라고 질문합니다."
+            },
+            {
+                q: "수업이 끝나고 헤어질 때 친구에게 하는 인사는?",
+                m: "အတန်းပြီးလို့ လူစုခွဲတဲ့အခါ သူငယ်ချင်းကို ဘယ်လို နှုတ်ဆက်မလဲ။",
+                options: ["내일 봐요.", "어서 오세요.", "잘 먹겠습니다.", "실례합니다."],
+                correct: 0,
+                hint: "다음 만남(내일)을 기약하는 인사를 찾아보세요.",
+                rationale: "다음에 만날 것을 기약하며 헤어질 때는 '내일 봐요' 또는 '다음에 봐요'라고 인사합니다."
+            }
+        ];
+
+        let state = {
+            currentIndex: 0,
+            score: 0,
+            answered: false,
+            wrongAnswers: []
+        };
+
+        const quiz = {
+            start: () => {
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('quiz-screen').classList.remove('hidden');
+                quiz.renderProgress();
+                quiz.renderQuestion();
+            },
+            renderProgress: () => {
+                const dots = document.getElementById('progress-dots');
+                dots.innerHTML = quizData.map((_, i) => 
+                    `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`
+                ).join('');
+            },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex];
+                state.answered = false;
+                
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / ${quizData.length}`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                
+                current.options.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white shadow-sm";
+                    btn.innerText = opt;
+                    btn.onclick = () => quiz.checkAnswer(index, btn);
+                    optionsContainer.appendChild(btn);
+                });
+
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500 transition-all duration-300";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (selectedIndex, btn) => {
+                if (state.answered) return;
+                state.answered = true;
+                
+                const current = quizData[state.currentIndex];
+                const isCorrect = selectedIndex === current.correct;
+                
+                const allButtons = document.querySelectorAll('.option-btn');
+                if (isCorrect) {
+                    state.score += 10;
+                    btn.classList.add('correct');
+                    sndCorrect.currentTime = 0;
+                    sndCorrect.play();
+                } else {
+                    btn.classList.add('wrong');
+                    allButtons[current.correct].classList.add('correct');
+                    state.wrongAnswers.push({
+                        ...current,
+                        userChoice: current.options[selectedIndex]
+                    });
+                    sndWrong.currentTime = 0;
+                    sndWrong.play();
+                }
+                
+                quiz.showFeedback(isCorrect);
+            },
+            showFeedback: (isCorrect) => {
+                const area = document.getElementById('feedback-area');
+                const card = document.getElementById('feedback-card');
+                const icon = document.getElementById('result-icon');
+                const title = document.getElementById('result-title');
+                const rationale = document.getElementById('rationale-text');
+                const hintText = document.getElementById('hint-text');
+                
+                const current = quizData[state.currentIndex];
+                
+                if (isCorrect) {
+                    card.className = "p-5 rounded-[2rem] mb-6 bg-green-50 text-green-800 border-green-100 shadow-sm";
+                    icon.innerText = "🎉";
+                    title.innerText = "정답입니다! (Excellent!)";
+                } else {
+                    card.className = "p-5 rounded-[2rem] mb-6 bg-red-50 text-red-800 border-red-100 shadow-sm";
+                    icon.innerText = "💡";
+                    title.innerText = "아쉬워요! (Keep going!)";
+                }
+                
+                rationale.innerText = current.rationale;
+                hintText.innerText = current.hint;
+                
+                area.classList.remove('hidden');
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            },
+            next: () => {
+                state.currentIndex++;
+                if (state.currentIndex < quizData.length) {
+                    quiz.renderQuestion();
+                } else {
+                    quiz.showResult();
+                }
+            },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                
+                if (state.wrongAnswers.length > 0) {
+                    document.getElementById('review-btn').classList.remove('hidden');
+                }
+
+                let comment = "";
+                if (state.score === 100) comment = "와우! 완벽합니다! <br>(အရမ်းတော်တယ်!)";
+                else if (state.score >= 80) comment = "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)";
+                else if (state.score >= 50) comment = "조금만 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                else comment = "괜찮아요, 다시 도전해볼까요? <br>(ထပ်လုပ်ကြည့်ရအောင်!)";
+                
+                document.getElementById('final-comment').innerHTML = comment;
+                lucide.createIcons();
+            },
+            showReview: () => {
+                document.getElementById('result-screen').classList.add('hidden');
+                document.getElementById('review-screen').classList.remove('hidden');
+                
+                const list = document.getElementById('review-list');
+                list.innerHTML = '';
+                
+                state.wrongAnswers.forEach((item) => {
+                    const reviewItem = document.createElement('div');
+                    reviewItem.className = "bg-white p-5 rounded-3xl border border-slate-100 shadow-sm";
+                    reviewItem.innerHTML = `
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-[10px] font-black">!</span>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Question</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 leading-snug mb-1">${item.q}</h4>
+                        <p class="text-xs text-slate-400 font-medium mb-4 font-['Pyidaungsu']">${item.m}</p>
+                        
+                        <div class="space-y-2 mb-4">
+                            <div class="p-3 bg-red-50 rounded-xl border border-red-100">
+                                <p class="text-[9px] font-black text-red-400 uppercase mb-1">내 선택 (Your Answer)</p>
+                                <p class="text-xs font-bold text-red-700">${item.userChoice}</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-xl border border-green-100">
+                                <p class="text-[9px] font-black text-green-400 uppercase mb-1">정답 (Correct Answer)</p>
+                                <p class="text-xs font-bold text-green-700">${item.options[item.correct]}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-widest">Explanation</p>
+                            <p class="text-[11px] font-medium text-slate-600 leading-relaxed">${item.rationale}</p>
+                        </div>
+                    `;
+                    list.appendChild(reviewItem);
+                });
+                lucide.createIcons();
+            },
+            backToResult: () => {
+                document.getElementById('review-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+            }
+        };
+    </script>
+</body>
+</html>
