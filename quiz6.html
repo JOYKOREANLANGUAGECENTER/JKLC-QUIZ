@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Directions Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+        .wrong {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        <!-- 상단 컬러 바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <!-- 상단 네비게이션 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto">
+            <div class="w-10 md:w-16"></div> 
+        </nav>
+
+        <!-- 1. 시작 화면 -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+            <div class="w-20 h-20 bg-amber-50 text-amber-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="map-pin" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">길 물어보기</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Asking for Directions</p>
+            
+            <div class="bg-blue-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 6</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    한국에서 길을 찾을 때 필요한 표현들을 배워봅시다!<br>
+                    <span class="font-bold">လမ်းမေးရာတွင် အသုံးပြုလေ့ရှိသော အသုံးအနှုန်းများကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+            <p class="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Hledan · Yangon · Myanmar</p>
+        </div>
+
+        <!-- 2. 퀴즈 진행 화면 -->
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. 결과 화면 -->
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="map" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button id="review-btn" onclick="quiz.showReview()" class="hidden w-full bg-amber-500 text-white font-black py-5 rounded-2xl hover:bg-amber-600 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="search" class="w-5 h-5"></i> 틀린 문제 다시 보기
+            </button>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            <button onclick="location.href='index.html'" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i> 메인 홈으로
+            </button>
+        </div>
+
+        <!-- 4. 틀린 문제 리뷰 화면 -->
+        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto">
+            <div class="flex items-center gap-3 mb-6">
+                <button onclick="quiz.backToResult()" class="p-2 bg-slate-100 rounded-full text-slate-500">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">틀린 문제 복습하기</h2>
+            </div>
+            <div id="review-list" class="space-y-6 pb-10"></div>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-50 mt-auto">
+            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "모르는 사람에게 길을 물어보기 전에 가장 먼저 해야 할 인사는 무엇입니까?",
+                m: "လမ်းမမေးခင် လူစိမ်းကို ပထမဆုံးပြောရမယ့် နှုတ်ဆက်စကားက ဘာလဲ။",
+                options: ["실례합니다", "축하합니다", "반갑습니다", "수고하세요"],
+                correct: 0,
+                hint: "영어의 'Excuse me'와 같은 표현을 골라보세요.",
+                rationale: "길을 묻기 위해 상대방의 주의를 끌 때 사용하는 가장 정중한 표현입니다."
+            },
+            {
+                q: "\"은행이 어디에 있어요?\"라는 질문의 뜻은 무엇입니까?",
+                m: "\"은행이 어디에 있어요?\" ဆိုတဲ့ မေးခွန်းရဲ့ အဓိပ္ပာယ်က ဘာလဲ။",
+                options: ["은행이 맛있어요?", "은행이 몇 시에 열어요?", "은행이 어느 방향에 위치해 있나요?", "은행에서 돈을 찾아요."],
+                correct: 2,
+                hint: "'어디'는 장소를 물어볼 때 사용합니다.",
+                rationale: "'어디'는 위치나 장소를 묻는 의문사입니다."
+            },
+            {
+                q: "'똑바로 가세요'라는 말을 들었을 때 어떻게 가야 합니까?",
+                m: "'똑바로 가세요' လို့ ကြားရင် ဘယ်လိုသွားရမလဲ။",
+                options: ["뒤로 돌아가요", "왼쪽으로 가요", "오른쪽으로 가요", "앞으로 곧장 가요"],
+                correct: 3,
+                hint: "방향을 꺾지 않고 정면으로 가는 것을 말합니다.",
+                rationale: "'똑바로'는 방향의 변화 없이 직선으로 나아가는 것을 의미합니다."
+            },
+            {
+                q: "길을 가다가 '오른쪽으로 도세요'라는 말을 들었습니다. 무슨 뜻입니까?",
+                m: "လမ်းသွားနေရင်း '오른쪽으로 도세요' လို့ ကြားရင် ဘာကို ဆိုလိုတာလဲ။",
+                options: ["좌회전하세요", "우회전하세요", "멈추세요", "건너가세요"],
+                correct: 1,
+                hint: "시계 방향으로 방향을 바꾸라는 뜻입니다.",
+                rationale: "오른쪽으로 도는 것은 한자어로 '우회전'이라고 합니다."
+            },
+            {
+                q: "장소가 길 건너에 있을 때 사용하는 표현은 무엇입니까?",
+                m: "လမ်းတစ်ဖက်မှာရှိတဲ့ နေရာကို ပြောတဲ့အခါ ဘယ်အသုံးအနှုန်းကို သုံးသလဲ။",
+                options: ["옆에 있어요", "안에 있어요", "맞은편에 있어요", "뒤에 있어요"],
+                correct: 2,
+                hint: "길을 하나 사이에 두고 마주 보고 있는 위치입니다.",
+                rationale: "'맞은편' 또는 '건너편'은 길의 반대쪽을 의미합니다."
+            },
+            {
+                q: "\"이 근처에 편의점이 있어요?\"라는 질문에 대한 알맞은 대답은?",
+                m: "\"ဒီနားမှာ စတိုးဆိုင် ရှိလား\" ဆိုတဲ့ မေးခွန်းအတွက် အမှန်ကန်ဆုံး အဖြေက ဘာလဲ။",
+                options: ["네, 저기 사거리에 있어요.", "네, 편의점이 비싸요.", "아니요, 편의점에 가요.", "네, 편의점을 좋아해요."],
+                correct: 0,
+                hint: "위치를 알려주는 대답을 찾아보세요.",
+                rationale: "장소의 유무를 확인한 뒤 구체적인 위치(사거리)를 설명하는 것이 자연스럽습니다."
+            },
+            {
+                q: "길이 네 갈래로 나누어지는 곳을 무엇이라고 합니까?",
+                m: "လမ်းလေးခွဆုံတဲ့ နေရာကို ဘာလို့ ခေါ်သလဲ။",
+                options: ["모퉁이", "사거리", "신호등", "횡단보도"],
+                correct: 1,
+                hint: "숫자 4(사)가 들어간 단어를 생각해보세요.",
+                rationale: "네 방향으로 길이 난 교차로를 '사거리'라고 합니다."
+            },
+            {
+                q: "시간이 얼마나 걸리는지 궁금할 때 하는 질문은?",
+                m: "အချိန် ဘယ်လောက်ကြာမလဲ သိချင်တဲ့အခါ ဘယ်လိုမေးမလဲ။",
+                options: ["얼마예요?", "누구예요?", "어디예요?", "얼마나 걸려요?"],
+                correct: 3,
+                hint: "시간의 소요를 묻는 표현입니다.",
+                rationale: "시간이나 거리가 얼마나 소요되는지 물을 때는 '얼마나 걸려요?'라고 합니다."
+            },
+            {
+                q: "길을 찾지 못하고 헤매고 있을 때 사용하는 표현은?",
+                m: "လမ်းပျောက်နေတဲ့အခါ ဘယ်လိုပြောမလဲ။",
+                options: ["길을 닦아요", "길을 잃었어요", "길이 넓어요", "길을 만들어요"],
+                correct: 1,
+                hint: "'잃어버리다'와 비슷한 표현입니다.",
+                rationale: "자신의 위치를 모르거나 목적지를 찾지 못할 때 '길을 잃었다'고 표현합니다."
+            },
+            {
+                q: "상대방이 길을 가르쳐 주었을 때 마지막에 하는 인사는?",
+                m: "လမ်းပြပေးတဲ့အတွက် ကျေးဇူးတင်စကားကို ဘယ်လိုပြောမလဲ။",
+                options: ["미안합니다", "괜찮습니다", "감사합니다", "실례했습니다"],
+                correct: 2,
+                hint: "고마움을 표현하는 가장 기본 인사입니다.",
+                rationale: "도움을 받았을 때는 감사의 표시를 하는 것이 예의입니다."
+            }
+        ];
+
+        let state = {
+            currentIndex: 0,
+            score: 0,
+            answered: false,
+            wrongAnswers: []
+        };
+
+        const quiz = {
+            start: () => {
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('quiz-screen').classList.remove('hidden');
+                quiz.renderProgress();
+                quiz.renderQuestion();
+            },
+            renderProgress: () => {
+                const dots = document.getElementById('progress-dots');
+                dots.innerHTML = quizData.map((_, i) => 
+                    `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`
+                ).join('');
+            },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex];
+                state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / ${quizData.length}`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                
+                current.options.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white shadow-sm";
+                    btn.innerText = opt;
+                    btn.onclick = () => quiz.checkAnswer(index, btn);
+                    optionsContainer.appendChild(btn);
+                });
+
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500 transition-all duration-300";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (selectedIndex, btn) => {
+                if (state.answered) return;
+                state.answered = true;
+                const current = quizData[state.currentIndex];
+                const isCorrect = selectedIndex === current.correct;
+                
+                if (isCorrect) {
+                    state.score += 10;
+                    btn.classList.add('correct');
+                    sndCorrect.currentTime = 0;
+                    sndCorrect.play().catch(() => {});
+                } else {
+                    btn.classList.add('wrong');
+                    document.querySelectorAll('.option-btn')[current.correct].classList.add('correct');
+                    state.wrongAnswers.push({ ...current, userChoice: current.options[selectedIndex] });
+                    sndWrong.currentTime = 0;
+                    sndWrong.play().catch(() => {});
+                }
+                quiz.showFeedback(isCorrect);
+            },
+            showFeedback: (isCorrect) => {
+                const current = quizData[state.currentIndex];
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 shadow-sm border ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => {
+                state.currentIndex++;
+                if (state.currentIndex < quizData.length) quiz.renderQuestion();
+                else quiz.showResult();
+            },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                if (state.wrongAnswers.length > 0) document.getElementById('review-btn').classList.remove('hidden');
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            },
+            showReview: () => {
+                document.getElementById('result-screen').classList.add('hidden');
+                document.getElementById('review-screen').classList.remove('hidden');
+                const list = document.getElementById('review-list');
+                list.innerHTML = '';
+                state.wrongAnswers.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "bg-white p-5 rounded-3xl border border-slate-100 shadow-sm";
+                    div.innerHTML = `
+                        <h4 class="font-bold text-slate-800 mb-1">${item.q}</h4>
+                        <p class="text-xs text-slate-400 mb-4 font-['Pyidaungsu']">${item.m}</p>
+                        <div class="space-y-2 mb-4 text-xs font-bold">
+                            <div class="p-3 bg-red-50 text-red-700 rounded-xl">내 선택: ${item.userChoice}</div>
+                            <div class="p-3 bg-green-50 text-green-700 rounded-xl">정답: ${item.options[item.correct]}</div>
+                        </div>
+                        <p class="text-[11px] text-slate-600">${item.rationale}</p>
+                    `;
+                    list.appendChild(div);
+                });
+                lucide.createIcons();
+            },
+            backToResult: () => {
+                document.getElementById('review-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+            }
+        };
+
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
