@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Restaurant Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+        .wrong {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        <!-- 상단 컬러 바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <!-- 상단 네비게이션 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto">
+            <div class="w-10 md:w-16"></div> 
+        </nav>
+
+        <!-- 1. 시작 화면 -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+            <!-- 주제에 맞춰 식기 아이콘과 붉은색 톤으로 변경 -->
+            <div class="w-20 h-20 bg-rose-50 text-rose-500 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="utensils" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">식당에서 주문하기</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Ordering at a Restaurant</p>
+            
+            <div class="bg-blue-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 7</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    식당에서 음식을 주문하고 계산할 때 필요한 표현들을 배워봅시다!<br>
+                    <span class="font-bold">စားသောက်ဆိုင်တွင် အစားအစာမှာယူခြင်းနှင့် ငွေရှင်းရာတွင် အသုံးပြုသော အသုံးအနှုန်းများကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+            <p class="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Hledan · Yangon · Myanmar</p>
+        </div>
+
+        <!-- 2. 퀴즈 진행 화면 -->
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. 결과 화면 -->
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button id="review-btn" onclick="quiz.showReview()" class="hidden w-full bg-amber-500 text-white font-black py-5 rounded-2xl hover:bg-amber-600 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="search" class="w-5 h-5"></i> 틀린 문제 다시 보기
+            </button>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            <button onclick="location.href='index.html'" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i> 메인 홈으로
+            </button>
+        </div>
+
+        <!-- 4. 틀린 문제 리뷰 화면 -->
+        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto">
+            <div class="flex items-center gap-3 mb-6">
+                <button onclick="quiz.backToResult()" class="p-2 bg-slate-100 rounded-full text-slate-500">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">틀린 문제 복습하기</h2>
+            </div>
+            <div id="review-list" class="space-y-6 pb-10"></div>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-50 mt-auto">
+            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        // 새롭게 생성된 '식당에서 주문하기' 퀴즈 데이터 적용
+        const quizData = [
+            {
+                q: "식당에 처음 들어갔을 때, 종업원이 손님의 인원수를 물어보기 위해 하는 말로 가장 알맞은 것은 무엇입니까?",
+                m: "စားသောက်ဆိုင်သို့ ပထမဆုံးဝင်ရောက်ချိန်တွင် ဝန်ထမ်းမှ ဧည့်သည်အရေအတွက်ကို မေးမြန်းရာတွင် အသင့်တော်ဆုံးစကားမှာ အဘယ်နည်း။",
+                options: ["누구세요?", "몇 분이세요?", "얼마예요?", "몇 시예요?"],
+                correct: 1,
+                hint: "사람의 수를 높임말로 세는 단위를 생각해보세요.",
+                rationale: "식당에서 손님의 인원수를 물어볼 때는 사람을 높여 부르는 단위인 '분'을 사용합니다."
+            },
+            {
+                q: "메뉴판을 보고 음식을 고른 후, 주문을 하기 위해 종업원을 부를 때 가장 자연스러운 호칭은 무엇입니까?",
+                m: "မီနူးကိုကြည့်ပြီး အစားအစာရွေးချယ်ပြီးနောက် မှာယူရန် ဝန်ထမ်းကိုခေါ်ရာတွင် အသဘာဝအကျဆုံး အခေါ်အဝေါ်မှာ အဘယ်နည်း။",
+                options: ["당신!", "여보세요!", "아저씨!", "저기요!"],
+                correct: 3,
+                hint: "'저쪽에 있는 사람'을 부를 때 쓰는 말에서 유래한 표현을 찾아보세요.",
+                rationale: "식당이나 카페에서 종업원의 주의를 끌거나 부를 때 가장 흔하고 자연스럽게 쓰는 표현입니다."
+            },
+            {
+                q: "삼겹살 2인분과 된장찌개 1개를 주문할 때 올바른 표현은 무엇입니까?",
+                m: "ဝက်သားသုံးထပ်သား ၂ ပွဲနှင့် ပဲငပိဟင်းရည် ၁ ခွက်ကို မှာယူရာတွင် မှန်ကန်သော အသုံးအနှုန်းမှာ အဘယ်နည်း။",
+                options: ["삼겹살 이 인분하고 된장찌개 하나 주세요.", "삼겹살 두 개하고 된장찌개 한 마리 주세요.", "삼겹살 두 명하고 된장찌개 한 명 주세요.", "삼겹살 이 번하고 된장찌개 한 개 주세요."],
+                correct: 0,
+                hint: "고기 주문 수량을 세는 단위와 단품 메뉴를 세는 단위를 각각 다르게 씁니다.",
+                rationale: "고기 메뉴는 보통 사람 수에 따른 분량인 '인분'으로 세고, 찌개류나 단품 메뉴는 '하나, 둘' 개수로 셉니다."
+            },
+            {
+                q: "매운 음식을 잘 못 먹어서, 원래보다 덜 맵게 해달라고 요청할 때 알맞은 말은 무엇입니까?",
+                m: "အစပ် သိပ်မစားနိုင်သဖြင့် မူလထက် အစပ်လျှော့ပေးရန် တောင်းဆိုရာတွင် အသင့်တော်ဆုံးစကားမှာ အဘယ်နည်း။",
+                options: ["아주 맵게 해 주세요.", "짜게 해 주세요.", "조금 덜 맵게 해 주세요.", "달게 해 주세요."],
+                correct: 2,
+                hint: "'더(more)'의 반대말을 사용하여 매운 정도를 줄여달라고 해보세요.",
+                rationale: "'덜'은 기준보다 약하게, 적게라는 뜻의 부사로, 매운맛을 줄여달라고 요청할 때 씁니다."
+            },
+            {
+                q: "먹고 있던 김치가 다 떨어져서 종업원에게 더 달라고 할 때 쓰는 올바른 표현은 무엇입니까?",
+                m: "စားနေသော ကင်မ်ချီ ကုန်သွားသဖြင့် ဝန်ထမ်းထံမှ ထပ်တောင်းရာတွင် အသုံးပြုသော မှန်ကန်သည့် အသုံးအနှုန်းမှာ အဘယ်နည်း။",
+                options: ["김치 좀 치워 주세요.", "김치 좀 빼 주세요.", "김치 좀 깎아 주세요.", "김치 좀 더 주세요."],
+                correct: 3,
+                hint: "수량이나 양을 추가할 때 쓰는 부사를 사용하세요.",
+                rationale: "부족한 반찬이나 음식을 추가로 요구할 때는 '더 주세요'라고 말합니다."
+            },
+            {
+                q: "식당에서 \"물은 셀프(self)입니다.\"라는 안내문을 보았습니다. 이 말의 뜻은 무엇입니까?",
+                m: "စားသောက်ဆိုင်တွင် \"ရေက ကိုယ့်ဘာသာကိုယ် ယူသောက်ရပါမည် (Self)\" ဆိုသည့် ဆိုင်းဘုတ်ကို တွေ့ခဲ့သည်။ ဤစကား၏ အဓိပ္ပာယ်မှာ အဘယ်နည်း။",
+                options: ["물은 손님이 직접 가져다 마셔야 합니다.", "물은 종업원이 테이블로 가져다 줍니다.", "물은 돈을 내고 사야 합니다.", "물을 마시면 안 됩니다."],
+                correct: 0,
+                hint: "영어 단어 'self(자신)'가 한국 식당에서 어떤 의미로 쓰이는지 떠올려보세요.",
+                rationale: "한국 식당에서 '셀프(self)'는 손님이 스스로 물이나 반찬을 직접 가져와야 한다는 의미로 흔히 쓰입니다."
+            },
+            {
+                q: "\"여기 물수건 좀 주시겠어요?\"라는 질문의 의도는 무엇인가요?",
+                m: "\"ဒီမှာ ရေဝတ်လေး နည်းနည်း ပေးနိုင်မလား\" ဆိုသည့် မေးခွန်း၏ ရည်ရွယ်ချက်မှာ အဘယ်နည်း။",
+                options: ["물을 마시기 위해 컵을 요청하는 것", "결제를 하기 위해 영수증을 요청하는 것", "손을 닦기 위해 젖은 수건을 요청하는 것", "음식을 포장하기 위해 그릇을 요청하는 것"],
+                correct: 2,
+                hint: "'물'이 묻어있는 '수건'이 식당에서 어떤 용도로 쓰이는지 생각해보세요.",
+                rationale: "식사 전후에 손을 닦기 위해 축축하게 젖은 수건(물티슈나 물수건)을 달라고 부탁하는 표현입니다."
+            },
+            {
+                q: "음식을 다 먹고 식당을 나가기 전에 카운터에서 돈을 내며 어떻게 말해야 하나요?",
+                m: "အစားအစာ စားသောက်ပြီးနောက် ဆိုင်မှမထွက်ခွာမီ ကောင်တာတွင် ငွေရှင်းရာ၌ မည်သို့ပြောရမည်နည်း။",
+                options: ["취소해 주세요.", "계산해 주세요.", "환불해 주세요.", "주문해 주세요."],
+                correct: 1,
+                hint: "음식값을 지불할 때 사용하는 표현을 고르세요.",
+                rationale: "식사를 마치고 음식값을 치를 때 '계산하다'라는 동사를 사용합니다."
+            },
+            {
+                q: "친구가 밥을 사고 내가 낼 필요가 없을 때, 한국에서는 어떤 표현을 주로 사용하나요?",
+                m: "သူငယ်ချင်းက ထမင်းဝယ်ကျွေးပြီး မိမိက ငွေရှင်းစရာမလိုသည့်အခါ ကိုရီးယားတွင် မည်သည့်အသုံးအနှုန်းကို အဓိက သုံးသနည်း။",
+                options: ["친구가 밥을 샀어요.", "친구가 밥을 버렸어요.", "친구가 밥을 훔쳤어요.", "친구가 밥을 팔았어요."],
+                correct: 0,
+                hint: "돈을 지불하고 음식을 제공하는 행동을 나타내는 동사를 찾아보세요.",
+                rationale: "다른 사람을 위해 돈을 지불할 때 한국어에서는 '밥을 사다' 또는 '한턱내다'라는 표현을 흔히 사용합니다."
+            },
+            {
+                q: "친구들과 밥을 먹은 후, 각자 자기가 먹은 음식값을 따로 내고 싶을 때 카운터에서 하는 말은?",
+                m: "သူငယ်ချင်းများနှင့် ထမင်းစားပြီးနောက် မိမိစားသော အစားအစာတန်ဖိုးကို အသီးသီးခွဲ၍ ရှင်းလိုသောအခါ ကောင်တာတွင် မည်သို့ပြောရမည်နည်း။",
+                options: ["현금으로 영수증 주세요.", "따로따로 계산해 주세요.", "한 번에 계산해 주세요.", "외상으로 해 주세요."],
+                correct: 1,
+                hint: "합치지 않고 각각 나누어서 낸다는 의미의 단어를 찾아보세요.",
+                rationale: "여럿이 함께 먹은 음식값을 묶어서 내지 않고 각자 나누어서 낼 때 '따로따로'라는 부사를 씁니다."
+            }
+        ];
+
+        let state = {
+            currentIndex: 0,
+            score: 0,
+            answered: false,
+            wrongAnswers: []
+        };
+
+        const quiz = {
+            start: () => {
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('quiz-screen').classList.remove('hidden');
+                quiz.renderProgress();
+                quiz.renderQuestion();
+            },
+            renderProgress: () => {
+                const dots = document.getElementById('progress-dots');
+                dots.innerHTML = quizData.map((_, i) => 
+                    `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`
+                ).join('');
+            },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex];
+                state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / ${quizData.length}`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                
+                current.options.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white shadow-sm";
+                    btn.innerText = opt;
+                    btn.onclick = () => quiz.checkAnswer(index, btn);
+                    optionsContainer.appendChild(btn);
+                });
+
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500 transition-all duration-300";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (selectedIndex, btn) => {
+                if (state.answered) return;
+                state.answered = true;
+                const current = quizData[state.currentIndex];
+                const isCorrect = selectedIndex === current.correct;
+                
+                if (isCorrect) {
+                    state.score += 10;
+                    btn.classList.add('correct');
+                    sndCorrect.currentTime = 0;
+                    sndCorrect.play().catch(() => {});
+                } else {
+                    btn.classList.add('wrong');
+                    document.querySelectorAll('.option-btn')[current.correct].classList.add('correct');
+                    state.wrongAnswers.push({ ...current, userChoice: current.options[selectedIndex] });
+                    sndWrong.currentTime = 0;
+                    sndWrong.play().catch(() => {});
+                }
+                quiz.showFeedback(isCorrect);
+            },
+            showFeedback: (isCorrect) => {
+                const current = quizData[state.currentIndex];
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 shadow-sm border ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => {
+                state.currentIndex++;
+                if (state.currentIndex < quizData.length) quiz.renderQuestion();
+                else quiz.showResult();
+            },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                if (state.wrongAnswers.length > 0) document.getElementById('review-btn').classList.remove('hidden');
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            },
+            showReview: () => {
+                document.getElementById('result-screen').classList.add('hidden');
+                document.getElementById('review-screen').classList.remove('hidden');
+                const list = document.getElementById('review-list');
+                list.innerHTML = '';
+                state.wrongAnswers.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "bg-white p-5 rounded-3xl border border-slate-100 shadow-sm";
+                    div.innerHTML = `
+                        <h4 class="font-bold text-slate-800 mb-1">${item.q}</h4>
+                        <p class="text-xs text-slate-400 mb-4 font-['Pyidaungsu']">${item.m}</p>
+                        <div class="space-y-2 mb-4 text-xs font-bold">
+                            <div class="p-3 bg-red-50 text-red-700 rounded-xl">내 선택: ${item.userChoice}</div>
+                            <div class="p-3 bg-green-50 text-green-700 rounded-xl">정답: ${item.options[item.correct]}</div>
+                        </div>
+                        <p class="text-[11px] text-slate-600">${item.rationale}</p>
+                    `;
+                    list.appendChild(div);
+                });
+                lucide.createIcons();
+            },
+            backToResult: () => {
+                document.getElementById('review-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+            }
+        };
+
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
