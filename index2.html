@@ -9,7 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            scroll-behavior: smooth; 
+            /* [우클릭/드래그 금지] 텍스트 선택 방지 CSS */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
         .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
@@ -20,7 +28,8 @@
         @keyframes wave { 0%, 100% { height: 8px; } 50% { height: 20px; } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<!-- [우클릭/드래그 금지] oncontextmenu, ondragstart, onselectstart 속성 추가 -->
+<body class="bg-slate-50 text-slate-900" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
     <!-- 배경음악 파일 -->
     <audio id="logo-song" src="logosong2.mp3" loop></audio>
@@ -58,6 +67,25 @@
         </div>
     </nav>
 
+    <!-- 공지사항 (Notice Announcement Bar) -->
+    <div class="bg-slate-900 text-white relative z-40 shadow-md border-b-4 border-yellow-400">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-start sm:items-center justify-between gap-4">
+            <div class="flex items-start sm:items-center gap-3">
+                <div class="mt-0.5 sm:mt-0 flex-shrink-0 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg">
+                    <i data-lucide="megaphone" class="w-3.5 h-3.5"></i>
+                </div>
+                <p class="text-xs md:text-sm font-medium leading-relaxed">
+                    <span class="font-black text-yellow-400 mr-1 tracking-widest">[공지]</span>
+                    JKLC ၄လပိုင်း သင်္ကြန် SPECIAL PROMOTION လုပ်ဆောင်နေပါသည် !! <br class="hidden md:block lg:hidden">
+                    <span class="text-slate-400 text-[11px] sm:text-xs ml-0 sm:ml-2">အသေးစိတ်အချက်အလက်များကို Community board တွင် ကြည့်ရှုပါ။</span>
+                </p>
+            </div>
+            <a href="board.html" class="flex-shrink-0 mt-1 sm:mt-0 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition whitespace-nowrap bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20">
+                더보기 <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            </a>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="relative py-12 md:py-20 overflow-hidden bg-white">
         <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center text-center md:text-left">
@@ -67,7 +95,7 @@
                     Study Korean <br> <span class="text-blue-600 underline decoration-yellow-400 decoration-4">With JKLC</span>
                 </h1>
                 <p class="text-lg text-slate-500 font-medium mb-8 leading-relaxed max-w-lg">
-                    흘레단에서 한국인 선생님과 같이 공부해요. BASIC부터 TOPIK, SPEAKING까지, JKLC와 함께 즐겁게 공부하세요!
+                    한국인 선생님과 같이 공부해요. BASIC부터 TOPIK, SPEAKING까지, JKLC와 함께 즐겁게 공부하세요!
                 </p>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -90,14 +118,11 @@
                 </div>
             </div>
             
-            <!-- 자동 회전 이미지 슬라이더 섹션 (수정됨: 자연스러운 무한 롤링) -->
+            <!-- 자동 회전 이미지 슬라이더 섹션 -->
             <div class="relative">
                 <div class="absolute -inset-4 bg-blue-50 rounded-[3rem] -rotate-2"></div>
-                <!-- overflow-hidden으로 넘치는 이미지는 잘리게 만듭니다 -->
                 <div class="relative rounded-[2.5rem] shadow-2xl overflow-hidden h-[350px] md:h-[500px] w-full bg-slate-100">
-                    <!-- flex를 사용해 이미지들을 가로로 쭉 이어 붙입니다. transition은 JS에서 제어합니다. -->
                     <div id="slider-container" class="flex w-full h-full" style="transform: translateX(0%);">
-                        <!-- shrink-0 클래스를 추가하여 이미지가 찌그러지지 않고 원본 너비를 유지하게 합니다 -->
                         <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/mainimg.png" alt="Students Learning 1" class="w-full h-full object-cover shrink-0">
                         <img src="1.png" alt="Students Learning 2" class="w-full h-full object-cover shrink-0">
                         <img src="2.png" alt="Students Learning 3" class="w-full h-full object-cover shrink-0">
@@ -205,7 +230,7 @@
                     <!-- Right: Map -->
                     <div class="lg:col-span-3 h-[400px] md:h-[450px] w-full rounded-[2.5rem] overflow-hidden border-8 border-white/5 shadow-inner relative text-slate-900">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.12345!2d96.123194!3d16.832028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDQ5JzU1LjMiTiA5NsKwMDcnMjMuNSJF!5e0!3m2!1sko!2smm!4v1711070000000!5m2!1sko!2smm" 
+                            src="https://maps.google.com/maps?q=16.8320278,96.1231944+(JKLC)&amp;hl=ko&amp;z=15&amp;output=embed" 
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                         <div class="absolute top-6 left-6 bg-white text-slate-900 px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-2xl tracking-[0.2em]">📍 JKLC Official Pinpoint</div>
@@ -220,7 +245,7 @@
     <footer class="bg-slate-50 py-16">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <img src="logo.png" alt="JKLC" class="h-8 mx-auto mb-6" onerror="this.style.display='none';">
-            
+             
             <div class="flex justify-center items-center gap-4 mb-6">
                 <a href="https://www.facebook.com/profile.php?id=61555324649048" target="_blank" class="p-2.5 bg-white border border-slate-200 rounded-full text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition shadow-sm">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
@@ -283,7 +308,7 @@
 
         // Hero Image Slider Logic (자연스럽게 이어지는 무한 슬라이드)
         const sliderContainer = document.getElementById('slider-container');
-        
+         
         if (sliderContainer) {
             // 첫 번째 이미지를 복제해서 맨 뒤에 붙여 자연스럽게 이어지도록 만듭니다.
             const firstSlideClone = sliderContainer.children[0].cloneNode(true);
@@ -291,15 +316,15 @@
 
             const slidesCount = sliderContainer.children.length;
             let currentSlide = 0;
-            
+             
             if (slidesCount > 1) {
                 setInterval(() => {
                     currentSlide++;
-                    
+                     
                     // 슬라이드 넘어가는 애니메이션 켜기
                     sliderContainer.style.transition = 'transform 1s ease-in-out';
                     sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-                    
+                     
                     // 만약 복제해둔 마지막(첫 번째와 똑같은) 이미지에 도달했다면
                     if (currentSlide === slidesCount - 1) {
                         setTimeout(() => {
