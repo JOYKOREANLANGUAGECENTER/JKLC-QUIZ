@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; /* 노란색 (JOY) */
+            --k: #0070BB; /* 파란색 (KOREAN) */
+            --l: #228B22; /* 초록색 (LANGUAGE) */
+            --c: #ED1C24; /* 빨간색 (CENTER) */
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
+        }
+        
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .news-list-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-list-card:hover { transform: translateY(-3px); border-color: var(--k); box-shadow: 0 15px 20px -5px rgba(0, 112, 187, 0.08); }
+        
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <div class="jklc-top-bar"></div>
+
+    <!-- 네비게이션 -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">News Archive</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span id="nav-date" class="text-xs font-black text-slate-800">YYYY. MM. DD</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
+                </div>
+                <div class="flex gap-2 relative z-10">
+                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 헤더 영역 -->
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full relative z-10">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4 shadow-inner">
+                <i data-lucide="library" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-3">글로벌 뉴스 모아보기</h1>
+            <p class="text-sm font-bold text-slate-500 mb-1">하루하루 쌓이는 지식, 지난 뉴스들도 다시 복습해 보세요!</p>
+            <p class="text-xs font-medium text-slate-400 burmese-text">ယခင်သတင်းများကို ဤနေရာတွင် ပြန်လည်ဖတ်ရှုလေ့လာနိုင်ပါသည်။</p>
+        </div>
+        
+        <!-- 검색 및 필터 -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-grow">
+                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                <input type="text" placeholder="검색어 입력 (ရှာဖွေရန်)..." class="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 transition">
+            </div>
+            <button class="bg-slate-900 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-md whitespace-nowrap">
+                Search
+            </button>
+        </div>
+    </header>
+
+    <!-- 뉴스 리스트 메인 콘텐츠 -->
+    <main class="max-w-4xl mx-auto px-4 pb-20 space-y-6 w-full flex-grow relative z-10">
+
+        <!-- 뉴스 리스트 아이템 1 (최신) -->
+        <a href="news.html" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
+            <div class="absolute top-4 right-4 z-20 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                New
+            </div>
+            <div class="flex flex-col sm:flex-row">
+                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200">
+                    <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="News Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                </div>
+                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md">2026. 03. 25</span>
+                        <div class="flex gap-1">
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">국제</span>
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">경제</span>
+                        </div>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">미국-이란 협상 제안 및 카타르 LNG 불가항력 선언</h2>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">트럼프 미국 대통령이 이란에 종전 조건을 제안한 가운데 중동 사태 여파로 카타르가 LNG 공급 불가항력을 선언했습니다...</p>
+                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
+                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 뉴스 리스트 아이템 2 -->
+        <a href="#" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row">
+                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="News Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                </div>
+                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">2026. 03. 24</span>
+                        <div class="flex gap-1">
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">사회</span>
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">문화</span>
+                        </div>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">한국 유학생 장학금 제도 확대 발표 및 K-POP 소식</h2>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">한국 교육부에서 외국인 유학생을 위한 장학금 지원을 대폭 확대한다고 밝혔습니다. 특히 동남아시아 학생들을 대상으로...</p>
+                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
+                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 뉴스 리스트 아이템 3 -->
+        <a href="#" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row">
+                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="News Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                </div>
+                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">2026. 03. 23</span>
+                        <div class="flex gap-1">
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">환경</span>
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">과학</span>
+                        </div>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">글로벌 기후 변화 대응을 위한 새로운 국제 협약 체결</h2>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">주요 선진국들이 모여 탄소 배출량을 줄이기 위한 강력한 규제안에 합의했습니다. 친환경 에너지를 위한 투자도 늘어날 전망입니다...</p>
+                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
+                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- 페이지네이션 (더 보기) -->
+        <div class="pt-8 text-center">
+            <button class="px-8 py-3 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-50 hover:text-blue-600 transition shadow-sm inline-flex items-center gap-2">
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Load More
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 최고의 한국어 교육 센터
+            </p>
+            <div class="bg-slate-50 inline-block px-6 py-3 rounded-2xl border border-slate-100 mt-2 mb-6">
+                <p class="text-xs font-bold text-slate-600 flex items-center gap-2">
+                    <i data-lucide="smile" class="w-4 h-4 text-blue-500"></i> Have a great day studying!
+                </p>
+                <p class="text-[11px] text-slate-500 font-medium burmese-text mt-1">ဒီနေ့လည်း ပျော်ရွှင်စွာ လေ့လာကြပါစို့။</p>
+            </div>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 오늘 날짜 포맷 함수 (YYYY. MM. DD 포맷)
+        function getFormattedDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}. ${month}. ${day}`;
+        }
+
+        // 페이지 로드 완료 시 아이콘 및 날짜 초기화
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // 상단 네비게이션 날짜 자동 적용
+            const currentDate = getFormattedDate();
+            const navDateElement = document.getElementById('nav-date');
+            if(navDateElement) {
+                navDateElement.innerText = currentDate;
+            }
+        });
+    </script>
+</body>
+</html>
