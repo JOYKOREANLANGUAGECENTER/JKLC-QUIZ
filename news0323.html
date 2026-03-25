@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (03.23)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; /* 노란색 (JOY) */
+            --k: #0070BB; /* 파란색 (KOREAN) */
+            --l: #228B22; /* 초록색 (LANGUAGE) */
+            --c: #ED1C24; /* 빨간색 (CENTER) */
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
+        }
+        
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+        
+        /* 단어장 스타일 */
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+
+        /* 워터마크 스타일 (불펌 방지) */
+        .watermark-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none; /* 클릭 방해 금지 */
+            z-index: 9999; /* 최상단에 위치 */
+            background-image: url('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png');
+            background-repeat: repeat;
+            background-size: 750px; /* 밀도를 낮춘 넓은 간격 */
+            opacity: 0.08; 
+            transform: rotate(-20deg); 
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <!-- 불펌 방지 워터마크 -->
+    <div class="watermark-bg"></div>
+
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span class="text-xs font-black text-slate-800">2026. 03. 23</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
+                </div>
+                <div class="flex gap-2 relative z-10">
+                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
+                    </a>
+                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20">
+                <i data-lucide="globe" class="w-40 h-40"></i>
+            </div>
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="coffee" class="w-6 h-6"></i>
+            </div>
+            <div class="relative z-10 w-full">
+                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 23</span>
+                </div>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 한국 및 세계 소식을 확인하세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+
+        <!-- News Item 1: 기후 변화 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wind Turbines and Nature" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Environment / Science</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-emerald-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 과학
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">글로벌 기후 변화 대응을 위한 새로운 국제 협약 체결</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        주요 선진국들이 모여 탄소 배출량을 줄이기 위한 강력한 규제안에 합의했습니다. 이번 협약을 통해 친환경 에너지를 위한 글로벌 투자와 기술 개발이 대폭 늘어날 전망입니다.
+                    </p>
+                </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကမ္ဘာလုံးဆိုင်ရာ ရာသီဥတုပြောင်းလဲမှုကို တုံ့ပြန်ရန် နိုင်ငံတကာ သဘောတူညီချက်အသစ် လက်မှတ်ရေးထိုး</h2>
+                    <p class="text-slate-500 text-xs">
+                        အဓိက ဖွံ့ဖြိုးပြီးနိုင်ငံများ စုဝေးကာ ကာဗွန်ထုတ်လွှတ်မှု လျှော့ချရန် ခိုင်မာသော စည်းမျဉ်းများကို သဘောတူညီခဲ့ကြသည်။ ဤသဘောတူညီချက်မှတစ်ဆင့် သဘာဝပတ်ဝန်းကျင်နှင့် သဟဇာတဖြစ်သော စွမ်းအင်အတွက် ရင်းနှီးမြှုပ်နှံမှုနှင့် နည်းပညာဖွံ့ဖြိုးတိုးတက်မှုများ သိသိသာသာ တိုးလာမည်ဟု မျှော်လင့်ရသည်။
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 2: AI 기술 발전 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Artificial Intelligence" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">IT / Tech</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="cpu" class="w-3.5 h-3.5"></i> IT / 기술
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">AI 인공지능 기술의 발전, 일상 생활 속으로</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        최근 생성형 AI 기술이 빠르게 발전하면서 교육, 의료, 금융 등 일상생활 곳곳에 폭넓게 도입되고 있습니다. 전문가들은 AI가 우리의 업무 효율성을 크게 높여줄 것으로 기대하고 있습니다.
+                    </p>
+                </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">AI ဉာဏ်ရည်တု နည်းပညာ ဖွံ့ဖြိုးတိုးတက်မှု၊ နေ့စဉ်ဘဝထဲသို့ ရောက်ရှိလာခြင်း</h2>
+                    <p class="text-slate-500 text-xs">
+                        မကြာသေးမီက Generative AI နည်းပညာများ လျင်မြန်စွာ တိုးတက်လာသည်နှင့်အမျှ ပညာရေး၊ ကျန်းမာရေးနှင့် ငွေရေးကြေးရေးစသည့် နေ့စဉ်ဘဝ ကဏ္ဍအသီးသီးတွင် အသုံးပြုလာကြပြီဖြစ်သည်။ AI သည် ကျွန်ုပ်တို့၏ လုပ်ငန်းခွင် စွမ်းဆောင်ရည်ကို များစွာတိုးတက်စေမည်ဟု ကျွမ်းကျင်သူများက မျှော်လင့်ထားကြသည်။
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 3: 미세먼지 주의보 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="flex items-center text-orange-500 text-xs font-black uppercase tracking-widest mb-3 gap-1.5">
+                        <i data-lucide="wind" class="w-3.5 h-3.5"></i> 사회 / 건강
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-4 leading-snug">환절기 미세먼지 주의보 발령</h2>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-1.5 shrink-0"></span>
+                            봄철 건조한 날씨와 함께 대기 정체가 이어지면서 미세먼지 농도가 '나쁨' 수준을 보이고 있습니다.
+                        </li>
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-1.5 shrink-0"></span>
+                            외출 시 보건용 마스크를 반드시 착용하고, 호흡기 건강을 위해 물을 자주 마시는 것이 좋습니다.
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="burmese-text bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-3 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-4 leading-snug">ရာသီကူးပြောင်းချိန် ဖုန်မှုန့် အန္တရာယ် သတိပေးချက် ထုတ်ပြန်</h2>
+                    <ul class="space-y-3">
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>နွေဦးရာသီ ခြောက်သွေ့သော ရာသီဥတုနှင့်အတူ လေထုငြိမ်သက်နေမှုကြောင့် ဖုန်မှုန့်ပါဝင်မှုနှုန်းသည် 'ဆိုးရွား' အဆင့်တွင် ရှိနေပါသည်။</span>
+                        </li>
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>အပြင်ထွက်လျှင် ကျန်းမာရေးသုံး မာ့စ် (Mask) ကို မဖြစ်မနေ တပ်ဆင်ရန်နှင့် အသက်ရှူလမ်းကြောင်း ကျန်းမာရေးအတွက် ရေများများသောက်ရန် အကြံပြုအပ်ပါသည်။</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 어휘 학습 섹션 -->
+        <article class="bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
+                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘</h2>
+                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
+                <!-- Word 1 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">기후 <span class="text-xs font-normal text-slate-500 ml-2">(Climate)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ရာသီဥတု</p>
+                </div>
+                <!-- Word 2 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">변화 <span class="text-xs font-normal text-slate-500 ml-2">(Change)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ပြောင်းလဲမှု</p>
+                </div>
+                <!-- Word 3 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">협약 <span class="text-xs font-normal text-slate-500 ml-2">(Agreement / Convention)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">သဘောတူညီချက်</p>
+                </div>
+                <!-- Word 4 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">탄소 <span class="text-xs font-normal text-slate-500 ml-2">(Carbon)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ကာဗွန်</p>
+                </div>
+                <!-- Word 5 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">배출 <span class="text-xs font-normal text-slate-500 ml-2">(Emission)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ထုတ်လွှတ်မှု</p>
+                </div>
+                <!-- Word 6 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">인공지능 <span class="text-xs font-normal text-slate-500 ml-2">(Artificial Intelligence / AI)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ဉာဏ်ရည်တု (AI)</p>
+                </div>
+                <!-- Word 7 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">발전 <span class="text-xs font-normal text-slate-500 ml-2">(Development / Progress)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ဖွံ့ဖြိုးတိုးတက်မှု</p>
+                </div>
+                <!-- Word 8 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">일상생활 <span class="text-xs font-normal text-slate-500 ml-2">(Daily life)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">နေ့စဉ်ဘဝ</p>
+                </div>
+                <!-- Word 9 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">미세먼지 <span class="text-xs font-normal text-slate-500 ml-2">(Fine dust)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ဖုန်မှုန့်</p>
+                </div>
+                <!-- Word 10 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">착용하다 <span class="text-xs font-normal text-slate-500 ml-2">(To wear)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ဝတ်ဆင်သည် (တပ်ဆင်သည်)</p>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 최고의 한국어 교육 센터
+            </p>
+            <div class="bg-slate-50 inline-block px-6 py-3 rounded-2xl border border-slate-100 mt-2 mb-6">
+                <p class="text-xs font-bold text-slate-600 flex items-center gap-2">
+                    <i data-lucide="smile" class="w-4 h-4 text-blue-500"></i> Have a great day studying!
+                </p>
+                <p class="text-[11px] text-slate-500 font-medium burmese-text mt-1">ဒီနေ့လည်း ပျော်ရွှင်စွာ လေ့လာကြပါစို့။</p>
+            </div>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 페이지 로드 완료 시 아이콘 초기화
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
