@@ -8,7 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background-color: #f8fafc; }
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc; 
+            /* [우클릭/드래그 금지] 텍스트 선택 방지 CSS */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
         
         /* 옵션 버튼 기본 스타일 */
@@ -35,7 +43,8 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<!-- [우클릭/드래그 금지] oncontextmenu, ondragstart, onselectstart 속성 추가 -->
+<body class="min-h-screen flex flex-col" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
     <!-- Top Bar -->
     <div class="h-2 jklc-gradient w-full"></div>
