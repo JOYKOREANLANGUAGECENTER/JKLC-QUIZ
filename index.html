@@ -35,15 +35,15 @@
                 <img src="logo.png" alt="JKLC Logo" class="h-10 md:h-12 w-auto" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
             </a>
             
-            <div id="music-container" class="hidden md:flex items-center gap-2">
-                <div id="music-status" class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+            <div id="music-container" class="flex items-center gap-2">
+                <div id="music-status" class="flex items-center gap-2 px-3 py-1.5 bg-slate-50 rounded-full border border-slate-200">
                     <div class="flex items-end h-5 gap-0.5" id="wave-container">
                         <span class="music-bar"></span><span class="music-bar" style="animation-delay: 0.2s"></span><span class="music-bar" style="animation-delay: 0.4s"></span>
                     </div>
-                    <span id="music-text" class="text-[9px] font-black text-blue-600 uppercase tracking-widest">BGM Playing</span>
+                    <span id="music-text" class="text-[9px] font-black text-slate-400 uppercase tracking-widest">BGM Stopped</span>
                 </div>
                 <button id="music-toggle" class="p-2 bg-white rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition shadow-sm flex items-center justify-center">
-                    <i data-lucide="volume-2" class="w-4 h-4" id="toggle-icon"></i>
+                    <i data-lucide="volume-x" class="w-4 h-4" id="toggle-icon"></i>
                 </button>
             </div>
 
@@ -67,18 +67,21 @@
                     Study Korean <br> <span class="text-blue-600 underline decoration-yellow-400 decoration-4">With JKLC</span>
                 </h1>
                 <p class="text-lg text-slate-500 font-medium mb-8 leading-relaxed max-w-lg">
-                    흘레단에서 한국인 선생님과 같이 공부해요. 기초부터 TOPIK, SPEAKING까지, JKLC와 함께 즐겁게 공부하세요!
+                    흘레단에서 한국인 선생님과 같이 공부해요. BASIC부터 TOPIK, SPEAKING까지, JKLC와 함께 즐겁게 공부하세요!
                 </p>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <a href="leveltest.html" class="px-8 py-5 bg-yellow-400 text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:bg-yellow-500 transition flex items-center justify-center gap-2">
                         <i data-lucide="clipboard-check" class="w-5 h-5"></i> Level Test
                     </a>
-                    <a href="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/quiz.html" class="px-8 py-5 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                    <a href="quiz.html" class="px-8 py-5 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
                         <i data-lucide="gamepad-2" class="w-5 h-5"></i> Daily Quiz
                     </a>
-                    <a href="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/board.html" class="col-span-1 sm:col-span-2 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black transition flex items-center justify-center gap-2">
+                    <a href="board.html" class="px-8 py-5 bg-slate-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black transition flex items-center justify-center gap-2">
                         <i data-lucide="message-square" class="w-5 h-5"></i> Community Board
+                    </a>
+                    <a href="newslist.html" class="px-8 py-5 bg-red-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-600 transition shadow-lg flex items-center justify-center gap-2">
+                        <i data-lucide="globe" class="w-5 h-5"></i> Global News
                     </a>
                     <!-- [NEW] E-LEARNING STATION 연결 버튼 추가 -->
                     <a href="videogallery.html" class="col-span-1 sm:col-span-2 px-8 py-4 bg-green-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-green-700 transition shadow-lg flex items-center justify-center gap-2">
@@ -86,10 +89,24 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- 자동 회전 이미지 슬라이더 섹션 (수정됨: 자연스러운 무한 롤링) -->
             <div class="relative">
                 <div class="absolute -inset-4 bg-blue-50 rounded-[3rem] -rotate-2"></div>
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/mainimg.png" alt="Students Learning" class="relative rounded-[2.5rem] shadow-2xl object-cover h-[350px] md:h-[500px] w-full">
+                <!-- overflow-hidden으로 넘치는 이미지는 잘리게 만듭니다 -->
+                <div class="relative rounded-[2.5rem] shadow-2xl overflow-hidden h-[350px] md:h-[500px] w-full bg-slate-100">
+                    <!-- flex를 사용해 이미지들을 가로로 쭉 이어 붙입니다. transition은 JS에서 제어합니다. -->
+                    <div id="slider-container" class="flex w-full h-full" style="transform: translateX(0%);">
+                        <!-- shrink-0 클래스를 추가하여 이미지가 찌그러지지 않고 원본 너비를 유지하게 합니다 -->
+                        <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/mainimg.png" alt="Students Learning 1" class="w-full h-full object-cover shrink-0">
+                        <img src="1.png" alt="Students Learning 2" class="w-full h-full object-cover shrink-0">
+                        <img src="2.png" alt="Students Learning 3" class="w-full h-full object-cover shrink-0">
+                        <img src="3.png" alt="Students Learning 4" class="w-full h-full object-cover shrink-0">
+                        <img src="4.png" alt="Students Learning 5" class="w-full h-full object-cover shrink-0">
+                    </div>
+                </div>
             </div>
+            
         </div>
     </section>
 
@@ -232,12 +249,11 @@
 
         // Music Control Logic
         const audio = document.getElementById('logo-song');
-        const musicContainer = document.getElementById('music-container');
         const waveContainer = document.getElementById('wave-container');
         const musicToggle = document.getElementById('music-toggle');
         const toggleIcon = document.getElementById('toggle-icon');
         const musicText = document.getElementById('music-text');
-        let hasStarted = false;
+        const musicStatus = document.getElementById('music-status');
 
         const toggleMusic = (e) => {
             if (e) e.stopPropagation();
@@ -247,6 +263,8 @@
                 musicText.innerText = "BGM Playing";
                 musicText.classList.remove('text-slate-400');
                 musicText.classList.add('text-blue-600');
+                musicStatus.classList.remove('bg-slate-50', 'border-slate-200');
+                musicStatus.classList.add('bg-blue-50', 'border-blue-100');
                 toggleIcon.setAttribute('data-lucide', 'volume-2');
             } else {
                 audio.pause();
@@ -254,30 +272,46 @@
                 musicText.innerText = "BGM Stopped";
                 musicText.classList.remove('text-blue-600');
                 musicText.classList.add('text-slate-400');
+                musicStatus.classList.remove('bg-blue-50', 'border-blue-100');
+                musicStatus.classList.add('bg-slate-50', 'border-slate-200');
                 toggleIcon.setAttribute('data-lucide', 'volume-x');
             }
             lucide.createIcons();
         };
 
-        const startMusic = () => {
-            if (hasStarted) return;
-            audio.play().then(() => {
-                hasStarted = true;
-                musicContainer.classList.remove('hidden');
-                waveContainer.classList.add('playing');
-                ['click', 'touchstart', 'scroll', 'wheel'].forEach(type => {
-                    window.removeEventListener(type, startMusic);
-                });
-            }).catch(e => {
-                console.log("Autoplay blocked. Waiting for interaction.");
-            });
-        };
-
         musicToggle.addEventListener('click', toggleMusic);
-        window.addEventListener('click', startMusic);
-        window.addEventListener('touchstart', startMusic);
-        window.addEventListener('scroll', startMusic);
-        window.addEventListener('wheel', startMusic);
+
+        // Hero Image Slider Logic (자연스럽게 이어지는 무한 슬라이드)
+        const sliderContainer = document.getElementById('slider-container');
+        
+        if (sliderContainer) {
+            // 첫 번째 이미지를 복제해서 맨 뒤에 붙여 자연스럽게 이어지도록 만듭니다.
+            const firstSlideClone = sliderContainer.children[0].cloneNode(true);
+            sliderContainer.appendChild(firstSlideClone);
+
+            const slidesCount = sliderContainer.children.length;
+            let currentSlide = 0;
+            
+            if (slidesCount > 1) {
+                setInterval(() => {
+                    currentSlide++;
+                    
+                    // 슬라이드 넘어가는 애니메이션 켜기
+                    sliderContainer.style.transition = 'transform 1s ease-in-out';
+                    sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    
+                    // 만약 복제해둔 마지막(첫 번째와 똑같은) 이미지에 도달했다면
+                    if (currentSlide === slidesCount - 1) {
+                        setTimeout(() => {
+                            // 1초(애니메이션 시간) 뒤에 애니메이션을 끄고 몰래 진짜 첫 번째 이미지 위치로 되돌립니다.
+                            sliderContainer.style.transition = 'none';
+                            currentSlide = 0;
+                            sliderContainer.style.transform = `translateX(0%)`;
+                        }, 1000);
+                    }
+                }, 2500); // 3.5초마다 넘어갑니다.
+            }
+        }
     </script>
 </body>
 </html>
