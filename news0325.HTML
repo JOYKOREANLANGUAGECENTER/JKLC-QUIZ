@@ -3,183 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘의 글로벌 뉴스 | ကမ္ဘာ့သတင်း</title>
-    <!-- Tailwind CSS -->
+    <title>JOY Korean Language Center - Daily Global News</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts for Korean and Burmese -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f3f4f6;
+        :root { 
+            --j: #FFD700; /* 노란색 (JOY) */
+            --k: #0070BB; /* 파란색 (KOREAN) */
+            --l: #228B22; /* 초록색 (LANGUAGE) */
+            --c: #ED1C24; /* 빨간색 (CENTER) */
         }
-        .burmese-text {
-            font-family: 'Padauk', sans-serif;
-            line-height: 1.8;
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
         }
-        .news-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+        
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
     </style>
 </head>
-<body class="text-gray-800 antialiased">
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- 상단 로고 (잘리지 않게 비율 유지) -->
-                <div class="flex-shrink-0 bg-white rounded p-1 shadow">
-                    <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JOY 한국어 학원 로고" class="h-10 w-auto object-contain">
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
                 </div>
-                <div>
-                    <h1 class="text-2xl font-bold tracking-tight">Daily Global News</h1>
-                    <p class="text-sm text-indigo-200 mt-1 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများ (ကိုရီးယား - မြန်မာ)</p>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span class="text-xs font-black text-slate-800">2026. 03. 25</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
                 </div>
+                <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                    <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                </a>
             </div>
-            <div class="text-right hidden sm:block">
-                <p class="font-medium text-lg">2026. 03. 25</p>
-                <p class="text-sm text-indigo-200"><i class="fas fa-cloud-sun mr-1"></i>Yangon</p>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20">
+                <i data-lucide="globe" class="w-40 h-40"></i>
+            </div>
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="coffee" class="w-6 h-6"></i>
+            </div>
+            <div class="relative z-10">
+                <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-2">오늘의 글로벌 뉴스</h1>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
             </div>
         </div>
     </header>
 
-    <!-- Greeting Banner -->
-    <div class="bg-blue-50 border-b border-blue-100">
-        <div class="max-w-4xl mx-auto px-4 py-3 flex items-start space-x-3 text-blue-800">
-            <i class="fas fa-coffee mt-1"></i>
-            <div>
-                <p class="text-sm font-medium">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
-                <p class="text-xs text-blue-600 mt-1">뉴스를 읽으면서 한국어 공부를 해봐요.</p>
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow">
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="News Image" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
             </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
-
-        <!-- News Item 1 -->
-        <article class="news-card bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="md:flex">
-                <div class="md:w-1/3 bg-gray-200 h-48 md:h-auto flex items-center justify-center relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <span class="absolute bottom-3 left-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">Top Story</span>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="globe" class="w-3.5 h-3.5"></i> 국제 / 정치
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국-이란, 협상 제안 속 군사적 긴장 최고조</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        트럼프 미국 대통령이 이란에 '1달 휴전 및 핵 포기' 등 종전 조건을 제안했습니다. 하지만 동시에 미 정예 병력을 중동에 급파하며 긴장이 최고조에 달하고 있습니다. 이스라엘 핵시설 인근 피격으로 다수의 부상자도 발생했습니다.
+                    </p>
                 </div>
-                <div class="p-6 md:w-2/3">
-                    <!-- Korean Part -->
-                    <div class="mb-4">
-                        <div class="flex items-center text-red-600 text-sm font-semibold mb-2">
-                            <i class="fas fa-globe-americas mr-2"></i> 국제 / 정치
-                        </div>
-                        <h2 class="text-xl font-bold text-gray-900 mb-2">미국-이란, 협상 제안 속 군사적 긴장 최고조</h2>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            트럼프 미국 대통령이 이란에 '1달 휴전 및 핵 포기' 등 종전 조건을 제안했습니다. 하지만 동시에 미 정예 병력을 중동에 급파하며 긴장이 최고조에 달하고 있습니다. 이스라엘 핵시설 인근 피격으로 다수의 부상자도 발생했습니다.
-                        </p>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
-                    
-                    <hr class="border-gray-200 my-4">
-                    
-                    <!-- Burmese Part -->
-                    <div class="burmese-text">
-                        <div class="flex items-center text-red-600 text-sm font-bold mb-2">
-                            <i class="fas fa-globe-americas mr-2"></i> နိုင်ငံတကာ / နိုင်ငံရေး
-                        </div>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">အမေရိကန်-အီရန် စေ့စပ်ညှိနှိုင်းရေး အဆိုပြုချက်များကြား စစ်ရေးတင်းမာမှု အမြင့်ဆုံးသို့ ရောက်ရှိ</h2>
-                        <p class="text-gray-700 text-sm">
-                            အမေရိကန်သမ္မတ ထရမ့်က အီရန်အား '၁ လ အပစ်အခတ်ရပ်စဲရေးနှင့် နျူကလီးယားစွန့်လွှတ်ရေး' အပါအဝင် စစ်ပွဲအဆုံးသတ်ရေး အချက်များကို အဆိုပြုခဲ့သည်။ သို့သော် တစ်ချိန်တည်းမှာပင် အရှေ့အလယ်ပိုင်းသို့ အထူးတပ်ဖွဲ့များ စေလွှတ်ခြင်းဖြင့် တင်းမာမှုများ အမြင့်ဆုံးသို့ ရောက်ရှိနေသည်။ အစ္စရေး နျူကလီးယား စက်ရုံအနီး တိုက်ခိုက်ခံရမှုကြောင့် လူအများအပြား ဒဏ်ရာရရှိခဲ့သည်။
-                        </p>
-                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အမေရိကန်-အီရန် စေ့စပ်ညှိနှိုင်းရေး အဆိုပြုချက်များကြား စစ်ရေးတင်းမာမှု အမြင့်ဆုံးသို့ ရောက်ရှိ</h2>
+                    <p class="text-slate-500 text-xs">
+                        အမေရိကန်သမ္မတ ထရမ့်က အီရန်အား '၁ လ အပစ်အခတ်ရပ်စဲရေးနှင့် နျူကလီးယားစွန့်လွှတ်ရေး' အပါအဝင် စစ်ပွဲအဆုံးသတ်ရေး အချက်များကို အဆိုပြုခဲ့သည်။ သို့သော် တစ်ချိန်တည်းမှာပင် အရှေ့အလယ်ပိုင်းသို့ အထူးတပ်ဖွဲ့များ စေလွှတ်ခြင်းဖြင့် တင်းမာမှုများ အမြင့်ဆုံးသို့ ရောက်ရှိနေသည်။
+                    </p>
                 </div>
             </div>
         </article>
 
-        <!-- News Item 2 -->
-        <article class="news-card bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="md:flex">
-                <div class="md:w-1/3 bg-gray-200 h-48 md:h-auto flex items-center justify-center relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="[Image of Economy Chart]" class="absolute inset-0 w-full h-full object-cover opacity-80">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <span class="absolute bottom-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">Economy</span>
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Economy Chart" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Economy</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 경제 / 시장
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">카타르, 한국 등에 LNG 공급 '불가항력' 선언</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        중동 사태 여파로 카타르 국영 에너지 기업이 한국 등을 포함한 주요 고객사와의 액화천연가스(LNG) 장기계약에 대해 '불가항력'을 선언했습니다. 글로벌 에너지 수급 비상과 함께 미국 증시 및 반도체 주식도 일제히 하락했습니다.
+                    </p>
                 </div>
-                <div class="p-6 md:w-2/3">
-                    <!-- Korean Part -->
-                    <div class="mb-4">
-                        <div class="flex items-center text-blue-600 text-sm font-semibold mb-2">
-                            <i class="fas fa-chart-line mr-2"></i> 경제 / 시장
-                        </div>
-                        <h2 class="text-xl font-bold text-gray-900 mb-2">카타르, 한국 등에 LNG 공급 '불가항력' 선언</h2>
-                        <p class="text-gray-600 text-sm leading-relaxed">
-                            중동 사태 여파로 카타르 국영 에너지 기업이 한국 등을 포함한 주요 고객사와의 액화천연가스(LNG) 장기계약에 대해 '불가항력'을 선언했습니다. 글로벌 에너지 수급 비상과 함께 미국 증시 및 반도체 주식도 일제히 하락했습니다.
-                        </p>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
-                    
-                    <hr class="border-gray-200 my-4">
-                    
-                    <!-- Burmese Part -->
-                    <div class="burmese-text">
-                        <div class="flex items-center text-blue-600 text-sm font-bold mb-2">
-                            <i class="fas fa-chart-line mr-2"></i> စီးပွားရေး / ဈေးကွက်
-                        </div>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">ကာတာ၊ ကိုရီးယားစသည့် နိုင်ငံများသို့ LNG ထောက်ပံ့မှုတွင် 'Force Majeure' ကြေညာ</h2>
-                        <p class="text-gray-700 text-sm">
-                            အရှေ့အလယ်ပိုင်း အခြေအနေကြောင့် ကာတာ နိုင်ငံပိုင် စွမ်းအင်ကုမ္ပဏီသည် ကိုရီးယား အပါအဝင် အဓိက ဖောက်သည်များနှင့် ရေရှည် သဘာဝဓာတ်ငွေ့ရည် (LNG) စာချုပ်များအပေါ် 'Force Majeure' (တားဆီးမရနိုင်သော အခြေအနေ) ကို ကြေညာခဲ့သည်။ ကမ္ဘာ့စွမ်းအင် ထောက်ပံ့မှု အရေးပေါ် အခြေအနေနှင့်အတူ အမေရိကန် စတော့ရှယ်ယာနှင့် ဆီမီးကွန်ဒတ်တာ စတော့ရှယ်ယာများလည်း ထိုးကျသွားခဲ့သည်။
-                        </p>
-                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကာတာ၊ ကိုရီးယားစသည့် နိုင်ငံများသို့ LNG ထောက်ပံ့မှုတွင် 'Force Majeure' ကြေညာ</h2>
+                    <p class="text-slate-500 text-xs">
+                        အရှေ့အလယ်ပိုင်း အခြေအနေကြောင့် ကာတာ နိုင်ငံပိုင် စွမ်းအင်ကုမ္ပဏီသည် ကိုရီးယား အပါအဝင် အဓိက ဖောက်သည်များနှင့် ရေရှည် သဘာဝဓာတ်ငွေ့ရည် (LNG) စာချုပ်များအပေါ် 'Force Majeure' (တားဆီးမရနိုင်သော အခြေအနေ) ကို ကြေညာခဲ့သည်။
+                    </p>
                 </div>
             </div>
         </article>
 
-        <!-- News Item 3 -->
-        <article class="news-card bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Korean Part -->
-                    <div>
-                        <div class="flex items-center text-green-600 text-sm font-semibold mb-2">
-                            <i class="fas fa-newspaper mr-2"></i> 사건사고 / 문화
-                        </div>
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">콜롬비아 군 수송기 추락 & 하이브 주가 폭락</h2>
-                        <ul class="list-disc pl-5 text-gray-600 text-sm space-y-2">
-                            <li>콜롬비아에서 128명이 탑승한 군용 수송기가 추락해 최소 66명이 사망하는 대형 참사가 발생했습니다.</li>
-                            <li>한편, 방탄소년단(BTS)의 컴백쇼 관객 수가 예상치를 밑돌며 소속사 하이브 주가가 하루 만에 17% 폭락했습니다.</li>
-                        </ul>
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-3 gap-1.5">
+                        <i data-lucide="newspaper" class="w-3.5 h-3.5"></i> 사건사고 / 문화
                     </div>
-                    
-                    <!-- Burmese Part -->
-                    <div class="burmese-text bg-gray-50 p-4 rounded-lg">
-                        <div class="flex items-center text-green-600 text-sm font-bold mb-2">
-                            <i class="fas fa-newspaper mr-2"></i> ဖြစ်ရပ်များ / ယဉ်ကျေးမှု
-                        </div>
-                        <h2 class="text-md font-bold text-gray-900 mb-2">ကိုလံဘီယာ စစ်လေယာဉ်ပျက်ကျမှု & HYBE စတော့ရှယ်ယာ ကျဆင်းမှု</h2>
-                        <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2">
-                            <li>ကိုလံဘီယာတွင် လူ ၁၂၈ ဦး လိုက်ပါသွားသော စစ်ဘက်ဆိုင်ရာ သယ်ယူပို့ဆောင်ရေး လေယာဉ် ပျက်ကျမှုကြောင့် အနည်းဆုံး လူ ၆၆ ဦး သေဆုံးခဲ့သည်။</li>
-                            <li>တစ်ချိန်တည်းမှာပင်၊ BTS ၏ ပြန်လည်ရောက်ရှိလာသော ရှိုးပွဲ အားနည်းခြင်းကြောင့် HYBE ၏ စတော့ရှယ်ယာဈေးနှုန်းသည် တစ်ရက်အတွင်း ၁၇% ကျဆင်းသွားခဲ့သည်။</li>
-                        </ul>
+                    <h2 class="text-xl font-black text-slate-900 mb-4 leading-snug">콜롬비아 군 수송기 추락 & 하이브 주가 폭락</h2>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                            콜롬비아에서 128명이 탑승한 군용 수송기가 추락해 최소 66명이 사망하는 대형 참사가 발생했습니다.
+                        </li>
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                            한편, 방탄소년단(BTS)의 컴백쇼 관객 수가 예상치를 밑돌며 소속사 하이브 주가가 하루 만에 17% 폭락했습니다.
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="burmese-text bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-3 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-4 leading-snug">ကိုလံဘီယာ စစ်လေယာဉ်ပျက်ကျမှု & HYBE စတော့ရှယ်ယာ ကျဆင်းမှု</h2>
+                    <ul class="space-y-3">
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>ကိုလံဘီယာတွင် လူ ၁၂၈ ဦး လိုက်ပါသွားသော စစ်ဘက်ဆိုင်ရာ သယ်ယူပို့ဆောင်ရေး လေယာဉ် ပျက်ကျမှုကြောင့် အနည်းဆုံး လူ ၆၆ ဦး သေဆုံးခဲ့သည်။</span>
+                        </li>
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>တစ်ချိန်တည်းမှာပင်၊ BTS ၏ ပြန်လည်ရောက်ရှိလာသော ရှိုးပွဲ အားနည်းခြင်းကြောင့် HYBE ၏ စတော့ရှယ်ယာဈေးနှုန်းသည် တစ်ရက်အတွင်း ၁၇% ကျဆင်းသွားခဲ့သည်။</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </article>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-400 py-8 text-center text-sm">
-        <!-- 하단 로고 (잘리지 않게 비율 유지) -->
-        <div class="flex justify-center mb-4">
-            <div class="bg-white rounded p-1 inline-block shadow">
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JOY 한국어 학원 로고" class="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100">
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 최고의 한국어 교육 센터
+            </p>
+            <div class="bg-slate-50 inline-block px-6 py-3 rounded-2xl border border-slate-100 mt-2 mb-6">
+                <p class="text-xs font-bold text-slate-600 flex items-center gap-2">
+                    <i data-lucide="car" class="w-4 h-4 text-blue-500"></i> Have a safe commute to Mingaladon!
+                </p>
+                <p class="text-[11px] text-slate-500 font-medium burmese-text mt-1">မင်္ဂလာဒုံသို့ သွားမည့်ခရီး ဘေးကင်းပါစေ!</p>
             </div>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
         </div>
-        <p>© 2026 Daily Global News. Have a safe commute to Mingaladon!</p>
-        <p class="burmese-text mt-1">မင်္ဂလာဒုံသို့ သွားမည့်ခရီး ဘေးကင်းပါစေ!</p>
     </footer>
 
+    <script>
+        // Lucide 아이콘 초기화
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
 </body>
 </html>
