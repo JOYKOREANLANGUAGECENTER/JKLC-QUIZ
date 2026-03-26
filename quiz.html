@@ -34,7 +34,7 @@
     <div class="jklc-top-bar"></div>
 
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
-        <div class="max-w-md mx-auto px-6 h-16 flex justify-between items-center">
+        <div class="max-w-md mx-auto px-6 h-16 flex justify-between items-center text-left">
             <a href="index.html" class="flex items-center">
                 <img src="logo.png" alt="JKLC" class="h-8 w-auto">
             </a>
@@ -60,17 +60,17 @@
                 Today's Quiz
             </h3>
             
-            <!-- [업데이트] Day 8 호텔에서 퀴즈로 메인 화면 업데이트 -->
-            <a href="quiz8.html" class="block bg-indigo-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
-                <div class="relative z-10">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 28</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight">Day 8: 호텔에서</h2>
-                    <p class="text-sm font-bold opacity-80">ဟိုတယ်တွင်အသုံးပြုသော စကားလုံးများ</p>
-                    <div class="mt-8 flex items-center font-black text-sm">
+            <!-- [업데이트] Day 9 공항에서 퀴즈로 메인 화면 업데이트 -->
+            <a href="quiz9.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+                <div class="relative z-10 text-left">
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 29</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 9: 공항에서</h2>
+                    <p class="text-sm font-bold opacity-80 text-left">လေဆိပ်တွင်အသုံးပြုသော စကားလုံးများ</p>
+                    <div class="mt-8 flex items-center font-black text-sm text-left">
                         퀴즈 시작하기 <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🏨</div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">✈️</div>
             </a>
         </section>
 
@@ -103,7 +103,7 @@
     </div>
 
     <footer class="mt-20 py-16 bg-white border-t border-slate-100 text-center">
-        <div class="max-w-md mx-auto px-6">
+        <div class="max-w-md mx-auto px-6 text-center">
             <img src="logo.png" alt="JKLC" class="h-12 mx-auto mb-6">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed text-center">
                 JOY KOREAN LANGUAGE CENTER <br>
@@ -114,8 +114,15 @@
     </footer>
 
     <script>
-        // [업데이트] Day 8 데이터를 최상단에 추가
+        // [업데이트] Day 9 데이터를 최상단에 추가
         const allQuizzes = [
+            {
+                date: "2026. 03. 29",
+                day: "Day 9",
+                title: "공항에서",
+                desc: "လေဆိပ်တွင်အသုံးပြုသော စကားလုံးများ",
+                link: "quiz9.html"
+            },
             {
                 date: "2026. 03. 28",
                 day: "Day 8",
