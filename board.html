@@ -8,7 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background-color: #f8fafc; 
+            /* [우클릭/드래그 금지] 텍스트 선택 방지 CSS */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         .text-joy-yellow { color: #facc15; }
         .bg-joy-yellow { background-color: #facc15; }
         .text-joy-blue { color: #2563eb; }
@@ -25,7 +33,8 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<!-- [우클릭/드래그 금지] 속성 추가 -->
+<body class="min-h-screen flex flex-col" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
     <!-- Header with logo.png -->
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -204,12 +213,12 @@
         // ⭐ PASTE YOUR CONFIG HERE ⭐
         // =========================================================================
        const firebaseConfig = {
-  apiKey: "AIzaSyBOIj7UFkPNrH-eQgUAp6X4QytT61yY1Rk",
-  authDomain: "joy-korean-cdba0.firebaseapp.com",
-  projectId: "joy-korean-cdba0",
-  storageBucket: "joy-korean-cdba0.firebasestorage.app",
-  messagingSenderId: "509083643772",
-  appId: "1:509083643772:web:e80c40c02d7928a82b7ef9"
+ apiKey: "AIzaSyBOIj7UFkPNrH-eQgUAp6X4QytT61yY1Rk",
+ authDomain: "joy-korean-cdba0.firebaseapp.com",
+ projectId: "joy-korean-cdba0",
+ storageBucket: "joy-korean-cdba0.firebasestorage.app",
+ messagingSenderId: "509083643772",
+ appId: "1:509083643772:web:e80c40c02d7928a82b7ef9"
 };
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'joy-korean-board';
         // =========================================================================
