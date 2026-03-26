@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOY Korean Language Center - Global News Archive</title>
+    <title>JOY Korean Language Center - Daily Global News</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -27,15 +27,15 @@
         
         .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
         
-        .news-list-card { 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            border: 1px solid transparent; 
-            min-height: 180px;
-        }
-        .news-list-card:hover { transform: translateY(-3px); border-color: var(--k); box-shadow: 0 15px 20px -5px rgba(0, 112, 187, 0.08); }
+        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
         
         .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+        
+        /* 단어장 스타일 */
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
 
+        /* 워터마크 스타일 (사이즈 반으로 수정: 375px -> 180px) */
         .watermark-bg {
             position: fixed;
             top: -50%;
@@ -46,30 +46,17 @@
             z-index: 9999;
             background-image: url('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png');
             background-repeat: repeat;
-            background-size: 375px; 
-            opacity: 0.05;
+            background-size: 180px; 
+            opacity: 0.08;
             transform: rotate(-20deg);
-        }
-
-        .thumb-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 로딩 애니메이션 */
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-custom {
-            animation: spin 1s linear infinite;
         }
     </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
 
+    <!-- 불펌 방지 워터마크 -->
     <div class="watermark-bg"></div>
+
     <div class="jklc-top-bar"></div>
 
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
@@ -77,7 +64,7 @@
             <a href="index.html" class="flex items-center gap-3">
                 <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">News Archive</span>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
                 </div>
             </a>
             <div class="flex items-center gap-3">
@@ -85,7 +72,11 @@
                     <span class="text-xs font-black text-slate-800">2026. 03. 26</span>
                     <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
                 </div>
+                <!-- 버튼 영역 -->
                 <div class="flex gap-2 relative z-10">
+                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
+                    </a>
                     <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
                         <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
                     </a>
@@ -94,112 +85,119 @@
         </div>
     </nav>
 
-    <header class="max-w-4xl mx-auto px-4 py-10 w-full relative z-10">
-        <div class="text-center">
-            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4 shadow-inner">
-                <i data-lucide="library" class="w-8 h-8"></i>
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20">
+                <i data-lucide="globe" class="w-40 h-40"></i>
             </div>
-            <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-3">글로벌 뉴스 모아보기</h1>
-            <p class="text-sm font-bold text-slate-500 mb-1">하루하루 쌓이는 지식, 지난 뉴스들도 다시 복습해 보세요!</p>
-            <p class="text-xs font-medium text-slate-400 burmese-text">ယခင်သတင်းများကို ဤနေရာတွင် ပြန်လည်ဖတ်ရှုလေ့လာနိုင်ပါသည်။</p>
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="coffee" class="w-6 h-6"></i>
+            </div>
+            <div class="relative z-10 w-full">
+                <!-- 제목 영역 -->
+                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 26</span>
+                </div>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
+            </div>
         </div>
     </header>
 
-    <main id="news-container" class="max-w-4xl mx-auto px-4 pb-10 space-y-6 w-full flex-grow relative z-10">
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
 
-        <!-- 뉴스 리스트 아이템 1 (2026. 03. 26) -->
-        <a href="news0326.html" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
-            <div class="absolute top-4 right-4 z-20 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
-                New
+        <!-- News Item 1 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <!-- 썸네일 경로 수정 (고해상도 뉴스 이미지) -->
+                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80" 
+                     alt="[စစ်ပွဲနှင့် ပဋိပက္ခ သတင်း]" 
+                     onerror="this.src='https://images.unsplash.com/photo-1590611380053-964390076a5b?w=600&q=80'"
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
             </div>
-            <div class="flex flex-col sm:flex-row h-full">
-                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
-                    <img src="https://images.unsplash.com/photo-1590611380053-964390076a5b?w=600&q=80" 
-                         alt="News Thumbnail" 
-                         onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80'"
-                         class="group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="globe" class="w-3.5 h-3.5"></i> 국제 / 정치
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국-이란 전쟁 격화 속 이란, 휴전안 거절</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        트럼프 미국 대통령이 제안한 휴전안을 이란이 거절하면서 중동 지역의 군사적 긴장이 계속되고 있습니다. 미국은 중동에 정예 병력 1,000명을 추가로 배치했으며, 양측의 협상 타결은 여전히 어려운 상황입니다.
+                    </p>
                 </div>
-                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md">2026. 03. 26</span>
-                        <div class="flex gap-1">
-                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">국제</span>
-                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">정치</span>
-                        </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">미국-이란 전쟁 격화 속 이란, 휴전안 거절</h2>
-                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">트럼프 미국 대통령이 제안한 휴전안을 이란이 거절하면서 중동 지역의 군사적 긴장이 계속되고 있습니다...</p>
-                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
-                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
-                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အမေရိကန်-အီရန် စစ်ပွဲ ပြင်းထန်နေချိန်တွင် အပစ်အခတ်ရပ်စဲရေး အဆိုပြုချက်ကို အီရန် ပယ်ချ</h2>
+                    <p class="text-slate-500 text-xs">
+                        အမေရိကန်သမ္မတ ထရမ့် အဆိုပြုထားသော အပစ်အခတ်ရပ်စဲရေးကို အီရန်က ပယ်ချလိုက်သဖြင့် အရှေ့အလယ်ပိုင်းတွင် စစ်ရေးတင်းမာမှုများ ဆက်လက်ဖြစ်ပေါ်နေသည်။
+                    </p>
                 </div>
             </div>
-        </a>
+        </article>
 
-        <!-- 뉴스 리스트 아이템 2 (2026. 03. 25) -->
-        <a href="news0325.HTML" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
-            <div class="flex flex-col sm:flex-row h-full">
-                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
-                    <img src="https://images.unsplash.com/photo-1611974717482-58a25a24835a?w=600&q=80" 
-                         alt="News Thumbnail" 
-                         onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&q=80'"
-                         class="group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+        <!-- News Item 2 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="[လူမှုမီဒီယာ]" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Tech & Society</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> 기술 / 사회
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국 법원, "메타·구글 소셜미디어 중독에 책임 있다" 첫 인정</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        미국 법원 배심원단이 메타(페이스북, 인스타그램)와 구글 등 거대 IT 기업들이 청소년들의 소셜미디어 중독에 책임이 있다고 판결했습니다. 이는 기술 기업들의 알고리즘에 대한 첫 법적 책임 인정 사례입니다.
+                    </p>
                 </div>
-                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">2026. 03. 25</span>
-                        <div class="flex gap-1">
-                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">국제</span>
-                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">경제</span>
-                        </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">미국-이란 협상 제안 및 카타르 LNG 불가항력 선언</h2>
-                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">트럼프 미국 대통령이 이란에 종전 조건을 제안한 가운데 중동 사태 여파로 카타르가 LNG 공급 불가항력을 선언했습니다...</p>
-                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
-                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
-                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">လူမှုမီဒီယာ စွဲလမ်းမှုအတွက် Meta နှင့် Google တို့တွင် တာဝန်ရှိသည်ဟု အသိအမှတ်ပြု</h2>
+                    <p class="text-slate-500 text-xs">
+                        လူငယ်များ၏ လူမှုမီဒီယာ စွဲလမ်းမှုအတွက် နည်းပညာကုမ္ပဏီကြီးများတွင် တာဝန်ရှိကြောင်း အမေရိကန် တရားရုံးက ဆုံးဖြတ်ခဲ့သည်။
+                    </p>
                 </div>
             </div>
-        </a>
+        </article>
 
-        <!-- 뉴스 리스트 아이템 3 (2026. 03. 24) -->
-        <a href="news0324.html" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
-            <div class="flex flex-col sm:flex-row h-full">
-                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80" 
-                         alt="News Thumbnail" 
-                         onerror="this.src='https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80'"
-                         class="group-hover:scale-105 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+        <!-- 뉴스 어휘 학습 섹션 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
+                    <i data-lucide="book-open" class="w-6 h-6"></i>
                 </div>
-                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">2026. 03. 24</span>
-                        <div class="flex gap-1">
-                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">사회</span>
-                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">문화</span>
-                        </div>
-                    </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">한국 유학생 장학금 제도 확대 발표 및 K-POP 소식</h2>
-                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">한국 교육부에서 외국인 유학생을 위한 장학금 지원을 대폭 확대한다고 밝혔습니다. 특히 동남아시아 학생들을 대상으로...</p>
-                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
-                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
-                    </div>
+                <div>
+                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘</h2>
+                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ</p>
                 </div>
             </div>
-        </a>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">전쟁 <span class="text-xs font-normal text-slate-500 ml-2">(War)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စစ်ပွဲ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">거절하다 <span class="text-xs font-normal text-slate-500 ml-2">(To reject)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ငြင်းဆန်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">법원 <span class="text-xs font-normal text-slate-500 ml-2">(Court)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တရားရုံး</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">책임 <span class="text-xs font-normal text-slate-500 ml-2">(Responsibility)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တာဝန်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">중독 <span class="text-xs font-normal text-slate-500 ml-2">(Addiction)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စွဲလမ်းမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">참사 <span class="text-xs font-normal text-slate-500 ml-2">(Disaster)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကပ်ဘေး</p></div>
+            </div>
+        </article>
 
     </main>
-
-    <!-- Load More Button Section -->
-    <div class="max-w-4xl mx-auto px-4 pb-20 text-center relative z-10">
-        <button id="load-more-btn" class="px-8 py-3 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-50 hover:text-blue-600 transition shadow-sm inline-flex items-center gap-2 group">
-            <i id="btn-icon" data-lucide="refresh-cw" class="w-4 h-4 transition-transform group-hover:rotate-180 duration-500"></i> 
-            <span id="btn-text">Load More</span>
-        </button>
-    </div>
 
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
         <div class="max-w-4xl mx-auto px-6">
@@ -213,96 +211,10 @@
     </footer>
 
     <script>
-        // 추가 뉴스 데이터 (Mock Data)
-        const moreNews = [
-            {
-                date: '2026. 03. 23',
-                category: ['환경', '과학'],
-                title: '글로벌 기후 변화 대응을 위한 새로운 국제 협약 체결',
-                desc: '주요 선진국들이 모여 탄소 배출량을 줄이기 위한 강력한 규제안에 합의했습니다. 친환경 에너지를 위한 투자도 늘어날 전망입니다...',
-                img: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&q=80',
-                link: 'news0323.html'
-            },
-            {
-                date: '2026. 03. 22',
-                category: ['IT', '사회'],
-                title: '인공지능 의료 진단 도구, 전 세계 병원 보급 확대',
-                desc: '정확도가 99%에 달하는 AI 기반 의료 진단 시스템이 개발되어 의료 인프라가 부족한 지역부터 우선적으로 보급이 시작되었습니다...',
-                img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80',
-                link: 'news0322.html'
-            }
-        ];
-
-        window.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-
-            const loadMoreBtn = document.getElementById('load-more-btn');
-            const newsContainer = document.getElementById('news-container');
-            const btnIcon = document.getElementById('btn-icon');
-            const btnText = document.getElementById('btn-text');
-
-            if (loadMoreBtn) {
-                loadMoreBtn.addEventListener('click', () => {
-                    // 버튼 로딩 상태 표시
-                    btnIcon.classList.add('animate-spin-custom');
-                    btnText.innerText = 'Loading...';
-                    loadMoreBtn.disabled = true;
-
-                    // 0.8초 뒤에 데이터 추가 (로딩 효과 시뮬레이션)
-                    setTimeout(() => {
-                        moreNews.forEach(news => {
-                            const card = document.createElement('a');
-                            card.href = news.link;
-                            card.className = 'news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative opacity-0 translate-y-4 transition-all duration-500';
-                            
-                            const categories = news.category.map(cat => 
-                                `<span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">${cat}</span>`
-                            ).join('');
-
-                            card.innerHTML = `
-                                <div class="flex flex-col sm:flex-row h-full">
-                                    <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
-                                        <img src="${news.img}" alt="News Thumbnail" class="group-hover:scale-105 transition duration-500">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-                                    </div>
-                                    <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
-                                        <div class="flex items-center gap-3 mb-3">
-                                            <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">${news.date}</span>
-                                            <div class="flex gap-1">${categories}</div>
-                                        </div>
-                                        <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">${news.title}</h2>
-                                        <p class="text-slate-500 text-sm line-clamp-2 mb-3">${news.desc}</p>
-                                        <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
-                                            자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                            
-                            newsContainer.appendChild(card);
-                            
-                            // 애니메이션 효과를 위해 타임아웃
-                            setTimeout(() => {
-                                card.classList.remove('opacity-0', 'translate-y-4');
-                            }, 50);
-                        });
-
-                        // 아이콘 새로고침
-                        lucide.createIcons();
-
-                        // 버튼 복구 또는 숨기기 (더이상 데이터가 없으므로 숨김 처리)
-                        loadMoreBtn.classList.add('hidden');
-                    }, 800);
-                });
-            }
-        });
-
-        // 우클릭 및 복사 금지
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) {
-                e.preventDefault();
-            }
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) e.preventDefault();
         });
         document.addEventListener('copy', e => e.preventDefault());
     </script>
