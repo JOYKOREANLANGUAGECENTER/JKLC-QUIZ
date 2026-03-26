@@ -19,7 +19,6 @@
             background: #f8fafc; 
             scroll-behavior: smooth; 
             line-height: 1.6; 
-            /* 텍스트 드래그(선택) 방지 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -33,31 +32,37 @@
         
         .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
         
-        /* 단어장 스타일 */
         .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
 
-        /* 워터마크 스타일 (불펌 방지 - 크기 375px) */
         .watermark-bg {
             position: fixed;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            pointer-events: none; /* 클릭 방해 금지 */
-            z-index: 9999; /* 최상단에 위치 */
+            pointer-events: none;
+            z-index: 9999;
             background-image: url('logo.png'); 
             background-repeat: repeat;
             background-size: 375px; 
             opacity: 0.08; 
             transform: rotate(-20deg); 
         }
+
+        /* 퀴즈 애니메이션 및 스타일 */
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+        
+        /* 섹션 전환 애니메이션 */
+        #vocab-section { transition: opacity 0.5s ease-in-out; }
     </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
 
-    <!-- 불펌 방지 워터마크 -->
     <div class="watermark-bg"></div>
-
     <div class="jklc-top-bar"></div>
 
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
@@ -95,18 +100,18 @@
             </div>
             <div class="relative z-10 w-full">
                 <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
-                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">글로벌 뉴스</h1>
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
                     <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 24</span>
                 </div>
-                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 한국 소식을 확인하세요!</p>
-                <p class="text-xs font-medium text-slate-500 burmese-text">သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
             </div>
         </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
 
-        <!-- News Item 1: Global Plastic Treaty -->
+        <!-- News Item 1 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
                 <img src="https://images.unsplash.com/photo-1591336397464-7d927e69c17b?w=600&q=80" 
@@ -126,9 +131,7 @@
                         유엔(UN) 회원국들이 오는 2040년까지 전 세계 플라스틱 오염을 종식하기 위한 법적 구속력이 있는 첫 국제 협약에 합의했습니다. 이번 협약은 미세 플라스틱 해결과 해양 생태계 보호를 위한 인류의 역사적인 진전으로 평가받고 있습니다.
                     </p>
                 </div>
-                
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                
                 <div class="burmese-text">
                     <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
                         <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
@@ -141,7 +144,7 @@
             </div>
         </article>
 
-        <!-- News Item 2: Tech & Society -->
+        <!-- News Item 2 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
                 <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="[လူမှုမီဒီယာ]" class="w-full h-full object-cover rounded-[2rem]">
@@ -158,9 +161,7 @@
                         미국 법원 배심원단이 메타(페이스북, 인스타그램)와 구글 등 거대 IT 기업들이 청소년들의 소셜미디어 중독에 책임이 있다고 판결했습니다. 이는 기술 기업들의 알고리즘에 대한 첫 법적 책임 인정 사례입니다.
                     </p>
                 </div>
-                
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                
                 <div class="burmese-text">
                     <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
                         <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
@@ -173,7 +174,7 @@
             </div>
         </article>
 
-        <!-- News Item 3: Science & Space (Newly Added) -->
+        <!-- News Item 3 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
                 <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" 
@@ -192,9 +193,7 @@
                         NASA의 차세대 망원경이 수백 광년 떨어진 외계 행성의 대기에서 수증기를 포착했습니다. 이는 생명체 존재 가능성에 대한 연구에 획기적인 전환점이 될 것으로 보입니다.
                     </p>
                 </div>
-                
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                
                 <div class="burmese-text">
                     <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
                         <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
@@ -208,7 +207,7 @@
         </article>
 
         <!-- 뉴스 어휘 학습 섹션 -->
-        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
             <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
                 <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
                     <i data-lucide="book-open" class="w-6 h-6"></i>
@@ -233,6 +232,64 @@
             </div>
         </article>
 
+        <!-- 퀴즈 섹션 -->
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl overflow-hidden p-8 md:p-10 text-white relative">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center text-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full">
+                        <i data-lucide="help-circle" class="w-12 h-12"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black mb-2">어휘 퀴즈 도전!</h2>
+                        <p class="text-blue-100 burmese-text">ယနေ့သင်ယူခဲ့သော ဝေါဟာရများကို ပြန်လည်စစ်ဆေးကြည့်ရအောင်။</p>
+                    </div>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">
+                        퀴즈 시작하기 (Start Quiz)
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-play-view" class="hidden">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Question 1 / 10</span>
+                    <div class="flex items-center gap-1 font-bold">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-green-300"></i>
+                        <span id="score-display">0</span>
+                    </div>
+                </div>
+                
+                <div class="mb-10 text-center">
+                    <h3 id="question-text" class="text-2xl font-black leading-tight mb-2">협약 (Agreement) 의 뜻은 무엇일까요?</h3>
+                    <p class="text-blue-200 text-sm font-medium">가장 알맞은 미얀마어 뜻을 고르세요.</p>
+                </div>
+
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 퀴즈 옵션들이 여기에 들어갑니다 -->
+                </div>
+
+                <div id="quiz-feedback" class="mt-8 text-center font-bold text-xl min-h-[1.5rem]"></div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black shadow-md hover:bg-blue-50 transition">
+                        다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-result-view" class="hidden text-center space-y-8">
+                <div class="bg-white/20 p-8 rounded-[2rem] inline-block mb-4">
+                    <h2 class="text-5xl font-black mb-2" id="final-score">10 / 10</h2>
+                    <p class="text-xl font-bold burmese-text" id="result-message">정말 대단해요! 완벽합니다!</p>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-blue-100 font-medium">어휘를 꾸준히 학습하면 한국어 실력이 쑥쑥 늘어납니다.</p>
+                    <button onclick="resetQuiz()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition">
+                        퀴즈 다시 하기 (Try Again)
+                    </button>
+                </div>
+            </div>
+        </article>
+
     </main>
 
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
@@ -253,6 +310,127 @@
             if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) e.preventDefault();
         });
         document.addEventListener('copy', e => e.preventDefault());
+
+        // 기본 어휘 데이터
+        const originalQuizData = [
+            { q: "협약", a: "သဘောတူညီချက်", choices: ["သဘောတူညီချက်", "အဆုံးသတ်ခြင်း", "ညစ်ညမ်းမှု", "အနာဂတ်"] },
+            { q: "종식", a: "အဆုံးသတ်ခြင်း", choices: ["အဆုံးသတ်ခြင်း", "ဖြေရှင်းချက်", "ကာကွယ်သည်", "တာဝန်"] },
+            { q: "오염", a: "ညစ်ညမ်းမှု", choices: ["ညစ်ညမ်းမှု", "လူသားမျိုးနွယ်", "ပူးပေါင်းဆောင်ရွက်မှု", "ကြိုးပမ်းအားထုတ်မှု"] },
+            { q: "해결", a: "ဖြေရှင်းချက်", choices: ["ဖြေရှင်းချက်", "သဘောတူညီချက်", "အနာဂတ်", "တာဝန်"] },
+            { q: "인류", a: "လူသားမျိုးနွယ်", choices: ["လူသားမျိုးနွယ်", "ညစ်ညမ်းမှု", "ကာကွယ်သည်", "အဆုံးသတ်ခြင်း"] },
+            { q: "보호하다", a: "ကာကွယ်သည်", choices: ["ကာကွယ်သည်", "ပူးပေါင်းဆောင်ရွက်မှု", "ကြိုးပမ်းအားထုတ်မှု", "ဖြေရှင်းချက်"] },
+            { q: "책임", a: "တာဝန်", choices: ["တာဝန်", "သဘောတူညီချက်", "အနာဂတ်", "လူသားမျိုးနွယ်"] },
+            { q: "협력", a: "ပူးပေါင်းဆောင်ရွက်မှု", choices: ["ပူးပေါင်းဆောင်ရွက်မှု", "ကာကွယ်သည်", "ညစ်ညမ်းမှု", "အဆုံးသတ်ခြင်း"] },
+            { q: "미래", a: "အနာဂတ်", choices: ["အနာဂတ်", "ဖြေရှင်းချက်", "တာဝန်", "သဘောတူညီချက်"] },
+            { q: "노력", a: "ကြိုးပမ်းအားထုတ်မှု", choices: ["ကြိုးပမ်းအားထုတ်မှု", "လူသားမျိုးနွယ်", "ညစ်ညမ်းမှု", "ပူးပေါင်းဆောင်ရွက်မှု"] }
+        ];
+
+        let currentQuizData = [];
+        let currentQIndex = 0;
+        let score = 0;
+        let canAnswer = true;
+
+        // 배열 셔플 함수
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startQuiz() {
+            // 1. 어휘 목록 숨기기
+            document.getElementById('vocab-section').classList.add('hidden');
+            
+            // 2. 문제 순서 랜덤 섞기
+            currentQuizData = shuffle([...originalQuizData]);
+            
+            currentQIndex = 0;
+            score = 0;
+            document.getElementById('score-display').innerText = '0';
+            
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true;
+            const data = currentQuizData[currentQIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentQIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은 무엇일까요?`;
+            document.getElementById('quiz-feedback').innerText = '';
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+
+            // 보기 랜덤 셔플
+            const shuffledChoices = shuffle([...data.choices]);
+
+            shuffledChoices.forEach(choice => {
+                const button = document.createElement('div');
+                button.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-lg text-center shadow-sm';
+                button.innerText = choice;
+                button.onclick = () => checkAnswer(choice, button);
+                grid.appendChild(button);
+            });
+        }
+
+        function checkAnswer(choice, element) {
+            if (!canAnswer) return;
+            canAnswer = false;
+
+            const correct = currentQuizData[currentQIndex].a;
+            const feedback = document.getElementById('quiz-feedback');
+            const scoreDisplay = document.getElementById('score-display');
+
+            if (choice === correct) {
+                element.classList.add('correct');
+                feedback.innerHTML = '<span class="text-green-300">정답입니다! (မှန်ကန်ပါတယ်!)</span>';
+                score++;
+                scoreDisplay.innerText = score;
+            } else {
+                element.classList.add('wrong');
+                feedback.innerHTML = `<span class="text-red-300">틀렸어요. 정답은: ${correct}</span>`;
+                
+                // 정답 표시
+                Array.from(document.getElementsByClassName('quiz-option')).forEach(btn => {
+                    if (btn.innerText === correct) btn.classList.add('correct');
+                });
+            }
+
+            document.getElementById('next-btn').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < currentQuizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-play-view').classList.add('hidden');
+            document.getElementById('quiz-result-view').classList.remove('hidden');
+            document.getElementById('final-score').innerText = `${score} / 10`;
+            
+            const msg = document.getElementById('result-message');
+            if (score === 10) msg.innerText = "대박! 만점입니다! (ထူးချွန်ပါတယ်!)";
+            else if (score >= 7) msg.innerText = "잘했어요! 거의 완벽해요! (တော်ပါတယ်!)";
+            else msg.innerText = "조금 더 공부하면 할 수 있어요! (ထပ်ကြိုးစားပါ!)";
+        }
+
+        function resetQuiz() {
+            // 어휘 목록 다시 보이기
+            document.getElementById('vocab-section').classList.remove('hidden');
+            
+            document.getElementById('quiz-result-view').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.remove('hidden');
+            
+            // 페이지 상단으로 스크롤 (공부한 내용 다시 확인하기 위해)
+            document.getElementById('vocab-section').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
