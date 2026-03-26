@@ -21,7 +21,12 @@
         body {
             font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
             background-color: #f0f4f8;
-            line-height: 1.6; /* 미얀마어 글자 잘림 방지 */
+            line-height: 1.6;
+            /* [불펌 방지] 텍스트 선택 및 복사 금지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         .quiz-container {
             max-width: 500px;
@@ -55,11 +60,34 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* 워터마크 스타일 설정 */
+        .watermark-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 350px;
+            opacity: 0.04; 
+            pointer-events: none;
+            z-index: 0;
+            filter: grayscale(100%);
+        }
     </style>
 </head>
-<body class="antialiased">
+<!-- [불펌 방지] 우클릭, 드래그, 복사 금지 속성 추가 -->
+<body class="antialiased" 
+      oncontextmenu="return false" 
+      ondragstart="return false" 
+      onselectstart="return false"
+      oncopy="return false"
+      oncut="return false">
 
     <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <!-- 배경 워터마크 -->
+        <img src="logo.png" alt="JKLC Watermark" class="watermark-bg" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+
         <!-- 상단 컬러 바 -->
         <div class="h-2 w-full flex sticky top-0 z-50">
             <div class="flex-1 bg-[#FFD700]"></div>
@@ -70,7 +98,7 @@
 
         <!-- 상단 네비게이션 및 로고 영역 -->
         <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
-            <div class="flex gap-2">
+            <div class="flex gap-2 relative z-10">
                 <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Home">
                     <i data-lucide="home" class="w-4 h-4"></i>
                 </a>
@@ -78,17 +106,17 @@
                     <i data-lucide="list" class="w-4 h-4"></i>
                 </a>
             </div>
-            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
-            <div class="w-10 md:w-16"></div> 
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <div class="w-10"></div> 
         </nav>
 
         <!-- 1. 시작 화면 -->
-        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
             <img src="logo.png" alt="JKLC Logo" class="h-32 mb-6 drop-shadow-md" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
             <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">기초 한국어 어휘 퀴즈</h1>
             <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Basic Vocabulary Quiz</p>
             
-            <div class="bg-blue-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full">
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
                 <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Welcome to JOY Korean</p>
                 <p class="text-sm text-blue-800 font-medium leading-relaxed">
                     한국어 단어 실력을 확인해 보세요! <br>
@@ -103,16 +131,21 @@
         </div>
 
         <!-- 2. 퀴즈 진행 화면 -->
-        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in">
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
             <!-- 진행률 표시 -->
             <div class="flex justify-between items-center mb-8">
-                <div class="flex space-x-1" id="progress-dots"></div>
-                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full">1 / 10</span>
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
             </div>
 
             <!-- 문제 텍스트 -->
             <div class="mb-6 text-left">
                 <h2 id="question-text" class="text-2xl font-black text-slate-800 leading-snug"></h2>
+            </div>
+
+            <!-- [수정] 질문지와 답 사이 학원 로고 (선명도 0.5) -->
+            <div class="flex justify-center my-4 opacity-50">
+                <img src="logo.png" alt="JKLC Logo" class="h-10 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
             </div>
 
             <!-- 보기 리스트 -->
@@ -138,7 +171,7 @@
         </div>
 
         <!-- 3. 결과 화면 -->
-        <div id="result-screen" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
             <img src="logo.png" alt="JKLC Logo" class="h-16 mb-4 opacity-50" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
             <h2 class="text-3xl font-black text-slate-800 mb-2 font-['Noto_Sans_KR']">수고하셨습니다!</h2>
             <p class="text-slate-400 font-bold mb-10 tracking-widest uppercase text-[10px]">Quiz Completed</p>
@@ -160,16 +193,17 @@
             </button>
         </div>
 
-        <!-- Footer -->
-        <footer class="p-6 text-center border-t border-slate-50 mt-auto">
+        <!-- [수정] 푸터 영역 로고 추가 -->
+        <footer class="p-6 text-center border-t border-slate-50 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Footer Logo" class="h-8 mx-auto mb-3 opacity-60" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
             <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
         </footer>
     </div>
 
     <!-- 효과음 오디오 객체 미리 로드 -->
     <script>
-        const sndCorrect = new Audio('correct.mp3');
-        const sndWrong = new Audio('wrong.mp3');
+        const sndCorrect = new Audio('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/correct.mp3');
+        const sndWrong = new Audio('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/wrong.mp3');
 
         lucide.createIcons();
 
@@ -277,7 +311,7 @@
                 
                 current.options.forEach((opt, index) => {
                     const btn = document.createElement('button');
-                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white shadow-sm";
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white shadow-sm relative z-10";
                     btn.innerText = opt;
                     btn.onclick = () => quiz.checkAnswer(index, btn);
                     optionsContainer.appendChild(btn);
@@ -297,15 +331,13 @@
                 if (isCorrect) {
                     state.score += 10;
                     btn.classList.add('correct');
-                    // 정답 효과음 재생
                     sndCorrect.currentTime = 0;
-                    sndCorrect.play();
+                    sndCorrect.play().catch(() => {});
                 } else {
                     btn.classList.add('wrong');
                     allButtons[current.correct].classList.add('correct');
-                    // 오답 효과음 재생
                     sndWrong.currentTime = 0;
-                    sndWrong.play();
+                    sndWrong.play().catch(() => {});
                 }
                 
                 quiz.showFeedback(isCorrect);
@@ -321,11 +353,11 @@
                 const current = quizData[state.currentIndex];
                 
                 if (isCorrect) {
-                    card.className = "p-5 rounded-[2rem] mb-6 bg-green-50 text-green-800 border-green-100 shadow-sm";
+                    card.className = "p-5 rounded-[2rem] mb-6 bg-green-50 text-green-800 border-green-100 shadow-sm relative z-10";
                     icon.innerText = "🎉";
                     title.innerText = "잘했어요!";
                 } else {
-                    card.className = "p-5 rounded-[2rem] mb-6 bg-red-50 text-red-800 border-red-100 shadow-sm";
+                    card.className = "p-5 rounded-[2rem] mb-6 bg-red-50 text-red-800 border-red-100 shadow-sm relative z-10";
                     icon.innerText = "💡";
                     title.innerText = "아쉽네요!";
                 }
@@ -358,6 +390,15 @@
                 document.getElementById('final-comment').innerHTML = comment;
                 lucide.createIcons();
             }
+        };
+
+        // 복사 방지 로직 (단축키 차단)
+        document.addEventListener('copy', function(e) { e.preventDefault(); });
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
         };
     </script>
 </body>
