@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOY Korean Language Center - Daily Global News</title>
+    <title>JOY Korean Language Center - Global News (03.24)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,6 +19,7 @@
             background: #f8fafc; 
             scroll-behavior: smooth; 
             line-height: 1.6; 
+            /* 텍스트 드래그(선택) 방지 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -35,20 +36,20 @@
         /* 단어장 스타일 */
         .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
 
-        /* 워터마크 스타일 (사이즈: 375px) */
+        /* 워터마크 스타일 (불펌 방지 - 크기 375px) */
         .watermark-bg {
             position: fixed;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png');
+            pointer-events: none; /* 클릭 방해 금지 */
+            z-index: 9999; /* 최상단에 위치 */
+            background-image: url('logo.png'); 
             background-repeat: repeat;
             background-size: 375px; 
-            opacity: 0.08;
-            transform: rotate(-20deg);
+            opacity: 0.08; 
+            transform: rotate(-20deg); 
         }
     </style>
 </head>
@@ -62,17 +63,16 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest select-none">Global News</span>
                 </div>
             </a>
             <div class="flex items-center gap-3">
                 <div class="hidden md:flex flex-col text-right mr-2">
-                    <span class="text-xs font-black text-slate-800">2026. 03. 26</span>
+                    <span class="text-xs font-black text-slate-800">2026. 03. 24</span>
                     <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
                 </div>
-                <!-- 버튼 영역 -->
                 <div class="flex gap-2 relative z-10">
                     <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
                         <i data-lucide="list" class="w-3.5 h-3.5"></i> List
@@ -95,18 +95,18 @@
             </div>
             <div class="relative z-10 w-full">
                 <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
-                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
-                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 26</span>
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 24</span>
                 </div>
-                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
-                <p class="text-xs font-medium text-slate-500 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 한국 소식을 확인하세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
             </div>
         </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
 
-        <!-- News Item 1 (Modified: Global Plastic Treaty) -->
+        <!-- News Item 1: Global Plastic Treaty -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
                 <img src="https://images.unsplash.com/photo-1591336397464-7d927e69c17b?w=600&q=80" 
@@ -135,13 +135,13 @@
                     </div>
                     <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကမ္ဘာလုံးဆိုင်ရာ ပလတ်စတစ် ညစ်ညမ်းမှု အဆုံးသတ်ရေး သမိုင်းဝင် သဘောတူညီချက် ရရှိ</h2>
                     <p class="text-slate-500 text-xs">
-                        ကုလသမဂ္ဂ အဖွဲ့ဝင်နိုင်ငံများသည် ၂၀၄၀ ခုနှစ်တွင် ပလတ်စတစ် ညစ်ညမ်းမှုကို အဆုံးသတ်ရန် ပထမဆုံးသော ဥပဒေကြောင်းအရ စည်းနှောင်မှုရှိသည့် အပြည်ပြည်ဆိုင်ရာ သဘောတူညီချက်ကို လက်မှတ်ရေးထိုးခဲ့ကြသည်။ ၎င်းသည် သမုဒ္ဒရာ ဂေဟစနစ်ကို ကာကွယ်ရန် လူသားများ၏ သမိုင်းဝင် ခြေလှမ်းတစ်ခုဖြစ်သည်။
+                        ကုလသမဂ္ဂ အဖွဲ့ဝင်နိုင်ငံများသည် ၂၀၄၀ ခုနှစ်တွင် ပလတ်စတစ် ညစ်ညမ်းမှုကို အဆုံးသတ်ရန် ပထမဆုံးသော ဥပဒေကြောင်းအရ စည်းနှောင်မှုရှိသည့် အပြည်ပြည်ဆိုင်ရာ သဘောတူညီချက်ကို လက်မှတ်ရေးထိုးခဲ့ကြသည်။
                     </p>
                 </div>
             </div>
         </article>
 
-        <!-- News Item 2 -->
+        <!-- News Item 2: Tech & Society -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
                 <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="[လူမှုမီဒီယာ]" class="w-full h-full object-cover rounded-[2rem]">
@@ -173,7 +173,41 @@
             </div>
         </article>
 
-        <!-- 뉴스 어휘 학습 섹션 (Increased to 10 words) -->
+        <!-- News Item 3: Science & Space (Newly Added) -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" 
+                     alt="[အာကာသ သုတေသန]" 
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Science & Space</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-indigo-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="rocket" class="w-3.5 h-3.5"></i> 과학 / 우주
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">NASA, 외계 행성에서 액체 상태의 물 존재 가능성 확인</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        NASA의 차세대 망원경이 수백 광년 떨어진 외계 행성의 대기에서 수증기를 포착했습니다. 이는 생명체 존재 가능성에 대한 연구에 획기적인 전환점이 될 것으로 보입니다.
+                    </p>
+                </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">NASA မှ ဂြိုဟ်အပြင်ဘက်တွင် အရည်ပုံစံ ရေရှိနိုင်ခြေကို အတည်ပြု</h2>
+                    <p class="text-slate-500 text-xs">
+                        NASA ၏ နောက်မျိုးဆက်သစ် တယ်လီစကုပ်သည် အလင်းနှစ် ရာနှင့်ချီဝေးသော ဂြိုဟ်တစ်ခု၏ လေထုထဲတွင် ရေငွေ့ကို တွေ့ရှိခဲ့သည်။ ၎င်းသည် သက်ရှိများ ရှိနိုင်ခြေရှိသော သုတေသနအတွက် ထူးခြားသော တိုးတက်မှု ဖြစ်သည်။
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 어휘 학습 섹션 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
             <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
                 <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
@@ -203,7 +237,7 @@
 
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
         <div class="max-w-4xl mx-auto px-6">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
                 JOY KOREAN LANGUAGE CENTER <br>
                 양곤 흘레단 최고의 한국어 교육 센터
