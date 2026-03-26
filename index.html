@@ -27,15 +27,19 @@
         .playing .music-bar { animation: wave 1s infinite ease-in-out; }
         @keyframes wave { 0%, 100% { height: 8px; } 50% { height: 20px; } }
 
-        /* 후기 섹션 워터마크 스타일 */
-        .reviews-watermark {
+        /* 후기 카드 내부 단일 워터마크 스타일 */
+        .card-watermark-container {
+            position: relative;
+            z-index: 1;
+        }
+        .single-watermark {
             position: absolute;
-            inset: 0;
-            background-image: url('logo.png');
-            background-repeat: repeat;
-            background-size: 300px;
-            opacity: 0.04;
-            transform: rotate(-15deg) scale(1.2);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px; /* 적당한 크기의 단일 로고 */
+            height: auto;
+            opacity: 0.05; /* 아주 은은하게 */
             pointer-events: none;
             z-index: 0;
         }
@@ -147,11 +151,8 @@
         </div>
     </section>
 
-    <!-- Review Section (워터마크 추가됨) -->
+    <!-- Review Section -->
     <section id="reviews" class="py-24 bg-slate-50 relative overflow-hidden">
-        <!-- 배경 워터마크 레이어 -->
-        <div class="reviews-watermark"></div>
-
         <div class="max-w-6xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-xs font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Student Voice</h2>
@@ -159,50 +160,62 @@
             </div>
             <div class="grid md:grid-cols-3 gap-8 text-left">
                 <!-- Review 1 -->
-                <div class="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
-                    <div>
-                        <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ဆရာမရဲ့ အသံထွက်က တကယ်ကောင်းပါတယ်။ ကျွန်မ ၆ လအတွင်း TOPIK Level 4 အောင်သွားပါပြီ။ ကျေးဇူးအများကြီးတင်ပါတယ် ဆရာမ။"</p>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div class="card-watermark-container">
+                        <img src="logo.png" class="single-watermark" alt="watermark">
+                        <div class="relative z-10">
+                            <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                            <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ဆရာမရဲ့ အသံထွက်က တကယ်ကောင်းပါတယ်။ ကျွန်မ ၆ လအတွင်း TOPIK Level 4 အောင်သွားပါပြီ။ ကျေးဇူးအများကြီးတင်ပါတယ် ဆရာမ။"</p>
+                        </div>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs shadow-inner shrink-0">MT</div>
-                        <div class="text-left">
-                            <p class="font-black text-sm text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
-                                Ma Thiri <img src="logo.png" class="h-3 w-auto opacity-80" alt="logo">
-                            </p>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">TOPIK Class</p>
+                        <div class="flex justify-between items-center w-full">
+                            <div class="text-left">
+                                <p class="font-black text-sm text-slate-800 uppercase tracking-tight">Ma Thiri</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">TOPIK Class</p>
+                            </div>
+                            <img src="logo.png" class="h-7 w-auto opacity-20 ml-2" alt="logo">
                         </div>
                     </div>
                 </div>
                 <!-- Review 2 -->
-                <div class="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
-                    <div>
-                        <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ စာသင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div class="card-watermark-container">
+                        <img src="logo.png" class="single-watermark" alt="watermark">
+                        <div class="relative z-10">
+                            <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                            <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ စာသင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
+                        </div>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-black text-green-600 text-xs shadow-inner shrink-0">KZ</div>
-                        <div class="text-left">
-                            <p class="font-black text-sm text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
-                                Kyaw Zin <img src="logo.png" class="h-3 w-auto opacity-80" alt="logo">
-                            </p>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Speaking Class</p>
+                        <div class="flex justify-between items-center w-full">
+                            <div class="text-left">
+                                <p class="font-black text-sm text-slate-800 uppercase tracking-tight">Kyaw Zin</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Speaking Class</p>
+                            </div>
+                            <img src="logo.png" class="h-7 w-auto opacity-20 ml-2" alt="logo">
                         </div>
                     </div>
                 </div>
                 <!-- Review 3 -->
-                <div class="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
-                    <div>
-                        <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"နေ့တိုင်းတင်ပေးတဲ့ Online Quiz တွေက အလုပ်လုပ်ရင်း စာလေ့လာဖို့ အရမ်းအထောက်အကူဖြစ်ပါတယ်။ ကျောင်းသားတွေအတွက် တကယ်စေတနာထားတဲ့ ကျောင်းမျိုးပါ။"</p>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                    <div class="card-watermark-container">
+                        <img src="logo.png" class="single-watermark" alt="watermark">
+                        <div class="relative z-10">
+                            <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                            <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"နေ့တိုင်းတင်ပေးတဲ့ Online Quiz တွေက အလုပ်လုပ်ရင်း စာလေ့လာဖို့ အရမ်းအထောက်အကူဖြစ်ပါတယ်။ ကျောင်းသားတွေအတွက် တကယ်စေတနာထားတဲ့ ကျောင်းမျိုးပါ။"</p>
+                        </div>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
                         <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-black text-red-600 text-xs shadow-inner shrink-0">AM</div>
-                        <div class="text-left">
-                            <p class="font-black text-sm text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
-                                Aung Myo <img src="logo.png" class="h-3 w-auto opacity-80" alt="logo">
-                            </p>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">EPS-TOPIK Class</p>
+                        <div class="flex justify-between items-center w-full">
+                            <div class="text-left">
+                                <p class="font-black text-sm text-slate-800 uppercase tracking-tight">Aung Myo</p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">EPS-TOPIK Class</p>
+                            </div>
+                            <img src="logo.png" class="h-7 w-auto opacity-20 ml-2" alt="logo">
                         </div>
                     </div>
                 </div>
