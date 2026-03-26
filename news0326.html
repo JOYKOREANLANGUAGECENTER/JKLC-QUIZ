@@ -19,7 +19,6 @@
             background: #f8fafc; 
             scroll-behavior: smooth; 
             line-height: 1.6; 
-            /* 텍스트 드래그(선택) 방지 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -36,7 +35,7 @@
         /* 단어장 스타일 */
         .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
 
-        /* 워터마크 스타일 (사이즈 반으로 수정: 750px -> 375px) */
+        /* 워터마크 스타일 (사이즈: 375px) */
         .watermark-bg {
             position: fixed;
             top: -50%;
@@ -63,7 +62,7 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
-                <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
                     <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
                 </div>
@@ -95,7 +94,6 @@
                 <i data-lucide="coffee" class="w-6 h-6"></i>
             </div>
             <div class="relative z-10 w-full">
-                <!-- 제목 영역 -->
                 <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
                     <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
                     <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 26</span>
@@ -108,25 +106,24 @@
 
     <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
 
-        <!-- News Item 1 -->
+        <!-- News Item 1 (Modified: Global Plastic Treaty) -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
-                <!-- 첫번째 뉴스 썸네일 경로 수정 -->
-                <img src="https://images.unsplash.com/photo-1590611380053-964390076a5b?w=600&q=80" 
-                     alt="[စစ်ပွဲနှင့် ပဋိပက္ခ သတင်း]" 
-                     onerror="this.src='https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?w=600&q=80'"
+                <img src="https://images.unsplash.com/photo-1591336397464-7d927e69c17b?w=600&q=80" 
+                     alt="[ပလတ်စတစ် ညစ်ညမ်းမှု တိုက်ဖျက်ရေး]" 
+                     onerror="this.src='https://images.unsplash.com/photo-1526951521990-620dc14c214b?w=600&q=80'"
                      class="w-full h-full object-cover rounded-[2rem]">
                 <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
-                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
+                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
             </div>
             <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
                 <div class="mb-5">
-                    <div class="flex items-center text-red-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
-                        <i data-lucide="globe" class="w-3.5 h-3.5"></i> 국제 / 정치
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 국제협력
                     </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국-이란 전쟁 격화 속 이란, 휴전안 거절</h2>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">전 세계 '플라스틱 오염 종식'을 위한 역사적 협약 체결</h2>
                     <p class="text-slate-500 text-sm leading-relaxed font-medium">
-                        트럼프 미국 대통령이 제안한 휴전안을 이란이 거절하면서 중동 지역의 군사적 긴장이 계속되고 있습니다. 미국은 중동에 정예 병력 1,000명을 추가로 배치했으며, 양측의 협상 타결은 여전히 어려운 상황입니다.
+                        유엔(UN) 회원국들이 오는 2040년까지 전 세계 플라스틱 오염을 종식하기 위한 법적 구속력이 있는 첫 국제 협약에 합의했습니다. 이번 협약은 미세 플라스틱 해결과 해양 생태계 보호를 위한 인류의 역사적인 진전으로 평가받고 있습니다.
                     </p>
                 </div>
                 
@@ -136,9 +133,9 @@
                     <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
                         <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
-                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အမေရိကန်-အီရန် စစ်ပွဲ ပြင်းထန်နေချိန်တွင် အပစ်အခတ်ရပ်စဲရေး အဆိုပြုချက်ကို အီရန် ပယ်ချ</h2>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကမ္ဘာလုံးဆိုင်ရာ ပလတ်စတစ် ညစ်ညမ်းမှု အဆုံးသတ်ရေး သမိုင်းဝင် သဘောတူညီချက် ရရှိ</h2>
                     <p class="text-slate-500 text-xs">
-                        အမေရိကန်သမ္မတ ထရမ့် အဆိုပြုထားသော အပစ်အခတ်ရပ်စဲရေးကို အီရန်က ပယ်ချလိုက်သဖြင့် အရှေ့အလယ်ပိုင်းတွင် စစ်ရေးတင်းမာမှုများ ဆက်လက်ဖြစ်ပေါ်နေသည်။
+                        ကုလသမဂ္ဂ အဖွဲ့ဝင်နိုင်ငံများသည် ၂၀၄၀ ခုနှစ်တွင် ပလတ်စတစ် ညစ်ညမ်းမှုကို အဆုံးသတ်ရန် ပထမဆုံးသော ဥပဒေကြောင်းအရ စည်းနှောင်မှုရှိသည့် အပြည်ပြည်ဆိုင်ရာ သဘောတူညီချက်ကို လက်မှတ်ရေးထိုးခဲ့ကြသည်။ ၎င်းသည် သမုဒ္ဒရာ ဂေဟစနစ်ကို ကာကွယ်ရန် လူသားများ၏ သမိုင်းဝင် ခြေလှမ်းတစ်ခုဖြစ်သည်။
                     </p>
                 </div>
             </div>
@@ -176,25 +173,29 @@
             </div>
         </article>
 
-        <!-- 뉴스 어휘 학습 섹션 -->
+        <!-- 뉴스 어휘 학습 섹션 (Increased to 10 words) -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
             <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
                 <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
                     <i data-lucide="book-open" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘</h2>
-                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ</p>
+                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ (၁၀ လုံး)</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">전쟁 <span class="text-xs font-normal text-slate-500 ml-2">(War)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စစ်ပွဲ</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">거절하다 <span class="text-xs font-normal text-slate-500 ml-2">(To reject)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ငြင်းဆန်သည်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">법원 <span class="text-xs font-normal text-slate-500 ml-2">(Court)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တရားရုံး</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">협약 <span class="text-xs font-normal text-slate-500 ml-2">(Agreement)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">သဘောတူညီချက်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">종식 <span class="text-xs font-normal text-slate-500 ml-2">(End)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အဆုံးသတ်ခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">오염 <span class="text-xs font-normal text-slate-500 ml-2">(Pollution)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ညစ်ညမ်းမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">해결 <span class="text-xs font-normal text-slate-500 ml-2">(Solution)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဖြေရှင်းချက်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">인류 <span class="text-xs font-normal text-slate-500 ml-2">(Humanity)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လူသားမျိုးနွယ်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">보호하다 <span class="text-xs font-normal text-slate-500 ml-2">(To protect)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကာကွယ်သည်</p></div>
                 <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">책임 <span class="text-xs font-normal text-slate-500 ml-2">(Responsibility)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တာဝန်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">중독 <span class="text-xs font-normal text-slate-500 ml-2">(Addiction)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စွဲလမ်းမှု</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">참사 <span class="text-xs font-normal text-slate-500 ml-2">(Disaster)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကပ်ဘေး</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">협력 <span class="text-xs font-normal text-slate-500 ml-2">(Cooperation)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပူးပေါင်းဆောင်ရွက်မှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">미래 <span class="text-xs font-normal text-slate-500 ml-2">(Future)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အနာဂတ်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">노력 <span class="text-xs font-normal text-slate-500 ml-2">(Effort)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကြိုးပမ်းအားထုတ်မှု</p></div>
             </div>
         </article>
 
@@ -202,7 +203,7 @@
 
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
         <div class="max-w-4xl mx-auto px-6">
-            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
                 JOY KOREAN LANGUAGE CENTER <br>
                 양곤 흘레단 최고의 한국어 교육 센터
@@ -212,25 +213,12 @@
     </footer>
 
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) e.preventDefault();
         });
-
-        // 우클릭 금지
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // 복사 방지
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) {
-                e.preventDefault();
-            }
-        });
-        
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-        });
+        document.addEventListener('copy', e => e.preventDefault());
     </script>
 </body>
 </html>
