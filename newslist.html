@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOY Korean Language Center - Daily Global News</title>
+    <title>JOY Korean Language Center - Global News Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { 
-            --j: #FFD700; /* 노란색 (JOY) */
-            --k: #0070BB; /* 파란색 (KOREAN) */
-            --l: #228B22; /* 초록색 (LANGUAGE) */
-            --c: #ED1C24; /* 빨간색 (CENTER) */
+            --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24;
         }
         body { 
             font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
@@ -27,183 +24,168 @@
         
         .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
         
-        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
-        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        .news-list-card { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid transparent; 
+            min-height: 180px;
+        }
+        .news-list-card:hover { transform: translateY(-3px); border-color: var(--k); box-shadow: 0 15px 20px -5px rgba(0, 112, 187, 0.08); }
         
         .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
-        
-        /* 단어장 스타일 */
-        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
 
-        /* 워터마크 스타일 (사이즈: 375px) */
+        /* 워터마크 스타일 (상세 페이지와 동일하게 180px로 조정) */
         .watermark-bg {
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url('logo.png');
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            pointer-events: none; z-index: 9999;
+            background-image: url('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png');
             background-repeat: repeat;
             background-size: 375px; 
-            opacity: 0.08;
+            opacity: 0.05;
             transform: rotate(-20deg);
         }
+
+        .thumb-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-custom { animation: spin 1s linear infinite; }
     </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
 
-    <!-- 불펌 방지 워터마크 -->
     <div class="watermark-bg"></div>
-
     <div class="jklc-top-bar"></div>
 
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
-                <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">News Archive</span>
                 </div>
             </a>
-            <div class="flex items-center gap-3">
-                <div class="hidden md:flex flex-col text-right mr-2">
+            <div class="flex items-center gap-3 text-right">
+                <div class="hidden md:flex flex-col mr-2">
                     <span class="text-xs font-black text-slate-800">2026. 03. 26</span>
                     <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
                 </div>
-                <!-- 버튼 영역 -->
-                <div class="flex gap-2 relative z-10">
-                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
-                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
-                    </a>
-                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
-                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
-                    </a>
-                </div>
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                    <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                </a>
             </div>
         </div>
     </nav>
 
-    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
-        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
-            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20">
-                <i data-lucide="globe" class="w-40 h-40"></i>
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full relative z-10">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4 shadow-inner">
+                <i data-lucide="library" class="w-8 h-8"></i>
             </div>
-            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
-                <i data-lucide="coffee" class="w-6 h-6"></i>
-            </div>
-            <div class="relative z-10 w-full">
-                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
-                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
-                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 26</span>
-                </div>
-                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
-                <p class="text-xs font-medium text-slate-500 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
-            </div>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-3">글로벌 뉴스 모아보기</h1>
+            <p class="text-sm font-bold text-slate-500 mb-1">하루하루 쌓이는 지식, 지난 뉴스들도 다시 복습해 보세요!</p>
+            <p class="text-xs font-medium text-slate-400 burmese-text">ယခင်သတင်းများကို ဤနေရာတွင် ပြန်လည်ဖတ်ရှုလေ့လာနိုင်ပါသည်။</p>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+    <main id="news-container" class="max-w-4xl mx-auto px-4 pb-10 space-y-6 w-full flex-grow relative z-10">
 
-        <!-- News Item 1 (Modified: Global Plastic Treaty) -->
-        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
-            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
-                <img src="https://images.unsplash.com/photo-1591336397464-7d927e69c17b?w=600&q=80" 
-                     alt="[ပလတ်စတစ် ညစ်ညမ်းမှု တိုက်ဖျက်ရေး]" 
-                     onerror="this.src='https://images.unsplash.com/photo-1526951521990-620dc14c214b?w=600&q=80'"
-                     class="w-full h-full object-cover rounded-[2rem]">
-                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
-                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
+        <!-- 뉴스 리스트 아이템 1 (2026. 03. 26 - 최신화 완료) -->
+        <a href="news0326.html" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
+            <div class="absolute top-4 right-4 z-20 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                New
             </div>
-            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
-                <div class="mb-5">
-                    <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
-                        <i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 국제협력
-                    </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">전 세계 '플라스틱 오염 종식'을 위한 역사적 협약 체결</h2>
-                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
-                        유엔(UN) 회원국들이 오는 2040년까지 전 세계 플라스틱 오염을 종식하기 위한 법적 구속력이 있는 첫 국제 협약에 합의했습니다. 이번 협약은 미세 플라스틱 해결과 해양 생태계 보호를 위한 인류의 역사적인 진전으로 평가받고 있습니다.
-                    </p>
+            <div class="flex flex-col sm:flex-row h-full">
+                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
+                    <!-- 변경된 플라스틱 협약 썸네일 -->
+                    <img src="https://images.unsplash.com/photo-1591336397464-7d927e69c17b?w=600&q=80" 
+                         alt="News Thumbnail" 
+                         onerror="this.src='https://images.unsplash.com/photo-1526951521990-620dc14c214b?w=600&q=80'"
+                         class="group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
                 </div>
-                
-                <div class="h-px w-full bg-slate-100 my-4"></div>
-                
-                <div class="burmese-text">
-                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
-                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md">2026. 03. 26</span>
+                        <div class="flex gap-1">
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">환경</span>
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">국제협력</span>
+                        </div>
                     </div>
-                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကမ္ဘာလုံးဆိုင်ရာ ပလတ်စတစ် ညစ်ညမ်းမှု အဆုံးသတ်ရေး သမိုင်းဝင် သဘောတူညီချက် ရရှိ</h2>
-                    <p class="text-slate-500 text-xs">
-                        ကုလသမဂ္ဂ အဖွဲ့ဝင်နိုင်ငံများသည် ၂၀၄၀ ခုနှစ်တွင် ပလတ်စတစ် ညစ်ညမ်းမှုကို အဆုံးသတ်ရန် ပထမဆုံးသော ဥပဒေကြောင်းအရ စည်းနှောင်မှုရှိသည့် အပြည်ပြည်ဆိုင်ရာ သဘောတူညီချက်ကို လက်မှတ်ရေးထိုးခဲ့ကြသည်။ ၎င်းသည် သမုဒ္ဒရာ ဂေဟစနစ်ကို ကာကွယ်ရန် လူသားများ၏ သမိုင်းဝင် ခြေလှမ်းတစ်ခုဖြစ်သည်။
-                    </p>
+                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">전 세계 '플라스틱 오염 종식'을 위한 역사적 협약 체결</h2>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">유엔 회원국들이 오는 2040년까지 전 세계 플라스틱 오염을 종식하기 위한 법적 구속력이 있는 첫 국제 협약에 합의했습니다...</p>
+                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
+                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                    </div>
                 </div>
             </div>
-        </article>
+        </a>
 
-        <!-- News Item 2 -->
-        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
-            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
-                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="[လူမှုမီဒီယာ]" class="w-full h-full object-cover rounded-[2rem]">
-                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
-                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Tech & Society</span>
-            </div>
-            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
-                <div class="mb-5">
-                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
-                        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> 기술 / 사회
+        <!-- 뉴스 리스트 아이템 2 (2026. 03. 25) -->
+        <a href="news0325.HTML" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
+            <div class="flex flex-col sm:flex-row h-full">
+                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
+                    <img src="https://images.unsplash.com/photo-1611974717482-58a25a24835a?w=600&q=80" 
+                         alt="News Thumbnail" 
+                         onerror="this.src='https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&q=80'"
+                         class="group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                </div>
+                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">2026. 03. 25</span>
+                        <div class="flex gap-1">
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">국제</span>
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">경제</span>
+                        </div>
                     </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국 법원, "메타·구글 소셜미디어 중독에 책임 있다" 첫 인정</h2>
-                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
-                        미국 법원 배심원단이 메타(페이스북, 인스타그램)와 구글 등 거대 IT 기업들이 청소년들의 소셜미디어 중독에 책임이 있다고 판결했습니다. 이는 기술 기업들의 알고리즘에 대한 첫 법적 책임 인정 사례입니다.
-                    </p>
-                </div>
-                
-                <div class="h-px w-full bg-slate-100 my-4"></div>
-                
-                <div class="burmese-text">
-                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
-                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">미국-이란 협상 제안 및 카타르 LNG 불가항력 선언</h2>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">트럼프 미국 대통령이 이란에 종전 조건을 제안한 가운데 중동 사태 여파로 카타르가 LNG 공급 불가항력을 선언했습니다...</p>
+                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
+                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
                     </div>
-                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">လူမှုမီဒီယာ စွဲလမ်းမှုအတွက် Meta နှင့် Google တို့တွင် တာဝန်ရှိသည်ဟု အသိအမှတ်ပြု</h2>
-                    <p class="text-slate-500 text-xs">
-                        လူငယ်များ၏ လူမှုမီဒီယာ စွဲလမ်းမှုအတွက် နည်းပညာကုမ္ပဏီကြီးများတွင် တာဝန်ရှိကြောင်း အမေရိကန် တရားရုံးက ဆုံးဖြတ်ခဲ့သည်။
-                    </p>
                 </div>
             </div>
-        </article>
+        </a>
 
-        <!-- 뉴스 어휘 학습 섹션 (Increased to 10 words) -->
-        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
-            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-                <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
-                    <i data-lucide="book-open" class="w-6 h-6"></i>
+        <!-- 뉴스 리스트 아이템 3 (2026. 03. 24) -->
+        <a href="news0324.html" class="news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative">
+            <div class="flex flex-col sm:flex-row h-full">
+                <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80" 
+                         alt="News Thumbnail" 
+                         onerror="this.src='https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80'"
+                         class="group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
                 </div>
-                <div>
-                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
-                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ (၁၀ လုံး)</p>
+                <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">2026. 03. 24</span>
+                        <div class="flex gap-1">
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">사회</span>
+                            <span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">문화</span>
+                        </div>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">한국 유학생 장학금 제도 확대 발표 및 K-POP 소식</h2>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-3">한국 교육부에서 외국인 유학생을 위한 장학금 지원을 대폭 확대한다고 밝혔습니다. 특히 동남아시아 학생들을 대상으로...</p>
+                    <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">
+                        자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                    </div>
                 </div>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">협약 <span class="text-xs font-normal text-slate-500 ml-2">(Agreement)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">သဘောတူညီချက်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">종식 <span class="text-xs font-normal text-slate-500 ml-2">(End)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အဆုံးသတ်ခြင်း</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">오염 <span class="text-xs font-normal text-slate-500 ml-2">(Pollution)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ညစ်ညမ်းမှု</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">해결 <span class="text-xs font-normal text-slate-500 ml-2">(Solution)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဖြေရှင်းချက်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">인류 <span class="text-xs font-normal text-slate-500 ml-2">(Humanity)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လူသားမျိုးနွယ်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">보호하다 <span class="text-xs font-normal text-slate-500 ml-2">(To protect)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကာကွယ်သည်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">책임 <span class="text-xs font-normal text-slate-500 ml-2">(Responsibility)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တာဝန်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">협력 <span class="text-xs font-normal text-slate-500 ml-2">(Cooperation)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပူးပေါင်းဆောင်ရွက်မှု</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">미래 <span class="text-xs font-normal text-slate-500 ml-2">(Future)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အနာဂတ်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">노력 <span class="text-xs font-normal text-slate-500 ml-2">(Effort)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကြိုးပမ်းအားထုတ်မှု</p></div>
-            </div>
-        </article>
+        </a>
 
     </main>
 
+    <div class="max-w-4xl mx-auto px-4 pb-20 text-center relative z-10">
+        <button id="load-more-btn" class="px-8 py-3 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-50 hover:text-blue-600 transition shadow-sm inline-flex items-center gap-2 group">
+            <i id="btn-icon" data-lucide="refresh-cw" class="w-4 h-4 transition-transform group-hover:rotate-180 duration-500"></i> 
+            <span id="btn-text">Load More</span>
+        </button>
+    </div>
+
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
         <div class="max-w-4xl mx-auto px-6">
-            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
                 JOY KOREAN LANGUAGE CENTER <br>
                 양곤 흘레단 최고의 한국어 교육 센터
@@ -213,7 +195,60 @@
     </footer>
 
     <script>
-        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        // 추가 뉴스 데이터 (3월 22일 뉴스 제외)
+        const moreNews = [
+            {
+                date: '2026. 03. 23',
+                category: ['환경', '과학'],
+                title: '글로벌 기후 변화 대응을 위한 새로운 국제 협약 체결',
+                desc: '주요 선진국들이 모여 탄소 배출량을 줄이기 위한 강력한 규제안에 합의했습니다. 친환경 에너지를 위한 투자도 늘어날 전망입니다...',
+                img: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&q=80',
+                link: 'news0323.html'
+            }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            const newsContainer = document.getElementById('news-container');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', () => {
+                    btnIcon.classList.add('animate-spin-custom');
+                    btnText.innerText = 'Loading...';
+                    loadMoreBtn.disabled = true;
+
+                    setTimeout(() => {
+                        moreNews.forEach(news => {
+                            const card = document.createElement('a');
+                            card.href = news.link;
+                            card.className = 'news-list-card block bg-white rounded-3xl shadow-sm border border-slate-50 overflow-hidden group relative opacity-0 translate-y-4 transition-all duration-500';
+                            const categories = news.category.map(cat => `<span class="text-[10px] font-bold text-slate-400 border border-slate-200 px-1.5 py-0.5 rounded uppercase">${cat}</span>`).join('');
+                            card.innerHTML = `
+                                <div class="flex flex-col sm:flex-row h-full">
+                                    <div class="sm:w-1/3 h-48 sm:h-auto relative overflow-hidden bg-slate-200 thumb-container">
+                                        <img src="${news.img}" alt="News Thumbnail" class="group-hover:scale-105 transition duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                                    </div>
+                                    <div class="p-6 sm:p-8 sm:w-2/3 flex flex-col justify-center relative">
+                                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-md">${news.date}</span><div class="flex gap-1">${categories}</div></div>
+                                        <h2 class="text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">${news.title}</h2>
+                                        <p class="text-slate-500 text-sm line-clamp-2 mb-3">${news.desc}</p>
+                                        <div class="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-500 transition-colors mt-auto">자세히 보기 <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i></div>
+                                    </div>
+                                </div>`;
+                            newsContainer.appendChild(card);
+                            setTimeout(() => { card.classList.remove('opacity-0', 'translate-y-4'); }, 50);
+                        });
+                        lucide.createIcons();
+                        loadMoreBtn.classList.add('hidden');
+                    }, 800);
+                });
+            }
+        });
+
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) e.preventDefault();
