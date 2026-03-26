@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Daily Global News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; /* 노란색 (JOY) */
+            --k: #0070BB; /* 파란색 (KOREAN) */
+            --l: #228B22; /* 초록색 (LANGUAGE) */
+            --c: #ED1C24; /* 빨간색 (CENTER) */
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
+            /* 텍스트 드래그(선택) 방지 추가 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+        
+        /* 단어장 스타일 */
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+
+        /* 워터마크 스타일 (불펌 방지) */
+        .watermark-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none; /* 클릭 방해 금지 */
+            z-index: 9999; /* 최상단에 위치 */
+            background-image: url('logo.png');
+            background-repeat: repeat;
+            background-size: 750px; /* 기존 250px에서 750px로 간격을 넓혀 밀도를 1/3로 줄임 */
+            opacity: 0.08; /* 투명도를 3%에서 8%로 올림 */
+            transform: rotate(-20deg); /* 사선으로 배치 */
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <!-- 불펌 방지 워터마크 -->
+    <div class="watermark-bg"></div>
+
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span class="text-xs font-black text-slate-800">2026. 03. 26</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud-sun" class="w-3 h-3"></i> Yangon</span>
+                </div>
+                <!-- 버튼 영역 -->
+                <div class="flex gap-2 relative z-10">
+                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
+                    </a>
+                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20">
+                <i data-lucide="globe" class="w-40 h-40"></i>
+            </div>
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="coffee" class="w-6 h-6"></i>
+            </div>
+            <div class="relative z-10 w-full">
+                <!-- 제목 영역 (오늘 날짜 고정) -->
+                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 26</span>
+                </div>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 여러분, 가볍게 세계 소식을 확인하세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">နေ့စဉ် ကမ္ဘာ့သတင်းများဖတ်ရင်း ကိုရီးယားစာ လေ့လာကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+
+        <!-- News Item 1 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1596727147705-611529e30bd0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="globe" class="w-3.5 h-3.5"></i> 국제 / 정치
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국-이란 전쟁 격화 속 이란, 휴전안 거절</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        트럼프 미국 대통령이 제안한 휴전안을 이란이 거절하면서 중동 지역의 군사적 긴장이 계속되고 있습니다. 미국은 중동에 정예 병력 1,000명을 추가로 배치했으며, 양측의 협상 타결은 여전히 어려운 상황입니다.
+                    </p>
+                </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အမေရိကန်-အီရန် စစ်ပွဲ ပြင်းထန်နေချိန်တွင် အပစ်အခတ်ရပ်စဲရေး အဆိုပြုချက်ကို အီရန် ပယ်ချ</h2>
+                    <p class="text-slate-500 text-xs">
+                        အမေရိကန်သမ္မတ ထရမ့် အဆိုပြုထားသော အပစ်အခတ်ရပ်စဲရေးကို အီရန်က ပယ်ချလိုက်သဖြင့် အရှေ့အလယ်ပိုင်းတွင် စစ်ရေးတင်းမာမှုများ ဆက်လက်ဖြစ်ပေါ်နေသည်။ အမေရိကန်သည် အရှေ့အလယ်ပိုင်းသို့ အထူးတပ်ဖွဲ့ဝင် ၁,၀၀၀ ကို ထပ်မံချထားခဲ့ပြီး နှစ်ဖက်စေ့စပ်ညှိနှိုင်းမှု အောင်မြင်ရန် ခက်ခဲနေဆဲဖြစ်သည်။
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 2 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Tech & Society</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> 기술 / 사회
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">미국 법원, "메타·구글 소셜미디어 중독에 책임 있다" 첫 인정</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        미국 법원 배심원단이 메타(페이스북, 인스타그램)와 구글 등 거대 IT 기업들이 청소년들의 소셜미디어 중독에 책임이 있다고 판결했습니다. 이는 기술 기업들의 알고리즘에 대한 첫 법적 책임 인정 사례로 큰 파장이 예상됩니다.
+                    </p>
+                </div>
+                
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                
+                <div class="burmese-text">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အမေရိကန်တရားရုံး၊ “Meta နှင့် Google တို့တွင် လူမှုမီဒီယာ စွဲလမ်းမှုအတွက် တာဝန်ရှိသည်” ဟု ပထမဆုံး အသိအမှတ်ပြု</h2>
+                    <p class="text-slate-500 text-xs">
+                        လူငယ်များ၏ လူမှုမီဒီယာ စွဲလမ်းမှုအတွက် Meta (Facebook, Instagram) နှင့် Google ကဲ့သို့သော နည်းပညာကုမ္ပဏီကြီးများတွင် တာဝန်ရှိကြောင်း အမေရိကန် တရားရုံး ဂျူရီလူကြီးများက ဆုံးဖြတ်ခဲ့သည်။ ၎င်းသည် နည်းပညာကုမ္ပဏီများ၏ အယ်လဂိုရီသမ်များအတွက် ပထမဆုံး ဥပဒေကြောင်းအရ တာဝန်ရှိကြောင်း အသိအမှတ်ပြုမှုဖြစ်ပြီး ဂယက်ရိုက်ခတ်မှုကြီးမားမည်ဟု မျှော်လင့်ရသည်။
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 3 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-3 gap-1.5">
+                        <i data-lucide="newspaper" class="w-3.5 h-3.5"></i> 사건사고 / 국제
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-4 leading-snug">방글라데시 버스 강추락 참사 & 영국 구급차 방화 사건</h2>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                            방글라데시에서 승객을 태운 버스가 강으로 추락해 최소 16명이 사망하고 다수가 실종되는 안타까운 사고가 발생했습니다.
+                        </li>
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0"></span>
+                            한편, 영국 런던에서는 유대인 구급차 연쇄 방화 사건의 용의자 2명이 체포되어 경찰이 수사 중입니다.
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="burmese-text bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-3 gap-1.5">
+                        <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
+                    </div>
+                    <h2 class="text-base font-bold text-slate-800 mb-4 leading-snug">ဘင်္ဂလားဒေ့ရှ် ဘတ်စ်ကား မြစ်ထဲသို့ ထိုးကျမှုနှင့် ဗြိတိန် လူနာတင်ယာဉ် မီးရှို့မှု</h2>
+                    <ul class="space-y-3">
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>ဘင်္ဂလားဒေ့ရှ်နိုင်ငံတွင် ခရီးသည်တင် ဘတ်စ်ကားတစ်စီး မြစ်ထဲသို့ ထိုးကျသွားရာ အနည်းဆုံး လူ ၁၆ ဦး သေဆုံးပြီး အများအပြား ပျောက်ဆုံးနေသည့် ဝမ်းနည်းဖွယ် မတော်တဆမှု ဖြစ်ပွားခဲ့သည်။</span>
+                        </li>
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>တစ်ချိန်တည်းမှာပင်၊ ဗြိတိန်နိုင်ငံ လန်ဒန်မြို့၌ ဂျူးလူနာတင်ယာဉ်များအား မီးရှို့မှုဖြင့် သံသယရှိသူ ၂ ဦးကို ဖမ်းဆီးရမိပြီး ရဲတပ်ဖွဲ့က စုံစမ်းစစ်ဆေးလျက်ရှိသည်။</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 어휘 학습 섹션 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
+                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘</h2>
+                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
+                <!-- Word 1 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">전쟁 <span class="text-xs font-normal text-slate-500 ml-2">(War)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">စစ်ပွဲ</p>
+                </div>
+                <!-- Word 2 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">거절하다 <span class="text-xs font-normal text-slate-500 ml-2">(To reject)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ငြင်းဆန်သည် / ပယ်ချသည်</p>
+                </div>
+                <!-- Word 3 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">병력 <span class="text-xs font-normal text-slate-500 ml-2">(Military force)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">တပ်ဖွဲ့</p>
+                </div>
+                <!-- Word 4 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">법원 <span class="text-xs font-normal text-slate-500 ml-2">(Court)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">တရားရုံး</p>
+                </div>
+                <!-- Word 5 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">책임 <span class="text-xs font-normal text-slate-500 ml-2">(Responsibility)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">တာဝန်</p>
+                </div>
+                <!-- Word 6 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">중독 <span class="text-xs font-normal text-slate-500 ml-2">(Addiction)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">စွဲလမ်းမှု</p>
+                </div>
+                <!-- Word 7 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">참사 <span class="text-xs font-normal text-slate-500 ml-2">(Disaster / Tragedy)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ဝမ်းနည်းဖွယ် မတော်တဆမှု / ကပ်ဘေး</p>
+                </div>
+                <!-- Word 8 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">승객 <span class="text-xs font-normal text-slate-500 ml-2">(Passenger)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">ခရီးသည်</p>
+                </div>
+                <!-- Word 9 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">방화 <span class="text-xs font-normal text-slate-500 ml-2">(Arson)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">မီးရှို့မှု</p>
+                </div>
+                <!-- Word 10 -->
+                <div class="vocab-item">
+                    <h3 class="text-lg font-bold text-slate-800">용의자 <span class="text-xs font-normal text-slate-500 ml-2">(Suspect)</span></h3>
+                    <p class="text-sm text-slate-600 burmese-text mt-1">သံသယရှိသူ</p>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 최고의 한국어 교육 센터
+            </p>
+            <div class="bg-slate-50 inline-block px-6 py-3 rounded-2xl border border-slate-100 mt-2 mb-6">
+                <p class="text-xs font-bold text-slate-600 flex items-center gap-2">
+                    <i data-lucide="smile" class="w-4 h-4 text-blue-500"></i> Have a great day studying!
+                </p>
+                <p class="text-[11px] text-slate-500 font-medium burmese-text mt-1">ဒီနေ့လည်း ပျော်ရွှင်စွာ လေ့လာကြပါစို့။</p>
+            </div>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 페이지 로드 완료 시 아이콘 초기화 (날짜 자동 갱신 로직 제거)
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // 마우스 우클릭(컨텍스트 메뉴) 금지
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 키보드 단축키(Ctrl+C, Ctrl+V, Ctrl+X 등) 및 텍스트 복사 금지
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) {
+                e.preventDefault();
+            }
+        });
+        
+        // 모바일 환경에서의 복사 방지
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
