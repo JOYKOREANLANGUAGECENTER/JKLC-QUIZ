@@ -19,6 +19,11 @@
             background: #f8fafc; 
             scroll-behavior: smooth; 
             line-height: 1.6; 
+            /* 텍스트 드래그(선택) 방지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
@@ -31,7 +36,7 @@
         /* 단어장 스타일 */
         .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
 
-        /* 워터마크 스타일 (불펌 방지) */
+        /* 워터마크 스타일 (불펌 방지 - 크기 375px) */
         .watermark-bg {
             position: fixed;
             top: -50%;
@@ -40,9 +45,9 @@
             height: 200%;
             pointer-events: none; /* 클릭 방해 금지 */
             z-index: 9999; /* 최상단에 위치 */
-            background-image: url('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png');
+            background-image: url('logo.png'); 
             background-repeat: repeat;
-            background-size: 750px; /* 밀도를 낮춘 넓은 간격 */
+            background-size: 375px; 
             opacity: 0.08; 
             transform: rotate(-20deg); 
         }
@@ -58,9 +63,9 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest select-none">Global News</span>
                 </div>
             </a>
             <div class="flex items-center gap-3">
@@ -101,15 +106,13 @@
 
     <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
 
-        <!-- News Item 1: 유학생 장학금 -->
+        <!-- News Item 1: 유학생 장학금 (다시 교체된 새 이미지) -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
-                <!-- 에러가 절대 나지 않는 CSS 아이콘 배경 방식 적용 -->
-                <div class="w-full h-full bg-gradient-to-br from-blue-500 to-cyan-400 rounded-[2rem] flex items-center justify-center relative overflow-hidden shadow-inner">
-                    <i data-lucide="graduation-cap" class="w-40 h-40 text-white opacity-20 absolute -bottom-6 -right-6 transform -rotate-12"></i>
-                    <i data-lucide="book-open" class="w-16 h-16 text-white opacity-90 drop-shadow-md"></i>
-                </div>
-                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent rounded-[2rem] pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=80" 
+                     alt="[교육 장학금 이미지]" 
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent rounded-[2rem] pointer-events-none"></div>
                 <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Society / Education</span>
             </div>
             <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
@@ -140,12 +143,10 @@
         <!-- News Item 2: K-POP -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
-                <!-- 에러가 절대 나지 않는 CSS 아이콘 배경 방식 적용 -->
-                <div class="w-full h-full bg-gradient-to-br from-rose-500 to-purple-500 rounded-[2rem] flex items-center justify-center relative overflow-hidden shadow-inner">
-                    <i data-lucide="music-4" class="w-40 h-40 text-white opacity-20 absolute -bottom-6 -right-6 transform rotate-12"></i>
-                    <i data-lucide="mic-2" class="w-16 h-16 text-white opacity-90 drop-shadow-md"></i>
-                </div>
-                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent rounded-[2rem] pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=80" 
+                     alt="[K-POP 콘서트 무대 이미지]" 
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent rounded-[2rem] pointer-events-none"></div>
                 <span class="absolute bottom-6 left-6 bg-rose-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Culture / K-POP</span>
             </div>
             <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
@@ -173,12 +174,17 @@
             </div>
         </article>
 
-        <!-- News Item 3: 짧은 단신 -->
+        <!-- News Item 3: 봄 날씨 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                     <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-3 gap-1.5">
                         <i data-lucide="sun" class="w-3.5 h-3.5"></i> 생활 / 날씨
+                    </div>
+                    <div class="mb-4 h-48 overflow-hidden rounded-2xl relative">
+                        <img src="https://images.unsplash.com/photo-1493119508367-ad49ff237a15?w=600&q=80" 
+                             alt="[벚꽃 개화 이미지]" 
+                             class="w-full h-full object-cover">
                     </div>
                     <h2 class="text-xl font-black text-slate-900 mb-4 leading-snug">한국, 본격적인 봄 날씨 시작... 남부 지방 벚꽃 개화</h2>
                     <ul class="space-y-4">
@@ -193,7 +199,7 @@
                     </ul>
                 </div>
                 
-                <div class="burmese-text bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                <div class="burmese-text bg-slate-50 p-6 rounded-3xl border border-slate-100 flex flex-col justify-center">
                     <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-3 gap-1.5">
                         <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
@@ -225,52 +231,42 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
-                <!-- Word 1 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">유학생 <span class="text-xs font-normal text-slate-500 ml-2">(International Student)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">နိုင်ငံခြားကျောင်းသား</p>
                 </div>
-                <!-- Word 2 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">장학금 <span class="text-xs font-normal text-slate-500 ml-2">(Scholarship)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">ပညာသင်ဆု</p>
                 </div>
-                <!-- Word 3 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">확대하다 <span class="text-xs font-normal text-slate-500 ml-2">(To expand)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">တိုးချဲ့သည်</p>
                 </div>
-                <!-- Word 4 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">발표하다 <span class="text-xs font-normal text-slate-500 ml-2">(To announce)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">ကြေညာသည်</p>
                 </div>
-                <!-- Word 5 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">교육부 <span class="text-xs font-normal text-slate-500 ml-2">(Ministry of Education)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">ပညာရေးဝန်ကြီးဌာန</p>
                 </div>
-                <!-- Word 6 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">지원 <span class="text-xs font-normal text-slate-500 ml-2">(Support / Aid)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">ထောက်ပံ့မှု</p>
                 </div>
-                <!-- Word 7 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">신인 <span class="text-xs font-normal text-slate-500 ml-2">(Rookie / Newcomer)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">လူသစ်</p>
                 </div>
-                <!-- Word 8 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">발매 <span class="text-xs font-normal text-slate-500 ml-2">(Release)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">ဖြန့်ချိသည်</p>
                 </div>
-                <!-- Word 9 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">진입하다 <span class="text-xs font-normal text-slate-500 ml-2">(To enter)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">ဝင်ရောက်သည်</p>
                 </div>
-                <!-- Word 10 -->
                 <div class="vocab-item">
                     <h3 class="text-lg font-bold text-slate-800">반응 <span class="text-xs font-normal text-slate-500 ml-2">(Reaction / Response)</span></h3>
                     <p class="text-sm text-slate-600 burmese-text mt-1">တုံ့ပြန်မှု</p>
@@ -282,7 +278,7 @@
 
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
         <div class="max-w-4xl mx-auto px-6">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
                 JOY KOREAN LANGUAGE CENTER <br>
                 양곤 흘레단 최고의 한국어 교육 센터
@@ -291,7 +287,7 @@
                 <p class="text-xs font-bold text-slate-600 flex items-center gap-2">
                     <i data-lucide="smile" class="w-4 h-4 text-blue-500"></i> Have a great day studying!
                 </p>
-                <p class="text-[11px] text-slate-500 font-medium burmese-text mt-1">ဒီနေ့လည်း ပျော်ရွှင်စွာ လေ့လာကြပါစို့။</p>
+                <p class="text-[11px] text-slate-500 font-medium burmese-text mt-1">ဒီနေ့လည်း ပျော်ရွှင်စွာ လေ့လာကြပါစို့।</p>
             </div>
             <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
         </div>
@@ -302,6 +298,17 @@
         window.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
+
+        // 1. 우클릭 금지
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // 2. 복사 금지 (Ctrl+C, Ctrl+V, Ctrl+X 및 드래그 복사 차단)
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'x' || e.key === 'X')) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('copy', e => e.preventDefault());
     </script>
 </body>
 </html>
