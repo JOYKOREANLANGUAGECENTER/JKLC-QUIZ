@@ -86,7 +86,7 @@
     <div id="app" class="quiz-container relative overflow-hidden">
         
         <!-- 배경 워터마크 -->
-        <img src="logo.png" alt="JKLC Watermark" class="watermark-bg" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+        <img src="logo.png" alt="JKLC Watermark" class="watermark-bg" onerror="this.src='logo.png'">
 
         <!-- 상단 컬러 바 -->
         <div class="h-2 w-full flex sticky top-0 z-50">
@@ -106,13 +106,13 @@
                     <i data-lucide="list" class="w-4 h-4"></i>
                 </a>
             </div>
-            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10" onerror="this.src='logo.png'">
             <div class="w-10"></div> 
         </nav>
 
         <!-- 1. 시작 화면 -->
         <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
-            <img src="logo.png" alt="JKLC Logo" class="h-32 mb-6 drop-shadow-md" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <img src="logo.png" alt="JKLC Logo" class="h-32 mb-6 drop-shadow-md" onerror="this.src='logo.png'">
             <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">기초 한국어 어휘 퀴즈</h1>
             <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Basic Vocabulary Quiz</p>
             
@@ -145,7 +145,7 @@
 
             <!-- [수정] 질문지와 답 사이 학원 로고 (선명도 0.5) -->
             <div class="flex justify-center my-4 opacity-50">
-                <img src="logo.png" alt="JKLC Logo" class="h-10 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+                <img src="logo.png" alt="JKLC Logo" class="h-10 w-auto" onerror="this.src='logo.png'">
             </div>
 
             <!-- 보기 리스트 -->
@@ -172,7 +172,7 @@
 
         <!-- 3. 결과 화면 -->
         <div id="result-screen" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
-            <img src="logo.png" alt="JKLC Logo" class="h-16 mb-4 opacity-50" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <img src="logo.png" alt="JKLC Logo" class="h-16 mb-4 opacity-50" onerror="this.src='logo.png'">
             <h2 class="text-3xl font-black text-slate-800 mb-2 font-['Noto_Sans_KR']">수고하셨습니다!</h2>
             <p class="text-slate-400 font-bold mb-10 tracking-widest uppercase text-[10px]">Quiz Completed</p>
             
@@ -195,15 +195,15 @@
 
         <!-- [수정] 푸터 영역 로고 추가 -->
         <footer class="p-6 text-center border-t border-slate-50 mt-auto relative z-10">
-            <img src="logo.png" alt="JKLC Footer Logo" class="h-8 mx-auto mb-3 opacity-60" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+            <img src="logo.png" alt="JKLC Footer Logo" class="h-8 mx-auto mb-3 opacity-60" onerror="this.src='logo.png'">
             <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
         </footer>
     </div>
 
     <!-- 효과음 오디오 객체 미리 로드 -->
     <script>
-        const sndCorrect = new Audio('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/correct.mp3');
-        const sndWrong = new Audio('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/wrong.mp3');
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
 
         lucide.createIcons();
 
