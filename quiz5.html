@@ -18,6 +18,11 @@
             font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
             background-color: #f0f4f8;
             line-height: 1.6;
+            /* [불펌 방지] 텍스트 선택 및 복사 금지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         .quiz-container {
             max-width: 500px;
@@ -51,11 +56,34 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* 워터마크 스타일 설정 */
+        .watermark-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 350px;
+            opacity: 0.04; 
+            pointer-events: none;
+            z-index: 0;
+            filter: grayscale(100%);
+        }
     </style>
 </head>
-<body class="antialiased">
+<!-- [불펌 방지] 우클릭, 드래그, 복사 금지 속성 추가 -->
+<body class="antialiased" 
+      oncontextmenu="return false" 
+      ondragstart="return false" 
+      onselectstart="return false"
+      oncopy="return false"
+      oncut="return false">
 
-    <div id="app" class="quiz-container relative overflow-hidden">
+    <div id="app" class="quiz-container relative overflow-hidden text-left">
+        
+        <!-- 배경 워터마크 -->
+        <img src="logo.png" alt="JKLC Watermark" class="watermark-bg">
+
         <!-- 상단 컬러 바 -->
         <div class="h-2 w-full flex sticky top-0 z-50">
             <div class="flex-1 bg-[#FFD700]"></div>
@@ -64,29 +92,29 @@
             <div class="flex-1 bg-[#ED1C24]"></div>
         </div>
 
-        <!-- 상단 네비게이션 및 로고 영역 -->
-        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
-            <div class="flex gap-2">
-                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Home">
+        <!-- 상단 네비게이션 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="메인 홈으로">
                     <i data-lucide="home" class="w-4 h-4"></i>
                 </a>
-                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="Quiz List">
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="퀴즈 목록으로">
                     <i data-lucide="list" class="w-4 h-4"></i>
                 </a>
             </div>
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto">
-            <div class="w-10 md:w-16"></div> 
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
         </nav>
 
         <!-- 1. 시작 화면 -->
-        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
             <div class="w-20 h-20 bg-green-50 text-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
                 <i data-lucide="school" class="w-10 h-10"></i>
             </div>
-            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">학교에서 대화하기</h1>
-            <p class="text-green-600 font-bold text-sm mb-10 italic uppercase tracking-widest">School Conversation Quiz</p>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight text-center">학교에서 대화하기</h1>
+            <p class="text-green-600 font-bold text-sm mb-10 italic uppercase tracking-widest text-center">School Conversation Quiz</p>
             
-            <div class="bg-green-50 p-6 rounded-3xl mb-12 text-left border-l-4 border-green-500 w-full">
+            <div class="bg-green-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-green-500 w-full shadow-sm">
                 <p class="text-[10px] text-green-900 font-black mb-1 tracking-widest uppercase">Campus Life</p>
                 <p class="text-sm text-green-800 font-medium leading-relaxed">
                     학교에서 친구, 선생님과 나누는 대화를 알아봅시다!<br>
@@ -97,19 +125,24 @@
             <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
                 <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
             </button>
-            <p class="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Hledan · Yangon · Myanmar</p>
+            <p class="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center">Hledan · Yangon · Myanmar</p>
         </div>
 
         <!-- 2. 퀴즈 진행 화면 -->
-        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in">
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
             <div class="flex justify-between items-center mb-8">
                 <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
                 <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
             </div>
 
             <div class="mb-6 text-left">
-                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
-                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2 text-left"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu'] text-left"></p>
+            </div>
+
+            <!-- [수정] 질문지와 답 사이 학원 로고 (선명도 0.5) -->
+            <div class="flex justify-center my-4 opacity-50">
+                <img src="logo.png" alt="JKLC Logo" class="h-10 w-auto">
             </div>
 
             <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
@@ -120,8 +153,8 @@
                         <span id="result-icon" class="text-2xl mr-2"></span>
                         <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
                     </div>
-                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
-                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3 text-left"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80 text-left">
                          <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
                          <p id="hint-text" class="text-xs font-medium italic"></p>
                     </div>
@@ -133,18 +166,18 @@
         </div>
 
         <!-- 3. 결과 화면 -->
-        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto">
-            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
-            <h2 class="text-3xl font-black text-slate-800 mb-2 font-['Noto_Sans_KR']">수고하셨습니다!</h2>
-            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2 font-['Noto_Sans_KR'] text-center">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px] text-center">Quiz Completed</p>
             
-            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden">
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-center">
                 <div class="absolute -top-6 -right-6 opacity-10">
                     <i data-lucide="graduation-cap" class="w-32 h-32 text-white"></i>
                 </div>
-                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
-                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
-                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase text-center">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter text-center" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug text-center" id="final-comment"></p>
             </div>
 
             <button id="review-btn" onclick="quiz.showReview()" class="hidden w-full bg-amber-500 text-white font-black py-5 rounded-2xl hover:bg-amber-600 transition shadow-lg mb-4 flex items-center justify-center gap-2">
@@ -154,34 +187,33 @@
             <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
                 <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
             </button>
-            <button onclick="location.href='index.html'" class="w-full bg-slate-100 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
-                <i data-lucide="home" class="w-4 h-4"></i> 메인 홈으로
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
             </button>
         </div>
 
         <!-- 4. 틀린 문제 리뷰 화면 -->
-        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto">
+        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto relative z-10 text-left">
             <div class="flex items-center gap-3 mb-6">
                 <button onclick="quiz.backToResult()" class="p-2 bg-slate-100 rounded-full text-slate-500">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 </button>
-                <h2 class="text-xl font-black text-slate-800 tracking-tight">틀린 문제 복습하기</h2>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight text-left">틀린 문제 복습하기</h2>
             </div>
-            
             <div id="review-list" class="space-y-6 pb-10"></div>
         </div>
 
-        <!-- Footer -->
-        <footer class="p-6 text-center border-t border-slate-50 mt-auto">
-            <p class="text-[9px] font-black text-slate-300 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        <!-- [수정] 푸터 영역 로고 추가 -->
+        <footer class="p-6 text-center border-t border-slate-50 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Footer Logo" class="h-8 mx-auto mb-3 opacity-60">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase text-center">© JOY KOREAN LANGUAGE CENTER</p>
         </footer>
     </div>
 
     <script>
-        const sndCorrect = new Audio('correct.mp3');
-        const sndWrong = new Audio('wrong.mp3');
-
-        lucide.createIcons();
+        const sndCorrect = new Audio('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/correct.mp3');
+        const sndWrong = new Audio('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/wrong.mp3');
 
         const quizData = [
             {
@@ -289,7 +321,6 @@
             renderQuestion: () => {
                 const current = quizData[state.currentIndex];
                 state.answered = false;
-                
                 document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / ${quizData.length}`;
                 document.getElementById('question-text').innerText = current.q;
                 document.getElementById('question-myanmar').innerText = current.m;
@@ -299,7 +330,7 @@
                 
                 current.options.forEach((opt, index) => {
                     const btn = document.createElement('button');
-                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white shadow-sm";
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white/90 backdrop-blur-sm shadow-sm relative z-10";
                     btn.innerText = opt;
                     btn.onclick = () => quiz.checkAnswer(index, btn);
                     optionsContainer.appendChild(btn);
@@ -311,116 +342,63 @@
             checkAnswer: (selectedIndex, btn) => {
                 if (state.answered) return;
                 state.answered = true;
-                
                 const current = quizData[state.currentIndex];
                 const isCorrect = selectedIndex === current.correct;
                 
-                const allButtons = document.querySelectorAll('.option-btn');
                 if (isCorrect) {
                     state.score += 10;
                     btn.classList.add('correct');
                     sndCorrect.currentTime = 0;
-                    sndCorrect.play();
+                    sndCorrect.play().catch(() => {});
                 } else {
                     btn.classList.add('wrong');
-                    allButtons[current.correct].classList.add('correct');
-                    state.wrongAnswers.push({
-                        ...current,
-                        userChoice: current.options[selectedIndex]
-                    });
+                    document.querySelectorAll('.option-btn')[current.correct].classList.add('correct');
+                    state.wrongAnswers.push({ ...current, userChoice: current.options[selectedIndex] });
                     sndWrong.currentTime = 0;
-                    sndWrong.play();
+                    sndWrong.play().catch(() => {});
                 }
-                
                 quiz.showFeedback(isCorrect);
             },
             showFeedback: (isCorrect) => {
-                const area = document.getElementById('feedback-area');
-                const card = document.getElementById('feedback-card');
-                const icon = document.getElementById('result-icon');
-                const title = document.getElementById('result-title');
-                const rationale = document.getElementById('rationale-text');
-                const hintText = document.getElementById('hint-text');
-                
                 const current = quizData[state.currentIndex];
-                
-                if (isCorrect) {
-                    card.className = "p-5 rounded-[2rem] mb-6 bg-green-50 text-green-800 border-green-100 shadow-sm";
-                    icon.innerText = "🎉";
-                    title.innerText = "정답입니다! (Excellent!)";
-                } else {
-                    card.className = "p-5 rounded-[2rem] mb-6 bg-red-50 text-red-800 border-red-100 shadow-sm";
-                    icon.innerText = "💡";
-                    title.innerText = "아쉬워요! (Keep going!)";
-                }
-                
-                rationale.innerText = current.rationale;
-                hintText.innerText = current.hint;
-                
-                area.classList.remove('hidden');
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 shadow-sm border relative z-10 ${isCorrect ? 'bg-green-50/90 backdrop-blur-sm text-green-800 border-green-100' : 'bg-red-50/90 backdrop-blur-sm text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
             },
             next: () => {
                 state.currentIndex++;
-                if (state.currentIndex < quizData.length) {
-                    quiz.renderQuestion();
-                } else {
-                    quiz.showResult();
-                }
+                if (state.currentIndex < quizData.length) quiz.renderQuestion();
+                else quiz.showResult();
             },
             showResult: () => {
                 document.getElementById('quiz-screen').classList.add('hidden');
                 document.getElementById('result-screen').classList.remove('hidden');
                 document.getElementById('final-score').innerText = state.score;
-                
-                if (state.wrongAnswers.length > 0) {
-                    document.getElementById('review-btn').classList.remove('hidden');
-                }
-
-                let comment = "";
-                if (state.score === 100) comment = "와우! 완벽합니다! <br>(အရမ်းတော်တယ်!)";
-                else if (state.score >= 80) comment = "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)";
-                else if (state.score >= 50) comment = "조금만 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
-                else comment = "괜찮아요, 다시 도전해볼까요? <br>(ထပ်လုပ်ကြည့်ရအောင်!)";
-                
-                document.getElementById('final-comment').innerHTML = comment;
+                if (state.wrongAnswers.length > 0) document.getElementById('review-btn').classList.remove('hidden');
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
                 lucide.createIcons();
             },
             showReview: () => {
                 document.getElementById('result-screen').classList.add('hidden');
                 document.getElementById('review-screen').classList.remove('hidden');
-                
                 const list = document.getElementById('review-list');
                 list.innerHTML = '';
-                
-                state.wrongAnswers.forEach((item) => {
-                    const reviewItem = document.createElement('div');
-                    reviewItem.className = "bg-white p-5 rounded-3xl border border-slate-100 shadow-sm";
-                    reviewItem.innerHTML = `
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-[10px] font-black">!</span>
-                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Question</span>
+                state.wrongAnswers.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "bg-white/90 backdrop-blur-sm p-5 rounded-3xl border border-slate-100 shadow-sm relative z-10 text-left";
+                    div.innerHTML = `
+                        <h4 class="font-bold text-slate-800 mb-1 text-left">${item.q}</h4>
+                        <p class="text-xs text-slate-400 mb-4 font-['Pyidaungsu'] text-left">${item.m}</p>
+                        <div class="space-y-2 mb-4 text-xs font-bold text-left">
+                            <div class="p-3 bg-red-50 text-red-700 rounded-xl">내 선택: ${item.userChoice}</div>
+                            <div class="p-3 bg-green-50 text-green-700 rounded-xl">정답: ${item.options[item.correct]}</div>
                         </div>
-                        <h4 class="font-bold text-slate-800 leading-snug mb-1">${item.q}</h4>
-                        <p class="text-xs text-slate-400 font-medium mb-4 font-['Pyidaungsu']">${item.m}</p>
-                        
-                        <div class="space-y-2 mb-4">
-                            <div class="p-3 bg-red-50 rounded-xl border border-red-100">
-                                <p class="text-[9px] font-black text-red-400 uppercase mb-1">내 선택 (Your Answer)</p>
-                                <p class="text-xs font-bold text-red-700">${item.userChoice}</p>
-                            </div>
-                            <div class="p-3 bg-green-50 rounded-xl border border-green-100">
-                                <p class="text-[9px] font-black text-green-400 uppercase mb-1">정답 (Correct Answer)</p>
-                                <p class="text-xs font-bold text-green-700">${item.options[item.correct]}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-widest">Explanation</p>
-                            <p class="text-[11px] font-medium text-slate-600 leading-relaxed">${item.rationale}</p>
-                        </div>
+                        <p class="text-[11px] text-slate-600 text-left">${item.rationale}</p>
                     `;
-                    list.appendChild(reviewItem);
+                    list.appendChild(div);
                 });
                 lucide.createIcons();
             },
@@ -429,6 +407,17 @@
                 document.getElementById('result-screen').classList.remove('hidden');
             }
         };
+
+        // 복사 방지 로직 (단축키 차단)
+        document.addEventListener('copy', function(e) { e.preventDefault(); });
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        };
+
+        window.onload = () => lucide.createIcons();
     </script>
 </body>
 </html>
