@@ -15,7 +15,18 @@
             --l: #228B22; /* 초록색 (LANGUAGE) */
             --c: #ED1C24; /* 빨간색 (CENTER) */
         }
-        body { font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; background: #f8fafc; scroll-behavior: smooth; line-height: 1.6; }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
+            
+            /* [우클릭/드래그 금지] 텍스트 선택 방지 CSS */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         
         .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
         
@@ -28,17 +39,38 @@
         /* 페이지네이션 버튼 스타일 */
         .page-btn { transition: all 0.2s; }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* 워터마크 스타일 (불펌 방지) */
+        .watermark-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none; /* 클릭 방해 금지 */
+            z-index: 9999; /* 최상단에 위치 */
+            background-image: url('logo.png');
+            background-repeat: repeat;
+            background-size: 375px; /* 지정하신 375px 크기 */
+            opacity: 0.05; /* 은은하게 투명도 조절 */
+            transform: rotate(-20deg); /* 사선으로 배치 */
+        }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<!-- [우클릭/드래그 금지] 속성 추가 -->
+<body class="flex flex-col min-h-screen relative overflow-x-hidden" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <!-- 불펌 방지 워터마크 -->
+    <div class="watermark-bg"></div>
+
     <div class="jklc-top-bar"></div>
 
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-md mx-auto px-6 h-16 flex justify-between items-center text-left">
             <a href="index.html" class="flex items-center">
-                <img src="logo.png" alt="JKLC" class="h-8 w-auto">
+                <img src="logo.png" alt="JKLC" class="h-8 w-auto relative z-10">
             </a>
-            <div class="flex items-center">
+            <div class="flex items-center relative z-10">
                 <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
                     <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
                 </a>
@@ -46,7 +78,7 @@
         </div>
     </nav>
 
-    <div class="max-w-md mx-auto w-full p-6 flex-grow">
+    <div class="max-w-md mx-auto w-full p-6 flex-grow relative z-10">
         <header class="text-center py-8">
             <img src="logo.png" 
                  alt="JKLC 로고" class="h-24 mx-auto mb-4 drop-shadow-md">
@@ -102,7 +134,7 @@
         </section>
     </div>
 
-    <footer class="mt-20 py-16 bg-white border-t border-slate-100 text-center">
+    <footer class="mt-20 py-16 bg-white border-t border-slate-100 text-center relative z-10">
         <div class="max-w-md mx-auto px-6 text-center">
             <img src="logo.png" alt="JKLC" class="h-12 mx-auto mb-6">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed text-center">
@@ -197,7 +229,7 @@
             
             paginatedItems.forEach(quiz => {
                 container.innerHTML += `
-                    <a href="${quiz.link}" class="quiz-card group block bg-white p-5 rounded-[2rem] shadow-sm flex justify-between items-center border border-slate-50">
+                    <a href="${quiz.link}" class="quiz-card group block bg-white p-5 rounded-[2rem] shadow-sm flex justify-between items-center border border-slate-50 relative z-10">
                         <div class="flex-1 text-left">
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="text-[10px] font-bold text-slate-400">${quiz.date}</span>
