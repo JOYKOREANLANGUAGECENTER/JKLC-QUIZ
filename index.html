@@ -26,6 +26,19 @@
         .music-bar { display: inline-block; width: 3px; height: 15px; background: #2563eb; margin: 0 1px; border-radius: 2px; }
         .playing .music-bar { animation: wave 1s infinite ease-in-out; }
         @keyframes wave { 0%, 100% { height: 8px; } 50% { height: 20px; } }
+
+        /* 후기 섹션 워터마크 스타일 */
+        .reviews-watermark {
+            position: absolute;
+            inset: 0;
+            background-image: url('logo.png');
+            background-repeat: repeat;
+            background-size: 300px;
+            opacity: 0.04;
+            transform: rotate(-15deg) scale(1.2);
+            pointer-events: none;
+            z-index: 0;
+        }
     </style>
 </head>
 <!-- [우클릭/드래그 금지] oncontextmenu, ondragstart, onselectstart 속성 추가 -->
@@ -67,7 +80,7 @@
         </div>
     </nav>
 
-    <!-- 공지사항 (Notice Announcement Bar) -->
+    <!-- 공지사항 -->
     <div class="bg-slate-900 text-white relative z-40 shadow-md border-b-4 border-yellow-400">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-start sm:items-center justify-between gap-4">
             <div class="flex items-start sm:items-center gap-3">
@@ -111,14 +124,13 @@
                     <a href="newslist.html" class="px-8 py-5 bg-red-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-600 transition shadow-lg flex items-center justify-center gap-2">
                         <i data-lucide="globe" class="w-5 h-5"></i> Global News
                     </a>
-                    <!-- [NEW] E-LEARNING STATION 연결 버튼 추가 -->
                     <a href="videogallery.html" class="col-span-1 sm:col-span-2 px-8 py-4 bg-green-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-green-700 transition shadow-lg flex items-center justify-center gap-2">
                         <i data-lucide="video" class="w-5 h-5"></i> E-LEARNING STATION
                     </a>
                 </div>
             </div>
             
-            <!-- 자동 회전 이미지 슬라이더 섹션 -->
+            <!-- 슬라이더 -->
             <div class="relative">
                 <div class="absolute -inset-4 bg-blue-50 rounded-[3rem] -rotate-2"></div>
                 <div class="relative rounded-[2.5rem] shadow-2xl overflow-hidden h-[350px] md:h-[500px] w-full bg-slate-100">
@@ -135,44 +147,63 @@
         </div>
     </section>
 
-    <!-- Review Section -->
-    <section id="reviews" class="py-24 bg-slate-50">
-        <div class="max-w-6xl mx-auto px-4">
+    <!-- Review Section (워터마크 추가됨) -->
+    <section id="reviews" class="py-24 bg-slate-50 relative overflow-hidden">
+        <!-- 배경 워터마크 레이어 -->
+        <div class="reviews-watermark"></div>
+
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-xs font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Student Voice</h2>
                 <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">수강생 리얼 후기</h3>
             </div>
             <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                <!-- Review 1 -->
+                <div class="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
                     <div>
                         <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
                         <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ဆရာမရဲ့ အသံထွက်က တကယ်ကောင်းပါတယ်။ ကျွန်မ ၆ လအတွင်း TOPIK Level 4 အောင်သွားပါပြီ။ ကျေးဇူးအများကြီးတင်ပါတယ် ဆရာမ။"</p>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs shadow-inner">MT</div>
-                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight text-left">Ma Thiri</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">TOPIK Class</p></div>
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs shadow-inner shrink-0">MT</div>
+                        <div class="text-left">
+                            <p class="font-black text-sm text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
+                                Ma Thiri <img src="logo.png" class="h-3 w-auto opacity-80" alt="logo">
+                            </p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">TOPIK Class</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Review 2 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                <div class="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
                     <div>
                         <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
                         <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"ကျောင်းက လှည်းတန်းဗဟိုမှာရှိတော့ သွားရလာရတာ အရမ်းအဆင်ပြေပါတယ်။ သင်တန်းကျောင်းကလည်း သန့်ရှင်းပြီး သူငယ်ချင်းတွေနဲ့ စာသင်ရတာ အရမ်းပျော်ဖို့ကောင်းပါတယ်။"</p>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
-                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-black text-green-600 text-xs shadow-inner">KZ</div>
-                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight text-left">Kyaw Zin</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Speaking Class</p></div>
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-black text-green-600 text-xs shadow-inner shrink-0">KZ</div>
+                        <div class="text-left">
+                            <p class="font-black text-sm text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
+                                Kyaw Zin <img src="logo.png" class="h-3 w-auto opacity-80" alt="logo">
+                            </p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Speaking Class</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Review 3 -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
+                <div class="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift flex flex-col justify-between">
                     <div>
                         <div class="flex gap-1 text-yellow-400 mb-6"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
                         <p class="text-slate-700 font-bold leading-relaxed mb-8 italic text-lg font-['Pyidaungsu']">"နေ့တိုင်းတင်ပေးတဲ့ Online Quiz တွေက အလုပ်လုပ်ရင်း စာလေ့လာဖို့ အရမ်းအထောက်အကူဖြစ်ပါတယ်။ ကျောင်းသားတွေအတွက် တကယ်စေတနာထားတဲ့ ကျောင်းမျိုးပါ။"</p>
                     </div>
                     <div class="flex items-center gap-4 border-t border-slate-50 pt-6">
-                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-black text-red-600 text-xs shadow-inner">AM</div>
-                        <div class="text-left"><p class="font-black text-sm text-slate-800 uppercase tracking-tight text-left">Aung Myo</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">EPS-TOPIK Class</p></div>
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-black text-red-600 text-xs shadow-inner shrink-0">AM</div>
+                        <div class="text-left">
+                            <p class="font-black text-sm text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
+                                Aung Myo <img src="logo.png" class="h-3 w-auto opacity-80" alt="logo">
+                            </p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">EPS-TOPIK Class</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,7 +216,6 @@
             <div class="bg-slate-900 rounded-[3.5rem] p-8 md:p-16 text-white overflow-hidden relative shadow-2xl">
                 <div class="relative z-10 grid lg:grid-cols-5 gap-12 items-center text-left">
                     
-                    <!-- Left: Contact Info -->
                     <div class="lg:col-span-2 space-y-10">
                         <div>
                             <div class="flex items-center gap-3 mb-4 text-left">
@@ -227,7 +257,6 @@
                         </div>
                     </div>
 
-                    <!-- Right: Map -->
                     <div class="lg:col-span-3 h-[400px] md:h-[450px] w-full rounded-[2.5rem] overflow-hidden border-8 border-white/5 shadow-inner relative text-slate-900">
                         <iframe 
                             src="https://maps.google.com/maps?q=16.8320278,96.1231944+(JKLC)&amp;hl=ko&amp;z=15&amp;output=embed" 
@@ -245,7 +274,7 @@
     <footer class="bg-slate-50 py-16">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <img src="logo.png" alt="JKLC" class="h-8 mx-auto mb-6" onerror="this.style.display='none';">
-             
+             
             <div class="flex justify-center items-center gap-4 mb-6">
                 <a href="https://www.facebook.com/profile.php?id=61555324649048" target="_blank" class="p-2.5 bg-white border border-slate-200 rounded-full text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition shadow-sm">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
@@ -306,35 +335,30 @@
 
         musicToggle.addEventListener('click', toggleMusic);
 
-        // Hero Image Slider Logic (자연스럽게 이어지는 무한 슬라이드)
+        // Hero Image Slider Logic
         const sliderContainer = document.getElementById('slider-container');
-         
+         
         if (sliderContainer) {
-            // 첫 번째 이미지를 복제해서 맨 뒤에 붙여 자연스럽게 이어지도록 만듭니다.
             const firstSlideClone = sliderContainer.children[0].cloneNode(true);
             sliderContainer.appendChild(firstSlideClone);
 
             const slidesCount = sliderContainer.children.length;
             let currentSlide = 0;
-             
+             
             if (slidesCount > 1) {
                 setInterval(() => {
                     currentSlide++;
-                     
-                    // 슬라이드 넘어가는 애니메이션 켜기
                     sliderContainer.style.transition = 'transform 1s ease-in-out';
                     sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-                     
-                    // 만약 복제해둔 마지막(첫 번째와 똑같은) 이미지에 도달했다면
+                     
                     if (currentSlide === slidesCount - 1) {
                         setTimeout(() => {
-                            // 1초(애니메이션 시간) 뒤에 애니메이션을 끄고 몰래 진짜 첫 번째 이미지 위치로 되돌립니다.
                             sliderContainer.style.transition = 'none';
                             currentSlide = 0;
                             sliderContainer.style.transform = `translateX(0%)`;
                         }, 1000);
                     }
-                }, 2500); // 3.5초마다 넘어갑니다.
+                }, 2500);
             }
         }
     </script>
