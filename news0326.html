@@ -49,14 +49,12 @@
             transform: rotate(-20deg); 
         }
 
-        /* 퀴즈 애니메이션 및 스타일 */
         .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
         .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
         .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
         .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
         .hidden { display: none !important; }
         
-        /* 섹션 전환 애니메이션 */
         #vocab-section { transition: opacity 0.5s ease-in-out; }
     </style>
 </head>
@@ -111,24 +109,24 @@
 
     <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
 
-        <!-- News Item 1 -->
+        <!-- News Item 1: Archaeological Discovery (새로운 뉴스) -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
-                <img src="https://images.unsplash.com/photo-1591336397464-7d927e69c17b?w=600&q=80" 
-                     alt="[ပလတ်စတစ် ညစ်ညမ်းမှု တိုက်ဖျက်ရေး]" 
-                     onerror="this.src='https://images.unsplash.com/photo-1526951521990-620dc14c214b?w=600&q=80'"
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80" 
+                     alt="Amazon Discovery" 
+                     onerror="this.src='https://images.unsplash.com/photo-1596401057633-531051794627?w=600&q=80'"
                      class="w-full h-full object-cover rounded-[2rem]">
                 <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
-                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Top Story</span>
+                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Archaeology</span>
             </div>
             <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center text-left">
                 <div class="mb-5">
                     <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
-                        <i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 국제협력
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> 역사 / 과학
                     </div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">전 세계 '플라스틱 오염 종식'을 위한 역사적 협약 체결</h2>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">아마존 정글 속 숨겨진 고대 도시, 레이저 기술로 발견</h2>
                     <p class="text-slate-500 text-sm leading-relaxed font-medium">
-                        유엔(UN) 회원국들이 오는 2040년까지 전 세계 플라스틱 오염을 종식하기 위한 법적 구속력이 있는 첫 국제 협약에 합의했습니다. 이번 협약은 미세 플라스틱 해결과 해양 생태계 보호를 위한 인류의 역사적인 진전으로 평가받고 있습니다.
+                        최첨단 리다(LiDAR) 레이저 스캐닝 기술을 통해 아마존 정글 깊은 곳에 숨겨져 있던 대규모 고대 도시 유적이 발견되었습니다. 이번 발견은 아마존이 과거에 대규모 문명의 발상지였음을 입증하는 중요한 증거로 평가받고 있습니다.
                     </p>
                 </div>
                 <div class="h-px w-full bg-slate-100 my-4"></div>
@@ -136,15 +134,15 @@
                     <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5">
                         <i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation
                     </div>
-                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကမ္ဘာလုံးဆိုင်ရာ ပလတ်စတစ် ညစ်ညမ်းမှု အဆုံးသတ်ရေး သမိုင်းဝင် သဘောတူညီချက် ရရှိ</h2>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အမေဇုန်တောနက်အတွင်း ပျောက်ဆုံးနေသော ရှေးဟောင်းမြို့တော်ကို ရှာဖွေတွေ့ရှိ</h2>
                     <p class="text-slate-500 text-xs">
-                        ကုလသမဂ္ဂ အဖွဲ့ဝင်နိုင်ငံများသည် ၂၀၄၀ ခုနှစ်တွင် ပလတ်စတစ် ညစ်ညမ်းမှုကို အဆုံးသတ်ရန် ပထမဆုံးသော ဥပဒေကြောင်းအရ စည်းနှောင်မှုရှိသည့် အပြည်ပြည်ဆိုင်ရာ သဘောတူညီချက်ကို လက်မှတ်ရေးထိုးခဲ့ကြသည်။
+                        အဆင့်မြင့် လေဆာနည်းပညာကို အသုံးပြု၍ အမေဇုန်တောနက်အတွင်း ဖုံးကွယ်နေသည့် ကြီးမားသော ရှေးဟောင်းမြို့တော် အကြွင်းအကျန်များကို ရှာဖွေတွေ့ရှိခဲ့သည်။ ၎င်းသည် အတိတ်က အမေဇုန်တွင် ကြီးကျယ်သော ယဉ်ကျေးမှုများ ရှိခဲ့ကြောင်း သက်သေပြနေသည်။
                     </p>
                 </div>
             </div>
         </article>
 
-        <!-- News Item 2 -->
+        <!-- News Item 2: Keep as is -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
                 <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="[လူမှုမီဒီယာ]" class="w-full h-full object-cover rounded-[2rem]">
@@ -174,7 +172,7 @@
             </div>
         </article>
 
-        <!-- News Item 3 -->
+        <!-- News Item 3: Keep as is -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
                 <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" 
@@ -206,7 +204,7 @@
             </div>
         </article>
 
-        <!-- 뉴스 어휘 학습 섹션 -->
+        <!-- 뉴스 어휘 학습 섹션 (업데이트) -->
         <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12 text-left">
             <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
                 <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
@@ -219,20 +217,20 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">협약 <span class="text-xs font-normal text-slate-500 ml-2">(Agreement)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">သဘောတူညီချက်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">종식 <span class="text-xs font-normal text-slate-500 ml-2">(End)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အဆုံးသတ်ခြင်း</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">오염 <span class="text-xs font-normal text-slate-500 ml-2">(Pollution)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ညစ်ညမ်းမှု</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">해결 <span class="text-xs font-normal text-slate-500 ml-2">(Solution)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဖြေရှင်းချက်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">인류 <span class="text-xs font-normal text-slate-500 ml-2">(Humanity)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လူသားမျိုးနွယ်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">보호하다 <span class="text-xs font-normal text-slate-500 ml-2">(To protect)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကာကွယ်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">유적 <span class="text-xs font-normal text-slate-500 ml-2">(Ruins)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အကြွင်းအကျန်များ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">발견 <span class="text-xs font-normal text-slate-500 ml-2">(Discovery)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ရှာဖွေတွေ့ရှိမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">문명 <span class="text-xs font-normal text-slate-500 ml-2">(Civilization)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ယဉ်ကျေးမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">입증하다 <span class="text-xs font-normal text-slate-500 ml-2">(To prove)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">သက်သေပြသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">중독 <span class="text-xs font-normal text-slate-500 ml-2">(Addiction)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စွဲလမ်းမှု</p></div>
                 <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">책임 <span class="text-xs font-normal text-slate-500 ml-2">(Responsibility)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တာဝန်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">협력 <span class="text-xs font-normal text-slate-500 ml-2">(Cooperation)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပူးပေါင်းဆောင်ရွက်မှု</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">미래 <span class="text-xs font-normal text-slate-500 ml-2">(Future)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အနာဂတ်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">노력 <span class="text-xs font-normal text-slate-500 ml-2">(Effort)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကြိုးပမ်းအားထုတ်မှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">외계 <span class="text-xs font-normal text-slate-500 ml-2">(Exterrestrial)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဂြိုဟ်အပြင်ဘက်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">포착하다 <span class="text-xs font-normal text-slate-500 ml-2">(To capture)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဖမ်းယူရရှိသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">전환점 <span class="text-xs font-normal text-slate-500 ml-2">(Turning point)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အချိုးအကွေ့</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">획기적 <span class="text-xs font-normal text-slate-500 ml-2">(Groundbreaking)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထူးခြားသောတိုးတက်မှု</p></div>
             </div>
         </article>
 
-        <!-- 퀴즈 섹션 -->
+        <!-- 퀴즈 섹션 (업데이트) -->
         <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl overflow-hidden p-8 md:p-10 text-white relative text-center">
             <div id="quiz-start-view">
                 <div class="flex flex-col items-center text-center space-y-6">
@@ -241,7 +239,7 @@
                     </div>
                     <div>
                         <h2 class="text-3xl font-black mb-2">어휘 퀴즈 도전!</h2>
-                        <p class="text-blue-100 burmese-text">ယနေ့သင်ယူခဲ့သော ဝေါဟာရများကို ပြန်လည်စစ်ဆေးကြည့်ရအောင်။</p>
+                        <p class="text-blue-100 burmese-text">오늘 배운 단어들을 테스트해 보세요.</p>
                     </div>
                     <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">
                         퀴즈 시작하기 (Start Quiz)
@@ -259,13 +257,11 @@
                 </div>
                 
                 <div class="mb-10 text-center">
-                    <h3 id="question-text" class="text-2xl font-black leading-tight mb-2">협약 (Agreement) 의 뜻은 무엇일까요?</h3>
+                    <h3 id="question-text" class="text-2xl font-black leading-tight mb-2"></h3>
                     <p class="text-blue-200 text-sm font-medium">가장 알맞은 미얀마어 뜻을 고르세요.</p>
                 </div>
 
-                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- 퀴즈 옵션들이 여기에 들어갑니다 -->
-                </div>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
 
                 <div id="quiz-feedback" class="mt-8 text-center font-bold text-xl min-h-[1.5rem]"></div>
                 
@@ -278,11 +274,10 @@
 
             <div id="quiz-result-view" class="hidden text-center space-y-8">
                 <div class="bg-white/20 p-8 rounded-[2rem] inline-block mb-4">
-                    <h2 class="text-5xl font-black mb-2" id="final-score">10 / 10</h2>
-                    <p class="text-xl font-bold burmese-text" id="result-message">정말 대단해요! 완벽합니다!</p>
+                    <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                    <p class="text-xl font-bold burmese-text" id="result-message"></p>
                 </div>
                 <div class="space-y-4">
-                    <p class="text-blue-100 font-medium">어휘를 꾸준히 학습하면 한국어 실력이 쑥쑥 늘어납니다.</p>
                     <button onclick="resetQuiz()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition">
                         퀴즈 다시 하기 (Try Again)
                     </button>
@@ -312,16 +307,16 @@
         document.addEventListener('copy', e => e.preventDefault());
 
         const originalQuizData = [
-            { q: "협약", a: "သဘောတူညီချက်", choices: ["သဘောတူညီချက်", "အဆုံးသတ်ခြင်း", "ညစ်ညမ်းမှု", "အနာဂတ်"] },
-            { q: "종식", a: "အဆုံးသတ်ခြင်း", choices: ["အဆုံးသတ်ခြင်း", "ဖြေရှင်းချက်", "ကာကွယ်သည်", "တာဝန်"] },
-            { q: "오염", a: "ညစ်ညမ်းမှု", choices: ["ညစ်ညမ်းမှု", "လူသားမျိုးနွယ်", "ပူးပေါင်းဆောင်ရွက်မှု", "ကြိုးပမ်းအားထုတ်မှု"] },
-            { q: "해결", a: "ဖြေရှင်းချက်", choices: ["ဖြေရှင်းချက်", "သဘောတူညီချက်", "အနာဂတ်", "တာဝန်"] },
-            { q: "인류", a: "လူသားမျိုးနွယ်", choices: ["လူသားမျိုးနွယ်", "ညစ်ညမ်းမှု", "ကာကွယ်သည်", "အဆုံးသတ်ခြင်း"] },
-            { q: "보호하다", a: "ကာကွယ်သည်", choices: ["ကာကွယ်သည်", "ပူးပေါင်းဆောင်ရွက်မှု", "ကြိုးပမ်းအားထုတ်မှု", "ဖြေရှင်းချက်"] },
-            { q: "책임", a: "တာဝန်", choices: ["တာဝန်", "သဘောတူညီချက်", "အနာဂတ်", "လူသားမျိုးနွယ်"] },
-            { q: "협력", a: "ပူးပေါင်းဆောင်ရွက်မှု", choices: ["ပူးပေါင်းဆောင်ရွက်မှု", "ကာကွယ်သည်", "ညစ်ညမ်းမှု", "အဆုံးသတ်ခြင်း"] },
-            { q: "미래", a: "အနာဂတ်", choices: ["အနာဂတ်", "ဖြေရှင်းချက်", "တာဝန်", "သဘောတူညီချက်"] },
-            { q: "노력", a: "ကြိုးပမ်းအားထုတ်မှု", choices: ["ကြိုးပမ်းအားထုတ်မှု", "လူသားမျိုးနွယ်", "ညစ်ညမ်းမှု", "ပူးပေါင်းဆောင်ရွက်မှု"] }
+            { q: "유적", a: "အကြွင်းအကျန်များ", choices: ["အကြွင်းအကျန်များ", "ရှာဖွေတွေ့ရှိမှု", "ယဉ်ကျေးမှု", "အနာဂတ်"] },
+            { q: "발견", a: "ရှာဖွေတွေ့ရှိမှု", choices: ["ရှာဖွေတွေ့ရှိမှု", "သက်သေပြသည်", "တာဝန်", "အချိုးအကွေ့"] },
+            { q: "문명", a: "ယဉ်ကျေးမှု", choices: ["ယဉ်ကျေးမှု", "အကြွင်းအကျန်များ", "ဂြိုဟ်အပြင်ဘက်", "စွဲလမ်းမှု"] },
+            { q: "입증하다", a: "သက်သေပြသည်", choices: ["သက်သေပြသည်", "ဖမ်းယူရရှိသည်", "အချိုးအကွေ့", "တာဝန်"] },
+            { q: "중독", a: "စွဲလမ်းမှု", choices: ["စွဲလမ်းမှု", "ယဉ်ကျေးမှု", "ရှာဖွေတွေ့ရှိမှု", "အနာဂတ်"] },
+            { q: "책임", a: "တာဝန်", choices: ["တာဝန်", "အကြွင်းအကျန်များ", "ဂြိုဟ်အပြင်ဘက်", "သက်သေပြသည်"] },
+            { q: "외계", a: "ဂြိုဟ်အပြင်ဘက်", choices: ["ဂြိုဟ်အပြင်ဘက်", "အကြွင်းအကျန်များ", "ဖမ်းယူရရှိသည်", "ထူးခြားသောတိုးတက်မှု"] },
+            { q: "포착하다", a: "ဖမ်းယူရရှိသည်", choices: ["ဖမ်းယူရရှိသည်", "သက်သေပြသည်", "အချိုးအကွေ့", "စွဲလမ်းမှု"] },
+            { q: "전환점", a: "အချိုးအကွေ့", choices: ["အချိုးအကွေ့", "တာဝန်", "ရှာဖွေတွေ့ရှိမှု", "ထူးခြားသောတိုးတက်မှု"] },
+            { q: "획기적", a: "ထူးခြားသောတိုးတက်မှု", choices: ["ထူးခြားသောတိုးတက်မှု", "အနာဂတ်", "ဂြိုဟ်အပြင်ဘက်", "ယဉ်ကျေးမှု"] }
         ];
 
         let currentQuizData = [];
@@ -329,15 +324,12 @@
         let score = 0;
         let canAnswer = true;
 
-        function shuffle(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
+        function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
 
         function startQuiz() {
             document.getElementById('vocab-section').classList.add('hidden');
             currentQuizData = shuffle([...originalQuizData]);
-            currentQIndex = 0;
-            score = 0;
+            currentQIndex = 0; score = 0;
             document.getElementById('score-display').innerText = '0';
             document.getElementById('quiz-start-view').classList.add('hidden');
             document.getElementById('quiz-play-view').classList.remove('hidden');
@@ -390,11 +382,8 @@
 
         function nextQuestion() {
             currentQIndex++;
-            if (currentQIndex < currentQuizData.length) {
-                showQuestion();
-            } else {
-                showResult();
-            }
+            if (currentQIndex < currentQuizData.length) { showQuestion(); } 
+            else { showResult(); }
         }
 
         function showResult() {
