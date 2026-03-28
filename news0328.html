@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (03.28)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; /* 노란색 (JOY) */
+            --k: #0070BB; /* 파란색 (KOREAN) */
+            --l: #228B22; /* 초록색 (LANGUAGE) */
+            --c: #ED1C24; /* 빨간색 (CENTER) */
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .news-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+        
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+
+        .watermark-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url('logo.png'); 
+            background-repeat: repeat;
+            background-size: 375px; 
+            opacity: 0.08; 
+            transform: rotate(-20deg); 
+        }
+
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+        
+        #vocab-section { transition: opacity 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest select-none">Global News</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3 text-right">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span class="text-xs font-black text-slate-800">2026. 03. 28</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="sun" class="w-3 h-3"></i> Yangon</span>
+                </div>
+                <div class="flex gap-2 relative z-10">
+                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
+                    </a>
+                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full text-left">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20">
+                <i data-lucide="globe" class="w-40 h-40"></i>
+            </div>
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="newspaper" class="w-6 h-6"></i>
+            </div>
+            <div class="relative z-10 w-full">
+                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 28</span>
+                </div>
+                <p class="text-sm font-bold text-blue-800 mb-1">JOY 가족 여러분, 주말을 앞두고 새로운 세계 소식을 만나보세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">ယနေ့ ကမ္ဘာ့သတင်းများကို ကိုရီးယားဘာသာဖြင့် လေ့လာကြည့်ကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+
+        <!-- News Item 1: Digital Nomad / Workation -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80" alt="Workation in Korea" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Life Style</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center text-left">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="laptop" class="w-3.5 h-3.5"></i> 라이프 / 기술</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">한국, '워케이션' 성지로 급부상... 외국인 디지털 노마드 유입 증가</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">일(Work)과 휴가(Vacation)를 동시에 즐기는 '워케이션'이 전 세계적으로 유행입니다. 한국 정부의 '디지털 노마드 비자' 신설 이후, 제주도와 강릉 등 자연경관이 수려한 지역에 거주하며 일하는 외국인이 급증하고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကိုရီးယားနိုင်ငံတွင် အလုပ်လုပ်ရင်း အပန်းဖြေခြင်း (Workation) ရေပန်းစားလာ</h2>
+                    <p class="text-slate-500 text-xs">အလုပ်နှင့် အပန်းဖြေခရီးကို တစ်ပြိုင်နက်တည်း ပြုလုပ်နိုင်သော Workation စနစ်ကြောင့် ကိုရီးယားနိုင်ငံအတွင်းသို့ နိုင်ငံခြားသားများ ဝင်ရောက်နေထိုင်မှု များပြားလာသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 2: Science / Deep Sea -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=600&q=80" alt="Deep Sea Discovery" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Science</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center text-left">
+                <div class="mb-5">
+                    <div class="flex items-center text-indigo-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="waves" class="w-3.5 h-3.5"></i> 과학 / 해양</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">심해 탐사 로봇, 태평양 바닥에서 수백 종의 신종 생물 발견</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">최첨단 무인 탐사 로봇이 태평양 수심 4,000m 지점에서 지금까지 알려지지 않은 수백 종의 새로운 해양 생물을 발견했습니다. 이번 발견은 해양 생태계의 신비와 생물 다양성 보존의 중요성을 다시 한번 일깨워줍니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ပစိဖိတ်သမုဒ္ဒရာအောက်ခြေတွင် မျိုးစိတ်သစ် ရာပေါင်းများစွာ တွေ့ရှိ</h2>
+                    <p class="text-slate-500 text-xs">ပင်လယ်နက်အတွင်း စူးစမ်းရှာဖွေရေး စက်ရုပ်သည် ပစိဖိတ်သမုဒ္ဒရာ အောက်ခြေတွင် ယခင်က မသိရှိခဲ့သော ပင်လယ်ရေသတ္တဝါ မျိုးစိတ်သစ်များကို ရှာဖွေတွေ့ရှိခဲ့သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 3: K-Food / Ramyeon -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?w=600&q=80" alt="Korean Ramyeon" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Global Trend</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center text-left">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="flame" class="w-3.5 h-3.5"></i> 문화 / 경제</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">한국 라면, 전 세계가 열광... 매운맛 챌린지 열풍 지속</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">한국 라면의 글로벌 수출액이 사상 최대치를 기록하고 있습니다. 특히 소셜 미디어를 중심으로 유행하는 '매운맛 챌린지' 덕분에 동남아시아와 유럽에서도 한국의 매운 라면을 선호하는 소비자가 늘고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကိုရီးယားခေါက်ဆွဲခြောက် ကမ္ဘာတစ်ဝှမ်း ရေပန်းစားလျက်ရှိ</h2>
+                    <p class="text-slate-500 text-xs">ကိုရီးယားခေါက်ဆွဲခြောက်၏ ပြည်ပတင်ပို့မှုသည် စံချိန်တင် မြင့်တက်လျက်ရှိပြီး အထူးသဖြင့် အစပ်စိန်ခေါ်မှုများကြောင့် ပိုမို လူကြိုက်များလာသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 4: Wellness / Slow Living -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80" alt="Slow Living Wellness" class="class=w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Wellness</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center text-left">
+                <div class="mb-5">
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="heart" class="w-3.5 h-3.5"></i> 건강 / 사회</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">바쁜 현대인들 사이에서 '슬로우 리빙'과 정신 건강 관리 확산</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">속도와 효율만을 강조하던 과거와 달리, 최근에는 일과 삶의 균형을 찾는 '슬로우 리빙'이 주목받고 있습니다. 명상과 적절한 휴식을 통해 정신적인 안정을 찾으려는 노력이 현대인의 필수 덕목이 되고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">အလုပ်နှင့်ဘဝ မျှတစေမည့် Slow Living စနစ် လူမှုအသိုင်းအဝိုင်းတွင် ပျံ့နှံ့လာ</h2>
+                    <p class="text-slate-500 text-xs">ခေတ်သစ်လူသားများသည် အလုပ်နှင့်ဘဝ မျှတမှုရှိစေရန်နှင့် စိတ်ကျန်းမာရေးအတွက် အပန်းဖြေခြင်းကို ပိုမို အလေးပေးလာကြသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 어휘 학습 섹션 -->
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 mt-12 text-left">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
+                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+                    <p class="text-sm font-bold text-slate-500 burmese-text">ယနေ့ သတင်းဝေါဟာရများ (၁၀ လုံး)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 relative z-10">
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">워케이션 <span class="text-xs font-normal text-slate-500 ml-2">(Workation)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အလုပ်လုပ်ရင်း အပန်းဖြေခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">거주하다 <span class="text-xs font-normal text-slate-500 ml-2">(Reside)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">နေထိုင်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">심해 <span class="text-xs font-normal text-slate-500 ml-2">(Deep sea)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပင်လယ်နက်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">생태계 <span class="text-xs font-normal text-slate-500 ml-2">(Ecosystem)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဂေဟစနစ်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">인기 <span class="text-xs font-normal text-slate-500 ml-2">(Popularity)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ရေပန်းစားမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">선호하다 <span class="text-xs font-normal text-slate-500 ml-2">(Prefer)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပိုနှစ်သက်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">균형 <span class="text-xs font-normal text-slate-500 ml-2">(Balance)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">မျှတမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">휴식 <span class="text-xs font-normal text-slate-500 ml-2">(Rest)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အနားယူခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">급증하다 <span class="text-xs font-normal text-slate-500 ml-2">(To surge)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အလျင်အမြန်တိုးပွားလာသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold text-slate-800">보존하다 <span class="text-xs font-normal text-slate-500 ml-2">(To preserve)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထိန်းသိမ်းစောင့်ရှောက်သည်</p></div>
+            </div>
+        </article>
+
+        <!-- 퀴즈 섹션 -->
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl overflow-hidden p-8 md:p-10 text-white relative text-center">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center text-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full">
+                        <i data-lucide="help-circle" class="w-12 h-12"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black mb-2">어휘 퀴즈 도전!</h2>
+                        <p class="text-blue-100 burmese-text">오늘 배운 핵심 단어들을 확인해 보세요.</p>
+                    </div>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">
+                        퀴즈 시작하기 (Start Quiz)
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-play-view" class="hidden">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Question 1 / 10</span>
+                    <div class="flex items-center gap-1 font-bold">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-green-300"></i>
+                        <span id="score-display">0</span>
+                    </div>
+                </div>
+                
+                <div class="mb-10 text-center">
+                    <h3 id="question-text" class="text-2xl font-black leading-tight mb-2"></h3>
+                    <p class="text-blue-200 text-sm font-medium">가장 알맞은 미얀마어 뜻을 고르세요.</p>
+                </div>
+
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 퀴즈 옵션이 동적으로 생성됨 -->
+                </div>
+
+                <div id="quiz-feedback" class="mt-8 text-center font-bold text-xl min-h-[1.5rem]"></div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black shadow-md hover:bg-blue-50 transition">
+                        다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-result-view" class="hidden text-center space-y-8">
+                <div class="bg-white/20 p-8 rounded-[2rem] inline-block mb-4">
+                    <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                    <p class="text-xl font-bold burmese-text" id="result-message"></p>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-blue-100 font-medium">단어는 반복이 중요합니다. JOY 한국어 학원 파이팅!</p>
+                    <button onclick="resetQuiz()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition">
+                        퀴즈 다시 하기 (Try Again)
+                    </button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80 hover:opacity-100 transition-opacity">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                양곤 흘레단 한국어 교육의 표준
+            </p>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        // 보안 기능 유지
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+
+        const originalQuizData = [
+            { q: "워케이션", a: "အလုပ်လုပ်ရင်း အပန်းဖြေခြင်း", choices: ["အလုပ်လုပ်ရင်း အပန်းဖြေခြင်း", "နေထိုင်သည်", "ပင်လယ်နက်", "ဂေဟစနစ်"] },
+            { q: "거주하다", a: "နေထိုင်သည်", choices: ["နေထိုင်သည်", "အနားယူခြင်း", "မျှတမှု", "ပိုနှစ်သက်သည်"] },
+            { q: "심해", a: "ပင်လယ်နက်", choices: ["ပင်လယ်နက်", "ဂေဟစနစ်", "ထိန်းသိမ်းစောင့်ရှောက်သည်", "အလျင်အမြန်တိုးပွားလာသည်"] },
+            { q: "생태계", a: "ဂေဟစနစ်", choices: ["ဂေဟစနစ်", "ရေပန်းစားမှု", "ပင်လယ်နက်", "အနားယူခြင်း"] },
+            { q: "인기", a: "ရေပန်းစားမှု", choices: ["ရေပန်းစားမှု", "ပိုနှစ်သက်သည်", "မျှတမှု", "အလုပ်လုပ်ရင်း အပန်းဖြေခြင်း"] },
+            { q: "선호하다", a: "ပိုနှစ်သက်သည်", choices: ["ပိုနှစ်သက်သည်", "နေထိုင်သည်", "ထိန်းသိမ်းစောင့်ရှောက်သည်", "အလျင်အမြန်တိုးပွားလာသည်"] },
+            { q: "균형", a: "မျှတမှု", choices: ["မျှတမှု", "အနားယူခြင်း", "ရေပန်းစားမှု", "နေထိုင်သည်"] },
+            { q: "휴식", a: "အနားယူခြင်း", choices: ["အနားယူခြင်း", "မျှတမှု", "ဂေဟစနစ်", "ပင်လယ်နက်"] },
+            { q: "급증하다", a: "အလျင်အမြန်တိုးပွားလာသည်", choices: ["အလျင်အမြန်တိုးပွားလာသည်", "ပိုနှစ်သက်သည်", "နေထိုင်သည်", "ထိန်းသိမ်းစောင့်ရှောက်သည်"] },
+            { q: "보존하다", a: "ထိန်းသိမ်းစောင့်ရှောက်သည်", choices: ["ထိန်းသိမ်းစောင့်ရှောက်သည်", "အလျင်အမြန်တိုးပွားလာသည်", "ဂေဟစနစ်", "အလုပ်လုပ်ရင်း အပန်းဖြေခြင်း"] }
+        ];
+
+        let currentQuizData = [];
+        let currentQIndex = 0;
+        let score = 0;
+        let canAnswer = true;
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startQuiz() {
+            // 원장님 지시: 퀴즈 시작 시 단어장 숨김
+            document.getElementById('vocab-section').classList.add('hidden');
+            currentQuizData = shuffle([...originalQuizData]);
+            currentQIndex = 0;
+            score = 0;
+            document.getElementById('score-display').innerText = '0';
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true;
+            const data = currentQuizData[currentQIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentQIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은 무엇일까요?`;
+            document.getElementById('quiz-feedback').innerText = '';
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            const shuffledChoices = shuffle([...data.choices]);
+
+            shuffledChoices.forEach(choice => {
+                const button = document.createElement('div');
+                button.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-lg text-center shadow-sm';
+                button.innerText = choice;
+                button.onclick = () => checkAnswer(choice, button);
+                grid.appendChild(button);
+            });
+        }
+
+        function checkAnswer(choice, element) {
+            if (!canAnswer) return;
+            canAnswer = false;
+            const correct = currentQuizData[currentQIndex].a;
+            const feedback = document.getElementById('quiz-feedback');
+            const scoreDisplay = document.getElementById('score-display');
+
+            if (choice === correct) {
+                element.classList.add('correct');
+                feedback.innerHTML = '<span class="text-green-300">정답입니다! (မှန်ကန်ပါတယ်!)</span>';
+                score++;
+                scoreDisplay.innerText = score;
+            } else {
+                element.classList.add('wrong');
+                feedback.innerHTML = `<span class="text-red-300">틀렸어요. 정답은: ${correct}</span>`;
+                Array.from(document.getElementsByClassName('quiz-option')).forEach(btn => {
+                    if (btn.innerText === correct) btn.classList.add('correct');
+                });
+            }
+            document.getElementById('next-btn').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < currentQuizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-play-view').classList.add('hidden');
+            document.getElementById('quiz-result-view').classList.remove('hidden');
+            document.getElementById('final-score').innerText = `${score} / 10`;
+            const msg = document.getElementById('result-message');
+            if (score === 10) msg.innerText = "대박! 만점입니다! (ထူးချွန်ပါတယ်!)";
+            else if (score >= 7) msg.innerText = "잘했어요! 거의 완벽해요! (တော်ပါတယ်!)";
+            else msg.innerText = "조금 더 공부하면 할 수 있어요! (ထပ်ကြိုးစားပါ!)";
+        }
+
+        function resetQuiz() {
+            // 원장님 지시: 다시 하기 클릭 시 단어장 다시 노출
+            document.getElementById('vocab-section').classList.remove('hidden');
+            document.getElementById('quiz-result-view').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.remove('hidden');
+            document.getElementById('vocab-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
