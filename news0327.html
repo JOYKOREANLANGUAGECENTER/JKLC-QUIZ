@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News & Quiz (03.27)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; /* 노란색 (JOY) */
+            --k: #0070BB; /* 파란색 (KOREAN) */
+            --l: #228B22; /* 초록색 (LANGUAGE) */
+            --c: #ED1C24; /* 빨간색 (CENTER) */
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc; 
+            scroll-behavior: smooth; 
+            line-height: 1.6; 
+            /* 텍스트 드래그(선택) 방지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .news-card, .quiz-box { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+        
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+
+        /* 워터마크 스타일 */
+        .watermark-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url('https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png');
+            background-repeat: repeat;
+            background-size: 750px; 
+            opacity: 0.08; 
+            transform: rotate(-20deg); 
+        }
+
+        /* 퀴즈 스타일 */
+        .option-btn { transition: all 0.2s; }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Global News</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3 relative z-10">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span class="text-xs font-black text-slate-800">2026. 03. 27</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> Friday</span>
+                </div>
+                <div class="flex gap-2">
+                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-200 transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
+                    </a>
+                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left shadow-sm relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-blue-200 opacity-20"><i data-lucide="newspaper" class="w-40 h-40"></i></div>
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10"><i data-lucide="coffee" class="w-6 h-6"></i></div>
+            <div class="relative z-10 w-full">
+                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2 justify-center md:justify-start">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full inline-block">2026. 03. 27 (어제)</span>
+                </div>
+                <p class="text-sm font-bold text-blue-800 mb-1">어제의 주요 소식을 확인하고 단어 퀴즈를 풀어보세요!</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text">မနေ့က အဓိကသတင်းများကိုဖတ်ပြီး ဝေါဟာရဉာဏ်စမ်း ဖြေဆိုကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+
+        <!-- News Item 1 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2">
+                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Environment" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Environment</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5 text-left">
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5">
+                        <i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 국제
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">유엔, 새로운 플라스틱 오염 방지 협약 타결</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        유엔 환경 계획(UNEP) 회원국들이 해양 플라스틱 오염을 줄이기 위한 새로운 국제 협약에 최종 타결했습니다. 이번 협약은 2040년까지 플라스틱 폐기물을 80% 이상 감축하는 것을 목표로 하며, 각국 정부의 강력한 이행을 촉구하고 있습니다.
+                    </p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text text-left">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation</div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">ကုလသမဂ္ဂ၊ ပလတ်စတစ်ညစ်ညမ်းမှု တိုက်ဖျက်ရေး သဘောတူညီချက်အသစ် ရရှိ</h2>
+                    <p class="text-slate-500 text-xs">ပင်လယ်ပြင်အတွင်း ပလတ်စတစ်ညစ်ညမ်းမှုကို လျှော့ချရန်အတွက် ကုလသမဂ္ဂ ပတ်ဝန်းကျင်အစီအစဉ် (UNEP) အဖွဲ့ဝင်နိုင်ငံများက အပြည်ပြည်ဆိုင်ရာ သဘောတူညီချက်အသစ်ကို ရရှိခဲ့သည်။ ဤသဘောတူညီချက်သည် ၂၀၄၀ ခုနှစ်တွင် ပလတ်စတစ်စွန့်ပစ်ပစ္စည်း ၈၀% ကျော် လျှော့ချရန် ရည်မှန်းထားသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 2 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative overflow-hidden p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Tech" class="w-full h-full object-cover rounded-[2rem]">
+                <div class="absolute inset-2 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent rounded-[2rem]"></div>
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Tech & Economy</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5 flex flex-col justify-center">
+                <div class="mb-5 text-left">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5"></i> 기술 / 산업</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">전기차 배터리 수명을 2배 늘리는 신기술 개발</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">
+                        국제 공동 연구진이 리튬이온 배터리의 효율을 극대화하여 수명을 기존보다 2배 이상 늘릴 수 있는 신소재를 개발했습니다. 이 기술이 상용화되면 전기차 가격 하락과 함께 탄소 배출 감소에도 큰 역할을 할 것으로 기대됩니다.
+                    </p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text text-left">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 gap-1.5"><i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation</div>
+                    <h2 class="text-base font-bold text-slate-800 mb-2 leading-snug">လျှပ်စစ်ကားဘက်ထရီ သက်တမ်းကို နှစ်ဆတိုးစေမည့် နည်းပညာသစ် တီထွင်</h2>
+                    <p class="text-slate-500 text-xs">နိုင်ငံတကာ သုတေသနအဖွဲ့တစ်ခုက လီသီယမ်အိုင်ယွန်ဘက်ထရီ၏ စွမ်းဆောင်ရည်ကို အမြင့်ဆုံးမြှင့်တင်ပေးနိုင်သော ပစ္စည်းအသစ်ကို တီထွင်ခဲ့သည်။ ဤနည်းပညာကြောင့် လျှပ်စစ်ကားဈေးနှုန်းများ ကျဆင်းလာပြီး ကာဗွန်ထုတ်လွှတ်မှုကိုလည်း လျှော့ချနိုင်မည်ဖြစ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- News Item 3 (Culture/Export) -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div>
+                    <div class="flex items-center text-joy-red text-xs font-black uppercase tracking-widest mb-3 gap-1.5" style="color:var(--c)">
+                        <i data-lucide="star" class="w-3.5 h-3.5"></i> 문화 / 경제
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900 mb-4 leading-snug">전 세계 K-푸드 수출액 역대 최고 기록 달성</h2>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"></span>
+                            농림축산식품부에 따르면 지난해 K-푸드 수출액이 사상 처음으로 120억 달러를 돌파하며 역대 최고치를 경신했습니다.
+                        </li>
+                        <li class="flex gap-3 text-slate-600 text-sm font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"></span>
+                            특히 김밥, 떡볶이 등 냉동 분식 제품과 라면이 미주와 유럽 시장에서 큰 인기를 끌고 있습니다.
+                        </li>
+                    </ul>
+                </div>
+                <div class="burmese-text bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <div class="flex items-center text-slate-400 text-[10px] font-black uppercase tracking-widest mb-3 gap-1.5"><i data-lucide="languages" class="w-3 h-3"></i> Myanmar Translation</div>
+                    <h2 class="text-base font-bold text-slate-800 mb-4 leading-snug">ကမ္ဘာတစ်ဝှမ်း K-Food တင်ပို့မှု စံချိန်တင်မြင့်မား</h2>
+                    <ul class="space-y-3">
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>ကိုရီးယားအစားအစာ (K-Food) တင်ပို့မှုသည် ဒေါ်လာ ၁၂ ဘီလီယံကျော်အထိ ရောက်ရှိခဲ့ပြီး သမိုင်းတစ်လျှောက် အမြင့်ဆုံးစံချိန်ကို ရရှိခဲ့သည်။</span>
+                        </li>
+                        <li class="flex gap-2 text-slate-600 text-xs">
+                            <span class="text-slate-300">•</span>
+                            <span>အထူးသဖြင့် ကင်ဘတ် (Kimbap) နှင့် ခေါက်ဆွဲခြောက် (Ramyeon) တို့မှာ အမေရိကနှင့် ဥရောပဈေးကွက်တွင် အလွန်ရေပန်းစားနေသည်။</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- Vocab Section -->
+        <article class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-8 text-left relative z-10">
+            <div class="flex items-center gap-3 mb-8 border-b border-slate-50 pb-4">
+                <div class="bg-blue-600 text-white p-2 rounded-xl"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <div>
+                    <h2 class="text-xl font-black text-slate-900 tracking-tight">3월 27일 뉴스 핵심 단어</h2>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Vocabulary List</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">협약 <span class="text-xs font-normal text-slate-400 ml-2">(Treaty)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">သဘောတူညီချက်</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">타결 <span class="text-xs font-normal text-slate-400 ml-2">(Settlement)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">သဘောတူညီမှုရရှိခြင်း</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">수명 <span class="text-xs font-normal text-slate-400 ml-2">(Lifespan)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">သက်တမ်း</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">상용화 <span class="text-xs font-normal text-slate-400 ml-2">(Commercialization)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">လက်တွေ့အသုံးပြုနိုင်ခြင်း</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">수출 <span class="text-xs font-normal text-slate-400 ml-2">(Export)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">ပြည်ပတင်ပို့မှု</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">돌파하다 <span class="text-xs font-normal text-slate-400 ml-2">(To break through)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">ကျော်လွန်သည်</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">경신하다 <span class="text-xs font-normal text-slate-400 ml-2">(To break record)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">စံချိန်သစ်တင်သည်</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">촉구하다 <span class="text-xs font-normal text-slate-500 ml-2">(To urge)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">တိုက်တွန်းသည်</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">상락 <span class="text-xs font-normal text-slate-400 ml-2">(Fall/Decrease)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">ကျဆင်းခြင်း</p>
+                </div>
+                <div class="vocab-item">
+                    <h4 class="font-black text-slate-800 text-lg">극대화 <span class="text-xs font-normal text-slate-400 ml-2">(Maximization)</span></h4>
+                    <p class="text-sm text-slate-500 burmese-text mt-1">အမြင့်ဆုံးမြှင့်တင်ခြင်း</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Quiz Section -->
+        <article class="bg-slate-900 rounded-[3rem] p-8 md:p-12 text-center text-white relative overflow-hidden shadow-2xl">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            
+            <div id="quiz-start" class="relative z-10">
+                <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl"><i data-lucide="help-circle" class="w-10 h-10"></i></div>
+                <h2 class="text-3xl font-black mb-2 tracking-tight">뉴스 어휘 퀴즈</h2>
+                <p class="text-blue-400 font-bold text-xs uppercase tracking-[0.3em] mb-6">Today's Vocab Quiz</p>
+                <p class="text-slate-400 text-sm mb-10 burmese-text">ယနေ့ သတင်းများမှ ဝေါဟာရများကို ပြန်လည်စစ်ဆေးကြည့်ရအောင်။</p>
+                <button onclick="startQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-black px-12 py-5 rounded-2xl text-lg shadow-xl transition transform active:scale-95 flex items-center gap-3 mx-auto">
+                    퀴즈 시작하기 (စတင်ပါ) <i data-lucide="play" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="quiz-body" class="hidden relative z-10 text-left">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="quiz-progress" class="text-[10px] font-black bg-white/10 px-3 py-1 rounded-full uppercase tracking-widest">Question 1/5</span>
+                    <div id="quiz-timer" class="w-8 h-8 rounded-full border-2 border-blue-500 flex items-center justify-center text-[10px] font-bold">15</div>
+                </div>
+                
+                <h3 id="quiz-q-text" class="text-xl font-black mb-2 leading-tight">질문 내용</h3>
+                <p id="quiz-q-mm" class="text-sm text-slate-400 burmese-text mb-8">မေးခွန်းစာသား</p>
+                
+                <div id="quiz-options" class="space-y-3">
+                    <!-- Options go here -->
+                </div>
+
+                <div id="quiz-feedback" class="hidden mt-8 p-6 rounded-[2rem] bg-white/5 border border-white/10">
+                    <p id="quiz-explanation" class="text-sm font-medium leading-relaxed"></p>
+                    <button onclick="nextQuestion()" class="mt-6 w-full bg-blue-600 text-white font-black py-4 rounded-xl flex items-center justify-center gap-2">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+
+            <div id="quiz-result" class="hidden relative z-10">
+                <div class="text-6xl mb-6">🏆</div>
+                <h2 class="text-3xl font-black mb-2">참 잘했어요!</h2>
+                <p id="final-score" class="text-blue-400 font-black text-xl mb-10 uppercase tracking-widest">Score: 0 / 5</p>
+                <button onclick="startQuiz()" class="bg-white text-slate-900 font-black px-10 py-4 rounded-xl hover:bg-blue-50 transition">다시 하기 (Restart)</button>
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 mx-auto mb-6">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                YANGON · HLEDAN
+            </p>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">© 2026 JKLC Daily Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 퀴즈 데이터
+        const quizData = [
+            {
+                q: "국가 간에 체결하는 공식적인 약속이나 합의를 뜻하는 단어는?",
+                mm: "နိုင်ငံတကာ အချင်းချင်း တရားဝင်ပြုလုပ်သော ကတိ သို့မဟုတ် သဘောတူညီချက်မှာ အဘယ်နည်း။",
+                options: ["수출", "협약", "경신", "수명"],
+                correct: 1,
+                exp: "'협약(Treaty)'은 국가 간의 공식적인 약속을 뜻합니다."
+            },
+            {
+                q: "생물이 살아 있는 기간이나 기계의 사용 가능한 기간을 뜻하는 말은?",
+                mm: "သက်ရှိများ အသက်ရှင်သည့် ကာလ သို့မဟုတ် စက်ပစ္စည်းတစ်ခု၏ အသုံးပြုနိုင်သည့် ကာလမှာ အဘယ်နည်း။",
+                options: ["타결", "상용화", "수명", "촉구"],
+                correct: 2,
+                exp: "'수명(Lifespan)'은 살아 있는 기간이나 사용 기한을 의미합니다."
+            },
+            {
+                q: "국내의 물건을 외국으로 팔아 내보내는 것을 무엇이라고 하나요?",
+                mm: "ပြည်တွင်းမှ ပစ္စည်းများကို ပြည်ပသို့ ရောင်းချတင်ပို့ခြင်းကို ဘယ်လိုခေါ်သလဲ။",
+                options: ["수출", "수입", "참사", "방화"],
+                correct: 0,
+                exp: "'수출(Export)'은 다른 나라로 물건을 파는 것입니다."
+            },
+            {
+                q: "의견이 일치하여 문제나 협상이 원만하게 해결되는 것을 뜻하는 단어는?",
+                mm: "သဘောထားချင်း တိုက်ဆိုင်ပြီး ပြဿနာ သို့မဟုတ် ညှိနှိုင်းမှုများ ပြေလည်သွားခြင်းမှာ အဘယ်နည်း။",
+                options: ["타결", "상락", "중독", "거절"],
+                correct: 0,
+                exp: "'타결(Settlement)'은 협상이 성공적으로 마무리됨을 뜻합니다."
+            },
+            {
+                q: "기존의 기록을 깨고 새로운 기록을 세울 때 쓰는 동사는?",
+                mm: "ယခင်စံချိန်ကို ချိုးဖျက်ပြီး စံချိန်သစ်တင်သောအခါ အသုံးပြုသော ကြိယာမှာ အဘယ်နည်း။",
+                options: ["상용화", "경신하다", "촉구하다", "돌파하다"],
+                correct: 1,
+                exp: "'경신하다(Break record)'는 기록을 새롭게 바꾸는 것입니다."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQ = 0; score = 0;
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-body').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const data = quizData[currentQ];
+            document.getElementById('quiz-progress').innerText = `Question ${currentQ + 1}/${quizData.length}`;
+            document.getElementById('quiz-q-text').innerText = data.q;
+            document.getElementById('quiz-q-mm').innerText = data.mm;
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            
+            const container = document.getElementById('quiz-options');
+            container.innerHTML = '';
+            
+            data.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-4 rounded-xl border-2 border-white/10 bg-white/5 hover:bg-white/10 transition font-bold";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(idx, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(idx, btn) {
+            if (document.getElementById('quiz-feedback').classList.contains('hidden') === false) return;
+            
+            const data = quizData[currentQ];
+            const allBtns = document.querySelectorAll('.option-btn');
+            
+            if (idx === data.correct) {
+                btn.classList.add('correct');
+                score++;
+            } else {
+                btn.classList.add('wrong');
+                allBtns[data.correct].classList.add('correct');
+            }
+            
+            document.getElementById('quiz-explanation').innerText = data.exp;
+            document.getElementById('quiz-feedback').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ < quizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-body').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('final-score').innerText = `Score: ${score} / ${quizData.length}`;
+        }
+
+        // 아이콘 로드 및 우클릭 방지
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('copy', e => e.preventDefault());
+        });
+    </script>
+</body>
+</html>
