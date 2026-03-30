@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Keyboard Master</title>
+    <!-- 파비콘 추가 -->
+    <link rel="icon" type="image/png" href="favicon1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24;
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', sans-serif; 
+            background: #f1f5f9;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* 텍스트 선택 방지 */
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        .jklc-top-bar { height: 6px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        .typing-container {
+            flex: 1;
+            max-width: 1000px;
+            width: 100%;
+            margin: 1.5rem auto;
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* 워터마크 위치 상향 조정 (35% 지점으로) */
+        .watermark {
+            position: absolute;
+            top: 35%;
+            width: 280px;
+            opacity: 0.5; 
+            pointer-events: none;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+        .watermark-left { left: 5%; }
+        .watermark-right { right: 5%; }
+
+        /* 가상 키보드 스타일 */
+        .keyboard {
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            margin: 0 2rem 2rem 2rem;
+            z-index: 10;
+        }
+        .key-row { display: flex; justify-content: center; gap: 8px; }
+        .key {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #64748b;
+            transition: all 0.1s;
+            position: relative;
+        }
+        .key.active {
+            border-color: var(--k);
+            background: #eff6ff;
+            color: var(--k);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 112, 187, 0.3);
+        }
+        .key.correct { background: #22c55e !important; color: white !important; border-color: #22c55e !important; }
+        .key.wrong { background: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .key-en { font-size: 0.65rem; color: #cbd5e1; font-weight: 400; }
+
+        .target-char-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .target-char {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--k);
+            line-height: 1;
+            text-shadow: 0 10px 20px rgba(0, 112, 187, 0.1);
+            animation: pop 0.3s ease-out;
+        }
+        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        .stats-panel {
+            background: #1e293b;
+            color: white;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+        .stat-box { text-align: center; }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; font-weight: 800; letter-spacing: 0.1em; }
+        .stat-value { font-size: 1.5rem; font-weight: 900; }
+
+        #overlay {
+            position: absolute;
+            inset: 0;
+            background: white;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .mode-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 1rem 2rem;
+            border-radius: 1.5rem;
+            font-weight: 800;
+            transition: all 0.2s;
+            width: 220px;
+        }
+        .mode-btn:hover { border-color: var(--k); color: var(--k); background: #eff6ff; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+    <div class="jklc-top-bar"></div>
+
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 shadow-sm relative z-[110]">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="index.html">
+                    <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 w-auto">
+                </a>
+                <div class="hidden sm:block text-left">
+                    <h1 class="text-sm font-black text-slate-800 uppercase tracking-tight">Keyboard Master</h1>
+                    <p class="text-[10px] font-bold text-blue-600 uppercase tracking-wider">한글 낱자 위치 익히기</p>
+                </div>
+            </div>
+            
+            <a href="index.html" class="flex flex-col items-center group">
+                <div class="p-2 bg-slate-100 rounded-full text-slate-500 group-hover:bg-blue-600 group-hover:text-white transition">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[9px] font-black text-slate-400 mt-1 uppercase tracking-tighter group-hover:text-blue-600">Home</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-1 flex flex-col items-center justify-center p-4">
+        <div class="typing-container">
+            <!-- 워터마크 -->
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="watermark" class="watermark watermark-left">
+            <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="watermark" class="watermark watermark-right">
+
+            <div class="stats-panel">
+                <div class="stat-box">
+                    <p class="stat-label">Accuracy</p>
+                    <p id="accuracy" class="stat-value text-green-400">100%</p>
+                </div>
+                <div class="stat-box">
+                    <p class="stat-label">Progress</p>
+                    <p id="progress" class="stat-value">0 / 30</p>
+                </div>
+                <div class="stat-box">
+                    <p class="stat-label">Time</p>
+                    <p id="timer-display" class="stat-value text-yellow-400">0s</p>
+                </div>
+                <div class="stat-box">
+                    <p class="stat-label">Score</p>
+                    <p id="score" class="stat-value text-blue-400">0</p>
+                </div>
+            </div>
+
+            <div id="overlay">
+                <div class="p-6 bg-blue-50 rounded-[2.5rem] mb-6">
+                    <i data-lucide="keyboard" class="w-12 h-12 text-blue-600"></i>
+                </div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">낱자 위치 연습 (30회)</h2>
+                <p class="text-slate-500 mb-8">연습할 모드를 선택해 주세요.</p>
+                <div class="flex flex-col gap-3">
+                    <button onclick="Game.start('consonants')" class="mode-btn">자음 연습 (ㄱ~ㅎ)</button>
+                    <button onclick="Game.start('vowels')" class="mode-btn">모음 연습 (ㅏ~ㅣ)</button>
+                    <button onclick="Game.start('all')" class="mode-btn">전체 연습 (자음+모음)</button>
+                </div>
+            </div>
+
+            <div class="target-char-box">
+                <div id="target-char" class="target-char">ㄱ</div>
+                <p id="mm-hint" class="text-slate-400 font-bold mt-4 text-xl">က</p>
+            </div>
+
+            <div class="keyboard" id="keyboard">
+                <!-- JS will inject keys here -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 우클릭 및 선택 방지
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        const layout = [
+            ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'],
+            ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'],
+            ['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ']
+        ];
+
+        const keyMap = {
+            'ㅂ':'q','ㅈ':'w','ㄷ':'e','ㄱ':'r','ㅅ':'t','ㅛ':'y','ㅕ':'u','ㅑ':'i','ㅐ':'o','ㅔ':'p',
+            'ㅁ':'a','ㄴ':'s','ㅇ':'d','ㄹ':'f','ㅎ':'g','ㅗ':'h','ㅓ':'j','ㅏ':'k','ㅣ':'l',
+            'ㅋ':'z','ㅌ':'x','ㅊ':'c','ㅍ':'v','ㅠ':'b','ㅜ':'n','ㅡ':'m'
+        };
+
+        const mmHints = {
+            'ㄱ':'က','ㄴ':'န','ㄷ':'တ','ㄹ':'ရ','ㅁ':'မ','ㅂ':'ပ','ㅅ':'စ','ㅇ':'အ','ㅈ':'ဇ','ㅎ':'ဟ','ㅋ':'ခ','ㅌ':'ထ','ㅍ':'ဖ','ㅊ':'ဆ',
+            'ㅏ':'အာ','ㅑ':'ယာ','ㅓ':'အော','ㅕ':'ယော','ㅗ':'အို','ㅛ':'ယို','ㅜ':'အူ','ㅠ':'ယူ','ㅡ':'အူး','ㅣ':'အီ','ㅐ':'အဲ','ㅔ':'အေး'
+        };
+
+        window.Game = {
+            pool: [],
+            currentIndex: 0,
+            correctCount: 0,
+            attemptCount: 0,
+            targetChar: '',
+            isRunning: false,
+            startTime: null,
+            timerInterval: null,
+            maxTrials: 30, 
+
+            initKeyboard() {
+                const kb = document.getElementById('keyboard');
+                kb.innerHTML = '';
+                layout.forEach(row => {
+                    const rowEl = document.createElement('div');
+                    rowEl.className = 'key-row';
+                    row.forEach(k => {
+                        const keyEl = document.createElement('div');
+                        keyEl.className = 'key';
+                        keyEl.id = `key-${keyMap[k]}`;
+                        keyEl.innerHTML = `<span>${k}</span><span class="key-en">${keyMap[k].toUpperCase()}</span>`;
+                        rowEl.appendChild(keyEl);
+                    });
+                    kb.appendChild(rowEl);
+                });
+            },
+
+            start(mode) {
+                this.initKeyboard();
+                const consonants = ['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅎ','ㅋ','ㅌ','ㅍ','ㅊ'];
+                const vowels = ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ','ㅜ','ㅠ','ㅡ','ㅣ','ㅐ','ㅔ'];
+                
+                let basePool = [];
+                if(mode === 'consonants') basePool = [...consonants];
+                else if(mode === 'vowels') basePool = [...vowels];
+                else basePool = [...consonants, ...vowels];
+
+                // 연속된 글자가 나오지 않도록 30회 생성
+                this.pool = [];
+                let lastChar = '';
+                for(let i=0; i<this.maxTrials; i++) {
+                    let randChar;
+                    do {
+                        randChar = basePool[Math.floor(Math.random() * basePool.length)];
+                    } while (randChar === lastChar); // 직전 글자와 같으면 다시 뽑기
+                    this.pool.push(randChar);
+                    lastChar = randChar;
+                }
+
+                this.currentIndex = 0;
+                this.correctCount = 0;
+                this.attemptCount = 0;
+                this.isRunning = true;
+                this.startTime = null; 
+                clearInterval(this.timerInterval);
+                document.getElementById('timer-display').innerText = '0s';
+
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('score').innerText = '0';
+                this.nextChar();
+            },
+
+            startTimer() {
+                this.startTime = Date.now();
+                this.timerInterval = setInterval(() => {
+                    const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+                    document.getElementById('timer-display').innerText = `${elapsed}s`;
+                }, 1000);
+            },
+
+            nextChar() {
+                if(this.currentIndex >= this.pool.length) {
+                    this.finish();
+                    return;
+                }
+
+                this.targetChar = this.pool[this.currentIndex];
+                document.getElementById('target-char').innerText = this.targetChar;
+                document.getElementById('mm-hint').innerText = mmHints[this.targetChar] || '';
+                document.getElementById('progress').innerText = `${this.currentIndex + 1} / ${this.maxTrials}`;
+
+                document.querySelectorAll('.key').forEach(k => k.classList.remove('active', 'correct', 'wrong'));
+                const targetKey = document.getElementById(`key-${keyMap[this.targetChar]}`);
+                if(targetKey) targetKey.classList.add('active');
+            },
+
+            handleInput(e) {
+                if(!this.isRunning) return;
+                
+                // 첫 입력 시 타이머 시작
+                if(this.startTime === null) {
+                    this.startTimer();
+                }
+
+                const pressedKey = e.key.toLowerCase();
+                const targetKeyChar = keyMap[this.targetChar];
+                
+                if(pressedKey.length > 1) return;
+
+                this.attemptCount++;
+                const keyEl = document.getElementById(`key-${pressedKey}`);
+                
+                if(pressedKey === targetKeyChar) {
+                    this.correctCount++;
+                    this.currentIndex++;
+                    if(keyEl) {
+                        keyEl.classList.add('correct');
+                        setTimeout(() => this.nextChar(), 150);
+                    } else {
+                        this.nextChar();
+                    }
+                } else {
+                    if(keyEl) {
+                        keyEl.classList.add('wrong');
+                        setTimeout(() => keyEl.classList.remove('wrong'), 200);
+                    }
+                }
+                this.updateStats();
+            },
+
+            updateStats() {
+                const acc = this.attemptCount > 0 ? Math.round((this.correctCount / this.attemptCount) * 100) : 100;
+                document.getElementById('accuracy').innerText = acc + '%';
+                document.getElementById('score').innerText = this.correctCount * 10;
+            },
+
+            finish() {
+                this.isRunning = false;
+                clearInterval(this.timerInterval);
+                const finalTime = document.getElementById('timer-display').innerText;
+                const overlay = document.getElementById('overlay');
+                const acc = document.getElementById('accuracy').innerText;
+                overlay.style.display = 'flex';
+                overlay.innerHTML = `
+                    <div class="p-6 bg-blue-600 rounded-[2.5rem] mb-6"><i data-lucide="award" class="w-16 h-16 text-yellow-400"></i></div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-2">연습 완료!</h2>
+                    <p class="text-xl mb-2 text-slate-500">정확도: <span class="text-blue-600 font-black">${acc}</span></p>
+                    <p class="text-xl mb-8 text-slate-500">소요 시간: <span class="text-yellow-600 font-black">${finalTime}</span></p>
+                    <button onclick="location.reload()" class="mode-btn bg-blue-600 text-white border-none hover:bg-blue-700">다시 하기</button>
+                `;
+                lucide.createIcons();
+            }
+        };
+
+        window.onload = () => {
+            lucide.createIcons();
+            Game.initKeyboard();
+            window.addEventListener('keydown', (e) => Game.handleInput(e));
+        };
+    </script>
+</body>
+</html>
