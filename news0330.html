@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (03.30)</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
+        body { font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; background: #f8fafc; line-height: 1.6; -webkit-user-select: none; user-select: none; }
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        .news-card { transition: all 0.3s; border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        .burmese-text { font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; line-height: 1.8; }
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 9999; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.08; transform: rotate(-20deg); }
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+                <div class="hidden sm:block border-l border-slate-200 pl-3">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest select-none">Global News</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex flex-col text-right mr-2">
+                    <span class="text-xs font-black text-slate-800">2026. 03. 30</span>
+                    <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud" class="w-3 h-3"></i> Yangon</span>
+                </div>
+                <div class="flex gap-2 relative z-10">
+                    <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase shadow-sm hover:bg-slate-200 transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5"></i> List
+                    </a>
+                    <a href="index.html" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase shadow-md hover:bg-blue-700 transition">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full text-left">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 shadow-sm relative overflow-hidden">
+            <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="zap" class="w-6 h-6"></i>
+            </div>
+            <div class="relative z-10 w-full">
+                <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
+                    <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full">2026. 03. 30</span>
+                </div>
+                <p class="text-xs font-medium text-slate-500 burmese-text">ယနေ့ ကမ္ဘာ့သတင်းများကို ကိုရီးယားဘာသာဖြင့် လေ့လာကြည့်ကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">Energy Tech</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="sun" class="w-3.5 h-3.5"></i> 과학 / 에너지</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3">인공태양 '핵융합' 기술, 상용화를 향한 새로운 이정표 달성</h2>
+                    <p class="text-slate-500 text-sm font-medium">꿈의 에너지로 불리는 핵융합 발전이 연구 단계에서 큰 진전을 이루었습니다. 초고온 플라즈마를 장시간 유지하는 데 성공하며 탄소 배출 없는 깨끗한 에너지 시대에 한 발 더 다가섰습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">နျူကလီးယား ပေါင်းစပ်ခြင်းနည်းပညာ (Nuclear Fusion) အောင်မြင်မှုအသစ်ရရှိ</h2>
+                    <p class="text-slate-500 text-xs">အကန့်အသတ်မဲ့ စွမ်းအင်ရရှိနိုင်မည့် နျူကလီးယား ပေါင်းစပ်ခြင်းနည်းပညာတွင် သိသာထင်ရှားသော တိုးတက်မှုများ ရရှိခဲ့ပြီး သန့်ရှင်းသော စွမ်းအင်ခေတ်သို့ နီးကပ်လာပြီဖြစ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-teal-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">Ocean Care</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-teal-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="anchor" class="w-3.5 h-3.5"></i> 환경 / 바다</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3">태평양 산호초 군락 복원 사업, 생물 다양성 회복 가속화</h2>
+                    <p class="text-slate-500 text-sm font-medium">기후 변화로 파괴되었던 태평양의 산호초들이 국제사회의 공동 노력으로 되살아나고 있습니다. 산호초가 복원되면서 수천 종의 해양 생물들이 다시 돌아오고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ပစိဖိတ်သမုဒ္ဒရာရှိ သန္တာကျောက်တန်းများ ပြန်လည်ရှင်သန်လာ</h2>
+                    <p class="text-slate-500 text-xs">နိုင်ငံတကာ ပူးပေါင်းဆောင်ရွက်မှုကြောင့် ပျက်စီးနေသော သန္တာကျောက်တန်းများ ပြန်လည်ကောင်းမွန်လာပြီး ပင်လယ်ရေသတ္တဝါများ ပိုမိုတိုးပွားလာသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">K-Culture</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="utensils" class="w-3.5 h-3.5"></i> 문화 / 음식</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3">전 세계로 퍼지는 한식 열풍, 건강식의 대명사로 자리매김</h2>
+                    <p class="text-slate-500 text-sm font-medium">비빔밥, 김치 등 한국 음식이 전 세계 미식가들 사이에서 건강하고 균형 잡힌 식단으로 인기를 끌고 있습니다. 한국 문화 전파와 함께 한식의 위상도 더욱 높아지고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ကိုရီးယားအစားအစာများ ကမ္ဘာတစ်ဝှမ်းတွင် ကျန်းမာရေးနှင့်ညီညွတ်သော အစားအစာအဖြစ် ရေပန်းစားလာ</h2>
+                    <p class="text-slate-500 text-xs">ဘီဘင်ဘတ်နှင့် ကင်ချီကဲ့သို့သော ကိုရီးယားအစားအစာများသည် အာဟာရပြည့်ဝသောကြောင့် တစ်ကမ္ဘာလုံးတွင် လူကြိုက်များလာသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-orange-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">Self-Improvement</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-orange-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="check-square" class="w-3.5 h-3.5"></i> 자기계발 / 습관</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3">성공을 부르는 '작은 습관'의 위력... 매일의 실천이 인생을 바꾼다</h2>
+                    <p class="text-slate-500 text-sm font-medium">거창한 목표보다 매일 실천하는 사소한 습관이 성공을 만드는 핵심 비결이라는 전문가들의 조언입니다. 작은 변화가 모여 커다란 성취를 이루어냅니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">သေးငယ်သောအလေ့အကျင့်များက ဘဝကိုပြောင်းလဲစေနိုင်</h2>
+                    <p class="text-slate-500 text-xs">ကြီးမားသောရည်မှန်းချက်များထက် နေ့စဉ်ပြုလုပ်သော သေးငယ်သောအကျင့်လေးများက အောင်မြင်မှုအတွက် အရေးကြီးဆုံးဖြစ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                <div class="vocab-item"><h3 class="text-lg font-bold">상용화 <span class="text-xs font-normal text-slate-400 ml-2">(Commercialization)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စီးပွားဖြစ် အသုံးပြုနိုင်ခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">이정표 <span class="text-xs font-normal text-slate-400 ml-2">(Milestone)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">မှတ်တိုင်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">다양성 <span class="text-xs font-normal text-slate-400 ml-2">(Diversity)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">မျိုးစုံကွဲပြားမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">가속화 <span class="text-xs font-normal text-slate-400 ml-2">(Acceleration)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အရှိန်မြှင့်တင်ခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">대명사 <span class="text-xs font-normal text-slate-400 ml-2">(Byword/Pronoun)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">နာမည်ကျော် အထိမ်းအမှတ်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">위상 <span class="text-xs font-normal text-slate-400 ml-2">(Status)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အဆင့်အတန်း / ဂုဏ်သတင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">거창하다 <span class="text-xs font-normal text-slate-400 ml-2">(Grand)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကြီးကျယ်ခမ်းနားသော</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">핵심 <span class="text-xs font-normal text-slate-400 ml-2">(Core/Key)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အဓိကအချက်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">성취 <span class="text-xs font-normal text-slate-400 ml-2">(Achievement)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အောင်မြင်မှု / ရရှိမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">유지하다 <span class="text-xs font-normal text-slate-400 ml-2">(Maintain)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထိန်းသိမ်းထားသည်</p></div>
+            </div>
+        </article>
+
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl p-8 md:p-10 text-white relative text-center">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full"><i data-lucide="award" class="w-12 h-12"></i></div>
+                    <h2 class="text-3xl font-black">오늘의 어휘 퀴즈!</h2>
+                    <p class="text-blue-100 burmese-text">ယနေ့လေ့လာခဲ့သော စကားလုံးများကို ပြန်လည်စစ်ဆေးကြည့်ကြရအောင်။</p>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105">퀴즈 시작 (Start Quiz)</button>
+                </div>
+            </div>
+            <div id="quiz-play-view" class="hidden">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold">Question 1 / 10</span>
+                    <span id="score-display" class="font-bold">0</span>
+                </div>
+                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10"></h3>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <div id="quiz-feedback" class="mt-8 text-center font-bold text-xl min-h-[1.5rem]"></div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            </div>
+            <div id="quiz-result-view" class="hidden text-center space-y-8">
+                <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                <button onclick="resetQuiz()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg">퀴즈 다시 하기 (Try Again)</button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-white border-t py-12 text-center mt-auto relative z-10">
+        <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80">
+        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+
+        const originalQuizData = [
+            { q: "상용화", a: "စီးပွားဖြစ် အသုံးပြုနိုင်ခြင်း", choices: ["စီးပွားဖြစ် အသုံးပြုနိုင်ခြင်း", "မှတ်တိုင်", "မျိုးစုံကွဲပြားမှု", "အဓိကအချက်"] },
+            { q: "이정표", a: "မှတ်တိုင်", choices: ["မှတ်တိုင်", "အရှိန်မြှင့်တင်ခြင်း", "ဂုဏ်သတင်း", "အောင်မြင်မှု"] },
+            { q: "다양성", a: "မျိုးစုံကွဲပြားမှု", choices: ["မျိုးစုံကွဲပြားမှု", "ထိန်းသိမ်းထားသည်", "မှတ်တိုင်", "ကြီးကျယ်ခမ်းနားသော"] },
+            { q: "가속화", a: "အရှိန်မြှင့်တင်ခြင်း", choices: ["အရှိန်မြှင့်တင်ခြင်း", "စီးပွားဖြစ် အသုံးပြုနိုင်ခြင်း", "အောင်မြင်မှု", "အဓိကအချက်"] },
+            { q: "대명사", a: "နာမည်ကျော် အထိမ်းအမှတ်", choices: ["နာမည်ကျော် အထိမ်းအမှတ်", "ဂုဏ်သတင်း", "မှတ်တိုင်", "အရှိန်မြှင့်တင်ခြင်း"] },
+            { q: "위상", a: "အဆင့်အတန်း / ဂုဏ်သတင်း", choices: ["အဆင့်အတန်း / ဂုဏ်သတင်း", "မျိုးစုံကွဲပြားမှု", "အဓိကအချက်", "အောင်မြင်မှု"] },
+            { q: "거창하다", a: "ကြီးကျယ်ခမ်းနားသော", choices: ["ကြီးကျယ်ခမ်းနားသော", "မှတ်တိုင်", "ထိန်းသိမ်းထားသည်", "စီးပွားဖြစ် အသုံးပြုနိုင်ခြင်း"] },
+            { q: "핵심", a: "အဓိကအချက်", choices: ["အဓိကအချက်", "အရှိန်မြှင့်တင်ခြင်း", "အောင်မြင်မှု", "နာမည်ကျော် အထိမ်းအမှတ်"] },
+            { q: "성취", a: "အောင်မြင်မှု / ရရှိမှု", choices: ["အောင်မြင်မှု / ရရှိမှု", "ဂုဏ်သတင်း", "မှတ်တိုင်", "မျိုးစုံကွဲပြားမှု"] },
+            { q: "유지하다", a: "ထိန်းသိမ်းထားသည်", choices: ["ထိန်းသိမ်းထားသည်", "အရှိန်မြှင့်တင်ခြင်း", "စီးပွားဖြစ် အသုံးပြုနိုင်ခြင်း", "ကြီးကျယ်ခမ်းနားသော"] }
+        ];
+
+        let currentQuizData = [], currentQIndex = 0, score = 0, canAnswer = true;
+        const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+
+        function startQuiz() {
+            document.getElementById('vocab-section').classList.add('hidden');
+            currentQuizData = shuffle([...originalQuizData]);
+            currentQIndex = 0; score = 0;
+            document.getElementById('score-display').innerText = '0';
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true; const data = currentQuizData[currentQIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentQIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은?`;
+            document.getElementById('quiz-feedback').innerText = '';
+            document.getElementById('next-btn').classList.add('hidden');
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            shuffle([...data.choices]).forEach(choice => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-center';
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (!canAnswer) return; canAnswer = false;
+                    if (choice === data.a) { btn.classList.add('correct'); score++; document.getElementById('score-display').innerText = score; }
+                    else { btn.classList.add('wrong'); Array.from(grid.children).forEach(c => { if(c.innerText === data.a) c.classList.add('correct'); }); }
+                    document.getElementById('next-btn').classList.remove('hidden');
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < 10) showQuestion();
+            else {
+                document.getElementById('quiz-play-view').classList.add('hidden');
+                document.getElementById('quiz-result-view').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / 10`;
+            }
+        }
+
+        function resetQuiz() {
+            document.getElementById('vocab-section').classList.remove('hidden');
+            document.getElementById('quiz-result-view').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
