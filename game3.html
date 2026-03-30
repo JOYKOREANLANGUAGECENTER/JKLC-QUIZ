@@ -39,13 +39,14 @@
             border: 1px solid rgba(0,0,0,0.05);
         }
 
+        /* 워터마크: 겹치지 않게 최하단 바닥에 배치 */
         .watermark {
             position: absolute;
-            top: 50%;
+            bottom: 10px; /* 카드 맨 밑바닥에 배치 */
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            opacity: 0.5;
+            transform: translateX(-50%);
+            width: 250px; /* 크기를 약간 더 최적화 */
+            opacity: 0.45; /* 더 선명하게 표시 */
             pointer-events: none;
             z-index: 1;
         }
@@ -63,7 +64,8 @@
         }
 
         .text-input-area {
-            padding: 0 3.5rem 3.5rem 3.5rem;
+            /* 하단 패딩을 대폭 늘려 로고가 들어갈 전용 공간 확보 (겹침 방지) */
+            padding: 0 3.5rem 8rem 3.5rem; 
             z-index: 10;
             position: relative;
         }
@@ -148,7 +150,7 @@
         <div class="max-w-5xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <a href="index.html">
-                    <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+                    <img src="logo.png" alt="JKLC" class="h-10 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
                 </a>
                 <div class="hidden sm:block text-left">
                     <h1 class="text-sm font-black text-slate-800 uppercase tracking-tight">Classic Typing Test</h1>
@@ -167,7 +169,8 @@
 
     <main class="flex-1 flex flex-col items-center justify-center p-4">
         <div class="typing-container">
-            <img src="logo.png" alt="watermark" class="watermark">
+            <!-- 워터마크 이미지 (최하단 고정) -->
+            <img src="logo.png" alt="watermark" class="watermark" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
 
             <div class="stats-panel">
                 <div class="stat-box text-left">
@@ -215,17 +218,17 @@
             { k: "커다란 박 속에서는 금은보화가 가득 쏟아져 나왔습니다.", m: "ကြီးမားတဲ့ ဘူးသီးထဲကနေ ရွှေငွေရတနာတွေ အများကြီး ထွက်လာခဲ့ပါတယ်။" },
             { k: "심청이는 눈먼 아버지를 위해 공양미 삼백 석에 몸을 던졌습니다.", m: "ဆင်ချွန်းဟာ မျက်မမြင်အဖေအတွက် ဆန်အိတ် ၃၀၀ နဲ့ သူမရဲ့ကိုယ်ကို ပင်လယ်ထဲ ပစ်ချခဲ့ပါတယ်။" },
             { k: "지극정성인 효심에 감동한 용왕님은 심청이를 다시 살려주었습니다.", m: "သူမရဲ့ ရိုသေကိုင်းရှိုင်းတဲ့စိတ်ကို သဘောကျတဲ့ နဂါးမင်း가 ဆင်ချွန်းကို ပြန်လည်အသက်ရှင်စေခဲ့ပါတယ်။" },
-            { k: "정직한 나무꾼은 산신령에게 금도끼 대신 쇠도끼가 제 것이라 말했습니다.", m: "ရိုးသားတဲ့ သစ်ခုတ်သမားဟာ တောင်စောင့်နတ်မင်းကို ရွှေပုဆိန်အစား သံပုဆိန်က သူ့ဟာဖြစ်ကြောင်း ပြောခဲ့ပါတယ်။" },
-            { k: "산신령은 나무꾼의 정직함에 감동하여 도끼를 모두 선물로 주었습니다.", m: "တောင်စောင့်နတ်မင်းဟာ သစ်ခုတ်သမားရဲ့ ရိုးသားမှုကို သဘောကျပြီး ပုဆိန်အားလုံးကို လက်ဆောင်ပေးခဲ့ပါတယ်။" },
-            { k: "토끼는 거북이가 느리다고 생각하여 중간에 잠이 들고 말았습니다.", m: "ယုန်က လိပ်နှေးတယ်လို့ ထင်ပြီး လမ်းမှာ အိပ်ပျော်သွားခဲ့ပါတယ်။" },
+            { k: "정직한 나무꾼은 산신령에게 금도끼 대신 쇠도끼가 제 것이라 말했습니다.", m: "ရိုးသားတဲ့ သစ်ခုတ်သမားဟာ တောင်စောင့်နတ်မင်းကို ရွှေပုဆိန်အစား သံပုဆိန်가 သူ့ဟာဖြစ်ကြောင်း ပြောခဲ့ပါတယ်။" },
+            { k: "산신령은 나무꾼의 정직함에 감동하여 도끼를 모두 선물로 주었습니다.", m: "တောင်စောင့်နတ်မင်းဟာ သစ်ခုတ်သမားရဲ့ ရိုးသားမှုကို သဘောကျပြီး ปုဆိန်အားလုံးကို လက်ဆောင်ပေးခဲ့ပါတယ်။" },
+            { k: "토끼는 거북이가 느리다고 생각하여 중간에 잠이 들고 말았습니다.", m: "ယုန်က လိပ်နှေးတယ်လို့ ထင်ပြီး ลမ်းမှာ အိပ်ပျော်သွားခဲ့ပါတယ်။" },
             { k: "포기하지 않고 끝까지 걸어간 거북이가 결국 경주에서 승리했습니다.", m: "အရှုံးမပေးဘဲ အဆုံးထိလျှောက်သွားတဲ့ လိပ်က နောက်ဆုံးမှာ ပြိုင်ပွဲကို အနိုင်ရခဲ့ပါတယ်။" },
             { k: "어린 왕자는 소중한 장미꽃을 두고 지구로 여행을 떠나왔습니다.", m: "မင်းသားလေးဟာ အဖိုးတန်တဲ့ နှင်းဆီပန်းလေးကို ထားခဲ့ပြီး ကမ္ဘာမြေကို ခရီးထွက်လာခဲ့ပါတယ်။" },
             { k: "사막에서 만난 여우는 길들여진다는 것의 의미를 가르쳐 주었습니다.", m: "သဲကန္တာရထဲမှာတွေ့တဲ့ မြေခွေးက ယဉ်ပါးသွားခြင်းရဲ့ အဓိပ္ပာယ်ကို သင်ကြားပေးခဲ့ပါတယ်။" },
-            { k: "가장 중요한 것은 눈에 보이지 않는다는 사실을 깨달았습니다.", m: "အရေးကြီးဆုံးအရာဟာ မျက်စိနဲ့မမြင်နိုင်ဘူးဆိုတဲ့ အမှန်တရားကို နားလည်သွားခဲ့ပါတယ်။" },
+            { k: "가장 중요한 것은 눈에 보이지 않는다는 사실을 깨달았습니다.", m: "အရေးကြီးဆုံးအရာဟာ မျက်စိနဲ့မမြင်နိုင်ဘူးဆိုတဲ့ အမှန်တရားကို นားလည်သွားခဲ့ပါတယ်။" },
             { k: "콩쥐는 항아리를 채우라는 명령을 받고 슬프게 울고 있었습니다.", m: "ခွန်းဂျီဟာ အိုးထဲမှာ ရေဖြည့်ဖို့ အမိန့်ပေးခံရပြီး ဝမ်းနည်းစွာ ငိုကြွေးနေခဲ့ပါတယ်။" },
             { k: "두꺼비가 나타나 구멍 난 항아리를 몸으로 막아주었습니다.", m: "ဖားတစ်ကောင် ပေါ်လာပြီး ပေါက်နေတဲ့အိုးကို သူ့ကိုယ်နဲ့ ပိတ်ပေးခဲ့ပါတယ်။" },
-            { k: "선녀는 날개옷을 잃어버려 하늘나라로 돌아가지 못했습니다.", m: "နတ်သမီးလေးဟာ นတ်ဝတ်စုံ ပျောက်ဆုံးသွားလို့ နတ်ပြည်ကို မပြန်နိုင်တော့ပါဘူး။" },
-            { k: "피노키오는 거짓말을 할 때마다 코가 쑥쑥 길어지기 시작했습니다.", m: "ပီနိုကီယိုဟာ လိမ်ပြောတိုင်း နှာခေါင်းက တဖြည်းဖြည်း ရှည်လာခဲ့ပါတယ်။" },
+            { k: "선녀는 날개옷을 잃어버려 하늘나라로 돌아가지 못했습니다.", m: "နတ်သမီးလေးဟာ นတ်ဝတ်စုံ ပျောက်ဆုံးသွားလို့ နတ်ပြည်ကို မပြန်နိုင်တော့ပါဘူး। " },
+            { k: "피노키오는 거짓말을 할 때마다 코가 쑥쑥 길어지기 시작했습니다.", m: "ပီနိုကီယိုဟာ လိမ်ပြောတိုင်း နှာခေါင်း가 တဖြည်းဖြည်း ရှည်လာခဲ့ပါတယ်။" },
             { k: "성냥팔이 소녀는 추운 겨울밤에 성냥 하나를 켰습니다.", m: "မီးခြစ်ရောင်းတဲ့ မိန်းကလေးဟာ ချမ်းအေးတဲ့ ဆောင်းညမှာ မီးခြစ်တစ်ခုကို ခြစ်လိုက်ပါတယ်။" },
             { k: "하늘에 뜬 별들을 보며 행복한 꿈을 꾸고 싶었습니다.", m: "ကောင်းကင်က ကြယ်တွေကိုကြည့်ပြီး ပျော်ရွှင်စရာ အိပ်မက်တွေ မက်ချင်ခဲ့ပါတယ်။" },
             { k: "견우와 직녀는 일 년에 단 한 번 오작교에서 만날 수 있습니다.", m: "ဂျွန်းဝူးနဲ့ ဂျစ်ညောတို့ဟာ တစ်နှစ်မှာ တစ်ကြိမ်သာ အိုဂျာကျိုတံတားမှာ တွေ့နိုင်ပါတယ်။" },
@@ -236,16 +239,13 @@
             currentIndex: 0,
             timer: null,
             timeLeft: 300,
-            completedChars: 0, // 이미 완료된 문장의 글자 수
-            totalTypedChars: 0, // 오타 포함 총 타이핑 수 (정확도 계산용)
-            currentErrors: 0, 
+            completedChars: 0, 
             isRunning: false,
 
             start() {
                 this.currentIndex = 0;
                 this.timeLeft = 300;
                 this.completedChars = 0;
-                this.totalTypedChars = 0;
                 this.isRunning = true;
 
                 document.getElementById('start-overlay').style.display = 'none';
@@ -316,7 +316,9 @@
                 const target = storyData[this.currentIndex].k;
                 if (pos < target.length) {
                     const nextChar = document.getElementById(`char-${pos}`);
-                    if (nextChar) nextChar.classList.add('char-current');
+                    if (nextChar) {
+                        nextChar.classList.add('char-current');
+                    }
                 }
             },
 
@@ -324,12 +326,10 @@
                 const timeSpentSec = 300 - this.timeLeft;
                 const timeSpentMin = timeSpentSec / 60;
                 
-                // 실시간 타수 = (이미 완료된 글자수 + 현재 문장에서 맞게 친 글자수) / 경과 시간(분)
                 const liveCorrectChars = this.completedChars + currentCorrect;
                 const cpm = timeSpentMin > 0 ? Math.round(liveCorrectChars / timeSpentMin) : 0;
                 document.getElementById('cpm').innerText = cpm;
 
-                // 실시간 정확도
                 const totalAttempted = liveCorrectChars + currentErrors;
                 const accVal = totalAttempted > 0 ? Math.round((liveCorrectChars / totalAttempted) * 100) : 100;
                 document.getElementById('accuracy').innerText = `${accVal}%`;
@@ -343,7 +343,6 @@
                     const s = this.timeLeft % 60;
                     document.getElementById('timer').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
                     
-                    // 매 초마다 타수 갱신 (입력 안 하고 있어도 시간은 가므로 타수가 서서히 떨어짐)
                     const input = document.getElementById('typing-input');
                     const target = storyData[this.currentIndex].k;
                     let correctCount = 0;
