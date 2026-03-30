@@ -34,6 +34,24 @@
             background-size: 40px 40px;
         }
 
+        /* 워터마크 추가 (선명도 50%) */
+        #game-canvas::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background-image: url('logo.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.5; /* 선명도 50% */
+            z-index: 0;
+            pointer-events: none;
+        }
+
         .word-item {
             position: absolute;
             padding: 0.7rem 1.4rem;
@@ -85,16 +103,27 @@
 <body class="flex flex-col" oncontextmenu="return false">
     <div class="jklc-top-bar"></div>
 
-    <nav class="bg-white border-b border-slate-200 px-6 py-4 shadow-sm">
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 shadow-sm relative z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+                <a href="index.html">
+                    <img src="logo.png" alt="JKLC" class="h-10 w-auto hover:opacity-80 transition">
+                </a>
                 <div class="hidden sm:block">
                     <h1 class="text-sm font-black text-slate-800 uppercase tracking-tight">Vocabulary Master</h1>
                     <p class="text-[10px] font-bold text-green-600 uppercase">100 Essential Words</p>
                 </div>
             </div>
-            <div class="flex items-center gap-8">
+            
+            <div class="flex items-center gap-6 md:gap-10">
+                <!-- Home 버튼 추가 -->
+                <a href="index.html" class="flex flex-col items-center group">
+                    <div class="p-2 bg-slate-100 rounded-full text-slate-500 group-hover:bg-blue-600 group-hover:text-white transition shadow-sm">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[8px] font-black text-slate-400 mt-1 uppercase tracking-tighter group-hover:text-blue-600">Home</span>
+                </a>
+
                 <div class="text-right">
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Score</p>
                     <p id="score-val" class="text-2xl font-black text-blue-600">0</p>
@@ -124,7 +153,7 @@
             </div>
         </div>
 
-        <div class="py-6 flex gap-4">
+        <div class="py-6 flex gap-4 relative z-10">
             <div class="relative flex-1">
                 <input type="text" id="word-input" autocomplete="off" placeholder="단어를 입력하고 Enter를 누르세요..." 
                        class="w-full p-6 bg-white border-4 border-slate-100 rounded-[2rem] text-2xl font-black focus:border-blue-500 focus:outline-none shadow-xl transition-all"
@@ -135,7 +164,7 @@
     </main>
 
     <script>
-        // 100개 단어 데이터베이스 (오류 수정 완료)
+        // 100개 단어 데이터베이스
         const wordPool = [
             // 과일 (Fruits)
             { k: "사과", m: "ပန်းသီး" }, { k: "포도", m: "စပျစ်သီး" }, { k: "수박", m: "ဖရဲသီး" }, { k: "딸기", m: "စတော်ဘယ်ရီ" }, { k: "바나나", m: "ငှက်ပျောသီး" },
@@ -157,7 +186,7 @@
             // 뉴스 및 고급 어휘 (News & Advanced)
             { k: "협약", m: "သဘောတူညီချက်" }, { k: "타결", m: "သဘောတူညီမှုရရှိခြင်း" }, { k: "수출", m: "ပြည်ပတင်ပို့မှု" }, { k: "수명", m: "သက်တမ်း" }, { k: "환경", m: "ပတ်ဝန်းကျင်" },
             { k: "오염", m: "ညစ်ညမ်းမှု" }, { k: "해결", m: "ဖြေရှင်းချက်" }, { k: "인류", m: "လူသားမျိုးနွယ်" }, { k: "보호", m: "ကာကွယ်စောင့်ရှောက်မှု" }, { k: "책임", m: "တာဝန်" },
-            { k: "협력", m: "ပူးပေါင်းဆောင်ရွက်မှု" }, { k: "미래", m: "အနာဂတ်" }, { k: "노력", m: "ကြိုးပမ်းမှု" }, { k: "성공", m: "အောင်မြင်မှု" }, { k: "도전", m: "စိန်ခေါ်မှု" },
+            { k: "협력", m: "ပူးပေါင်းဆောင်ွက်မှု" }, { k: "미래", m: "အနာဂတ်" }, { k: "노력", m: "ကြိုးပမ်းမှု" }, { k: "성공", m: "အောင်မြင်မှု" }, { k: "도전", m: "စိန်ခေါ်မှု" },
             { k: "뉴스", m: "သတင်း" }, { k: "정치", m: "နိုင်ငံရေး" }, { k: "경제", m: "စီးပွားရေး" }, { k: "사회", m: "လူ့အဖွဲ့အစည်း" }, { k: "문화", m: "ယဉ်ကျေးမှု" },
             { k: "기술", m: "နည်းပညာ" }, { k: "발전", m: "တိုးတက်မှု" }, { k: "안전", m: "ဘေးကင်းရေး" }, { k: "조사", m: "စုံစမ်းစစ်ဆေးမှု" }, { k: "계획", m: "စီမံကိန်း" },
             // 장소 및 기타 (Places & Others)
@@ -269,7 +298,7 @@
                         this.activeWords.splice(i, 1);
                         this.score += 10;
                         document.getElementById('score-val').innerText = this.score;
-                        this.speed += 0.003; // 아주 천천히 빨라지게 수정
+                        this.speed += 0.003; 
                         return;
                     }
                 }
@@ -298,7 +327,6 @@
 
         window.onload = () => {
             lucide.createIcons();
-            // 추가적인 보안 (우클릭 차단 알림 없음)
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
                 if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'u' || e.key === 'U' || e.key === 'i' || e.key === 'I')) {
