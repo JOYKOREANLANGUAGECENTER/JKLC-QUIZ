@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Office Conversation Quiz</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+        .wrong {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-watermark {
+            opacity: 0.3; 
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="메인 홈으로">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm" title="퀴즈 목록으로">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="briefcase" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">회사에서 일상대화</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Office Conversation</p>
+            
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 12</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    한국 회사에서 동료들과 자연스럽게 대화해 봅시다!<br>
+                    <span class="font-bold">ကိုရီးယားကုမ္ပဏီတွင် လုပ်ဖော်ကိုင်ဖက်များနှင့် သဘာဝကျကျ စကားပြောဆိုကြည့်ကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+        </div>
+
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div class="flex justify-center my-4 content-watermark">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button id="review-btn" onclick="quiz.showReview()" class="hidden w-full bg-amber-500 text-white font-black py-5 rounded-2xl hover:bg-amber-600 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="search" class="w-5 h-5"></i> 틀린 문제 다시 보기
+            </button>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
+            </button>
+        </div>
+
+        <div id="review-screen" class="hidden flex-1 flex flex-col p-6 fade-in overflow-y-auto relative z-10 text-left">
+            <div class="flex items-center gap-3 mb-6">
+                <button onclick="quiz.backToResult()" class="p-2 bg-slate-100 rounded-full text-slate-500">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">틀린 문제 복습하기</h2>
+            </div>
+            <div id="review-list" class="space-y-6 pb-10"></div>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "아침에 회사에 도착해서 동료들에게 하는 인사는 무엇입니까?",
+                m: "နံနက်ပိုင်း ရုံးရောက်သောအခါ လုပ်ဖော်ကိုင်ဖက်များကို မည်သို့နှုတ်ဆက်ရမည်နည်း။",
+                options: ["안녕하세요", "안녕히 가세요", "수고하세요", "축하합니다"],
+                correct: 0,
+                hint: "만났을 때 하는 가장 기본적인 인사입니다.",
+                rationale: "출근해서 동료들을 처음 만났을 때는 '안녕하세요'라고 인사합니다."
+            },
+            {
+                q: "동료에게 도움을 요청할 때 사용하는 정중한 표현은?",
+                m: "လုပ်ဖော်ကိုင်ဖက်အား အကူအညီတောင်းသောအခါ အသုံးပြုသော ယဉ်ကျေးသည့် အသုံးအနှုန်းမှာ အဘယ်နည်း။",
+                options: ["도와주세요", "비켜주세요", "나중에 봐요", "부탁드려요"],
+                correct: 3,
+                hint: "어떤 일을 정중하게 부탁할 때 씁니다.",
+                rationale: "회사에서 업무를 부탁하거나 요청할 때는 '부탁드려요' 또는 '부탁드립니다'가 적절합니다."
+            },
+            {
+                q: "일이 끝난 동료에게 '수고했다'는 의미로 하는 인사는?",
+                m: "အလုပ်ပြီးသွားသော လုပ်ဖော်ကိုင်ဖက်အား 'ပင်ပန်းသွားပြီ' ဟု နှုတ်ဆက်ရာတွင် မည်သို့ပြောရမည်နည်း။",
+                options: ["안녕하세요", "수고하셨습니다", "미안합니다", "축하합니다"],
+                correct: 1,
+                hint: "상대방의 노고를 격려하는 말입니다.",
+                rationale: "업무가 끝났거나 퇴근할 때 동료들에게 '수고하셨습니다'라고 인사합니다."
+            },
+            {
+                q: "점심시간에 동료에게 같이 밥 먹으러 가자고 할 때 하는 말은?",
+                m: "နေလည်စာစားချိန်တွင် လုပ်ဖော်ကိုင်ဖက်အား အတူတူ ထမင်းစားသွားရအောင် ဟု မည်သို့ပြောရမည်နည်း။",
+                options: ["식사하러 가요", "잠시만요", "조금만 기다려요", "어디 가요?"],
+                correct: 0,
+                hint: "함께 밥을 먹으러 가자고 제안하는 표현입니다.",
+                rationale: "점심시간에 같이 나가자고 할 때는 '식사하러 가요'라고 말합니다."
+            },
+            {
+                q: "업무 중에 잠시 자리를 비울 때 하는 말은?",
+                m: "အလုပ်လုပ်နေစဉ် ခေတ္တခဏ နေရာမှထွက်ခွာသောအခါ မည်သို့ပြောရမည်နည်း။",
+                options: ["빨리 오세요", "잠시만요", "잠깐 나갔다 오겠습니다", "어서 오세요"],
+                correct: 2,
+                hint: "자신이 어디론가 잠시 다녀오겠다고 보고하는 말입니다.",
+                rationale: "자리를 잠시 비울 때는 주변 동료들에게 알리는 것이 예의입니다."
+            },
+            {
+                q: "회의가 언제인지 물어볼 때 알맞은 문장은?",
+                m: "အစည်းအဝေး ဘယ်အချိန်လဲဟု မေးမြန်းသောအခါ မည်သည့်စာကြောင်းက အဆင်ပြေဆုံးနည်း။",
+                options: ["회의가 언제예요?", "회의가 어디예요?", "회의가 누구예요?", "회의가 뭐예요?"],
+                correct: 0,
+                hint: "시간을 묻는 의문사인 '언제'를 사용합니다.",
+                rationale: "회의 시간을 확인할 때는 '회의가 언제예요?'라고 묻습니다."
+            },
+            {
+                q: "전화를 받았을 때 가장 먼저 하는 말은 무엇입니까?",
+                m: "ဖုန်းလက်ခံရရှိသောအခါ ပထမဆုံးပြောရမည့် စကားမှာ အဘယ်နည်း။",
+                options: ["누구세요?", "여보세요", "알겠습니다", "안녕"],
+                correct: 1,
+                hint: "전화 통화의 시작을 알리는 말입니다.",
+                rationale: "한국에서 전화를 받으면 가장 먼저 '여보세요'라고 합니다."
+            },
+            {
+                q: "상사의 지시를 듣고 '이해했다'는 의미로 하는 정중한 대답은?",
+                m: "အထက်လူကြီး၏ ညွှန်ကြားချက်ကို နားထောင်ပြီး 'နားလည်ပါပြီ' ဟု ယဉ်ကျေးစွာ မည်သို့ပြန်ဖြေရမည်နည်း။",
+                options: ["응", "그래요", "알겠습니다", "몰라요"],
+                correct: 2,
+                hint: "격식 있는 대답으로 '알다'의 활용형입니다.",
+                rationale: "상사의 말에 대답할 때는 정중하게 '알겠습니다'라고 합니다."
+            },
+            {
+                q: "퇴근할 때 남아있는 동료들에게 하는 작별 인사는?",
+                m: "အလုပ်ဆင်းသောအခါ ကျန်ရှိနေသော လုပ်ဖော်ကိုင်ဖက်များကို မည်သို့နှုတ်ဆက်ရမည်နည်း။",
+                options: ["먼저 들어가겠습니다", "반갑습니다", "어디예요?", "괜찮아요"],
+                correct: 0,
+                hint: "자신이 먼저 떠난다는 것을 알리는 정중한 인사입니다.",
+                rationale: "한국 회사에서는 퇴근할 때 '먼저 들어가겠습니다' 또는 '먼저 퇴근하겠습니다'라고 인사합니다."
+            },
+            {
+                q: "회사 동료에게 감사의 마음을 전할 때 하는 말은?",
+                m: "လုပ်ဖော်ကိုင်ဖက်အား ကျေးဇူးတင်ကြောင်း ပြောဆိုရာတွင် အသုံးပြုသော စကားမှာ အဘယ်နည်း။",
+                options: ["고맙습니다", "사랑해요", "행복해요", "슬퍼요"],
+                correct: 0,
+                hint: "도움을 받았을 때 하는 감사 인사입니다.",
+                rationale: "상대방의 배려나 도움에 감사할 때는 '고맙습니다' 또는 '감사합니다'를 씁니다."
+            }
+        ];
+
+        let state = {
+            currentIndex: 0,
+            score: 0,
+            answered: false,
+            wrongAnswers: []
+        };
+
+        const quiz = {
+            start: () => {
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('quiz-screen').classList.remove('hidden');
+                quiz.renderProgress();
+                quiz.renderQuestion();
+            },
+            renderProgress: () => {
+                const dots = document.getElementById('progress-dots');
+                dots.innerHTML = quizData.map((_, i) => 
+                    `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`
+                ).join('');
+            },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex];
+                state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / ${quizData.length}`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                
+                current.options.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 hover:border-blue-500 hover:bg-blue-50 bg-white/90 backdrop-blur-sm shadow-sm relative z-10";
+                    btn.innerText = opt;
+                    btn.onclick = () => quiz.checkAnswer(index, btn);
+                    optionsContainer.appendChild(btn);
+                });
+
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500 transition-all duration-300";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (selectedIndex, btn) => {
+                if (state.answered) return;
+                state.answered = true;
+                const current = quizData[state.currentIndex];
+                const isCorrect = selectedIndex === current.correct;
+                
+                if (isCorrect) {
+                    state.score += 10;
+                    btn.classList.add('correct');
+                    sndCorrect.currentTime = 0;
+                    sndCorrect.play().catch(() => {});
+                } else {
+                    btn.classList.add('wrong');
+                    document.querySelectorAll('.option-btn')[current.correct].classList.add('correct');
+                    state.wrongAnswers.push({ ...current, userChoice: current.options[selectedIndex] });
+                    sndWrong.currentTime = 0;
+                    sndWrong.play().catch(() => {});
+                }
+                quiz.showFeedback(isCorrect);
+            },
+            showFeedback: (isCorrect) => {
+                const current = quizData[state.currentIndex];
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 shadow-sm border relative z-10 ${isCorrect ? 'bg-green-50/90 backdrop-blur-sm text-green-800 border-green-100' : 'bg-red-50/90 backdrop-blur-sm text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => {
+                state.currentIndex++;
+                if (state.currentIndex < quizData.length) quiz.renderQuestion();
+                else quiz.showResult();
+            },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                if (state.wrongAnswers.length > 0) document.getElementById('review-btn').classList.remove('hidden');
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            },
+            showReview: () => {
+                document.getElementById('result-screen').classList.add('hidden');
+                document.getElementById('review-screen').classList.remove('hidden');
+                const list = document.getElementById('review-list');
+                list.innerHTML = '';
+                state.wrongAnswers.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "bg-white/90 backdrop-blur-sm p-5 rounded-3xl border border-slate-100 shadow-sm relative z-10";
+                    div.innerHTML = `
+                        <h4 class="font-bold text-slate-800 mb-1">${item.q}</h4>
+                        <p class="text-xs text-slate-400 mb-4 font-['Pyidaungsu']">${item.m}</p>
+                        <div class="space-y-2 mb-4 text-xs font-bold">
+                            <div class="p-3 bg-red-50 text-red-700 rounded-xl">내 선택: ${item.userChoice}</div>
+                            <div class="p-3 bg-green-50 text-green-700 rounded-xl">정답: ${item.options[item.correct]}</div>
+                        </div>
+                        <p class="text-[11px] text-slate-600">${item.rationale}</p>
+                    `;
+                    list.appendChild(div);
+                });
+                lucide.createIcons();
+            },
+            backToResult: () => {
+                document.getElementById('review-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+            }
+        };
+
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
