@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <link rel="icon" href="favicon1.png" type="image/png">	
-    <link rel="apple-touch-icon" href="favicon1.png">	
+	<link rel="icon" href="favicon1.png" type="image/png">	
+	<link rel="apple-touch-icon" href="favicon1.png">	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOY Korean Language Center - Quiz Hub</title>
@@ -94,17 +94,17 @@
                 Today's Quiz
             </h3>
             
-            <!-- [업데이트] Day 11 숫자와 시간 퀴즈로 메인 화면 업데이트 -->
-            <a href="quiz11.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+            <!-- [업데이트] Day 12 회사 일상대화 퀴즈로 메인 화면 업데이트 -->
+            <a href="quiz12.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
                 <div class="relative z-10 text-left">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 29</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 11: 숫자와 시간</h2>
-                    <p class="text-sm font-bold opacity-80 text-left">ကိန်းဂဏန်းများဖတ်ပုံနှင့် အချိန်ဖော်ပြချက်များ</p>
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 30</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 12: 회사 일상대화</h2>
+                    <p class="text-sm font-bold opacity-80 text-left">လုပ်ငန်းခွင်သုံး ကိုရီးယားစကားပြော</p>
                     <div class="mt-8 flex items-center font-black text-sm text-left">
                         퀴즈 시작하기 <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">⏰</div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">💼</div>
             </a>
         </section>
 
@@ -148,8 +148,15 @@
     </footer>
 
     <script>
-        // [업데이트] Day 11 데이터를 최상단에 추가
+        // [업데이트] Day 12 데이터를 최상단에 추가
         const allQuizzes = [
+            {
+                date: "2026. 03. 30",
+                day: "Day 12",
+                title: "회사 일상대화",
+                desc: "လုပ်ငန်းခွင်သုံး ကိုရီးယားစကားပြော",
+                link: "quiz12.html"
+            },
             {
                 date: "2026. 03. 29",
                 day: "Day 11",
@@ -229,7 +236,7 @@
             }
         ];
 
-        const itemsPerPage = 5; 
+        const itemsPerPage = 5; 
         let currentPage = 1;
 
         function renderQuizzes() {
