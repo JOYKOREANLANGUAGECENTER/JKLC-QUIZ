@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC Keyboard Master - 자판 연습</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
+        .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.15); }
+        
+        .bg-pattern {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .myanmar-text { font-family: 'Pyidaungsu', sans-serif; }
+    </style>
+</head>
+<body class="bg-pattern text-slate-900" oncontextmenu="return false">
+
+<!-- 상단 브랜드 컬러 바 -->
+<div class="h-2 jklc-gradient w-full"></div>
+
+<!-- 네비게이션 (상단 로고) -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3">
+            <!-- 학원 로고 로드 -->
+            <img src="logo.png" alt="JKLC Logo" class="h-10 md:h-12 w-auto" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+        </a>
+        
+        <div class="flex gap-2">
+            <a href="index.html" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition flex items-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i> Home
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="py-12 md:py-20 text-center px-4">
+    <div class="max-w-4xl mx-auto">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6">Korean Typing Practice</span>
+        <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight mb-6 tracking-tighter">
+            Master the <span class="text-indigo-600">Keyboard</span>
+        </h1>
+        <p class="text-lg text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto mb-4">
+            한국어 자판 연습을 통해 타자 실력을 키워보세요!<br>
+            <span class="myanmar-text text-sm md:text-base opacity-80 block mt-2">ကိုရီးယားကီးဘုတ် ရိုက်နှိပ်ခြင်းကို လေ့ကျင့်ပြီး သင်၏အရည်အချင်းကို မြှင့်တင်လိုက်ပါ။</span>
+        </p>
+    </div>
+</header>
+
+<!-- Hub Menu Grid -->
+<main class="max-w-6xl mx-auto px-4 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- 1. 자판 외우기 (typing1.html) -->
+        <a href="typing1.html" class="group relative bg-white p-8 rounded-[2.5rem] border border-slate-100 hover-lift overflow-hidden flex flex-col">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-bl-[5rem] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+            <div class="relative z-10 flex-grow">
+                <div class="w-16 h-16 bg-yellow-400 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-yellow-200">
+                    <i data-lucide="keyboard" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 mb-1">키보드 자판 외우기</h2>
+                <h3 class="text-sm font-bold text-yellow-600 mb-4 myanmar-text uppercase tracking-tight">ကီးဘုတ်ခလုတ်များ မှတ်သားခြင်း</h3>
+                <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6 myanmar-text">
+                    한국어 자판의 위치를 익히는 가장 기초적인 단계입니다.<br>
+                    ကိုရီးယားကီးဘုတ် ခလုတ်များ၏ တည်နေရာကို မှတ်သားရန် အခြေခံအကျဆုံး အဆင့်ဖြစ်သည်။
+                </p>
+            </div>
+            <div class="relative z-10 flex items-center text-yellow-600 font-black text-xs uppercase tracking-widest gap-2">
+                Start Learning <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </div>
+        </a>
+
+        <!-- 2. 5분 타자검정 (game3.html) -->
+        <a href="game3.html" class="group relative bg-white p-8 rounded-[2.5rem] border border-slate-100 hover-lift overflow-hidden flex flex-col">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-[5rem] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+            <div class="relative z-10 flex-grow">
+                <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-200">
+                    <i data-lucide="timer" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 mb-1">5분 타자검정</h2>
+                <h3 class="text-sm font-bold text-blue-600 mb-4 myanmar-text uppercase tracking-tight">၅ မိနစ် စာရိုက်စစ်ဆေးခြင်း</h3>
+                <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6 myanmar-text">
+                    5분 동안 얼마나 빠르고 정확하게 입력할 수 있는지 테스트합니다.<br>
+                    ၅ မိနစ်အတွင်း သင်မည်မျှ မြန်ဆန်တိကျစွာ ရိုက်နိုင်သလဲဆိုတာကို စစ်ဆေးကြည့်ပါ။
+                </p>
+            </div>
+            <div class="relative z-10 flex items-center text-blue-600 font-black text-xs uppercase tracking-widest gap-2">
+                Take a Test <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </div>
+        </a>
+
+        <!-- 3. TYPING GAME 1 (game1.html) -->
+        <a href="game1.html" class="group relative bg-white p-8 rounded-[2.5rem] border border-slate-100 hover-lift overflow-hidden flex flex-col">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-bl-[5rem] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+            <div class="relative z-10 flex-grow">
+                <div class="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-200">
+                    <i data-lucide="gamepad-2" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 mb-1">TYPING GAME 1</h2>
+                <h3 class="text-sm font-bold text-green-600 mb-4 myanmar-text uppercase tracking-tight">စာရိုက်ဂိမ်း - ၁</h3>
+                <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6 myanmar-text">
+                    내려오는 단어를 빠르게 입력하여 제거하는 타자 게임입니다.<br>
+                    ကျလာသော စကားလုံးများကို မြန်မြန်ရိုက်ပြီး ဖျက်ရမည့် ဂိမ်းဖြစ်သည်။
+                </p>
+            </div>
+            <div class="relative z-10 flex items-center text-green-600 font-black text-xs uppercase tracking-widest gap-2">
+                Play Now <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+            </div>
+        </a>
+
+        <!-- 4. TYPING GAME 2 (game2.html) -->
+        <a href="game2.html" class="group relative bg-white p-8 rounded-[2.5rem] border border-slate-100 hover-lift overflow-hidden flex flex-col">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-bl-[5rem] -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+            <div class="relative z-10 flex-grow">
+                <div class="w-16 h-16 bg-red-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-red-200">
+                    <i data-lucide="swords" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 mb-1">TYPING GAME 2</h2>
+                <h3 class="text-sm font-bold text-red-600 mb-4 myanmar-text uppercase tracking-tight">စာရိုက်ဂိမ်း - ၂</h3>
+                <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6 myanmar-text">
+                    문장 단위로 연습하며 다른 친구들과 점수를 경쟁해보세요.<br>
+                    ဝါကျများကို ရိုက်နှိပ်လေ့ကျင့်ပြီး အခြားသူများနှင့် အမှတ်ချင်း ယှဉ်ပြိုင်နိုင်ပါသည်။
+                </p>
+            </div>
+            <div class="relative z-10 flex items-center text-red-600 font-black text-xs uppercase tracking-widest gap-2">
+                Play Now <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+            </div>
+        </a>
+
+    </div>
+    
+    <!-- Info Tip -->
+    <div class="mt-16 bg-slate-900 rounded-[2rem] p-8 text-white flex flex-col md:flex-row items-center gap-8 shadow-2xl">
+        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center shrink-0">
+            <i data-lucide="lightbulb" class="w-10 h-10 text-yellow-400"></i>
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="text-xl font-bold mb-2">타자 연습 꿀팁! (စာရိုက်လေ့ကျင့်ရန် အကြံပြုချက်များ)</h3>
+            <p class="text-slate-400 leading-relaxed font-medium myanmar-text">
+                손가락의 기본 위치(ASDF, JKL;)를 항상 유지하는 것이 중요합니다. 화면을 보면서 타이핑하는 습관을 들여보세요!<br>
+                လက်ချောင်းများ၏ အခြေခံနေရာ (ASDF, JKL;) ကို အမြဲထိန်းထားရန် အရေးကြီးပါသည်။ စခရင်ကိုကြည့်ပြီး ရိုက်သည့် အလေ့အထကို မွေးမြူပါ။
+            </p>
+        </div>
+    </div>
+</main>
+
+<!-- Footer (하단 로고) -->
+<footer class="bg-white border-t border-slate-100 py-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+        <!-- 하단 로고 로드 -->
+        <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
+        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-4 leading-relaxed">
+            JOY KOREAN LANGUAGE CENTER <br>
+            Keyboard Master Training Station
+        </p>
+        <p class="text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
