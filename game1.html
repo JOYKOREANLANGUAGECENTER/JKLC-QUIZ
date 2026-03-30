@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - 100 Words Typing Master</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { 
+            --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24;
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
+            background: #f8fafc;
+            overflow: hidden;
+            height: 100vh;
+            /* 드래그 금지 */
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
+        .jklc-top-bar { height: 6px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        
+        #game-canvas {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 200px);
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: inset 0 2px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-top: 1rem;
+            background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
+            background-size: 40px 40px;
+        }
+
+        .word-item {
+            position: absolute;
+            padding: 0.7rem 1.4rem;
+            background: white;
+            border: 3px solid var(--k);
+            border-radius: 1.5rem;
+            font-weight: 900;
+            color: var(--k);
+            white-space: nowrap;
+            box-shadow: 0 10px 20px -5px rgba(0, 112, 187, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .word-item .myanmar {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 700;
+            margin-top: 2px;
+            font-family: 'Pyidaungsu', sans-serif;
+        }
+
+        .effect-correct {
+            animation: hit 0.4s ease-out forwards;
+        }
+
+        @keyframes hit {
+            0% { transform: scale(1); opacity: 1; filter: brightness(1.5); }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .game-over-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 100;
+            border-radius: 2.5rem;
+        }
+    </style>
+</head>
+<body class="flex flex-col" oncontextmenu="return false">
+    <div class="jklc-top-bar"></div>
+
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 shadow-sm">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-sm font-black text-slate-800 uppercase tracking-tight">Vocabulary Master</h1>
+                    <p class="text-[10px] font-bold text-green-600 uppercase">100 Essential Words</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-8">
+                <div class="text-right">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Score</p>
+                    <p id="score-val" class="text-2xl font-black text-blue-600">0</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Life</p>
+                    <div id="life-container" class="flex flex-wrap justify-end gap-0.5 text-red-500 max-w-[120px]"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 flex flex-col relative pb-4">
+        <div id="game-canvas">
+            <div id="start-screen" class="absolute inset-0 flex flex-col items-center justify-center bg-white/95 z-20">
+                <div class="bg-blue-600 p-6 rounded-[2.5rem] text-white mb-6 shadow-2xl">
+                    <i data-lucide="graduation-cap" class="w-12 h-12"></i>
+                </div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2 tracking-tight">단어 100개 마스터하기</h2>
+                <p class="text-slate-500 mb-10 burmese-text text-center px-8">
+                    과일, 동물, 일상 단어, 뉴스 어휘까지! <br>
+                    정확하게 입력하고 실력을 키워보세요.
+                </p>
+                <button onclick="Game.init()" class="bg-blue-600 hover:bg-blue-700 text-white font-black px-14 py-5 rounded-3xl shadow-xl transition transform active:scale-95 flex items-center gap-3">
+                    게임 시작 (Start) <i data-lucide="play" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="py-6 flex gap-4">
+            <div class="relative flex-1">
+                <input type="text" id="word-input" autocomplete="off" placeholder="단어를 입력하고 Enter를 누르세요..." 
+                       class="w-full p-6 bg-white border-4 border-slate-100 rounded-[2rem] text-2xl font-black focus:border-blue-500 focus:outline-none shadow-xl transition-all"
+                       disabled>
+            </div>
+            <button onclick="Game.checkMatch()" class="bg-slate-900 text-white px-12 rounded-[2rem] font-black text-lg shadow-xl hover:bg-black transition-colors">확인</button>
+        </div>
+    </main>
+
+    <script>
+        // 100개 단어 데이터베이스 (오류 수정 완료)
+        const wordPool = [
+            // 과일 (Fruits)
+            { k: "사과", m: "ပန်းသီး" }, { k: "포도", m: "စပျစ်သီး" }, { k: "수박", m: "ဖရဲသီး" }, { k: "딸기", m: "စတော်ဘယ်ရီ" }, { k: "바나나", m: "ငှက်ပျောသီး" },
+            { k: "배", m: "သစ်တော်သီး" }, { k: "오렌지", m: "လိမ္မော်သီး" }, { k: "참외", m: "သခွားမွှေး" }, { k: "복숭아", m: "မက်မွန်သီး" }, { k: "망고", m: "သရက်သီး" },
+            { k: "파인애플", m: "နာနတ်သီး" }, { k: "레몬", m: "ရှောက်သီး" }, { k: "귤", m: "ကမ္ပလာသီး" }, { k: "감", m: "တည်သီး" }, { k: "키위", m: "ကီဝီသီး" },
+            // 동물 (Animals)
+            { k: "사자", m: "ခြင်္သေ့" }, { k: "호랑이", m: "ကျား" }, { k: "코끼리", m: "ဆင်" }, { k: "기린", m: "သစ်ကုလားအုတ်" }, { k: "원숭이", m: "မျောက်" },
+            { k: "토끼", m: "ယုန်" }, { k: "강아지", m: "ခွေးလေး" }, { k: "고양이", m: "ကြောင်" }, { k: "거북이", m: "လိပ်" }, { k: "나비", m: "လိပ်ပြာ" },
+            { k: "새", m: "ငှက်" }, { k: "여우", m: "မြေခွေး" }, { k: "곰", m: "ဝက်ဝံ" }, { k: "악어", m: "မိကျောင်း" }, { k: "뱀", m: "မြွေ" },
+            // 일상 명사 (Daily Nouns)
+            { k: "학교", m: "ကျောင်း" }, { k: "선생님", m: "ဆရာ/မ" }, { k: "학생", m: "ကျောင်းသား" }, { k: "책상", m: "စာရေးခုံ" }, { k: "의자", m: "ကုလားထိုင်" },
+            { k: "연필", m: "ခဲတံ" }, { k: "공책", m: "စာအုပ်" }, { k: "가방", m: "အိတ်" }, { k: "시계", m: "နာရီ" }, { k: "전화기", m: "ဖုန်း" },
+            { k: "컴퓨터", m: "ကွန်ပျူတာ" }, { k: "안경", m: "မျက်မှန်" }, { k: "모자", m: "ဦးထုပ်" }, { k: "신발", m: "ဖိနပ်" }, { k: "옷", m: "အင်္ကျီ" },
+            { k: "우산", m: "ထီး" }, { k: "거울", m: "မှန်" }, { k: "침대", m: "အိပ်ရာ" }, { k: "식탁", m: "ထမင်းစားပွဲ" }, { k: "냉장고", m: "ရေခဲသေတ္တာ" },
+            // 음식 (Food)
+            { k: "밥", m: "ထမင်း" }, { k: "물", m: "ရေ" }, { k: "고기", m: "အသား" }, { k: "빵", m: "မုန့်" }, { k: "우유", m: "နို့" },
+            { k: "커피", m: "ကော်ဖီ" }, { k: "라면", m: "ခေါက်ဆွဲခြောက်" }, { k: "치킨", m: "ကြက်ကြော်" }, { k: "피자", m: "ပီဇာ" }, { k: "김밥", m: "ကင်မ်ဘပ်" },
+            { k: "떡볶이", m: "တောက်ဘိုကီ" }, { k: "비빔밥", m: "ဘီဘင်ဘပ်" }, { k: "불고기", m: "ဘူလ်ဂိုဂီ" }, { k: "김치", m: "ကင်မ်ချီ" }, { k: "야채", m: "ဟင်းသီးဟင်းရွက်" },
+            // 뉴스 및 고급 어휘 (News & Advanced)
+            { k: "협약", m: "သဘောတူညီချက်" }, { k: "타결", m: "သဘောတူညီမှုရရှိခြင်း" }, { k: "수출", m: "ပြည်ပတင်ပို့မှု" }, { k: "수명", m: "သက်တမ်း" }, { k: "환경", m: "ပတ်ဝန်းကျင်" },
+            { k: "오염", m: "ညစ်ညမ်းမှု" }, { k: "해결", m: "ဖြေရှင်းချက်" }, { k: "인류", m: "လူသားမျိုးနွယ်" }, { k: "보호", m: "ကာကွယ်စောင့်ရှောက်မှု" }, { k: "책임", m: "တာဝန်" },
+            { k: "협력", m: "ပူးပေါင်းဆောင်ရွက်မှု" }, { k: "미래", m: "အနာဂတ်" }, { k: "노력", m: "ကြိုးပမ်းမှု" }, { k: "성공", m: "အောင်မြင်မှု" }, { k: "도전", m: "စိန်ခေါ်မှု" },
+            { k: "뉴스", m: "သတင်း" }, { k: "정치", m: "နိုင်ငံရေး" }, { k: "경제", m: "စီးပွားရေး" }, { k: "사회", m: "လူ့အဖွဲ့အစည်း" }, { k: "문화", m: "ယဉ်ကျေးမှု" },
+            { k: "기술", m: "နည်းပညာ" }, { k: "발전", m: "တိုးတက်မှု" }, { k: "안전", m: "ဘေးကင်းရေး" }, { k: "조사", m: "စုံစမ်းစစ်ဆေးမှု" }, { k: "계획", m: "စီမံကိန်း" },
+            // 장소 및 기타 (Places & Others)
+            { k: "가족", m: "မိသားစု" }, { k: "친구", m: "သူငယ်ချင်း" }, { k: "사랑", m: "အချစ်" }, { k: "행복", m: "ပျော်ရွှင်မှု" }, { k: "꿈", m: "အိပ်မက်" },
+            { k: "병원", m: "ဆေးရုံ" }, { k: "약국", m: "ဆေးဆိုင်" }, { k: "공원", m: "ပန်းခြံ" }, { k: "시장", m: "ဈေး" }, { k: "바다", m: "ပင်လယ်" },
+            { k: "산", m: "တောင်" }, { k: "하늘", m: "ကောင်းကင်" }, { k: "태양", m: "နေ" }, { k: "달", m: "လ" }, { k: "별", m: "ကြယ်" }
+        ];
+
+        const Game = {
+            score: 0,
+            lives: 10,
+            activeWords: [],
+            speed: 0.6,
+            spawnRate: 4000,
+            spawnTimer: null,
+            isRunning: false,
+
+            init() {
+                this.score = 0;
+                this.lives = 10;
+                this.speed = 0.6;
+                this.activeWords = [];
+                this.isRunning = true;
+
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('score-val').innerText = '0';
+                const input = document.getElementById('word-input');
+                input.disabled = false;
+                input.value = '';
+                input.focus();
+                
+                this.updateLivesDisplay();
+                this.gameLoop();
+                this.startSpawning();
+                
+                input.onkeypress = (e) => { if (e.key === 'Enter') this.checkMatch(); };
+            },
+
+            updateLivesDisplay() {
+                const container = document.getElementById('life-container');
+                container.innerHTML = '';
+                for(let i=0; i<10; i++) {
+                    const icon = document.createElement('i');
+                    icon.setAttribute('data-lucide', 'heart');
+                    icon.className = `w-4 h-4 ${i < this.lives ? 'fill-current text-red-500' : 'text-slate-200'}`;
+                    container.appendChild(icon);
+                }
+                lucide.createIcons();
+            },
+
+            startSpawning() {
+                const spawn = () => {
+                    if (!this.isRunning) return;
+                    this.createWord();
+                    this.spawnTimer = setTimeout(spawn, Math.max(2000, 4000 - (this.score * 5)));
+                };
+                spawn();
+            },
+
+            createWord() {
+                const canvas = document.getElementById('game-canvas');
+                const wordData = wordPool[Math.floor(Math.random() * wordPool.length)];
+                
+                const el = document.createElement('div');
+                el.className = 'word-item';
+                el.innerHTML = `<span>${wordData.k}</span><span class="myanmar">${wordData.m}</span>`;
+                
+                const maxWidth = canvas.offsetWidth - 160;
+                const xPos = Math.random() * maxWidth + 40;
+                el.style.left = xPos + 'px';
+                el.style.top = '-70px';
+                
+                canvas.appendChild(el);
+                this.activeWords.push({ text: wordData.k, top: -70, element: el });
+            },
+
+            gameLoop() {
+                if (!this.isRunning) return;
+                const canvasHeight = document.getElementById('game-canvas').offsetHeight;
+
+                for (let i = this.activeWords.length - 1; i >= 0; i--) {
+                    const word = this.activeWords[i];
+                    word.top += this.speed;
+                    word.element.style.top = word.top + 'px';
+
+                    if (word.top > canvasHeight - 50) {
+                        this.lives--;
+                        this.updateLivesDisplay();
+                        word.element.remove();
+                        this.activeWords.splice(i, 1);
+                        if (this.lives <= 0) this.gameOver();
+                    }
+                }
+                requestAnimationFrame(() => this.gameLoop());
+            },
+
+            checkMatch() {
+                const input = document.getElementById('word-input');
+                const val = input.value.trim();
+                input.value = '';
+
+                for (let i = 0; i < this.activeWords.length; i++) {
+                    if (this.activeWords[i].text === val) {
+                        const word = this.activeWords[i];
+                        word.element.classList.add('effect-correct');
+                        word.element.style.borderColor = '#22c55e';
+                        word.element.style.color = '#22c55e';
+                        setTimeout(() => word.element.remove(), 400);
+                        this.activeWords.splice(i, 1);
+                        this.score += 10;
+                        document.getElementById('score-val').innerText = this.score;
+                        this.speed += 0.003; // 아주 천천히 빨라지게 수정
+                        return;
+                    }
+                }
+            },
+
+            gameOver() {
+                this.isRunning = false;
+                clearTimeout(this.spawnTimer);
+                document.getElementById('word-input').disabled = true;
+
+                const canvas = document.getElementById('game-canvas');
+                const overlay = document.createElement('div');
+                overlay.className = 'game-over-overlay';
+                overlay.innerHTML = `
+                    <div class="bg-blue-600 p-6 rounded-full mb-6 shadow-2xl"><i data-lucide="trophy" class="w-16 h-16 text-yellow-400"></i></div>
+                    <h2 class="text-4xl font-black mb-2 tracking-tighter text-white">연습 종료!</h2>
+                    <p class="text-xl mb-8 text-white">당신의 점수: <span class="text-yellow-400 font-black">${this.score}점</span></p>
+                    <button onclick="location.reload()" class="bg-white text-blue-600 font-black px-12 py-5 rounded-3xl shadow-xl hover:bg-slate-100 transition transform active:scale-95">
+                        다시 도전하기
+                    </button>
+                `;
+                canvas.appendChild(overlay);
+                lucide.createIcons();
+            }
+        };
+
+        window.onload = () => {
+            lucide.createIcons();
+            // 추가적인 보안 (우클릭 차단 알림 없음)
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('keydown', e => {
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'u' || e.key === 'U' || e.key === 'i' || e.key === 'I')) {
+                    e.preventDefault();
+                }
+            });
+        };
+    </script>
+</body>
+</html>
