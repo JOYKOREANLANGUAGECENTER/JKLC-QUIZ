@@ -3,233 +3,241 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" href="favicon1.png" type="image/png">	
-	<link rel="apple-touch-icon" href="favicon1.png">	
+  <link rel="icon" href="favicon1.png" type="image/png">	
+  <link rel="apple-touch-icon" href="favicon1.png">	
   <title>JOY 한글 타자 게임</title>
   <style>
-    :root{
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --primary:#0f4c81;
-      --primary-2:#1f6fb2;
-      --line:#e5e7eb;
-      --text:#0f172a;
-      --muted:#64748b;
-      --soft:#eef6ff;
-      --shadow:0 16px 40px rgba(15,23,42,.08);
-      --radius:24px;
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --primary: #0f4c81;
+      --primary-2: #1f6fb2;
+      --line: #e5e7eb;
+      --text: #0f172a;
+      --muted: #64748b;
+      --soft: #eef6ff;
+      --shadow: 0 16px 40px rgba(15,23,42,.08);
+      --radius: 24px;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial,"Noto Sans KR",sans-serif;
-      background:var(--bg);
-      color:var(--text);
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      /* 드래그 금지 추가 */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
-    .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding:20px;
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    .grid{
-      display:grid;
-      grid-template-columns:1.45fr .85fr;
-      gap:24px;
+    .grid {
+      display: grid;
+      grid-template-columns: 1.45fr .85fr;
+      gap: 24px;
     }
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:24px;
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
     }
-    .top-brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:18px;
+    .top-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
     }
-    .top-brand img{
-      width:52px;
-      height:52px;
-      object-fit:contain;
-      background:#fff;
-      border-radius:16px;
-      padding:4px;
-      box-shadow:0 8px 20px rgba(15,23,42,.08);
+    .top-brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 16px;
+      padding: 4px;
+      box-shadow: 0 8px 20px rgba(15,23,42,.08);
     }
-    .top-brand .name{
-      font-size:18px;
-      font-weight:700;
+    .top-brand .name {
+      font-size: 18px;
+      font-weight: 700;
     }
-    .head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
+    .head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
-    h1{
-      font-size:34px;
-      margin:0;
+    h1 {
+      font-size: 34px;
+      margin: 0;
     }
-    .sub{
-      margin-top:8px;
-      color:var(--muted);
-      font-size:14px;
+    .sub {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
     }
-    .levels{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
+    .levels {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
-    .btn{
-      border:0;
-      border-radius:16px;
-      padding:12px 18px;
-      font-weight:700;
-      cursor:pointer;
-      transition:.15s ease;
+    .btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .15s ease;
     }
-    .btn:hover{transform:translateY(-1px)}
-    .btn-primary{background:var(--primary);color:#fff}
-    .btn-outline{background:#fff;border:1px solid #dbe4ef;color:var(--primary)}
-    .btn-soft{background:var(--soft);color:var(--primary)}
-    .btn.active{background:var(--primary);color:#fff}
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-      margin-top:24px;
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; border: 1px solid #dbe4ef; color: var(--primary); }
+    .btn-soft { background: var(--soft); color: var(--primary); }
+    .btn.active { background: var(--primary); color: #fff; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 24px;
     }
-    .stat{
-      background:#f8fafc;
-      border-radius:18px;
-      padding:16px;
+    .stat {
+      background: #f8fafc;
+      border-radius: 18px;
+      padding: 16px;
     }
-    .stat .label{font-size:13px;color:var(--muted);margin-bottom:6px}
-    .stat .value{font-size:32px;font-weight:800}
-    .progress-wrap{margin:20px 0 0}
-    .progress-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
-    .progress{
-      height:12px;
-      background:#e2e8f0;
-      border-radius:999px;
-      overflow:hidden;
+    .stat .label { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .stat .value { font-size: 32px; font-weight: 800; }
+    .progress-wrap { margin: 20px 0 0; }
+    .progress-top { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .progress {
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
     }
-    .progress-bar{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,var(--primary),var(--primary-2));
-      transition:.2s ease;
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      transition: .2s ease;
     }
-    .word-box{
-      position:relative;
-      overflow:hidden;
-      margin-top:22px;
-      border-radius:28px;
-      background:linear-gradient(135deg,#e0f2fe,#eff6ff);
-      padding:34px 24px;
-      text-align:center;
-      min-height:260px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      box-shadow:inset 0 2px 12px rgba(255,255,255,.6);
+    .word-box {
+      position: relative;
+      overflow: hidden;
+      margin-top: 22px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #e0f2fe, #eff6ff);
+      padding: 34px 24px 60px 24px; /* 하단 패딩을 늘려 로고 공간 확보 */
+      text-align: center;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: inset 0 2px 12px rgba(255,255,255,.6);
     }
-    .watermark{
-      position:absolute;
-      top:16px;
-      left:16px;
-      width:220px;
-      height:220px;
-      object-fit:contain;
-      opacity:.18;
-      pointer-events:none;
-      user-select:none;
+    /* 워터마크 수정: 바닥으로 내리고 선명하게 */
+    .watermark {
+      position: absolute;
+      bottom: 15px; /* 박스 최하단 배치 */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0.45; /* 선명도 높임 */
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
     }
-    .word-box .inner{position:relative;z-index:1}
-    .guide{font-size:14px;color:var(--muted);margin-bottom:14px}
-    .word{font-size:72px;font-weight:900;line-height:1.1;word-break:break-all}
-    .hint{
-      display:inline-block;
-      margin-top:16px;
-      padding:8px 14px;
-      background:#fff;
-      border-radius:999px;
-      font-size:14px;
-      color:var(--primary);
-      border:1px solid #dbeafe;
+    .word-box .inner { position: relative; z-index: 1; }
+    .guide { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+    .word { font-size: 72px; font-weight: 900; line-height: 1.1; word-break: break-all; }
+    .hint {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 14px;
+      background: #fff;
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--primary);
+      border: 1px solid #dbeafe;
     }
-    .controls{
-      display:grid;
-      grid-template-columns:1fr auto auto;
-      gap:10px;
-      margin-top:18px;
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      margin-top: 18px;
     }
-    input{
-      width:100%;
-      height:56px;
-      padding:0 16px;
-      border:1px solid #cbd5e1;
-      border-radius:18px;
-      font-size:20px;
-      outline:none;
+    input {
+      width: 100%;
+      height: 56px;
+      padding: 0 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 18px;
+      font-size: 20px;
+      outline: none;
     }
-    input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(31,111,178,.12)}
-    .side-title{
-      font-size:22px;
-      font-weight:800;
-      margin:0 0 14px;
+    input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(31,111,178,.12); }
+    .side-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 0 14px;
     }
-    .list p{margin:0 0 10px;color:#475569;line-height:1.6;font-size:14px}
-    .mini-grid{display:grid;gap:10px}
-    .mini-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:#f8fafc;
-      border-radius:16px;
-      padding:14px 16px;
-      font-size:14px;
-      color:#475569;
+    .list p { margin: 0 0 10px; color: #475569; line-height: 1.6; font-size: 14px; }
+    .mini-grid { display: grid; gap: 10px; }
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #475569;
     }
-    .result{
-      margin-top:18px;
-      padding:22px;
-      border:1px solid var(--line);
-      border-radius:24px;
-      text-align:center;
-      display:none;
+    .result {
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      text-align: center;
+      display: none;
     }
-    .rank{font-size:52px;font-weight:900;margin:8px 0}
-    .badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .badge{
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      background:#f1f5f9;
+    .rank { font-size: 52px; font-weight: 900; margin: 8px 0; }
+    .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      background: #f1f5f9;
     }
-    .footer-note{margin-top:10px;color:var(--muted);font-size:13px}
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
+    .footer-note { margin-top: 10px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 760px){
-      .wrap{padding:14px}
-      .card{padding:18px}
-      h1{font-size:28px}
-      .stats{grid-template-columns:1fr}
-      .controls{grid-template-columns:1fr}
-      .word{font-size:52px}
+    @media (max-width: 760px) {
+      .wrap { padding: 14px; }
+      .card { padding: 18px; }
+      h1 { font-size: 28px; }
+      .stats { grid-template-columns: 1fr; }
+      .controls { grid-template-columns: 1fr; }
+      .word { font-size: 52px; }
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
   <div class="wrap">
     <div class="grid">
       <section class="card">
         <div class="top-brand">
-          <img src="logo.png" alt="JOY logo">
+          <img src="logo.png" alt="JOY logo" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
           <div class="name">JOY Korean Language Center</div>
         </div>
 
@@ -260,7 +268,8 @@
         </div>
 
         <div class="word-box">
-          <img src="logo.png" alt="watermark" class="watermark">
+          <!-- 워터마크 위치 최하단으로 수정 -->
+          <img src="logo.png" alt="watermark" class="watermark" onerror="this.src='https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png'">
           <div class="inner">
             <div class="guide">아래 단어를 그대로 입력하세요</div>
             <div class="word" id="currentWord">가</div>
@@ -269,7 +278,7 @@
         </div>
 
         <div class="controls">
-          <input id="wordInput" type="text" placeholder="여기에 한글을 입력하세요" autocomplete="off">
+          <input id="wordInput" type="text" placeholder="여기에 한글을 입력하세요" autocomplete="off" spellcheck="false">
           <button class="btn btn-primary" id="startBtn">시작</button>
           <button class="btn btn-soft" id="resetBtn">다시</button>
         </div>
@@ -314,7 +323,7 @@
             <p>• 학생 자율학습: 집에서 반복 연습</p>
             <p>• 수업 게임: 친구끼리 점수 대결</p>
           </div>
-          <div class="footer-note">logo.png 파일을 같은 폴더에 넣으면 로고와 워터마크가 자동 표시됩니다.</div>
+          <div class="footer-note">보안을 위해 우클릭 및 복사가 금지되어 있습니다.</div>
         </div>
       </aside>
     </div>
@@ -401,15 +410,11 @@
     let isFinished = false;
     let timer = null;
 
-    function shuffle(arr){
-      return [...arr].sort(() => Math.random() - 0.5);
-    }
-
+    function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
     function accuracy(){
       const total = correctCount + wrongCount;
       return total === 0 ? 100 : Math.round((correctCount / total) * 100);
     }
-
     function rank(scoreValue){
       if (scoreValue >= 120) return "S";
       if (scoreValue >= 90) return "A";
@@ -417,10 +422,7 @@
       if (scoreValue >= 30) return "C";
       return "D";
     }
-
-    function currentWordObj(){
-      return gameWords[currentIndex] || { word: "", hint: "" };
-    }
+    function currentWordObj(){ return gameWords[currentIndex] || { word: "", hint: "" }; }
 
     function updateUI(){
       const current = currentWordObj();
@@ -516,6 +518,16 @@
       updateUI();
       els.input.focus();
     }
+
+    // 우클릭 및 특수키 방지 로직
+    window.addEventListener('keydown', (e) => {
+      // F12 방지
+      if(e.keyCode == 123) e.preventDefault();
+      // Ctrl+Shift+I / J 방지
+      if(e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) e.preventDefault();
+      // Ctrl+U 방지
+      if(e.ctrlKey && e.keyCode == 85) e.preventDefault();
+    });
 
     document.querySelectorAll('[data-level]').forEach(btn => {
       btn.addEventListener('click', () => setLevel(btn.dataset.level));
