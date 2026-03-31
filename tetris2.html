@@ -522,7 +522,7 @@
   <div class="app">
     <section class="panel left-panel">
       <h1>브라우저 테트리스</h1>
-      <div class="desc">PC에서는 키보드, 모바일에서는 터치 버튼으로 플레이할 수 있습니다.</div>
+      <div class="desc">PC에서는 키보드, 모바일에서는 터치 버튼으로 플레이할 수 있습니다. 회전은 블록별 회전 상태와 벽차기를 적용해 더 정교하게 동작합니다.</div>
 
       <h2 style="font-size:18px; margin-bottom:10px;">조작법</h2>
       <div class="keys">
@@ -615,6 +615,7 @@
     const COLS = 10;
     const ROWS = 20;
     const BLOCK = 30;
+    const PIECE_TYPES = ['I', 'O', 'T', 'S', 'Z', 'J', 'L'];
 
     const boardCanvas = document.getElementById('board');
     const boardCtx = boardCanvas.getContext('2d');
@@ -641,29 +642,216 @@
     const overlaySubBtn = document.getElementById('overlaySubBtn');
     const mobileControls = document.getElementById('mobileControls');
 
-    const COLORS = {
-      I: '#38bdf8',
-      O: '#facc15',
-      T: '#a78bfa',
-      S: '#4ade80',
-      Z: '#f87171',
-      J: '#60a5fa',
-      L: '#fb923c'
+    const PIECES = {
+      I: {
+        color: '#38bdf8',
+        kick: 'I',
+        rotations: [
+          [
+            [0,0,0,0],
+            [1,1,1,1],
+            [0,0,0,0],
+            [0,0,0,0]
+          ],
+          [
+            [0,0,1,0],
+            [0,0,1,0],
+            [0,0,1,0],
+            [0,0,1,0]
+          ],
+          [
+            [0,0,0,0],
+            [0,0,0,0],
+            [1,1,1,1],
+            [0,0,0,0]
+          ],
+          [
+            [0,1,0,0],
+            [0,1,0,0],
+            [0,1,0,0],
+            [0,1,0,0]
+          ]
+        ]
+      },
+      O: {
+        color: '#facc15',
+        kick: 'O',
+        rotations: [
+          [[1,1],[1,1]],
+          [[1,1],[1,1]],
+          [[1,1],[1,1]],
+          [[1,1],[1,1]]
+        ]
+      },
+      T: {
+        color: '#a78bfa',
+        kick: 'normal',
+        rotations: [
+          [
+            [0,1,0],
+            [1,1,1],
+            [0,0,0]
+          ],
+          [
+            [0,1,0],
+            [0,1,1],
+            [0,1,0]
+          ],
+          [
+            [0,0,0],
+            [1,1,1],
+            [0,1,0]
+          ],
+          [
+            [0,1,0],
+            [1,1,0],
+            [0,1,0]
+          ]
+        ]
+      },
+      S: {
+        color: '#4ade80',
+        kick: 'normal',
+        rotations: [
+          [
+            [0,1,1],
+            [1,1,0],
+            [0,0,0]
+          ],
+          [
+            [0,1,0],
+            [0,1,1],
+            [0,0,1]
+          ],
+          [
+            [0,0,0],
+            [0,1,1],
+            [1,1,0]
+          ],
+          [
+            [1,0,0],
+            [1,1,0],
+            [0,1,0]
+          ]
+        ]
+      },
+      Z: {
+        color: '#f87171',
+        kick: 'normal',
+        rotations: [
+          [
+            [1,1,0],
+            [0,1,1],
+            [0,0,0]
+          ],
+          [
+            [0,0,1],
+            [0,1,1],
+            [0,1,0]
+          ],
+          [
+            [0,0,0],
+            [1,1,0],
+            [0,1,1]
+          ],
+          [
+            [0,1,0],
+            [1,1,0],
+            [1,0,0]
+          ]
+        ]
+      },
+      J: {
+        color: '#60a5fa',
+        kick: 'normal',
+        rotations: [
+          [
+            [1,0,0],
+            [1,1,1],
+            [0,0,0]
+          ],
+          [
+            [0,1,1],
+            [0,1,0],
+            [0,1,0]
+          ],
+          [
+            [0,0,0],
+            [1,1,1],
+            [0,0,1]
+          ],
+          [
+            [0,1,0],
+            [0,1,0],
+            [1,1,0]
+          ]
+        ]
+      },
+      L: {
+        color: '#fb923c',
+        kick: 'normal',
+        rotations: [
+          [
+            [0,0,1],
+            [1,1,1],
+            [0,0,0]
+          ],
+          [
+            [0,1,0],
+            [0,1,0],
+            [0,1,1]
+          ],
+          [
+            [0,0,0],
+            [1,1,1],
+            [1,0,0]
+          ],
+          [
+            [1,1,0],
+            [0,1,0],
+            [0,1,0]
+          ]
+        ]
+      }
     };
 
-    const SHAPES = {
-      I: [[1,1,1,1]],
-      O: [[1,1],[1,1]],
-      T: [[0,1,0],[1,1,1]],
-      S: [[0,1,1],[1,1,0]],
-      Z: [[1,1,0],[0,1,1]],
-      J: [[1,0,0],[1,1,1]],
-      L: [[0,0,1],[1,1,1]]
+    const WALL_KICKS = {
+      normal: {
+        '0>1': [[0,0],[-1,0],[-1,1],[0,-2],[-1,-2]],
+        '1>0': [[0,0],[1,0],[1,-1],[0,2],[1,2]],
+        '1>2': [[0,0],[1,0],[1,-1],[0,2],[1,2]],
+        '2>1': [[0,0],[-1,0],[-1,1],[0,-2],[-1,-2]],
+        '2>3': [[0,0],[1,0],[1,1],[0,-2],[1,-2]],
+        '3>2': [[0,0],[-1,0],[-1,-1],[0,2],[-1,2]],
+        '3>0': [[0,0],[-1,0],[-1,-1],[0,2],[-1,2]],
+        '0>3': [[0,0],[1,0],[1,1],[0,-2],[1,-2]]
+      },
+      I: {
+        '0>1': [[0,0],[-2,0],[1,0],[-2,-1],[1,2]],
+        '1>0': [[0,0],[2,0],[-1,0],[2,1],[-1,-2]],
+        '1>2': [[0,0],[-1,0],[2,0],[-1,2],[2,-1]],
+        '2>1': [[0,0],[1,0],[-2,0],[1,-2],[-2,1]],
+        '2>3': [[0,0],[2,0],[-1,0],[2,1],[-1,-2]],
+        '3>2': [[0,0],[-2,0],[1,0],[-2,-1],[1,2]],
+        '3>0': [[0,0],[1,0],[-2,0],[1,-2],[-2,1]],
+        '0>3': [[0,0],[-1,0],[2,0],[-1,2],[2,-1]]
+      },
+      O: {
+        '0>1': [[0,0]],
+        '1>2': [[0,0]],
+        '2>3': [[0,0]],
+        '3>0': [[0,0]],
+        '1>0': [[0,0]],
+        '2>1': [[0,0]],
+        '3>2': [[0,0]],
+        '0>3': [[0,0]]
+      }
     };
 
     let board = [];
     let current = null;
     let nextPiece = null;
+    let bag = [];
 
     let score = 0;
     let lines = 0;
@@ -685,17 +873,29 @@
       return matrix.map(row => row.slice());
     }
 
-    function randomType() {
-      const keys = Object.keys(SHAPES);
-      return keys[Math.floor(Math.random() * keys.length)];
+    function shuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
     }
 
-    function createPiece(type = randomType()) {
+    function nextType() {
+      if (bag.length === 0) {
+        bag = shuffle(PIECE_TYPES);
+      }
+      return bag.pop();
+    }
+
+    function createPiece(type = nextType()) {
       return {
         type,
-        matrix: cloneMatrix(SHAPES[type]),
+        rotation: 0,
+        matrix: cloneMatrix(PIECES[type].rotations[0]),
         x: 0,
-        y: 0
+        y: -1
       };
     }
 
@@ -714,21 +914,7 @@
     }
 
     function getDropInterval() {
-      return Math.max(90, 700 - (level - 1) * 55);
-    }
-
-    function rotateMatrix(matrix, dir) {
-      const rows = matrix.length;
-      const cols = matrix[0].length;
-      const result = Array.from({ length: cols }, () => Array(rows).fill(0));
-
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          if (dir > 0) result[x][rows - 1 - y] = matrix[y][x];
-          else result[cols - 1 - x][y] = matrix[y][x];
-        }
-      }
-      return result;
+      return Math.max(80, 700 - (level - 1) * 55);
     }
 
     function collide(testBoard, piece) {
@@ -751,7 +937,9 @@
           if (!piece.matrix[y][x]) continue;
           const by = piece.y + y;
           const bx = piece.x + x;
-          if (by >= 0) boardRef[by][bx] = piece.type;
+          if (by >= 0) {
+            boardRef[by][bx] = piece.type;
+          }
         }
       }
     }
@@ -797,6 +985,8 @@
       current = nextPiece || createPiece();
       nextPiece = createPiece();
 
+      current.rotation = 0;
+      current.matrix = cloneMatrix(PIECES[current.type].rotations[0]);
       current.x = Math.floor((COLS - current.matrix[0].length) / 2);
       current.y = -1;
 
@@ -809,6 +999,7 @@
 
     function startGame() {
       board = createBoard();
+      bag = [];
       score = 0;
       lines = 0;
       level = 1;
@@ -861,7 +1052,7 @@
 
     function showStartOverlay() {
       overlayTitle.textContent = '테트리스';
-      overlayText.innerHTML = 'PC에서는 키보드, 모바일에서는 아래 터치 버튼으로 플레이할 수 있습니다.';
+      overlayText.innerHTML = '블록별 회전 상태와 벽차기를 적용했습니다. 모바일에서는 아래 터치 버튼으로 플레이할 수 있습니다.';
       overlayMainBtn.textContent = '게임 시작';
       overlaySubBtn.classList.add('hidden');
       showOverlay();
@@ -876,25 +1067,50 @@
     }
 
     function move(dir) {
-      if (!isRunning || isPaused || !current) return;
+      if (!isRunning || isPaused || !current) return false;
       current.x += dir;
-      if (collide(board, current)) current.x -= dir;
+      if (collide(board, current)) {
+        current.x -= dir;
+        return false;
+      }
+      return true;
+    }
+
+    function getKickOffsets(type, from, to) {
+      const group = PIECES[type].kick || 'normal';
+      return WALL_KICKS[group][`${from}>${to}`] || [[0,0]];
     }
 
     function rotate(dir) {
-      if (!isRunning || isPaused || !current) return;
-      const originalMatrix = current.matrix;
-      const originalX = current.x;
-      current.matrix = rotateMatrix(current.matrix, dir);
+      if (!isRunning || isPaused || !current) return false;
+      if (current.type === 'O') return true;
 
-      const kicks = [0, -1, 1, -2, 2];
-      for (const kick of kicks) {
-        current.x = originalX + kick;
-        if (!collide(board, current)) return;
+      const from = current.rotation;
+      const to = (from + (dir > 0 ? 1 : 3)) % 4;
+      const rotatedMatrix = cloneMatrix(PIECES[current.type].rotations[to]);
+      const originalX = current.x;
+      const originalY = current.y;
+      const kicks = getKickOffsets(current.type, from, to);
+
+      for (const [dx, dy] of kicks) {
+        const testPiece = {
+          type: current.type,
+          rotation: to,
+          matrix: rotatedMatrix,
+          x: originalX + dx,
+          y: originalY + dy
+        };
+
+        if (!collide(board, testPiece)) {
+          current.rotation = to;
+          current.matrix = cloneMatrix(rotatedMatrix);
+          current.x = testPiece.x;
+          current.y = testPiece.y;
+          return true;
+        }
       }
 
-      current.matrix = originalMatrix;
-      current.x = originalX;
+      return false;
     }
 
     function softDrop() {
@@ -914,6 +1130,7 @@
     function hardDrop() {
       if (!isRunning || isPaused || !current) return;
       let moved = 0;
+
       while (true) {
         current.y++;
         if (collide(board, current)) {
@@ -922,6 +1139,7 @@
         }
         moved++;
       }
+
       score += moved * 2;
       saveBest();
       updateStats();
@@ -962,7 +1180,7 @@
       for (let y = 0; y < ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
           if (board[y][x]) {
-            drawCell(boardCtx, x * BLOCK, y * BLOCK, COLORS[board[y][x]], BLOCK);
+            drawCell(boardCtx, x * BLOCK, y * BLOCK, PIECES[board[y][x]].color, BLOCK);
           } else {
             boardCtx.strokeStyle = 'rgba(255,255,255,0.05)';
             boardCtx.strokeRect(x * BLOCK + 0.5, y * BLOCK + 0.5, BLOCK - 1, BLOCK - 1);
@@ -973,8 +1191,10 @@
 
     function drawGhost() {
       if (!current) return;
+
       const ghost = {
         type: current.type,
+        rotation: current.rotation,
         matrix: cloneMatrix(current.matrix),
         x: current.x,
         y: current.y
@@ -1008,7 +1228,7 @@
           const bx = piece.x + x;
           const by = piece.y + y;
           if (by < 0) continue;
-          drawCell(boardCtx, bx * BLOCK, by * BLOCK, COLORS[piece.type], BLOCK);
+          drawCell(boardCtx, bx * BLOCK, by * BLOCK, PIECES[piece.type].color, BLOCK);
         }
       }
     }
@@ -1019,16 +1239,17 @@
       nextCtx.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
       if (!nextPiece) return;
 
+      const matrix = PIECES[nextPiece.type].rotations[0];
       const cell = 28;
-      const width = nextPiece.matrix[0].length * cell;
-      const height = nextPiece.matrix.length * cell;
+      const width = matrix[0].length * cell;
+      const height = matrix.length * cell;
       const startX = Math.floor((nextCanvas.width - width) / 2);
       const startY = Math.floor((nextCanvas.height - height) / 2);
 
-      for (let y = 0; y < nextPiece.matrix.length; y++) {
-        for (let x = 0; x < nextPiece.matrix[y].length; x++) {
-          if (!nextPiece.matrix[y][x]) continue;
-          drawCell(nextCtx, startX + x * cell, startY + y * cell, COLORS[nextPiece.type], cell);
+      for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
+          if (!matrix[y][x]) continue;
+          drawCell(nextCtx, startX + x * cell, startY + y * cell, PIECES[nextPiece.type].color, cell);
         }
       }
     }
@@ -1114,7 +1335,6 @@
 
     mobileControls.querySelectorAll('[data-action]').forEach((btn) => {
       const action = btn.dataset.action;
-
       const fire = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -1126,9 +1346,6 @@
       } else {
         btn.addEventListener('click', fire, { passive: false });
       }
-    });
-      btn.addEventListener('touchstart', fire, { passive: false });
-      btn.addEventListener('pointerdown', fire, { passive: false });
     });
 
     updatePauseLabels();
