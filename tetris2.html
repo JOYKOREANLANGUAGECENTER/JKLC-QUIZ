@@ -1114,11 +1114,19 @@
 
     mobileControls.querySelectorAll('[data-action]').forEach((btn) => {
       const action = btn.dataset.action;
+
       const fire = (e) => {
         e.preventDefault();
+        e.stopPropagation();
         handleAction(action);
       };
-      btn.addEventListener('click', fire, { passive: false });
+
+      if (window.PointerEvent) {
+        btn.addEventListener('pointerup', fire, { passive: false });
+      } else {
+        btn.addEventListener('click', fire, { passive: false });
+      }
+    });
       btn.addEventListener('touchstart', fire, { passive: false });
       btn.addEventListener('pointerdown', fire, { passive: false });
     });
