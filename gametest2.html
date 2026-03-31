@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>별 먹기 게임</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wrap {
+      width: min(920px, 100%);
+    }
+
+    .title {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .sub {
+      text-align: center;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .panel {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 10px 14px;
+      min-width: 110px;
+    }
+
+    .stat .label {
+      display: block;
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-bottom: 4px;
+    }
+
+    .stat .value {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(1px); }
+
+    .primary {
+      background: #22c55e;
+      color: #06210f;
+    }
+
+    .secondary {
+      background: #334155;
+      color: #fff;
+    }
+
+    .game-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0b1220 70%);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(2, 6, 23, 0.55);
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 560px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 36px);
+    }
+
+    .card p {
+      margin: 8px 0;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .accent {
+      color: #facc15;
+      font-weight: 800;
+    }
+
+    .hidden { display: none; }
+
+    @media (max-width: 700px) {
+      .panel { justify-content: center; }
+      .stat { min-width: 96px; }
+      button { width: 100%; }
+      .controls { width: 100%; }
+      .controls button { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">별 먹기 게임</div>
+    <div class="sub">방향키 또는 A/S/D/W로 이동 · 별을 먹고 장애물을 피하세요</div>
+
+    <div class="panel">
+      <div class="stats">
+        <div class="stat">
+          <span class="label">점수</span>
+          <span class="value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">최고점수</span>
+          <span class="value" id="best">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">남은 시간</span>
+          <span class="value" id="time">30</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="primary" id="startBtn">게임 시작</button>
+        <button class="secondary" id="restartBtn">다시 시작</button>
+      </div>
+    </div>
+
+    <div class="game-box">
+      <canvas id="game" width="960" height="540"></canvas>
+
+      <div class="overlay" id="overlay">
+        <div class="card">
+          <h2>별을 최대한 많이 먹으세요 ⭐</h2>
+          <p>파란 플레이어를 움직여 별을 먹으면 <span class="accent">+10점</span>입니다.</p>
+          <p>빨간 장애물에 닿으면 <span class="accent">-1초</span> 패널티가 생깁니다.</p>
+          <p>30초 안에 최고 점수에 도전하세요.</p>
+          <div style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button class="primary" onclick="startGame()">바로 시작</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+
+    const scoreEl = document.getElementById('score');
+    const bestEl = document.getElementById('best');
+    const timeEl = document.getElementById('time');
+    const overlay = document.getElementById('overlay');
+    const startBtn = document.getElementById('startBtn');
+    const restartBtn = document.getElementById('restartBtn');
+
+    let animationId;
+    let running = false;
+    let score = 0;
+    let best = Number(localStorage.getItem('star_game_best') || 0);
+    let timeLeft = 30;
+    let lastTime = 0;
+    let spawnTimer = 0;
+    let obstacleTimer = 0;
+
+    bestEl.textContent = best;
+
+    const player = {
+      x: 100,
+      y: 270,
+      r: 18,
+      speed: 280,
+      vx: 0,
+      vy: 0
+    };
+
+    const keys = {};
+    let stars = [];
+    let obstacles = [];
+    let particles = [];
+
+    function resetGame() {
+      score = 0;
+      timeLeft = 30;
+      player.x = 100;
+      player.y = canvas.height / 2;
+      stars = [createStar(), createStar()];
+      obstacles = [createObstacle()];
+      particles = [];
+      spawnTimer = 0;
+      obstacleTimer = 0;
+      updateUI();
+    }
+
+    function startGame() {
+      resetGame();
+      overlay.classList.add('hidden');
+      running = true;
+      lastTime = performance.now();
+      cancelAnimationFrame(animationId);
+      animationId = requestAnimationFrame(loop);
+    }
+
+    function endGame() {
+      running = false;
+      cancelAnimationFrame(animationId);
+
+      if (score > best) {
+        best = score;
+        localStorage.setItem('star_game_best', best);
+        bestEl.textContent = best;
+      }
+
+      overlay.innerHTML = `
+        <div class="card">
+          <h2>게임 종료</h2>
+          <p>이번 점수는 <span class="accent">${score}점</span>입니다.</p>
+          <p>최고 점수는 <span class="accent">${best}점</span>입니다.</p>
+          <p>한 번 더 도전해보세요.</p>
+          <div style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button class="primary" onclick="startGame()">다시 시작</button>
+          </div>
+        </div>
+      `;
+      overlay.classList.remove('hidden');
+    }
+
+    function updateUI() {
+      scoreEl.textContent = score;
+      timeEl.textContent = Math.max(0, Math.ceil(timeLeft));
+    }
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createStar() {
+      return {
+        x: random(80, canvas.width - 80),
+        y: random(60, canvas.height - 60),
+        r: 12,
+        pulse: random(0, Math.PI * 2)
+      };
+    }
+
+    function createObstacle() {
+      const size = random(18, 28);
+      const side = Math.floor(Math.random() * 4);
+      let x, y, vx, vy;
+      const speed = random(110, 180);
+
+      if (side === 0) {
+        x = -size; y = random(0, canvas.height); vx = speed; vy = random(-70, 70);
+      } else if (side === 1) {
+        x = canvas.width + size; y = random(0, canvas.height); vx = -speed; vy = random(-70, 70);
+      } else if (side === 2) {
+        x = random(0, canvas.width); y = -size; vx = random(-70, 70); vy = speed;
+      } else {
+        x = random(0, canvas.width); y = canvas.height + size; vx = random(-70, 70); vy = -speed;
+      }
+
+      return { x, y, r: size, vx, vy, angle: 0, spin: random(-2, 2) };
+    }
+
+    function addParticles(x, y, count, color) {
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x, y,
+          vx: random(-140, 140),
+          vy: random(-140, 140),
+          life: random(0.3, 0.6),
+          maxLife: random(0.3, 0.6),
+          size: random(2, 5),
+          color
+        });
+      }
+    }
+
+    function circleHit(a, b) {
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const dist = Math.hypot(dx, dy);
+      return dist < a.r + b.r;
+    }
+
+    function update(dt) {
+      player.vx = 0;
+      player.vy = 0;
+
+      if (keys['ArrowLeft'] || keys['a'] || keys['A']) player.vx = -player.speed;
+      if (keys['ArrowRight'] || keys['d'] || keys['D']) player.vx = player.speed;
+      if (keys['ArrowUp'] || keys['w'] || keys['W']) player.vy = -player.speed;
+      if (keys['ArrowDown'] || keys['s'] || keys['S']) player.vy = player.speed;
+
+      const length = Math.hypot(player.vx, player.vy);
+      if (length > 0) {
+        player.vx = (player.vx / length) * player.speed;
+        player.vy = (player.vy / length) * player.speed;
+      }
+
+      player.x += player.vx * dt;
+      player.y += player.vy * dt;
+
+      player.x = Math.max(player.r, Math.min(canvas.width - player.r, player.x));
+      player.y = Math.max(player.r, Math.min(canvas.height - player.r, player.y));
+
+      timeLeft -= dt;
+      if (timeLeft <= 0) {
+        timeLeft = 0;
+        updateUI();
+        endGame();
+        return;
+      }
+
+      spawnTimer += dt;
+      obstacleTimer += dt;
+
+      if (spawnTimer >= 1.25 && stars.length < 4) {
+        stars.push(createStar());
+        spawnTimer = 0;
+      }
+
+      if (obstacleTimer >= 1.8 && obstacles.length < 6) {
+        obstacles.push(createObstacle());
+        obstacleTimer = 0;
+      }
+
+      for (const star of stars) {
+        star.pulse += dt * 4;
+      }
+
+      for (let i = stars.length - 1; i >= 0; i--) {
+        if (circleHit(player, stars[i])) {
+          score += 10;
+          addParticles(stars[i].x, stars[i].y, 16, '#facc15');
+          stars.splice(i, 1);
+          updateUI();
+        }
+      }
+
+      for (let i = obstacles.length - 1; i >= 0; i--) {
+        const o = obstacles[i];
+        o.x += o.vx * dt;
+        o.y += o.vy * dt;
+        o.angle += o.spin * dt;
+
+        if (
+          o.x < -60 || o.x > canvas.width + 60 ||
+          o.y < -60 || o.y > canvas.height + 60
+        ) {
+          obstacles.splice(i, 1);
+          continue;
+        }
+
+        if (circleHit(player, o)) {
+          timeLeft = Math.max(0, timeLeft - 1);
+          addParticles(o.x, o.y, 12, '#ef4444');
+          obstacles.splice(i, 1);
+          updateUI();
+        }
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.life -= dt;
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+    }
+
+    function drawBackground() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < 40; i++) {
+        const x = (i * 137) % canvas.width;
+        const y = (i * 83) % canvas.height;
+        ctx.globalAlpha = 0.15;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(x, y, (i % 3) + 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function drawPlayer() {
+      ctx.save();
+      ctx.translate(player.x, player.y);
+
+      ctx.beginPath();
+      ctx.fillStyle = '#38bdf8';
+      ctx.arc(0, 0, player.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = '#e0f2fe';
+      ctx.arc(-5, -5, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = '#0f172a';
+      ctx.arc(6, -4, 3, 0, Math.PI * 2);
+      ctx.arc(-3, -4, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawStar(x, y, r) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const angle = (Math.PI / 180) * (i * 72 - 90);
+        const outerX = Math.cos(angle) * r;
+        const outerY = Math.sin(angle) * r;
+        const innerAngle = angle + Math.PI / 5;
+        const innerX = Math.cos(innerAngle) * (r * 0.45);
+        const innerY = Math.sin(innerAngle) * (r * 0.45);
+        if (i === 0) ctx.moveTo(outerX, outerY);
+        else ctx.lineTo(outerX, outerY);
+        ctx.lineTo(innerX, innerY);
+      }
+      ctx.closePath();
+      ctx.fillStyle = '#facc15';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawObstacles() {
+      for (const o of obstacles) {
+        ctx.save();
+        ctx.translate(o.x, o.y);
+        ctx.rotate(o.angle);
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(-o.r, -o.r, o.r * 2, o.r * 2);
+        ctx.restore();
+      }
+    }
+
+    function drawParticles() {
+      for (const p of particles) {
+        ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function render() {
+      drawBackground();
+
+      for (const star of stars) {
+        const size = star.r + Math.sin(star.pulse) * 2;
+        drawStar(star.x, star.y, size);
+      }
+
+      drawObstacles();
+      drawPlayer();
+      drawParticles();
+    }
+
+    function loop(timestamp) {
+      const dt = Math.min(0.033, (timestamp - lastTime) / 1000);
+      lastTime = timestamp;
+
+      update(dt);
+      render();
+
+      if (running) {
+        animationId = requestAnimationFrame(loop);
+      }
+    }
+
+    startBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', startGame);
+
+    window.addEventListener('keydown', (e) => {
+      keys[e.key] = true;
+      if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      keys[e.key] = false;
+    });
+
+    render();
+    window.startGame = startGame;
+  </script>
+</body>
+</html>
