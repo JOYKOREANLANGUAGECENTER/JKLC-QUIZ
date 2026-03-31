@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 요청하신 파비콘 코드 삽입 -->
 	<link rel="icon" href="favicon1.png" type="image/png">	
 	<link rel="apple-touch-icon" href="favicon1.png">	
     <meta charset="UTF-8">
@@ -94,17 +95,17 @@
                 Today's Quiz
             </h3>
             
-            <!-- [업데이트] Day 12 회사 일상대화 퀴즈로 메인 화면 업데이트 -->
-            <a href="quiz12.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+            <!-- [업데이트] Day 13 대중교통 퀴즈로 메인 화면 업데이트 -->
+            <a href="quiz13.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
                 <div class="relative z-10 text-left">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 30</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 12: 회사 일상대화</h2>
-                    <p class="text-sm font-bold opacity-80 text-left">လုပ်ငန်းခွင်သုံး ကိုရီးယားစကားပြော</p>
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 03. 31</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 13: 대중교통</h2>
+                    <p class="text-sm font-bold opacity-80 text-left">ဘတ်စ်ကားနှင့် မြေအောက်ရထား အသုံးအနှုန်းများ</p>
                     <div class="mt-8 flex items-center font-black text-sm text-left">
                         퀴즈 시작하기 <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">💼</div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🚌</div>
             </a>
         </section>
 
@@ -148,8 +149,15 @@
     </footer>
 
     <script>
-        // [업데이트] Day 12 데이터를 최상단에 추가
+        // 전체 퀴즈 데이터 관리
         const allQuizzes = [
+            {
+                date: "2026. 03. 31",
+                day: "Day 13",
+                title: "대중교통",
+                desc: "ဘတ်စ်ကားနှင့် မြေအောက်ရထား အသုံးအနှုန်းများ",
+                link: "quiz13.html"
+            },
             {
                 date: "2026. 03. 30",
                 day: "Day 12",
@@ -198,41 +206,6 @@
                 title: "길 물어보기",
                 desc: "လမ်းမေးရာတွင် အသုံးပြုသော စကားလုံးများ",
                 link: "quiz6.html"
-            },
-            {
-                date: "2026. 03. 23",
-                day: "Day 5",
-                title: "학교에서 대화하기",
-                desc: "ကျောင်းတွင် ပြောဆိုသော စကားများ",
-                link: "quiz5.html"
-            },
-            {
-                date: "2026. 03. 22",
-                day: "Day 4",
-                title: "병원에서 대화하기",
-                desc: "ဆေးရုံတွင် အသုံးပြုသော စကားလုံးများ",
-                link: "quiz-0324.html"
-            },
-            {
-                date: "2026. 03. 21",
-                day: "Day 3",
-                title: "기초 한국어 어휘",
-                desc: "ကိုရီးယားစာ အခြေခံစကားလုံးများ",
-                link: "quiz-0323.html"
-            },
-            {
-                date: "2026. 03. 20",
-                day: "Day 2",
-                title: "시장에서 물건 사기",
-                desc: "စျေးဝယ်ရာတွင် အသုံးပြုသော စကားလုံးများ",
-                link: "quiz-0322.html"
-            },
-            {
-                date: "2026. 03. 19",
-                day: "Day 1",
-                title: "기초 인사와 표현",
-                desc: "အခြေခံ နှုတ်ဆက်စကား",
-                link: "quiz-0321.html"
             }
         ];
 
