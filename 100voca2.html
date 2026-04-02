@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한국어 필수 어휘 100</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --line: #dde4f0;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --warning-soft: #fff7ed;
+      --warning: #c2410c;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 220px);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      color: white;
+      border-radius: 26px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 960px;
+      opacity: 0.96;
+      font-size: 16px;
+    }
+
+    .top-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 16px;
+      padding: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1.2fr 0.7fr 0.8fr 0.8fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    input, select, button {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 15px;
+      padding: 13px 14px;
+      color: var(--text);
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-weight: 700;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    button.secondary {
+      background: #0f172a;
+    }
+
+    button.stop {
+      background: var(--danger);
+    }
+
+    .toolbar {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .filters {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip.active {
+      background: var(--primary-soft);
+      border-color: #93c5fd;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      margin-top: 18px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1140px;
+      background: white;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background: #eff6ff;
+      color: #1e3a8a;
+      z-index: 1;
+      text-align: left;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background: #f8fbff;
+    }
+
+    tbody tr.playing {
+      background: #eefcf8;
+    }
+
+    .korean {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .roman {
+      font-weight: 700;
+      color: #0f766e;
+    }
+
+    .pron {
+      color: #334155;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .mm {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .listen-btn {
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 88px;
+    }
+
+    .guide-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .guide-item {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdff;
+    }
+
+    .guide-item.warning {
+      background: var(--warning-soft);
+      border-color: #fed7aa;
+    }
+
+    .label {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .status-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      font-size: 14px;
+      color: #334155;
+    }
+
+    code, pre {
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    pre {
+      margin: 12px 0 0;
+      background: #0f172a;
+      color: #e5eefc;
+      border-radius: 16px;
+      padding: 14px;
+      overflow: auto;
+      font-size: 13px;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1100px) {
+      .top-grid { grid-template-columns: 1fr; }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 12px 10px 50px; }
+      .hero { padding: 20px 16px; border-radius: 20px; }
+      .card { padding: 14px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .controls { grid-template-columns: 1fr; }
+      .korean { font-size: 20px; }
+      .mm { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>한국어 필수 어휘 100<br>Essential Korean Vocabulary 100</h1>
+      <p>
+        미얀마 학습자를 위한 기본 한국어 어휘 학습 페이지입니다. 각 단어는 <strong>한국어</strong>, <strong>로마자 표기</strong>,
+        <strong>영어식 발음 가이드</strong>, <strong>미얀마어 뜻</strong>으로 정리되어 있으며,
+        <strong>브라우저 TTS</strong>로 바로 들을 수 있습니다.
+      </p>
+      <div class="stats">
+        <div class="stat"><strong>100</strong><span>필수 단어</span></div>
+        <div class="stat"><strong>10</strong><span>카테고리</span></div>
+        <div class="stat"><strong>KO + MM</strong><span>이중 언어 학습</span></div>
+        <div class="stat"><strong>TTS</strong><span>바로 듣기</span></div>
+      </div>
+    </section>
+
+    <div class="top-grid">
+      <section class="card">
+        <h2>어휘 학습 + TTS 듣기</h2>
+        <p class="muted">단어, 발음, 미얀마어 뜻으로 검색할 수 있습니다. 각 행의 <strong>듣기</strong> 버튼을 누르면 한국어 TTS가 재생됩니다.</p>
+
+        <div class="controls">
+          <input id="searchInput" type="text" placeholder="단어 / 발음 / 미얀마어 검색" />
+          <select id="sortSelect">
+            <option value="id">기본순</option>
+            <option value="korean">가나다순</option>
+            <option value="category">카테고리순</option>
+          </select>
+          <select id="voiceSelect"></select>
+          <select id="rateSelect">
+            <option value="0.7">느리게</option>
+            <option value="0.85" selected>보통보다 조금 느리게</option>
+            <option value="1">보통</option>
+            <option value="1.15">조금 빠르게</option>
+          </select>
+        </div>
+
+        <div class="toolbar">
+          <button id="playVisibleBtn">현재 보이는 단어 전체 듣기</button>
+          <button id="testVoiceBtn" class="secondary">음성 테스트</button>
+          <button id="stopBtn" class="stop">정지</button>
+        </div>
+
+        <div class="filters" id="categoryFilters"></div>
+
+        <div class="status-box" id="ttsStatus">상태: 준비됨</div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:70px">No.</th>
+                <th style="width:170px">카테고리</th>
+                <th style="width:180px">한국어</th>
+                <th style="width:180px">Romanization</th>
+                <th style="width:230px">English Pronunciation</th>
+                <th>미얀마어</th>
+                <th style="width:120px">듣기</th>
+              </tr>
+            </thead>
+            <tbody id="vocabBody"></tbody>
+          </table>
+        </div>
+        <p class="footer-note">Tip: 한국어 음성이 보이지 않으면 Chrome/Edge에서 열고, 운영체제에 설치된 한국어 음성을 확인해 주세요.</p>
+      </section>
+
+      <aside class="card">
+        <h2>TTS 사용 안내</h2>
+        <div class="guide-list">
+          <div class="guide-item">
+            <div class="label">추천 방식</div>
+            <h3>1) 직접 녹음 대신 브라우저 TTS</h3>
+            <p>이 페이지는 브라우저의 내장 TTS 기능으로 한국어 단어를 바로 읽어줍니다. 별도 mp3를 하나씩 만들지 않아도 됩니다.</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="label">사용 방법</div>
+            <h3>2) 가장 쉬운 사용 순서</h3>
+            <p>① 음성 선택 → ② 속도 선택 → ③ 각 단어의 <strong>듣기</strong> 버튼 클릭</p>
+            <p>또는 <strong>현재 보이는 단어 전체 듣기</strong>로 한 번에 재생할 수 있습니다.</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="label">수업용 팁</div>
+            <h3>3) 검색 + 카테고리 필터와 같이 사용</h3>
+            <p>예를 들어 <strong>인사/표현</strong>만 선택한 뒤 전체 듣기를 누르면 인사말만 모아서 반복 학습할 수 있습니다.</p>
+          </div>
+
+          <div class="guide-item warning">
+            <div class="label" style="background:#fff1f2;color:#be123c;">주의</div>
+            <h3>4) 음질은 기기마다 다를 수 있음</h3>
+            <p>브라우저 TTS는 <strong>사용 중인 PC/휴대폰의 음성 엔진</strong>을 사용하므로, 기기마다 목소리와 자연스러움이 조금 다를 수 있습니다.</p>
+          </div>
+        </div>
+
+        <h2 style="margin-top:18px">나중에 더 확장 가능</h2>
+        <p class="muted">원하면 다음 단계로도 확장할 수 있습니다.</p>
+        <pre>- 미얀마어 뜻까지 함께 읽기
+- 자동 반복 재생
+- 단어 카드 모드
+- 퀴즈 모드
+- 문장 100개 추가
+- 외부 TTS 음원(mp3) 연결</pre>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const vocab = [
+      { id: 1, category: "인사/표현", korean: "안녕하세요", roman: "annyeonghaseyo", pron: "ahn-nyawng-ha-seh-yo", myanmar: "မင်္ဂလာပါ" },
+      { id: 2, category: "인사/표현", korean: "감사합니다", roman: "gamsahamnida", pron: "gahm-sah-ham-nee-da", myanmar: "ကျေးဇူးတင်ပါတယ်" },
+      { id: 3, category: "인사/표현", korean: "죄송합니다", roman: "joesonghamnida", pron: "joe-song-ham-nee-da", myanmar: "တောင်းပန်ပါတယ်" },
+      { id: 4, category: "인사/표현", korean: "괜찮아요", roman: "gwaenchanayo", pron: "gwen-cha-na-yo", myanmar: "ရပါတယ်" },
+      { id: 5, category: "인사/표현", korean: "네", roman: "ne", pron: "neh", myanmar: "ဟုတ်ကဲ့" },
+      { id: 6, category: "인사/표현", korean: "아니요", roman: "aniyo", pron: "ah-nee-yo", myanmar: "မဟုတ်ပါ" },
+      { id: 7, category: "인사/표현", korean: "실례합니다", roman: "sillyehamnida", pron: "shil-lye-ham-nee-da", myanmar: "ခဏလောက်ပါ" },
+      { id: 8, category: "인사/표현", korean: "안녕히 가세요", roman: "annyeonghi gaseyo", pron: "ahn-nyawng-hee gah-seh-yo", myanmar: "ကောင်းကောင်းသွားပါ" },
+      { id: 9, category: "인사/표현", korean: "안녕히 계세요", roman: "annyeonghi gyeseyo", pron: "ahn-nyawng-hee gyeh-seh-yo", myanmar: "ကောင်းကောင်းနေပါ" },
+      { id: 10, category: "인사/표현", korean: "알겠습니다", roman: "algesseumnida", pron: "ahl-geh-sseum-nee-da", myanmar: "နားလည်ပါပြီ" },
+
+      { id: 11, category: "사람/가족", korean: "사람", roman: "saram", pron: "sah-rahm", myanmar: "လူ" },
+      { id: 12, category: "사람/가족", korean: "선생님", roman: "seonsaengnim", pron: "sun-seng-nim", myanmar: "ဆရာ / ဆရာမ" },
+      { id: 13, category: "사람/가족", korean: "학생", roman: "haksaeng", pron: "hak-seng", myanmar: "ကျောင်းသား / ကျောင်းသူ" },
+      { id: 14, category: "사람/가족", korean: "친구", roman: "chingu", pron: "chin-goo", myanmar: "သူငယ်ချင်း" },
+      { id: 15, category: "사람/가족", korean: "가족", roman: "gajok", pron: "gah-jok", myanmar: "မိသားစု" },
+      { id: 16, category: "사람/가족", korean: "어머니", roman: "eomeoni", pron: "uh-muh-nee", myanmar: "မိခင်" },
+      { id: 17, category: "사람/가족", korean: "아버지", roman: "abeoji", pron: "ah-buh-jee", myanmar: "ဖခင်" },
+      { id: 18, category: "사람/가족", korean: "남자", roman: "namja", pron: "nahm-ja", myanmar: "ယောက်ျား" },
+      { id: 19, category: "사람/가족", korean: "여자", roman: "yeoja", pron: "yaw-ja", myanmar: "မိန်းကလေး / အမျိုးသမီး" },
+      { id: 20, category: "사람/가족", korean: "아이", roman: "ai", pron: "ah-ee", myanmar: "ကလေး" },
+
+      { id: 21, category: "숫자", korean: "하나", roman: "hana", pron: "ha-na", myanmar: "တစ်" },
+      { id: 22, category: "숫자", korean: "둘", roman: "dul", pron: "dool", myanmar: "နှစ်" },
+      { id: 23, category: "숫자", korean: "셋", roman: "set", pron: "set", myanmar: "သုံး" },
+      { id: 24, category: "숫자", korean: "넷", roman: "net", pron: "net", myanmar: "လေး" },
+      { id: 25, category: "숫자", korean: "다섯", roman: "daseot", pron: "da-sut", myanmar: "ငါး" },
+      { id: 26, category: "숫자", korean: "여섯", roman: "yeoseot", pron: "yaw-sut", myanmar: "ခြောက်" },
+      { id: 27, category: "숫자", korean: "일곱", roman: "ilgop", pron: "il-gop", myanmar: "ခုနစ်" },
+      { id: 28, category: "숫자", korean: "여덟", roman: "yeodeol", pron: "yaw-duhl", myanmar: "ရှစ်" },
+      { id: 29, category: "숫자", korean: "아홉", roman: "ahop", pron: "ah-hop", myanmar: "ကိုး" },
+      { id: 30, category: "숫자", korean: "열", roman: "yeol", pron: "yawl", myanmar: "ဆယ်" },
+
+      { id: 31, category: "시간", korean: "오늘", roman: "oneul", pron: "oh-neul", myanmar: "ယနေ့" },
+      { id: 32, category: "시간", korean: "내일", roman: "naeil", pron: "neh-il", myanmar: "မနက်ဖြန်" },
+      { id: 33, category: "시간", korean: "어제", roman: "eoje", pron: "uh-jeh", myanmar: "မနေ့က" },
+      { id: 34, category: "시간", korean: "지금", roman: "jigeum", pron: "jee-geum", myanmar: "အခု" },
+      { id: 35, category: "시간", korean: "시간", roman: "sigan", pron: "shee-gan", myanmar: "အချိန်" },
+      { id: 36, category: "시간", korean: "아침", roman: "achim", pron: "ah-chim", myanmar: "မနက်" },
+      { id: 37, category: "시간", korean: "점심", roman: "jeomsim", pron: "jum-shim", myanmar: "နေ့လယ်စာ" },
+      { id: 38, category: "시간", korean: "저녁", roman: "jeonyeok", pron: "juh-nyuk", myanmar: "ညနေ / ညစာ" },
+      { id: 39, category: "시간", korean: "주", roman: "ju", pron: "joo", myanmar: "အပတ်" },
+      { id: 40, category: "시간", korean: "달", roman: "dal", pron: "dahl", myanmar: "လ" },
+
+      { id: 41, category: "장소", korean: "집", roman: "jip", pron: "jeep", myanmar: "အိမ်" },
+      { id: 42, category: "장소", korean: "학교", roman: "hakgyo", pron: "hak-gyo", myanmar: "ကျောင်း" },
+      { id: 43, category: "장소", korean: "회사", roman: "hoesa", pron: "hweh-sa", myanmar: "ကုမ္ပဏီ" },
+      { id: 44, category: "장소", korean: "시장", roman: "sijang", pron: "shee-jang", myanmar: "ဈေး" },
+      { id: 45, category: "장소", korean: "병원", roman: "byeongwon", pron: "byung-won", myanmar: "ဆေးရုံ" },
+      { id: 46, category: "장소", korean: "식당", roman: "sikdang", pron: "shik-dang", myanmar: "စားသောက်ဆိုင်" },
+      { id: 47, category: "장소", korean: "화장실", roman: "hwajangsil", pron: "hwa-jang-shil", myanmar: "အိမ်သာ" },
+      { id: 48, category: "장소", korean: "은행", roman: "eunhaeng", pron: "eun-heng", myanmar: "ဘဏ်" },
+      { id: 49, category: "장소", korean: "버스정류장", roman: "beoseu jeongnyujang", pron: "buh-seu jung-yoo-jang", myanmar: "ဘတ်စ်ကားမှတ်တိုင်" },
+      { id: 50, category: "장소", korean: "공항", roman: "gonghang", pron: "gong-hang", myanmar: "လေဆိပ်" },
+
+      { id: 51, category: "음식", korean: "물", roman: "mul", pron: "mool", myanmar: "ရေ" },
+      { id: 52, category: "음식", korean: "밥", roman: "bap", pron: "bap", myanmar: "ထမင်း" },
+      { id: 53, category: "음식", korean: "빵", roman: "ppang", pron: "ppahng", myanmar: "မုန့်" },
+      { id: 54, category: "음식", korean: "커피", roman: "keopi", pron: "kuh-phee", myanmar: "ကော်ဖီ" },
+      { id: 55, category: "음식", korean: "차", roman: "cha", pron: "cha", myanmar: "လက်ဖက်ရည်" },
+      { id: 56, category: "음식", korean: "우유", roman: "uyu", pron: "oo-yoo", myanmar: "နို့" },
+      { id: 57, category: "음식", korean: "과일", roman: "gwail", pron: "gwa-il", myanmar: "အသီး" },
+      { id: 58, category: "음식", korean: "고기", roman: "gogi", pron: "goh-gee", myanmar: "အသား" },
+      { id: 59, category: "음식", korean: "김치", roman: "gimchi", pron: "gim-chee", myanmar: "ကင်မ်ချီ" },
+      { id: 60, category: "음식", korean: "맛있어요", roman: "masisseoyo", pron: "mah-shi-suh-yo", myanmar: "အရသာရှိတယ်" },
+
+      { id: 61, category: "동사", korean: "가다", roman: "gada", pron: "ga-da", myanmar: "သွားသည်" },
+      { id: 62, category: "동사", korean: "오다", roman: "oda", pron: "oh-da", myanmar: "လာသည်" },
+      { id: 63, category: "동사", korean: "먹다", roman: "meokda", pron: "muk-da", myanmar: "စားသည်" },
+      { id: 64, category: "동사", korean: "마시다", roman: "masida", pron: "ma-shi-da", myanmar: "သောက်သည်" },
+      { id: 65, category: "동사", korean: "보다", roman: "boda", pron: "boh-da", myanmar: "ကြည့်သည်" },
+      { id: 66, category: "동사", korean: "듣다", roman: "deutda", pron: "deut-da", myanmar: "နားထောင်သည်" },
+      { id: 67, category: "동사", korean: "자다", roman: "jada", pron: "ja-da", myanmar: "အိပ်သည်" },
+      { id: 68, category: "동사", korean: "공부하다", roman: "gongbuhada", pron: "gong-boo-ha-da", myanmar: "စာလေ့လာသည်" },
+      { id: 69, category: "동사", korean: "일하다", roman: "ilhada", pron: "il-ha-da", myanmar: "အလုပ်လုပ်သည်" },
+      { id: 70, category: "동사", korean: "사다", roman: "sada", pron: "sa-da", myanmar: "ဝယ်သည်" },
+
+      { id: 71, category: "형용사", korean: "크다", roman: "keuda", pron: "keu-da", myanmar: "ကြီးသည်" },
+      { id: 72, category: "형용사", korean: "작다", roman: "jakda", pron: "jak-da", myanmar: "သေးသည်" },
+      { id: 73, category: "형용사", korean: "많다", roman: "manta", pron: "man-ta", myanmar: "များသည်" },
+      { id: 74, category: "형용사", korean: "적다", roman: "jeokda", pron: "juk-da", myanmar: "နည်းသည်" },
+      { id: 75, category: "형용사", korean: "좋다", roman: "jota", pron: "jo-ta", myanmar: "ကောင်းသည်" },
+      { id: 76, category: "형용사", korean: "나쁘다", roman: "nappeuda", pron: "na-ppeu-da", myanmar: "မကောင်းသည်" },
+      { id: 77, category: "형용사", korean: "빠르다", roman: "ppareuda", pron: "ppa-reu-da", myanmar: "မြန်သည်" },
+      { id: 78, category: "형용사", korean: "느리다", roman: "neurida", pron: "neu-ri-da", myanmar: "နှေးသည်" },
+      { id: 79, category: "형용사", korean: "비싸다", roman: "bissada", pron: "bee-sa-da", myanmar: "ဈေးကြီးသည်" },
+      { id: 80, category: "형용사", korean: "싸다", roman: "ssada", pron: "ssa-da", myanmar: "ဈေးပေါသည်" },
+
+      { id: 81, category: "질문/표현", korean: "뭐", roman: "mwo", pron: "mwoh", myanmar: "ဘာ" },
+      { id: 82, category: "질문/표현", korean: "어디", roman: "eodi", pron: "uh-dee", myanmar: "ဘယ်မှာ" },
+      { id: 83, category: "질문/표현", korean: "누구", roman: "nugu", pron: "noo-goo", myanmar: "ဘယ်သူ" },
+      { id: 84, category: "질문/표현", korean: "언제", roman: "eonje", pron: "un-jeh", myanmar: "ဘယ်တော့" },
+      { id: 85, category: "질문/표현", korean: "왜", roman: "wae", pron: "weh", myanmar: "ဘာကြောင့်" },
+      { id: 86, category: "질문/표현", korean: "어떻게", roman: "eotteoke", pron: "uh-tteoh-keh", myanmar: "ဘယ်လို" },
+      { id: 87, category: "질문/표현", korean: "얼마예요", roman: "eolmayeyo", pron: "ul-ma-yeh-yo", myanmar: "ဘယ်လောက်လဲ" },
+      { id: 88, category: "질문/표현", korean: "주세요", roman: "juseyo", pron: "joo-seh-yo", myanmar: "ပေးပါ" },
+      { id: 89, category: "질문/표현", korean: "도와주세요", roman: "dowajuseyo", pron: "do-wa-joo-seh-yo", myanmar: "ကူညီပါ" },
+      { id: 90, category: "질문/표현", korean: "모르겠어요", roman: "moreugesseoyo", pron: "mo-reu-geh-suh-yo", myanmar: "မသိဘူး / မသိပါ" },
+
+      { id: 91, category: "생활", korean: "자동차", roman: "jadongcha", pron: "ja-dong-cha", myanmar: "ကား" },
+      { id: 92, category: "생활", korean: "버스", roman: "beoseu", pron: "buh-seu", myanmar: "ဘတ်စ်ကား" },
+      { id: 93, category: "생활", korean: "택시", roman: "taeksi", pron: "tek-shee", myanmar: "တက္ကစီ" },
+      { id: 94, category: "생활", korean: "길", roman: "gil", pron: "gil", myanmar: "လမ်း" },
+      { id: 95, category: "생활", korean: "왼쪽", roman: "oenjjok", pron: "wen-jjok", myanmar: "ဘယ်ဘက်" },
+      { id: 96, category: "생활", korean: "오른쪽", roman: "oreunjjok", pron: "oh-reun-jjok", myanmar: "ညာဘက်" },
+      { id: 97, category: "생활", korean: "이름", roman: "ireum", pron: "ee-reum", myanmar: "နာမည်" },
+      { id: 98, category: "생활", korean: "책", roman: "chaek", pron: "chek", myanmar: "စာအုပ်" },
+      { id: 99, category: "생활", korean: "돈", roman: "don", pron: "dohn", myanmar: "ပိုက်ဆံ" },
+      { id: 100, category: "생활", korean: "가방", roman: "gabang", pron: "ga-bang", myanmar: "အိတ်" }
+    ];
+
+    const synth = window.speechSynthesis;
+    const body = document.getElementById('vocabBody');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const rateSelect = document.getElementById('rateSelect');
+    const playVisibleBtn = document.getElementById('playVisibleBtn');
+    const testVoiceBtn = document.getElementById('testVoiceBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const categoryFilters = document.getElementById('categoryFilters');
+    const ttsStatus = document.getElementById('ttsStatus');
+
+    let activeCategory = '전체';
+    let voices = [];
+    let currentlyPlayingId = null;
+
+    function setStatus(message) {
+      ttsStatus.textContent = `상태: ${message}`;
+    }
+
+    function clearPlayingRow() {
+      document.querySelectorAll('tbody tr').forEach(row => row.classList.remove('playing'));
+      currentlyPlayingId = null;
+    }
+
+    function markPlayingRow(id) {
+      clearPlayingRow();
+      const row = document.querySelector(`tr[data-id="${id}"]`);
+      if (row) row.classList.add('playing');
+      currentlyPlayingId = id;
+    }
+
+    function loadVoices() {
+      if (!('speechSynthesis' in window)) {
+        voiceSelect.innerHTML = '<option>이 브라우저는 TTS를 지원하지 않음</option>';
+        setStatus('이 브라우저는 TTS를 지원하지 않습니다.');
+        return;
+      }
+
+      voices = synth.getVoices();
+      const koreanVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('ko'));
+      const preferred = koreanVoices.length ? koreanVoices : voices;
+
+      voiceSelect.innerHTML = preferred.length
+        ? preferred.map((voice, index) => `<option value="${voice.name.replace(/"/g, '&quot;')}">${voice.name} (${voice.lang})</option>`).join('')
+        : '<option value="">사용 가능한 음성 불러오는 중...</option>';
+
+      if (preferred.length) {
+        setStatus(`음성 ${preferred.length}개 준비됨`);
+      } else {
+        setStatus('음성을 불러오는 중입니다. 잠시 후 다시 눌러보세요.');
+      }
+    }
+
+    function getSelectedVoice() {
+      const selectedName = voiceSelect.value;
+      const selected = voices.find(v => v.name === selectedName);
+      if (selected) return selected;
+      const koVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ko'));
+      return koVoice || voices[0] || null;
+    }
+
+    function speakText(text, id = null, onEnd = null) {
+      if (!('speechSynthesis' in window)) {
+        alert('이 브라우저에서는 TTS를 사용할 수 없습니다. Chrome 또는 Edge를 사용해 보세요.');
+        return;
+      }
+
+      synth.cancel();
+      clearPlayingRow();
+
+      const utter = new SpeechSynthesisUtterance(text);
+      const selectedVoice = getSelectedVoice();
+      utter.lang = selectedVoice?.lang || 'ko-KR';
+      if (selectedVoice) utter.voice = selectedVoice;
+      utter.rate = Number(rateSelect.value || 0.85);
+      utter.pitch = 1;
+      utter.volume = 1;
+
+      utter.onstart = () => {
+        if (id !== null) markPlayingRow(id);
+        setStatus(`재생 중 - ${text}`);
+      };
+
+      utter.onend = () => {
+        clearPlayingRow();
+        setStatus('재생 완료');
+        if (typeof onEnd === 'function') onEnd();
+      };
+
+      utter.onerror = () => {
+        clearPlayingRow();
+        setStatus('재생 중 오류가 발생했습니다. 다른 음성을 선택해 보세요.');
+      };
+
+      synth.speak(utter);
+    }
+
+    function speakList(items, index = 0) {
+      if (!items.length) {
+        setStatus('현재 보이는 단어가 없습니다.');
+        return;
+      }
+      if (index >= items.length) {
+        clearPlayingRow();
+        setStatus('전체 듣기 완료');
+        return;
+      }
+      const item = items[index];
+      speakText(item.korean, item.id, () => speakList(items, index + 1));
+    }
+
+    function renderFilters() {
+      const categories = ['전체', ...new Set(vocab.map(v => v.category))];
+      categoryFilters.innerHTML = categories.map(cat => `
+        <button class="chip ${cat === activeCategory ? 'active' : ''}" data-category="${cat}" type="button">${cat}</button>
+      `).join('');
+
+      categoryFilters.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCategory = btn.dataset.category;
+          renderFilters();
+          renderTable();
+        });
+      });
+    }
+
+    function getFilteredData() {
+      const term = searchInput.value.trim().toLowerCase();
+      let data = [...vocab];
+
+      if (activeCategory !== '전체') {
+        data = data.filter(item => item.category === activeCategory);
+      }
+
+      if (term) {
+        data = data.filter(item =>
+          item.korean.toLowerCase().includes(term) ||
+          item.roman.toLowerCase().includes(term) ||
+          item.pron.toLowerCase().includes(term) ||
+          item.myanmar.toLowerCase().includes(term) ||
+          item.category.toLowerCase().includes(term)
+        );
+      }
+
+      if (sortSelect.value === 'korean') {
+        data.sort((a, b) => a.korean.localeCompare(b.korean, 'ko'));
+      } else if (sortSelect.value === 'category') {
+        data.sort((a, b) => a.category.localeCompare(b.category, 'ko') || a.id - b.id);
+      } else {
+        data.sort((a, b) => a.id - b.id);
+      }
+
+      return data;
+    }
+
+    function renderTable() {
+      const data = getFilteredData();
+      body.innerHTML = data.map(item => `
+        <tr data-id="${item.id}">
+          <td><span class="badge">${item.id}</span></td>
+          <td>${item.category}</td>
+          <td><div class="korean">${item.korean}</div></td>
+          <td><div class="roman">${item.roman}</div></td>
+          <td><div class="pron">${item.pron}</div></td>
+          <td><div class="mm">${item.myanmar}</div></td>
+          <td><button class="listen-btn" data-speak-id="${item.id}" type="button">듣기</button></td>
+        </tr>
+      `).join('');
+
+      body.querySelectorAll('[data-speak-id]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = Number(btn.dataset.speakId);
+          const item = vocab.find(v => v.id === id);
+          if (item) speakText(item.korean, item.id);
+        });
+      });
+    }
+
+    searchInput.addEventListener('input', renderTable);
+    sortSelect.addEventListener('change', renderTable);
+
+    playVisibleBtn.addEventListener('click', () => {
+      const data = getFilteredData();
+      speakList(data);
+    });
+
+    testVoiceBtn.addEventListener('click', () => {
+      speakText('안녕하세요. 한국어 필수 어휘 학습 페이지입니다.');
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if ('speechSynthesis' in window) synth.cancel();
+      clearPlayingRow();
+      setStatus('정지됨');
+    });
+
+    if ('speechSynthesis' in window) {
+      loadVoices();
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+      }
+    } else {
+      setStatus('이 브라우저는 TTS를 지원하지 않습니다.');
+    }
+
+    renderFilters();
+    renderTable();
+  </script>
+</body>
+</html>
