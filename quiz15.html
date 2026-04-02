@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Weather & Seasons Quiz</title>
+    <!-- 요청하신 파비콘 코드 삽입 -->
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        /* 워터마크 스타일 */
+        .watermark-bg {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            pointer-events: none; z-index: 0;
+            background-image: url('logo.png'); background-repeat: repeat;
+            background-size: 375px; opacity: 0.05; transform: rotate(-20deg);
+        }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <div class="watermark-bg"></div>
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <!-- 상단 컬러 바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <!-- 상단 네비게이션 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <!-- 1. 시작 화면 -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="cloud-sun" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">날씨와 계절</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Weather and Seasons</p>
+            
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 15</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    한국의 아름다운 사계절과 날씨 표현을 배워봅시다!<br>
+                    <span class="font-bold">ကိုရီးယားနိုင်ငံ၏ လှပသော ရာသီလေးခုနှင့် ရာသီဥတုအသုံးအနှုန်းများကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+        </div>
+
+        <!-- 2. 퀴즈 진행 화면 -->
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div class="flex justify-center my-4 content-watermark">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. 결과 화면 -->
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
+            </button>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "한국의 사계절이 아닌 것은 무엇입니까?",
+                m: "ကိုရီးယားနိုင်ငံ၏ ရာသီလေးခုတွင် မပါဝင်သောအရာမှာ အဘယ်နည်း။",
+                options: ["봄", "여름", "우기", "겨울"],
+                correct: 2,
+                hint: "미얀마에는 우기가 있지만 한국에는 4계절이 있습니다.",
+                rationale: "한국의 사계절은 봄, 여름, 가을, 겨울입니다. '우기'는 비가 많이 오는 시기를 뜻하며 한국의 공식 계절 명칭은 아닙니다."
+            },
+            {
+                q: "꽃이 피고 날씨가 따뜻한 계절은 언제입니까?",
+                m: "ပန်းများပွင့်ပြီး ရာသီဥတု နွေးထွေးသော ရာသီမှာ အဘယ်နည်း။",
+                options: ["봄", "여름", "가을", "겨울"],
+                correct: 0,
+                hint: "겨울이 지나고 처음 오는 계절입니다.",
+                rationale: "봄은 추운 겨울이 지나고 꽃이 피며 날씨가 따뜻해지는 계절입니다."
+            },
+            {
+                q: "여름에 비가 많이 오는 기간을 무엇이라고 합니까?",
+                m: "နွေရာသီတွင် မိုးအလွန်များသောကာလကို မည်သို့ခေါ်သနည်း။",
+                options: ["단풍", "장마", "함박눈", "황사"],
+                correct: 1,
+                hint: "여름철에 며칠 동안 계속해서 비가 내리는 현상입니다.",
+                rationale: "한국의 여름에는 비가 집중적으로 내리는 '장마' 기간이 있습니다."
+            },
+            {
+                q: "가을에 나뭇잎의 색깔이 붉게 변하는 것을 무엇이라고 합니까?",
+                m: "ဆောင်းဦးတွင် သစ်ရွက်များအရောင် နီမြန်းလာခြင်းကို မည်သို့ခေါ်သနည်း။",
+                options: ["눈", "파도", "단풍", "안개"],
+                correct: 2,
+                hint: "가을 산이 예쁘게 물드는 것을 말합니다.",
+                rationale: "가을에 나뭇잎이 노란색이나 빨간색으로 변하는 것을 '단풍'이라고 합니다."
+            },
+            {
+                q: "날씨가 춥고 하얀 '이것'이 내리는 계절은?",
+                m: "ရာသီဥတု အေးပြီး အဖြူရောင် 'ဒါ' ကျဆင်းသော ရာသီမှာ အဘယ်နည်း။",
+                options: ["봄 - 안개", "여름 - 비", "가을 - 바람", "겨울 - 눈"],
+                correct: 3,
+                hint: "영하의 온도에서 물방울이 얼어서 떨어지는 것입니다.",
+                rationale: "겨울은 매우 춥고 하늘에서 '눈'이 내리는 것이 특징입니다."
+            },
+            {
+                q: "하늘에 구름이 많고 해가 보이지 않을 때 뭐라고 합니까?",
+                m: "မိုးတိမ်များပြီး နေမမြင်ရသောအခါ မည်သို့ပြောသနည်း။",
+                options: ["맑아요", "흐려요", "따뜻해요", "시원해요"],
+                correct: 1,
+                hint: "날씨가 깨끗하지 않고 어두운 상태입니다.",
+                rationale: "구름이 많아 햇빛이 가려진 날씨를 '흐리다'라고 표현합니다."
+            },
+            {
+                q: "비가 올 때 꼭 챙겨야 하는 물건은 무엇입니까?",
+                m: "မိုးရွာလျှင် မဖြစ်မနေ ယူဆောင်သွားရမည့်အရာမှာ အဘယ်နည်း။",
+                options: ["장갑", "선글라스", "우산", "목도리"],
+                correct: 2,
+                hint: "몸이 젖지 않게 막아주는 도구입니다.",
+                rationale: "비나 눈을 피하기 위해 머리 위로 받쳐 쓰는 도구는 '우산'입니다."
+            },
+            {
+                q: "빈칸에 알맞은 말은? \"오늘은 바람이 ( ).\"",
+                m: "ကွက်လပ်ဖြည့်ပါ။ \"ယနေ့ လေ ( )။\"",
+                options: ["불어요", "내려요", "피어요", "와요"],
+                correct: 0,
+                hint: "바람이 움직이는 것을 표현하는 전용 동사입니다.",
+                rationale: "바람이 움직이는 현상은 '불다' 동사를 사용하여 '바람이 불어요'라고 합니다."
+            },
+            {
+                q: "기온이 매우 높아서 땀이 날 때의 느낌은?",
+                m: "အပူချိန် အလွန်မြင့်မားပြီး ချွေးထွက်လာသောအခါ ခံစားချက်မှာ?",
+                options: ["추워요", "더워요", "시원해요", "좋아요"],
+                correct: 1,
+                hint: "한국의 여름이나 미얀마의 건기 날씨입니다.",
+                rationale: "온도가 높아 온몸이 뜨겁게 느껴질 때는 '덥다'라고 합니다."
+            },
+            {
+                q: "오늘 날씨를 묻는 가장 자연스러운 질문은?",
+                m: "ယနေ့ ရာသီဥတုကို မေးမြန်းရန် အသဘာဝကျဆုံး မေးခွန်းမှာ?",
+                options: ["오늘 날씨가 누구예요?", "오늘 날씨가 어때요?", "오늘 날씨가 어디예요?", "오늘 날씨가 뭐예요?"],
+                correct: 1,
+                hint: "상태나 상황을 물어볼 때 쓰는 표현을 찾으세요.",
+                rationale: "상태나 성질을 물을 때는 '어때요?'를 사용하여 '날씨가 어때요?'라고 묻습니다."
+            }
+        ];
+
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
