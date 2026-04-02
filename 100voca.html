@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - Essential 100 Korean Words</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background-color: #f1f5f9; }
+        .voca-card { transition: all 0.2s; }
+        .voca-card:hover { transform: scale(1.02); }
+        .sticky-header { position: sticky; top: 0; z-index: 40; }
+        .jklc-blue { color: #0070BB; }
+        .jklc-bg-blue { background-color: #0070BB; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md border-b-4 border-yellow-400 sticky-header">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10">
+                <h1 class="text-lg font-black text-slate-800 hidden sm:block">Essential 100</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="voice-status" class="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Audio Ready 🔊</span>
+            </div>
+        </div>
+        <!-- Search Bar -->
+        <div class="max-w-4xl mx-auto px-4 pb-4">
+            <div class="relative">
+                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
+                <input type="text" id="voca-search" placeholder="Search words or meanings..." 
+                       class="w-full pl-12 pr-4 py-3 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition">
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 mt-8">
+        <div class="mb-8 text-center">
+            <h2 class="text-2xl font-black text-slate-800">한국어 필수 어휘 100</h2>
+            <p class="text-slate-500 text-sm mt-1">ကိုရီးယားဘာသာစကား အခြေခံဝေါဟာရ ၁၀၀</p>
+        </div>
+
+        <!-- Voca List -->
+        <div id="voca-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Words will be injected here by JS -->
+        </div>
+    </main>
+
+    <!-- Bottom Player Bar (Status) -->
+    <div id="player-bar" class="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 hidden animate-slide-up shadow-2xl">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-blue-600 rounded-lg animate-pulse">
+                    <i data-lucide="volume-2" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <p id="playing-word" class="font-bold text-lg leading-none"></p>
+                    <p id="playing-meaning" class="text-xs text-slate-400 mt-1"></p>
+                </div>
+            </div>
+            <button onclick="closePlayer()" class="text-slate-400 hover:text-white"><i data-lucide="x"></i></button>
+        </div>
+    </div>
+
+    <script>
+        const vocaData = [
+            { kr: "안녕하세요", pr: "An-nyeong-ha-se-yo", mm: "မင်္ဂလာပါ", cat: "Greeting" },
+            { kr: "감사합니다", pr: "Gam-sa-ham-ni-da", mm: "ကျေးဇူးတင်ပါတယ်", cat: "Greeting" },
+            { kr: "죄송합니다", pr: "Joe-song-ham-ni-da", mm: "တောင်းပန်ပါတယ်", cat: "Greeting" },
+            { kr: "네", pr: "Ne", mm: "ဟုတ်ကဲ့", cat: "Basic" },
+            { kr: "아니요", pr: "A-ni-yo", mm: "ဟင့်အင်း / မဟုတ်ပါဘူး", cat: "Basic" },
+            { kr: "사람", pr: "Sa-ram", mm: "လူ", cat: "Human" },
+            { kr: "물", pr: "Mul", mm: "ရေ", cat: "Daily" },
+            { kr: "밥", pr: "Bap", mm: "ထမင်း", cat: "Food" },
+            { kr: "친구", pr: "Chin-gu", mm: "သူငယ်ချင်း", cat: "Human" },
+            { kr: "집", pr: "Jip", mm: "အိမ်", cat: "Place" },
+            { kr: "학교", pr: "Hak-gyo", mm: "ကျောင်း", cat: "Place" },
+            { kr: "회사", pr: "Hui-sa", mm: "ကုမ္ပဏီ", cat: "Place" },
+            { kr: "공부하다", pr: "Gong-bu-ha-da", mm: "စာသင်သည်", cat: "Verb" },
+            { kr: "일하다", pr: "Il-ha-da", mm: "အလုပ်လုပ်သည်", cat: "Verb" },
+            { kr: "먹다", pr: "Meok-da", mm: "စားသည်", cat: "Verb" },
+            { kr: "마시다", pr: "Ma-si-da", mm: "သောက်သည်", cat: "Verb" },
+            { kr: "자다", pr: "Ja-da", mm: "အိပ်သည်", cat: "Verb" },
+            { kr: "가다", pr: "Ga-da", mm: "သွားသည်", cat: "Verb" },
+            { kr: "오다", pr: "O-da", mm: "လာသည်", cat: "Verb" },
+            { kr: "보다", pr: "Bo-da", mm: "ကြည့်သည်", cat: "Verb" },
+            { kr: "듣다", pr: "Deut-da", mm: "နားထောင်သည်", cat: "Verb" },
+            { kr: "말하다", pr: "Mal-ha-da", mm: "စကားပြောသည်", cat: "Verb" },
+            { kr: "사다", pr: "Sa-da", mm: "ဝယ်သည်", cat: "Verb" },
+            { kr: "비싸다", pr: "Bi-ssa-da", mm: "စျေးကြီးသည်", cat: "Adj" },
+            { kr: "싸다", pr: "Ssa-da", mm: "စျေးပေါသည်", cat: "Adj" },
+            { kr: "크다", pr: "Keu-da", mm: "ကြီးသည်", cat: "Adj" },
+            { kr: "작다", pr: "Jak-da", mm: "သေးသည်", cat: "Adj" },
+            { kr: "좋다", pr: "Jo-ta", mm: "ကောင်းသည်", cat: "Adj" },
+            { kr: "나쁘다", pr: "Na-ppeu-da", mm: "မကောင်းဘူး", cat: "Adj" },
+            { kr: "예쁘다", pr: "Ye-ppeu-da", mm: "လှသည်", cat: "Adj" },
+            { kr: "머리", pr: "Meo-ri", mm: "ခေါင်း", cat: "Body" },
+            { kr: "눈", pr: "Nun", mm: "မျက်လုံး", cat: "Body" },
+            { kr: "코", pr: "Ko", mm: "နှာခေါင်း", cat: "Body" },
+            { kr: "입", pr: "Ip", mm: "ပါးစပ်", cat: "Body" },
+            { kr: "손", pr: "Son", mm: "လက်", cat: "Body" },
+            { kr: "발", pr: "Bal", mm: "ခြေထောက်", cat: "Body" },
+            { kr: "오늘", pr: "O-neul", mm: "ဒီနေ့", cat: "Time" },
+            { kr: "내일", pr: "Nae-il", mm: "မနက်ဖြန်", cat: "Time" },
+            { kr: "어제", pr: "Eo-je", mm: "မနေ့က", cat: "Time" },
+            { kr: "지금", pr: "Ji-geum", mm: "အခု", cat: "Time" },
+            { kr: "시간", pr: "Si-gan", mm: "အချိန်", cat: "Time" },
+            { kr: "하나", pr: "Ha-na", mm: "တစ်ခု", cat: "Number" },
+            { kr: "둘", pr: "Dul", mm: "နှစ်ခု", cat: "Number" },
+            { kr: "셋", pr: "Set", mm: "သုံးခု", cat: "Number" },
+            { kr: "일", pr: "Il", mm: "တစ်", cat: "Number" },
+            { kr: "이", pr: "I", mm: "နှစ်", cat: "Number" },
+            { kr: "삼", pr: "Sam", mm: "သုံး", cat: "Number" },
+            { kr: "선생님", pr: "Seon-saeng-nim", mm: "ဆရာ/ဆရာမ", cat: "Human" },
+            { kr: "학생", pr: "Hak-saeng", mm: "ကျောင်းသား", cat: "Human" },
+            { kr: "한국", pr: "Han-guk", mm: "ကိုရီးယား", cat: "Place" },
+            { kr: "미얀마", pr: "Mi-yan-ma", mm: "မြန်မာ", cat: "Place" },
+            { kr: "언니", pr: "Eon-ni", mm: "အစ်မ (မိန်းကလေးခေါ်)", cat: "Family" },
+            { kr: "오빠", pr: "O-ppa", mm: "အစ်ကို (မိန်းကလေးခေါ်)", cat: "Family" },
+            { kr: "누나", pr: "Nu-na", mm: "အစ်မ (ယောက်ျားလေးခေါ်)", cat: "Family" },
+            { kr: "형", pr: "Hyeong", mm: "အစ်ကို (ယောက်ျားလေးခေါ်)", cat: "Family" },
+            { kr: "어머니", pr: "Eo-meo-ni", mm: "အမေ", cat: "Family" },
+            { kr: "아버지", pr: "A-beo-ji", mm: "အဖေ", cat: "Family" },
+            { kr: "고기", pr: "Go-gi", mm: "အသား", cat: "Food" },
+            { kr: "김치", pr: "Gim-chi", mm: "ကင်ချီ", cat: "Food" },
+            { kr: "빵", pr: "Ppang", mm: "ပေါင်မုန့်", cat: "Food" },
+            { kr: "우유", pr: "U-yu", mm: "နို့", cat: "Food" },
+            { kr: "커피", pr: "Keo-pi", mm: "ကော်ဖီ", cat: "Food" },
+            { kr: "사과", pr: "Sa-gwa", mm: "ပန်းသီး", cat: "Food" },
+            { kr: "병원", pr: "Byeong-won", mm: "ဆေးရုံ", cat: "Place" },
+            { kr: "약국", pr: "Yak-guk", mm: "ဆေးဆိုင်", cat: "Place" },
+            { kr: "시장", pr: "Si-jang", mm: "စျေး", cat: "Place" },
+            { kr: "옷", pr: "Ot", mm: "အဝတ်အစား", cat: "Daily" },
+            { kr: "신발", pr: "Sin-bal", mm: "ဖိနပ်", cat: "Daily" },
+            { kr: "전화", pr: "Jeon-hwa", mm: "ဖုန်း", cat: "Daily" },
+            { kr: "컴퓨터", pr: "Keom-pyu-teo", mm: "ကွန်ပျူတာ", cat: "Daily" },
+            { kr: "돈", pr: "Don", mm: "ပိုက်ဆံ", cat: "Daily" },
+            { kr: "이름", pr: "I-reum", mm: "နာမည်", cat: "Basic" },
+            { kr: "나라", pr: "Na-ra", mm: "နိုင်ငံ", cat: "Basic" },
+            { kr: "날씨", pr: "Nal-ssi", mm: "ရာသီဥတု", cat: "Nature" },
+            { kr: "하늘", pr: "Ha-neul", mm: "ကောင်းကင်", cat: "Nature" },
+            { kr: "산", pr: "San", mm: "တောင်", cat: "Nature" },
+            { kr: "바다", pr: "Ba-da", mm: "ပင်လယ်", cat: "Nature" },
+            { kr: "사랑해", pr: "Sa-rang-hae", mm: "ချစ်တယ်", cat: "Basic" },
+            { kr: "화장실", pr: "Hwa-jang-sil", mm: "အိမ်သာ", cat: "Place" },
+            { kr: "가족", pr: "Ga-jok", mm: "မိသားစု", cat: "Family" },
+            { kr: "영화", pr: "Yeong-hwa", mm: "ရုပ်ရှင်", cat: "Culture" },
+            { kr: "노래", pr: "No-rae", mm: "သီချင်း", cat: "Culture" },
+            { kr: "책", pr: "Chaek", mm: "စာအုပ်", cat: "Daily" },
+            { kr: "펜", pr: "Pen", mm: "ဘောပင်", cat: "Daily" },
+            { kr: "가방", pr: "Ga-bang", mm: "အိတ်", cat: "Daily" },
+            { kr: "차", pr: "Cha", mm: "ကား", cat: "Daily" },
+            { kr: "버스", pr: "Beo-seu", mm: "ဘတ်စ်ကား", cat: "Daily" },
+            { kr: "지하철", pr: "Ji-ha-cheol", mm: "မြေအောက်ရထား", cat: "Daily" },
+            { kr: "어디", pr: "Eo-di", mm: "ဘယ်မှာလဲ", cat: "Question" },
+            { kr: "언제", pr: "Eon-je", mm: "ဘယ်တော့လဲ", cat: "Question" },
+            { kr: "누구", pr: "Nu-gu", mm: "ဘယ်သူလဲ", cat: "Question" },
+            { kr: "무엇", pr: "Mu-eot", mm: "ဘာလဲ", cat: "Question" },
+            { kr: "어떻게", pr: "Eo-tteo-ke", mm: "ဘယ်လိုလဲ", cat: "Question" },
+            { kr: "왜", pr: "Wae", mm: "ဘာလို့လဲ", cat: "Question" },
+            { kr: "많이", pr: "Ma-ni", mm: "အများကြီး", cat: "Basic" },
+            { kr: "조금", pr: "Jo-geum", mm: "နည်းနည်း", cat: "Basic" },
+            { kr: "진짜", pr: "Jin-jja", mm: "တကယ်", cat: "Basic" },
+            { kr: "정말", pr: "Jeong-mal", mm: "တကယ်", cat: "Basic" },
+            { kr: "도와주세요", pr: "Do-wa-ju-se-yo", mm: "ကူညီပါဦး", cat: "Basic" }
+        ];
+
+        function renderVoca(filter = "") {
+            const container = document.getElementById('voca-container');
+            container.innerHTML = '';
+            
+            const filtered = vocaData.filter(v => 
+                v.kr.includes(filter) || 
+                v.mm.includes(filter) || 
+                v.pr.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "voca-card bg-white p-5 rounded-[1.5rem] shadow-sm border border-slate-200 flex flex-col justify-between relative group";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] font-black text-blue-500 uppercase tracking-tighter bg-blue-50 px-2 py-0.5 rounded-full">${item.cat}</span>
+                        <button onclick="speak('${item.kr}', '${item.mm}')" class="p-2 bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition shadow-sm">
+                            <i data-lucide="volume-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-800">${item.kr}</h3>
+                        <p class="text-slate-400 text-xs font-medium italic mb-1">${item.pr}</p>
+                        <p class="text-blue-600 font-bold text-lg leading-tight mt-2">${item.mm}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Web Speech API - TTS Logic
+        function speak(text, meaning) {
+            // UI Update
+            const bar = document.getElementById('player-bar');
+            const wordEl = document.getElementById('playing-word');
+            const meanEl = document.getElementById('playing-meaning');
+            
+            wordEl.innerText = text;
+            meanEl.innerText = meaning;
+            bar.classList.remove('hidden');
+
+            // Speech Synthesis
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.8; // 약간 천천히
+
+                // 목소리 설정 (시스템에 한국어 목소리가 있으면 사용)
+                const voices = window.speechSynthesis.getVoices();
+                const koVoice = voices.find(v => v.lang.startsWith('ko'));
+                if (koVoice) utterance.voice = koVoice;
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("This browser does not support voice features.");
+            }
+        }
+
+        function closePlayer() {
+            document.getElementById('player-bar').classList.add('hidden');
+            window.speechSynthesis.cancel();
+        }
+
+        // Search event
+        document.getElementById('voca-search').addEventListener('input', (e) => {
+            renderVoca(e.target.value);
+        });
+
+        // Initialize
+        window.onload = () => {
+            renderVoca();
+            lucide.createIcons();
+            
+            // TTS 목소리 로딩 대기
+            window.speechSynthesis.onvoiceschanged = () => {
+                console.log("Voices loaded");
+            };
+        };
+    </script>
+</body>
+</html>
