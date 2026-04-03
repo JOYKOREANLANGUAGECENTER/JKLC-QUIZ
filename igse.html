@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - IGSE D-2 Master Program Interview Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jklc-gradient { background: linear-gradient(135deg, #FFD700 0%, #0070BB 33%, #228B22 66%, #ED1C24 100%); }
+        .qa-card { display: none; animation: fadeIn 0.4s ease-out forwards; }
+        .qa-card.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .blank { display: inline-block; border-bottom: 2px solid #3b82f6; width: 120px; text-align: center; color: #3b82f6; font-weight: bold; padding: 0 5px; }
+        .coaching-box { border-left: 4px solid #f59e0b; background-color: #fffbeb; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Gradient Bar -->
+    <div class="h-2 jklc-gradient w-full sticky top-0 z-50"></div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-2 z-40 px-4 py-4 border-b border-slate-200">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 w-auto" onerror="this.style.display='none'">
+                <div>
+                    <h1 class="text-lg font-black text-slate-800 uppercase tracking-tighter">IGSE Master's Interview</h1>
+                    <p class="text-[10px] text-blue-600 font-bold">D-2 Visa Preparation · Hledan</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <span class="text-[10px] bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full font-black uppercase tracking-widest">1:1 Coaching Mode</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="md:w-1/3 flex-shrink-0">
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 sticky top-24">
+                <h2 class="font-black text-slate-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="list-checks" class="text-blue-600"></i> 면접 핵심 질문 5
+                </h2>
+                <nav class="space-y-2" id="nav-buttons">
+                    <button onclick="showCard('q1')" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-blue-600 text-white shadow-md">1. 자기소개 (Self Intro)</button>
+                    <button onclick="showCard('q2')" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-slate-50 text-slate-600 hover:bg-slate-100">2. 지원 동기 (Motivation)</button>
+                    <button onclick="showCard('q3')" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-slate-50 text-slate-600 hover:bg-slate-100">3. 학업 계획 (Study Plan)</button>
+                    <button onclick="showCard('q4')" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-slate-50 text-slate-600 hover:bg-slate-100">4. 졸업 후 계획 (Future Plan)</button>
+                    <button onclick="showCard('q5')" class="nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-slate-50 text-slate-600 hover:bg-slate-100">5. 재정 계획 (Financial)</button>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="md:w-2/3">
+            
+            <!-- Question 1 -->
+            <div id="q1" class="qa-card active bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 font-black text-[10px] uppercase tracking-widest rounded-full mb-4">Question 1</div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">자기소개를 해 보세요.</h2>
+                <p class="text-slate-500 font-medium mb-8">ကျေးဇူးပြု၍ သင့်ကိုယ်သင် မိတ်ဆက်ပေးပါ။ (Please introduce yourself.)</p>
+
+                <div class="mb-8 relative">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">모범 답변 템플릿</h3>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-xl leading-relaxed font-medium" id="text-q1">
+                        안녕하십니까? 미얀마 양곤에서 온 <span class="blank">이름</span>입니다. <br>
+                        저는 대학교에서 <span class="blank">전공</span>을 전공했으며, 영어를 가르치는 것에 큰 관심이 있습니다. <br>
+                        국제영어대학원대학교(IGSE)에서 더 깊이 있게 공부하여 미얀마 최고의 영어 교육 전문가가 되고 싶습니다.
+                    </div>
+                    <button onclick="speakText('text-q1')" class="absolute top-4 right-4 p-3 bg-white text-blue-600 rounded-full shadow hover:scale-110 transition">
+                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">미얀마어 해석</h3>
+                    <p class="text-lg font-['Pyidaungsu'] text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        မင်္ဂလာပါ။ မြန်မာနိုင်ငံ ရန်ကုန်မြို့မှလာတဲ့ [နာမည်] ဖြစ်ပါတယ်။ ကျွန်တော်/ကျွန်မက တက္ကသိုလ်မှာ [ဘာသာရပ်] ကို အဓိကသင်ယူခဲ့ပြီး အင်္ဂလိပ်စာသင်ကြားရေးကို အရမ်းစိတ်ဝင်စားပါတယ်။ IGSE မှာ ပိုမိုနက်ရှိုင်းစွာ လေ့လာပြီး မြန်မာနိုင်ငံရဲ့ အကောင်းဆုံး အင်္ဂလိပ်စာပညာရေး ကျွမ်းကျင်သူ ဖြစ်ချင်ပါတယ်။
+                    </p>
+                </div>
+
+                <div class="coaching-box p-5 rounded-2xl">
+                    <h4 class="font-black text-amber-700 flex items-center gap-2 mb-2"><i data-lucide="lightbulb" class="w-5 h-5"></i> 원장님 Coaching Tip</h4>
+                    <p class="text-sm text-amber-800 leading-relaxed">
+                        첫인상이 가장 중요합니다. IGSE는 <b>'영어 교육 전문 대학원'</b>이므로, 본인이 왜 '영어 교육'에 관심이 있는지를 반드시 포함시켜서 말하도록 지도해 주세요. 인사는 크고 자신감 있는 목소리로!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="q2" class="qa-card bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 font-black text-[10px] uppercase tracking-widest rounded-full mb-4">Question 2</div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">왜 한국의 IGSE 대학원에 지원했나요?</h2>
+                <p class="text-slate-500 font-medium mb-8">ဘာကြောင့် ကိုရီးယားက IGSE တက္ကသိုလ်ကို လျှောက်ထားရတာလဲ? (Why IGSE in Korea?)</p>
+
+                <div class="mb-8 relative">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">모범 답변 템플릿</h3>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-xl leading-relaxed font-medium" id="text-q2">
+                        한국은 짧은 시간 안에 놀라운 교육 발전과 경제 성장을 이룬 나라입니다. <br>
+                        그 중에서도 IGSE는 영어 교육과 교재 개발에 있어 한국 최고의 전문성을 갖춘 곳이라고 들었습니다. <br>
+                        저도 IGSE의 선진화된 커리큘럼을 배워 미얀마의 영어 교육 발전에 기여하고 싶어서 지원했습니다.
+                    </div>
+                    <button onclick="speakText('text-q2')" class="absolute top-4 right-4 p-3 bg-white text-blue-600 rounded-full shadow hover:scale-110 transition">
+                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">미얀마어 해석</h3>
+                    <p class="text-lg font-['Pyidaungsu'] text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        ကိုရီးယားနိုင်ငံက အချိန်တိုအတွင်းမှာ ပညာရေးနဲ့ စီးပွားရေး တိုးတက်မှု အံ့မခန်းရရှိခဲ့တဲ့ နိုင်ငံပါ။ အဲဒီအထဲမှာမှ IGSE ဟာ အင်္ဂလိပ်စာသင်ကြားရေးနဲ့ ပြဋ္ဌာန်းစာအုပ်ပြုစုရေးမှာ အကောင်းဆုံး ကျွမ်းကျင်မှုရှိတယ်လို့ သိရပါတယ်။ ကျွန်တော်/မလည်း IGSE ရဲ့ ခေတ်မီတဲ့ သင်ရိုးညွှန်းတမ်းတွေကို သင်ယူပြီး မြန်မာနိုင်ငံရဲ့ အင်္ဂလိပ်စာပညာရေး တိုးတက်မှုအတွက် အထောက်အကူပြုချင်လို့ လျှောက်ထားခဲ့တာပါ။
+                    </p>
+                </div>
+
+                <div class="coaching-box p-5 rounded-2xl">
+                    <h4 class="font-black text-amber-700 flex items-center gap-2 mb-2"><i data-lucide="lightbulb" class="w-5 h-5"></i> 원장님 Coaching Tip</h4>
+                    <p class="text-sm text-amber-800 leading-relaxed">
+                        단순히 '한국이 좋아서', 'K-pop이 좋아서'라는 답변은 대학원 면접에서 큰 감점 요인입니다. <b>'IGSE 대학교의 전문성(영어 교재 개발 등)'</b>과 <b>'한국 교육 시스템의 우수성'</b>을 칭찬하며 학구적인 이유를 대도록 코칭해 주세요.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="q3" class="qa-card bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 font-black text-[10px] uppercase tracking-widest rounded-full mb-4">Question 3</div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">대학원 입학 후 학업 계획은 어떻게 되나요?</h2>
+                <p class="text-slate-500 font-medium mb-8">ကျောင်းဝင်ခွင့်ရပြီးနောက် ပညာသင်ကြားရေး အစီအစဉ်က ဘယ်လိုရှိလဲ? (What is your study plan?)</p>
+
+                <div class="mb-8 relative">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">모범 답변 템플릿</h3>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-xl leading-relaxed font-medium" id="text-q3">
+                        먼저 전공 수업에 충실히 참여하여 영어 교육 이론과 실무 능력을 완벽하게 쌓겠습니다. <br>
+                        특히 <span class="blank">영어 교재 개발 / 스마트 러닝</span> 분야를 깊이 연구하고 싶습니다. <br>
+                        또한, 원활한 학교 생활을 위해 한국어 공부도 꾸준히 해서 졸업 전까지 TOPIK 4급 이상을 취득하겠습니다.
+                    </div>
+                    <button onclick="speakText('text-q3')" class="absolute top-4 right-4 p-3 bg-white text-blue-600 rounded-full shadow hover:scale-110 transition">
+                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">미얀마어 해석</h3>
+                    <p class="text-lg font-['Pyidaungsu'] text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        ပထမဦးစွာ မေဂျာအတန်းတွေမှာ ကြိုးစားသင်ယူပြီး အင်္ဂလိပ်စာသင်ကြားရေး သီအိုရီနဲ့ လက်တွေ့စွမ်းရည်ကို ပြီးပြည့်စုံအောင် တည်ဆောက်ပါမယ်။ အထူးသဖြင့် [အင်္ဂလိပ်စာ ပြဋ္ဌာန်းစာအုပ်ပြုစုရေး / smart learning] နယ်ပယ်ကို နက်နက်ရှိုင်းရှိုင်း သုတေသနလုပ်ချင်ပါတယ်။ ထို့ပြင် ကျောင်း생활 အဆင်ပြေစေဖို့ ကိုရီးယားစာကိုလည်း ပုံမှန်လေ့လာပြီး ဘွဲ့မရခင် TOPIK Level 4 နဲ့အထက် ရယူပါမယ်။
+                    </p>
+                </div>
+
+                <div class="coaching-box p-5 rounded-2xl">
+                    <h4 class="font-black text-amber-700 flex items-center gap-2 mb-2"><i data-lucide="lightbulb" class="w-5 h-5"></i> 원장님 Coaching Tip</h4>
+                    <p class="text-sm text-amber-800 leading-relaxed">
+                        IGSE는 영어를 중점적으로 다루지만, 한국에 있는 대학원이므로 <b>'한국어 공부도 병행하겠다'</b>는 의지를 보여주는 것이 교수님들에게 좋은 인상을 줍니다. (빈칸에는 학생이 관심 있는 세부 전공을 넣게 해주세요)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div id="q4" class="qa-card bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="inline-block px-3 py-1 bg-red-50 text-red-600 font-black text-[10px] uppercase tracking-widest rounded-full mb-4">CRITICAL QUESTION</div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">졸업 후 계획은 무엇인가요?</h2>
+                <p class="text-slate-500 font-medium mb-8">ဘွဲ့ရပြီးနောက် အစီအစဉ်က ဘာလဲ? (Plans after graduation?)</p>
+
+                <div class="mb-8 relative">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">모범 답변 템플릿</h3>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-xl leading-relaxed font-medium" id="text-q4">
+                        저는 졸업 후 미얀마로 돌아가서 <span class="blank">대학교 교수 / 교육 기업 연구원</span>이 될 계획입니다. <br>
+                        IGSE에서 배운 선진화된 영어 교육 시스템과 교재 개발 노하우를 바탕으로, <br>
+                        미얀마 학생들에게 맞는 훌륭한 영어 교육 프로그램을 만들고 싶습니다.
+                    </div>
+                    <button onclick="speakText('text-q4')" class="absolute top-4 right-4 p-3 bg-white text-blue-600 rounded-full shadow hover:scale-110 transition">
+                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">미얀마어 해석</h3>
+                    <p class="text-lg font-['Pyidaungsu'] text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        ကျွန်တော်/မ ဘွဲ့ရပြီးရင် မြန်မာနိုင်ငံကို ပြန်သွားပြီး [တက္ကသိုလ်ကထိက / ပညာရေးကုမ္ပဏီ သုတေသီ] လုပ်ဖို့ အစီအစဉ်ရှိပါတယ်။ IGSE မှာ သင်ယူခဲ့တဲ့ ခေတ်မီအင်္ဂလိပ်စာသင်ကြားရေး စနစ်နဲ့ စာအုပ်ပြုစုရေး အတွေ့အကြုံတွေကို အခြေခံပြီး မြန်မာကျောင်းသားတွေနဲ့ ကိုက်ညီမယ့် အကောင်းဆုံး အင်္ဂလိပ်စာ ပညာရေးအစီအစဉ်ကို ဖန်တီးချင်ပါတယ်။
+                    </p>
+                </div>
+
+                <div class="coaching-box p-5 rounded-2xl bg-red-50 border-red-400">
+                    <h4 class="font-black text-red-700 flex items-center gap-2 mb-2"><i data-lucide="alert-triangle" class="w-5 h-5"></i> 원장님 Coaching Tip (가장 중요)</h4>
+                    <p class="text-sm text-red-800 leading-relaxed">
+                        <b>D-2 유학 비자 심사에서 가장 중요한 질문입니다.</b> 절대로 "한국에 남아서 돈을 벌고 싶다"거나 "아르바이트를 하며 살겠다"는 뉘앙스가 풍겨서는 안 됩니다. 불법 체류 가능성으로 의심받을 수 있습니다. 반드시 <b>"미얀마로 귀국하여 배운 것을 활용해 고국 발전에 기여하겠다"</b>는 엘리트다운 계획을 강조하도록 반복 연습시켜 주세요.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div id="q5" class="qa-card bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 font-black text-[10px] uppercase tracking-widest rounded-full mb-4">Question 5</div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">학비와 생활비는 어떻게 마련할 계획인가요?</h2>
+                <p class="text-slate-500 font-medium mb-8">ကျောင်းလခနဲ့ နေထိုင်စရိတ်ကို ဘယ်လိုစီစဉ်ထားလဲ? (How will you finance your studies?)</p>
+
+                <div class="mb-8 relative">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">모범 답변 템플릿</h3>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-xl leading-relaxed font-medium" id="text-q5">
+                        유학에 필요한 모든 학비와 생활비는 제 부모님께서(혹은 본인이 모은 돈으로) 지원해 주실 예정입니다. <br>
+                        저희 부모님은 미얀마에서 <span class="blank">부모님 직업</span>을 하고 계셔서 재정적으로 안정되어 있습니다. <br>
+                        저는 경제적 어려움 없이 학업에만 집중할 수 있습니다.
+                    </div>
+                    <button onclick="speakText('text-q5')" class="absolute top-4 right-4 p-3 bg-white text-blue-600 rounded-full shadow hover:scale-110 transition">
+                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">미얀마어 해석</h3>
+                    <p class="text-lg font-['Pyidaungsu'] text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        နိုင်ငံခြားပညာသင်ကြားဖို့ လိုအပ်တဲ့ ကျောင်းလခနဲ့ နေထိုင်စရိတ်အားလုံးကို မိဘများက (သို့မဟုတ် ကိုယ်တိုင်စုဆောင်းထားငွေဖြင့်) ထောက်ပံ့ပေးမှာ ဖြစ်ပါတယ်။ ကျွန်တော့် မိဘတွေက မြန်မာနိုင်ငံမှာ [မိဘအလုပ်အကိုင်] လုပ်ကိုင်နေတဲ့အတွက် ငွေရေးကြေးရေး တည်ငြိမ်မှုရှိပါတယ်။ ကျွန်တော်ကတော့ စီးပွားရေးအခက်အခဲမရှိဘဲ ပညာသင်ကြားရေးမှာပဲ အပြည့်အဝ အာရုံစိုက်နိုင်မှာပါ။
+                    </p>
+                </div>
+
+                <div class="coaching-box p-5 rounded-2xl">
+                    <h4 class="font-black text-amber-700 flex items-center gap-2 mb-2"><i data-lucide="lightbulb" class="w-5 h-5"></i> 원장님 Coaching Tip</h4>
+                    <p class="text-sm text-amber-800 leading-relaxed">
+                        비자 심사에서 재정 보증은 매우 민감한 부분입니다. "한국에서 알바를 해서 학비를 벌겠다"는 답변은 절대 금물입니다! <b>"재정적으로 전혀 문제가 없으며, 오직 학업에만 집중할 것이다"</b>라고 단호하고 자신감 있게 말할 수 있도록 지도해 주세요.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // 탭 메뉴 변경 스크립트
+        function showCard(cardId) {
+            // 모든 카드 숨기기
+            document.querySelectorAll('.qa-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            // 선택한 카드 보이기
+            document.getElementById(cardId).classList.add('active');
+
+            // 네비게이션 버튼 스타일 변경
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-slate-50 text-slate-600 hover:bg-slate-100";
+            });
+            event.target.className = "nav-btn w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all bg-blue-600 text-white shadow-md";
+        }
+
+        // 한국어 TTS 읽어주기 기능
+        function speakText(elementId) {
+            const rawText = document.getElementById(elementId).innerText;
+            // 빈칸 텍스트 정리
+            const cleanText = rawText.replace(/이름|전공|영어 교재 개발 \/ 스마트 러닝|대학교 교수 \/ 교육 기업 연구원|부모님 직업/g, "땡땡땡");
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.85; // 외국인 듣기 좋게 약간 느리게
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("브라우저가 음성 재생을 지원하지 않습니다.");
+            }
+        }
+    </script>
+</body>
+</html>
