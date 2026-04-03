@@ -386,10 +386,10 @@
         <button class="light" id="prevBtn">이전</button>
         <button class="light" id="nextBtn">다음</button>
         <button class="light" id="restartBtn">처음부터</button>
-        <button class="light" id="recordBtn">녹화 모드</button>
+        <button class="light" id="recordBtn">녹화 시작</button>
       </div>
 
-      <div class="bottom-note">브라우저 정책 때문에 처음에는 반드시 한 번 버튼을 눌러야 소리가 시작됩니다. 기기에 따라 남자 음성 추정 결과가 조금 다를 수 있습니다.</div>
+      <div class="bottom-note">녹화 시작을 누르면 인트로가 먼저 나오고 자동 재생이 시작됩니다. 브라우저 정책 때문에 처음에는 반드시 한 번 버튼을 눌러야 소리가 시작됩니다.</div>
     </div>
   </div>
 
@@ -704,13 +704,7 @@
 
     function playAutoplay() {
       isAutoplay = true;
-      if (wrap.classList.contains('recording-mode')) {
-        playIntroThenStart();
-      } else {
-        hideIntro();
-        renderCard();
-        speakCurrentWord();
-      }
+      playIntroThenStart();
     }
 
     function pauseAutoplay() {
@@ -746,11 +740,15 @@
     function toggleRecordingMode() {
       wrap.classList.toggle('recording-mode');
       clearIntroTimer();
+      clearNextTimer();
       if (wrap.classList.contains('recording-mode')) {
-        showIntro();
-        setStatus('녹화 모드');
+        currentIndex = 0;
+        isAutoplay = true;
+        playIntroThenStart();
       } else {
+        isAutoplay = false;
         hideIntro();
+        if ('speechSynthesis' in window) synth.cancel();
         renderCard();
         setStatus('준비됨');
       }
