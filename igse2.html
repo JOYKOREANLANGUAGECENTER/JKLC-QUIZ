@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IGSE 면접 수업자료</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --line: #dbe4f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-soft: #eaf2ff;
+      --accent: #0f766e;
+      --accent-soft: #ecfdf5;
+      --warning: #b45309;
+      --warning-soft: #fff7ed;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eaf3ff 0%, var(--bg) 220px);
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 14px 48px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      color: white;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .hero-logo {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.92);
+      border-radius: 20px;
+      padding: 10px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 16px;
+      opacity: 0.96;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-light {
+      background: rgba(255,255,255,0.92);
+      color: var(--primary);
+    }
+
+    .btn-dark {
+      background: #0f172a;
+      color: white;
+    }
+
+    .section {
+      margin-top: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+
+    .section h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .lead {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fbfdff;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .tag.green {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .tag.orange {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .check-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .qa-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .qa-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .qa-head {
+      padding: 16px 18px;
+      background: #f8fbff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .question-ko {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .question-mm {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .qa-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .answer-box,
+    .teacher-box,
+    .short-box {
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .answer-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .short-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+
+    .teacher-box {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+    }
+
+    .box-title {
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .answer-ko {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .answer-mm {
+      color: var(--muted);
+    }
+
+    .template-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .template-box {
+      border: 1px dashed #93c5fd;
+      background: #f8fbff;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .script {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fbfdff;
+      margin-top: 14px;
+    }
+
+    .line {
+      padding: 10px 0;
+      border-bottom: 1px dashed #dbe4f0;
+    }
+
+    .line:last-child { border-bottom: none; }
+
+    .speaker {
+      font-weight: 900;
+      color: var(--primary);
+      display: inline-block;
+      min-width: 80px;
+    }
+
+    .memo-area {
+      width: 100%;
+      min-height: 110px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      padding: 14px;
+      font: inherit;
+      resize: vertical;
+      background: white;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .hero-actions {
+        display: none;
+      }
+      .section, .hero, .mini-card, .qa-card, .script {
+        box-shadow: none;
+      }
+      .wrap {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-logo {
+        margin: 0 auto;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <img src="logo.png" alt="JOY logo" class="hero-logo">
+      <div>
+        <h1>IGSE 면접 수업자료</h1>
+        <p>미얀마 학생을 위한 한국 유학 면접 대비 웹페이지형 교안입니다. 한국어와 미얀마어를 함께 보면서 수업하고, 바로 출력도 할 수 있습니다.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-light" onclick="window.print()">출력하기</button>
+        <button class="btn-dark" onclick="document.getElementById('mockInterview').scrollIntoView({behavior:'smooth'})">모의면접 보기</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>수업 목표</h2>
+      <p class="lead">학생이 면접에서 짧고 분명하게, 자신감 있게, 일관성 있게 대답하도록 연습시키는 자료입니다.</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <span class="tag">Goal 1</span>
+          <h3>자기소개</h3>
+          <p>30초와 1분 버전으로 자기소개를 자연스럽게 말할 수 있게 합니다.</p>
+        </div>
+        <div class="mini-card">
+          <span class="tag green">Goal 2</span>
+          <h3>지원 이유</h3>
+          <p>왜 한국인지, 왜 IGSE인지, 왜 이 전공인지 명확히 설명하게 합니다.</p>
+        </div>
+        <div class="mini-card">
+          <span class="tag orange">Goal 3</span>
+          <h3>졸업 후 계획</h3>
+          <p>졸업 후 계획을 현실적이고 구체적으로 말하게 합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>학생에게 먼저 설명할 핵심 포인트</h2>
+      <div class="grid-2">
+        <div class="mini-card">
+          <span class="tag">한국어</span>
+          <ul class="check-list">
+            <li>너무 길게 말하지 않기</li>
+            <li>질문에 맞게 대답하기</li>
+            <li>어려운 말보다 쉬운 말 사용하기</li>
+            <li>공부 목적을 분명하게 말하기</li>
+            <li>졸업 후 계획을 현실적으로 말하기</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <span class="tag green">မြန်မာ</span>
+          <ul class="check-list">
+            <li>အရမ်းရှည်ရှည် မပြောပါနဲ့</li>
+            <li>မေးတဲ့မေးခွန်းနဲ့ ကိုက်အောင် ဖြေပါ</li>
+            <li>ခက်ခဲတဲ့စကားထက် လွယ်တဲ့စကားသုံးပါ</li>
+            <li>ပညာရေးရည်ရွယ်ချက်ကို ရှင်းရှင်းပြောပါ</li>
+            <li>ဘွဲ့ပြီးရင် ဘာလုပ်မလဲဆိုတာ တိတိကျကျပြောပါ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>자기소개</h2>
+      <div class="grid-2">
+        <div class="mini-card">
+          <span class="tag">30초 버전</span>
+          <p><strong>안녕하세요. 제 이름은 ______입니다. 저는 미얀마에서 왔습니다. 현재 한국어를 공부하고 있습니다. 앞으로 IGSE에서 석사과정을 공부하고 싶습니다. 잘 부탁드립니다.</strong></p>
+          <p class="lead">မင်္ဂလာပါ။ ကျွန်တော့်နာမည် ______ ဖြစ်ပါတယ်။ ကျွန်တော် မြန်မာနိုင်ငံက လာပါတယ်။ အခု ကိုရီးယားဘာသာစကားကို လေ့လာနေပါတယ်။ နောင် IGSE မှာ မာစတာတက်ချင်ပါတယ်။ ကျေးဇူးတင်ပါတယ်။</p>
+        </div>
+        <div class="mini-card">
+          <span class="tag green">1분 버전</span>
+          <p><strong>안녕하세요. 제 이름은 ______입니다. 저는 미얀마에서 왔습니다. 현재 한국어를 공부하고 있으며, 앞으로 IGSE에서 석사과정을 공부하고 싶습니다. 저는 언어교육과 국제적인 교육 환경에 관심이 많습니다. 한국에서 공부하면서 전공 지식과 한국어 실력을 함께 키우고 싶습니다. 졸업 후에는 미얀마에서 교육 관련 분야에서 일하고 싶습니다. 감사합니다.</strong></p>
+          <p class="lead">မင်္ဂလာပါ။ ကျွန်တော့်နာမည် ______ ဖြစ်ပါတယ်။ ကျွန်တော် မြန်မာနိုင်ငံက လာပါတယ်။ အခု ကိုရီးယားဘာသာစကားကို လေ့လာနေပြီး နောင် IGSE မှာ မာစတာတက်ချင်ပါတယ်။ ကျွန်တော် ဘာသာစကားပညာရေးနဲ့ နိုင်ငံတကာ ပညာရေးပတ်ဝန်းကျင်ကို စိတ်ဝင်စားပါတယ်။ ကိုရီးယားမှာ တက်ရင်း ဘာသာစကားစွမ်းရည်နဲ့ အထူးပြုဘာသာရပ်ကို တိုးတက်အောင် လေ့လာချင်ပါတယ်။ ဘွဲ့ပြီးရင် မြန်မာနိုင်ငံမှာ ပညာရေးဆိုင်ရာအလုပ် လုပ်ချင်ပါတယ်။ ကျေးဇူးတင်ပါတယ်။</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>예상 질문과 모범답안</h2>
+      <div class="qa-list">
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q1. 자기소개를 해 주세요.</div>
+            <div class="question-mm">ကိုယ့်ကိုယ်ကို မိတ်ဆက်ပေးပါ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">안녕하세요. 제 이름은 ______입니다. 저는 미얀마에서 왔습니다. 현재 한국어를 공부하고 있고, 앞으로 IGSE에서 석사과정을 공부하고 싶습니다.</div>
+              <div class="answer-mm">မင်္ဂလာပါ။ ကျွန်တော့်နာမည် ______ ဖြစ်ပါတယ်။ ကျွန်တော် မြန်မာနိုင်ငံက လာပါတယ်။ အခု ကိုရီးယားဘာသာစကားကို လေ့လာနေပြီး နောင် IGSE မှာ မာစတာတက်ချင်ပါတယ်။</div>
+            </div>
+            <div class="teacher-box">
+              <div class="box-title">Teacher Point</div>
+              <div>이름 / 국적 / 현재 상태 / 지원 목적 4가지만 정확히 말해도 충분합니다.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q2. 왜 한국에서 공부하고 싶습니까?</div>
+            <div class="question-mm">ဘာကြောင့် ကိုရီးယားမှာ ပညာသင်ချင်တာလဲ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">저는 한국의 교육 환경에 관심이 많습니다. 또한 한국어와 전공을 더 깊이 배우고 싶습니다. 한국에서 직접 공부하면 더 많이 배우고 성장할 수 있다고 생각합니다.</div>
+              <div class="answer-mm">ကျွန်တော် ကိုရီးယားရဲ့ ပညာရေးပတ်ဝန်းကျင်ကို စိတ်ဝင်စားပါတယ်။ ထို့ပြင် ကိုရီးယားဘာသာစကားနဲ့ မိမိအထူးပြုဘာသာကို ပိုမိုနက်ရှိုင်းစွာ လေ့လာချင်ပါတယ်။ ကိုရီးယားမှာ တိုက်ရိုက်ပညာသင်ရင် ပိုပြီး လေ့လာနိုင်ပြီး တိုးတက်နိုင်မယ်လို့ ထင်ပါတယ်။</div>
+            </div>
+            <div class="short-box">
+              <div class="box-title">Short Version</div>
+              <div>저는 한국어와 전공을 더 깊이 배우고 싶어서 한국에서 공부하고 싶습니다.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q3. 왜 IGSE를 선택했습니까?</div>
+            <div class="question-mm">ဘာကြောင့် IGSE ကို ရွေးချယ်ခဲ့တာလဲ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">저는 IGSE의 석사과정이 저의 목표와 잘 맞는다고 생각했습니다. 특히 언어교육과 관련된 공부를 더 체계적으로 하고 싶어서 IGSE를 선택했습니다.</div>
+              <div class="answer-mm">IGSE ရဲ့ မာစတာသင်တန်းက ကျွန်တော့်ရည်မှန်းချက်နဲ့ ကိုက်ညီတယ်လို့ ထင်ပါတယ်။ အထူးသဖြင့် ဘာသာစကားပညာရေးနဲ့ ဆိုင်တဲ့ဘာသာရပ်ကို ပိုမိုစနစ်တကျ လေ့လာချင်လို့ IGSE ကို ရွေးချယ်ခဲ့ပါတယ်။</div>
+            </div>
+            <div class="teacher-box">
+              <div class="box-title">Teacher Point</div>
+              <div>학교 이름만 반복하지 말고, 전공 적합성과 학업 목표 연결을 강조하게 하세요.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q4. 왜 이 전공을 선택했습니까?</div>
+            <div class="question-mm">ဘာကြောင့် ဒီမေဂျာကို ရွေးချယ်ခဲ့တာလဲ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">저는 언어와 교육에 관심이 많습니다. 앞으로 교육 관련 분야에서 전문성을 키우고 싶기 때문에 이 전공을 선택했습니다.</div>
+              <div class="answer-mm">ကျွန်တော် ဘာသာစကားနဲ့ ပညာရေးကို စိတ်ဝင်စားပါတယ်။ နောင် ပညာရေးဆိုင်ရာနယ်ပယ်မှာ ကျွမ်းကျင်မှုကို တိုးတက်ချင်လို့ ဒီမေဂျာကို ရွေးချယ်ခဲ့ပါတယ်။</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q5. 지금 한국어 실력은 어느 정도입니까?</div>
+            <div class="question-mm">အခု ကိုရီးယားဘာသာစကားအဆင့်က ဘယ်လောက်ရှိလဲ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">아직 완벽하지는 않지만 기본적인 의사소통은 할 수 있습니다. 현재도 계속 공부하고 있고, 앞으로 더 열심히 공부할 계획입니다.</div>
+              <div class="answer-mm">အခုချိန်မှာ ပြီးပြည့်စုံတော့ မဟုတ်သေးပေမယ့် အခြေခံဆက်သွယ်ပြောဆိုမှုကိုတော့ လုပ်နိုင်ပါတယ်။ အခုလည်း ဆက်လေ့လာနေပြီး နောင် ပိုပြီး ကြိုးစားလေ့လာသွားမယ်လို့ စီစဉ်ထားပါတယ်။</div>
+            </div>
+            <div class="short-box">
+              <div class="box-title">Short Version</div>
+              <div>제 한국어는 아직 부족하지만 계속 공부하고 있습니다.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q6. 졸업 후에는 무엇을 하고 싶습니까?</div>
+            <div class="question-mm">ဘွဲ့ပြီးရင် ဘာလုပ်ချင်လဲ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">졸업 후에는 미얀마에서 교육 관련 분야에서 일하고 싶습니다. 한국에서 배운 지식과 경험을 활용해서 학생들에게 도움을 주고 싶습니다.</div>
+              <div class="answer-mm">ဘွဲ့ပြီးရင် မြန်မာနိုင်ငံမှာ ပညာရေးဆိုင်ရာနယ်ပယ်မှာ အလုပ်လုပ်ချင်ပါတယ်။ ကိုရီးယားမှာ လေ့လာခဲ့တဲ့ ဗဟုသုတနဲ့ အတွေ့အကြုံကို အသုံးချပြီး ကျောင်းသားတွေကို ကူညီချင်ပါတယ်။</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q7. 한국에서 공부하는 동안 어떤 계획이 있습니까?</div>
+            <div class="question-mm">ကိုရီးယားမှာ ပညာသင်နေတဲ့အချိန် ဘာအစီအစဉ်ရှိလဲ။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">저는 수업에 성실하게 참여하고, 전공 공부와 한국어 공부를 함께 열심히 할 계획입니다. 학교 생활에도 잘 적응하고 싶습니다.</div>
+              <div class="answer-mm">ကျွန်တော် သင်ခန်းစာတွေကို စိတ်ရှည်စွာ တက်ရောက်ပြီး မိမိအထူးပြုဘာသာနဲ့ ကိုရီးယားဘာသာစကားကို အတူတကွ ကြိုးစားလေ့လာဖို့ စီစဉ်ထားပါတယ်။ ကျောင်းဘဝနဲ့လည်း ကောင်းကောင်းလိုက်လျောညီထွေဖြစ်ချင်ပါတယ်။</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="qa-card">
+          <div class="qa-head">
+            <div class="question-ko">Q8. 마지막으로 하고 싶은 말이 있습니까?</div>
+            <div class="question-mm">နောက်ဆုံးပြောချင်တာရှိလား။</div>
+          </div>
+          <div class="qa-body">
+            <div class="answer-box">
+              <div class="box-title">Model Answer</div>
+              <div class="answer-ko">저는 IGSE에서 진지하게 공부할 준비가 되어 있습니다. 기회를 주신다면 성실하게 공부하겠습니다. 감사합니다.</div>
+              <div class="answer-mm">ကျွန်တော် IGSE မှာ စိတ်အားထက်သန်စွာ လေ့လာဖို့ အဆင်သင့်ဖြစ်နေပါတယ်။ အခွင့်အရေးပေးမယ်ဆိုရင် စိတ်ရှည်စွာ ကြိုးစားလေ့လာပါမယ်။ ကျေးဇူးတင်ပါတယ်။</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>학생용 쉬운 표현</h2>
+      <div class="grid-2">
+        <div class="mini-card">
+          <span class="tag">한국어</span>
+          <ul class="check-list">
+            <li>저는 ______에 관심이 많습니다.</li>
+            <li>저는 ______을 공부하고 싶습니다.</li>
+            <li>저는 앞으로 ______하고 싶습니다.</li>
+            <li>그래서 IGSE를 선택했습니다.</li>
+            <li>아직 부족하지만 더 열심히 공부하겠습니다.</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <span class="tag green">မြန်မာ</span>
+          <ul class="check-list">
+            <li>ကျွန်တော် ______ ကို စိတ်ဝင်စားပါတယ်။</li>
+            <li>ကျွန်တော် ______ ကို လေ့လာချင်ပါတယ်။</li>
+            <li>နောင် ______ လုပ်ချင်ပါတယ်။</li>
+            <li>ဒါကြောင့် IGSE ကို ရွေးချယ်ခဲ့ပါတယ်။</li>
+            <li>အခုတော့ မလုံလောက်သေးပေမယ့် ပိုကြိုးစားလေ့လာပါမယ်။</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>피해야 할 답변</h2>
+      <div class="grid-2">
+        <div class="mini-card">
+          <span class="tag orange">피해야 함</span>
+          <ul class="check-list">
+            <li>그냥 한국이 좋아서 왔습니다.</li>
+            <li>잘 모르겠습니다.</li>
+            <li>아직 계획이 없습니다.</li>
+            <li>그냥 지원했습니다.</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <span class="tag green">바꾸기</span>
+          <ul class="check-list">
+            <li>한국의 교육 환경에 관심이 있습니다.</li>
+            <li>아직 부족하지만 계속 배우고 있습니다.</li>
+            <li>졸업 후에는 교육 관련 분야에서 일하고 싶습니다.</li>
+            <li>제 목표와 잘 맞아서 지원했습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mockInterview">
+      <h2>실전 모의면접</h2>
+      <p class="lead">선생님이 면접관 역할을 하고 학생이 차례대로 대답하게 하세요.</p>
+      <div class="script">
+        <div class="line"><span class="speaker">면접관</span> 자기소개를 해 주세요.</div>
+        <div class="line"><span class="speaker">학생</span> 안녕하세요. 제 이름은 ______입니다. 저는 미얀마에서 왔습니다. 현재 한국어를 공부하고 있고, IGSE에서 석사과정을 공부하고 싶습니다.</div>
+        <div class="line"><span class="speaker">면접관</span> 왜 한국에서 공부하고 싶습니까?</div>
+        <div class="line"><span class="speaker">학생</span> 저는 한국의 교육 환경에 관심이 많습니다. 그리고 한국어와 전공을 더 깊이 배우고 싶습니다.</div>
+        <div class="line"><span class="speaker">면접관</span> 왜 IGSE를 선택했습니까?</div>
+        <div class="line"><span class="speaker">학생</span> IGSE의 석사과정이 제 목표와 잘 맞는다고 생각했습니다. 그래서 IGSE를 선택했습니다.</div>
+        <div class="line"><span class="speaker">면접관</span> 졸업 후 계획은 무엇입니까?</div>
+        <div class="line"><span class="speaker">학생</span> 졸업 후에는 미얀마에서 교육 관련 분야에서 일하고 싶습니다.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>학생 맞춤 작성 칸</h2>
+      <div class="template-grid">
+        <div class="template-box">
+          <h3>자기소개</h3>
+          <textarea class="memo-area" placeholder="안녕하세요. 제 이름은 ..."></textarea>
+        </div>
+        <div class="template-box">
+          <h3>왜 한국인가?</h3>
+          <textarea class="memo-area" placeholder="저는 한국의 교육 환경에 관심이 많습니다..."></textarea>
+        </div>
+        <div class="template-box">
+          <h3>왜 IGSE인가?</h3>
+          <textarea class="memo-area" placeholder="IGSE의 석사과정이 제 목표와 잘 맞는다고 생각했습니다..."></textarea>
+        </div>
+        <div class="template-box">
+          <h3>졸업 후 계획</h3>
+          <textarea class="memo-area" placeholder="졸업 후에는 미얀마에서 ..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>마지막 체크리스트</h2>
+      <div class="grid-2">
+        <div class="mini-card">
+          <span class="tag">면접 전 확인</span>
+          <ul class="check-list">
+            <li>자기소개 준비 완료</li>
+            <li>왜 한국인지 설명 가능</li>
+            <li>왜 IGSE인지 설명 가능</li>
+            <li>전공 선택 이유 설명 가능</li>
+            <li>졸업 후 계획 설명 가능</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <span class="tag green">말하기 체크</span>
+          <ul class="check-list">
+            <li>너무 빠르지 않게 말하기</li>
+            <li>작은 목소리 피하기</li>
+            <li>질문에 맞는 답변하기</li>
+            <li>짧고 분명하게 말하기</li>
+            <li>자신감 있는 표정 유지하기</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">JOY KOREAN LANGUAGE CENTER · IGSE Interview Class Materials</p>
+  </div>
+</body>
+</html>
