@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Appearance & Body Quiz</title>
+    <!-- 요청하신 파비콘 코드 삽입 -->
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        /* 워터마크 스타일 */
+        .watermark-bg {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            pointer-events: none; z-index: 0;
+            background-image: url('logo.png'); background-repeat: repeat;
+            background-size: 375px; opacity: 0.05; transform: rotate(-20deg);
+        }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <div class="watermark-bg"></div>
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <!-- 상단 컬러 바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <!-- 상단 네비게이션 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <!-- 시작 화면 -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="user" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">외모와 신체</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Appearance & Body</p>
+            
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 16</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    사람의 모습과 특징을 한국어로 설명해 봅시다!<br>
+                    <span class="font-bold">လူတစ်ဦး၏ ရုပ်ရည်နှင့် ဝိသေသလက္ခဏာများကို ကိုရီးယားလို ရှင်းပြကြည့်ကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+        </div>
+
+        <!-- 퀴즈 진행 화면 -->
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div class="flex justify-center my-4 content-watermark">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
+            </button>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "머리카락의 길이가 어깨보다 한참 아래로 내려올 때 뭐라고 합니까?",
+                m: "ဆံပင်အရှည်က ပုခုံးထက် အများကြီးကျော်သွားတဲ့အခါ ဘယ်လိုခေါ်သလဲ။",
+                options: ["짧아요", "길어요", "커요", "작아요"],
+                correct: 1,
+                hint: "길이(Length)가 길다는 뜻의 단어를 찾으세요.",
+                rationale: "머리카락이나 끈 등의 길이는 '길다/짧다'로 표현합니다."
+            },
+            {
+                q: "사물을 보거나 책을 읽을 때 사용하는 신체 부위는 어디입니까?",
+                m: "အရာဝတ္ထုများကို ကြည့်ရှုရန် သို့မဟုတ် စာဖတ်ရန် အသုံးပြုသည့် ခန္ဓာကိုယ်အစိတ်အပိုင်းမှာ အဘယ်နည်း။",
+                options: ["귀", "코", "입", "눈"],
+                correct: 3,
+                hint: "얼굴에 두 개가 있고 시각을 담당합니다.",
+                rationale: "보는 기능을 담당하는 신체 부위는 '눈'입니다."
+            },
+            {
+                q: "눈이 나쁜 사람이 얼굴에 쓰는 물건은 무엇입니까?",
+                m: "မျက်စိမကောင်းသောသူက မျက်နှာတွင် တပ်ဆင်ရသည့်အရာမှာ အဘယ်နည်း။",
+                options: ["장갑", "신발", "안경", "모자"],
+                correct: 2,
+                hint: "시력을 보정하기 위해 코와 귀에 걸쳐 사용합니다.",
+                rationale: "시력 교정 도구인 '안경'은 '쓰다' 동사와 함께 사용합니다."
+            },
+            {
+                q: "사람의 'Height'가 높을 때 사용하는 한국어 표현은?",
+                m: "လူတစ်ဦး၏ အရပ်အမောင်း မြင့်မားသောအခါ အသုံးပြုသည့် ကိုရီးယားအသုံးအနှုန်းမှာ?",
+                options: ["키가 커요", "키가 작아요", "몸무게가 많아요", "머리가 길어요"],
+                correct: 0,
+                hint: "신장(Height)을 뜻하는 '키'와 '크다'가 합쳐진 말입니다.",
+                rationale: "사람의 키가 클 때는 '키가 크다'라고 말합니다."
+            },
+            {
+                q: "파마를 하지 않은 곧은 머리 모양을 무엇이라고 합니까?",
+                m: "ကောက်ထားခြင်းမရှိသော အဖြောင့်ဆံပင်ပုံစံကို ဘယ်လိုခေါ်သလဲ။",
+                options: ["파마머리", "생머리(직모)", "짧은 머리", "노란 머리"],
+                correct: 1,
+                hint: "가발 공장에서도 많이 사용하는 단어로 'Straight Hair'를 뜻합니다.",
+                rationale: "곱슬거리지 않고 곧게 뻗은 머리를 '생머리' 또는 '직모'라고 부릅니다."
+            },
+            {
+                q: "발에 신는 물건인 'Shoes'와 어울리는 동사는 무엇입니까?",
+                m: "ခြေထောက်တွင် ဝတ်ဆင်ရသည့် 'ဖိနပ်' နှင့် လိုက်ဖက်သော ကြိယာမှာ အဘယ်နည်း။",
+                options: ["입다", "쓰다", "끼다", "신다"],
+                correct: 3,
+                hint: "양말이나 신발 등을 착용할 때 쓰는 전용 동사입니다.",
+                rationale: "신발, 양말 등 발에 착용하는 것은 '신다'라고 합니다."
+            },
+            {
+                q: "T-셔츠나 바지를 몸에 착용할 때 사용하는 동사는?",
+                m: "တီရှပ် သို့မဟုတ် ဘောင်းဘီကို ဝတ်ဆင်သောအခါ အသုံးပြုသည့် ကြိယာမှာ?",
+                options: ["입다", "신다", "쓰다", "차다"],
+                correct: 0,
+                hint: "의류(Clothes)를 몸에 걸칠 때 사용하는 가장 기본적인 단어입니다.",
+                rationale: "상의나 하의 등 옷을 착용하는 행위는 '입다'라고 합니다."
+            },
+            {
+                q: "손의 끝부분에 있으며 물건을 잡을 때 사용하는 것은?",
+                m: "လက်ဖျားတွင်ရှိပြီး အရာဝတ္ထုများကို ကိုင်တွယ်ရာတွင် အသုံးပြုသောအရာမှာ?",
+                options: ["발가락", "머리카락", "손가락", "어깨"],
+                correct: 2,
+                hint: "한 손에 다섯 개씩 있습니다.",
+                rationale: "손에 달려 있는 다섯 가지의 마디를 '손가락'이라고 합니다."
+            },
+            {
+                q: "외모가 아주 훌륭한 남자에게 하는 칭찬은 무엇입니까?",
+                m: "ရုပ်ရည် အလွန်ချောမောသော အမျိုးသားတစ်ဦးအား မည်သို့ချီးကျူးရမည်နည်း။",
+                options: ["예뻐요", "멋있어요(잘생겼어요)", "더워요", "매워요"],
+                correct: 1,
+                hint: "남성에게 주로 사용하는 매력적인 생김새를 뜻하는 말입니다.",
+                rationale: "남자에게는 주로 '멋있다' 또는 '잘생겼다'라는 표현을 씁니다."
+            },
+            {
+                q: "몸에 살이 별로 없고 가벼운 사람을 뭐라고 합니까?",
+                m: "ခန္ဓာကိုယ်တွင် အဆီသိပ်မရှိဘဲ ပေါ့ပါးသောသူကို ဘယ်လိုခေါ်သလဲ။",
+                options: ["뚱뚱해요", "날씬해요(말랐어요)", "높아요", "넓어요"],
+                correct: 1,
+                hint: "몸무게가 적게 나가는 상태를 뜻하는 단어를 찾으세요.",
+                rationale: "몸에 살이 적고 날렵한 상태를 '날씬하다' 또는 '마르다'라고 표현합니다."
+            }
+        ];
+
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
