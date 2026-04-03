@@ -148,25 +148,33 @@
       padding: 40px 42px;
     }
 
-    .slide-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 8px;
-    }
-
     .slide-no {
       font-size: 16px;
       font-weight: 800;
       color: var(--primary);
-      margin-bottom: 0;
+      margin-bottom: 16px;
     }
 
-    .logo-mark {
-      width: 82px;
-      height: 82px;
+    .word-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 150px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.9);
+      border: 2px solid rgba(37,99,235,0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 16px 32px rgba(37,99,235,0.08);
+    }
+
+    .logo-below {
+      width: 140px;
+      height: 140px;
       object-fit: contain;
+      display: block;
+      margin: 0 auto 18px;
       flex-shrink: 0;
     }
 
@@ -175,7 +183,8 @@
       line-height: 1.05;
       font-weight: 900;
       letter-spacing: -0.04em;
-      margin-bottom: 18px;
+      margin-bottom: 0;
+      text-align: center;
     }
 
     .myanmar {
@@ -269,13 +278,15 @@
         padding: 26px 22px 34px;
       }
 
-      .slide-header {
-        align-items: flex-start;
+      .word-box {
+        min-height: 120px;
+        padding: 18px 16px;
+        border-radius: 22px;
       }
 
-      .logo-mark {
-        width: 62px;
-        height: 62px;
+      .logo-below {
+        width: 110px;
+        height: 110px;
       }
 
       .emoji-box {
@@ -311,11 +322,11 @@
           <div class="category-chip" id="categoryChip">인사/표현</div>
         </div>
         <div class="content-side">
-          <div class="slide-header">
-            <div class="slide-no" id="slideNo">1 / 100</div>
-            <img src="logo.png" alt="JOY logo" class="logo-mark">
+          <div class="slide-no" id="slideNo">1 / 100</div>
+          <div class="word-box">
+            <div class="korean" id="koreanWord">안녕하세요</div>
           </div>
-          <div class="korean" id="koreanWord">안녕하세요</div>
+          <img src="logo.png" alt="JOY logo" class="logo-below">
           <div class="myanmar" id="myanmarMeaning">မင်္ဂလာပါ</div>
           <div class="roman" id="romanText">annyeonghaseyo</div>
         </div>
@@ -586,7 +597,11 @@
             nextTimer = setTimeout(() => {
               if (currentIndex < words.length - 1) {
                 currentIndex += 1;
-                renderCard();
+                document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+
+    renderCard();
                 speakCurrentWord();
               } else {
                 isAutoplay = false;
