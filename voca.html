@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한국어 필수 단어 100</title>
+  <style>
+    :root {
+      --bg1: #e0f2fe;
+      --bg2: #eef2ff;
+      --card: rgba(255,255,255,0.88);
+      --line: rgba(148,163,184,0.22);
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --accent: #0f766e;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #dbeafe 0%, transparent 30%),
+        radial-gradient(circle at top right, #ccfbf1 0%, transparent 28%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .app {
+      width: min(1100px, 100%);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+
+    .progress-wrap {
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      height: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #14b8a6);
+      transition: width 0.45s ease;
+    }
+
+    .card {
+      position: relative;
+      min-height: 580px;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      overflow: hidden;
+    }
+
+    .visual-side {
+      background: linear-gradient(180deg, #dbeafe, #ecfeff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 26px;
+      border-right: 1px solid rgba(148,163,184,0.18);
+    }
+
+    .emoji-box {
+      width: 250px;
+      height: 250px;
+      border-radius: 36px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 120px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 18px 36px rgba(37,99,235,0.12);
+    }
+
+    .category-chip {
+      margin-top: 18px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.85);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 15px;
+      border: 1px solid rgba(15,118,110,0.16);
+    }
+
+    .content-side {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 42px;
+      isolation: isolate;
+    }
+
+    .content-side::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      background-image: url("logo.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: min(78%, 420px);
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+      filter: grayscale(10%);
+    }
+
+    .content-side > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-no {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .korean {
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .myanmar {
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.35;
+      font-weight: 800;
+      color: #0f766e;
+      margin-bottom: 18px;
+    }
+
+    .roman {
+      font-size: clamp(22px, 2.5vw, 30px);
+      line-height: 1.4;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .control-bar {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 18px;
+      padding: 15px 14px;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      color: white;
+      background: #0f172a;
+      box-shadow: var(--shadow);
+    }
+
+    button.primary { background: linear-gradient(135deg, #2563eb, #14b8a6); }
+    button.light {
+      background: rgba(255,255,255,0.76);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .bottom-note {
+      margin-top: 12px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .fade {
+      animation: fadeSlide 0.55s ease;
+    }
+
+    .recording-mode .topbar,
+    .recording-mode .control-bar,
+    .recording-mode .bottom-note {
+      display: none;
+    }
+
+    .recording-mode .progress-wrap {
+      margin-bottom: 10px;
+    }
+
+    .recording-mode .card {
+      min-height: 650px;
+    }
+
+    .recording-mode .content-side::before {
+      opacity: 0.1;
+      background-size: min(82%, 460px);
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 860px) {
+      .card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .visual-side {
+        border-right: none;
+        border-bottom: 1px solid rgba(148,163,184,0.18);
+        padding: 28px 20px 18px;
+      }
+
+      .content-side {
+        padding: 26px 22px 34px;
+      }
+
+      .content-side::before {
+        inset: 18px;
+        background-size: min(72%, 300px);
+      }
+
+      .emoji-box {
+        width: 180px;
+        height: 180px;
+        font-size: 92px;
+      }
+
+      .control-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="wrap">
+    <div class="app">
+      <div class="topbar">
+        <div>
+          <div class="brand">한국어 필수 단어 100</div>
+          <div class="sub">TTS로 자연스러운 첫 음성을 먼저 읽고, 이어서 다른 남자 음성으로 한 번 더 읽은 뒤 자동으로 다음 카드로 넘어갑니다.</div>
+        </div>
+        <div class="pill" id="statusText">준비됨</div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="card fade" id="card">
+        <div class="visual-side">
+          <div class="emoji-box" id="emojiBox">👋</div>
+          <div class="category-chip" id="categoryChip">인사/표현</div>
+        </div>
+        <div class="content-side">
+          <div class="slide-no" id="slideNo">1 / 100</div>
+          <div class="korean" id="koreanWord">안녕하세요</div>
+          <div class="myanmar" id="myanmarMeaning">မင်္ဂလာပါ</div>
+          <div class="roman" id="romanText">annyeonghaseyo</div>
+        </div>
+      </div>
+
+      <div class="control-bar">
+        <button class="primary" id="playBtn">자동 재생</button>
+        <button class="light" id="pauseBtn">일시정지</button>
+        <button class="light" id="prevBtn">이전</button>
+        <button class="light" id="nextBtn">다음</button>
+        <button class="light" id="restartBtn">처음부터</button>
+        <button class="light" id="recordBtn">녹화 모드</button>
+      </div>
+
+      <div class="bottom-note">브라우저 정책 때문에 처음에는 반드시 한 번 버튼을 눌러야 소리가 시작됩니다. 기기에 따라 남자 음성 추정 결과가 조금 다를 수 있습니다.</div>
+    </div>
+  </div>
+
+  <script>
+    const words = [
+      { category: "인사/표현", korean: "안녕하세요", myanmar: "မင်္ဂလာပါ", roman: "annyeonghaseyo", emoji: "👋" },
+      { category: "인사/표현", korean: "감사합니다", myanmar: "ကျေးဇူးတင်ပါတယ်", roman: "gamsahamnida", emoji: "🙏" },
+      { category: "인사/표현", korean: "죄송합니다", myanmar: "တောင်းပန်ပါတယ်", roman: "joesonghamnida", emoji: "🙇" },
+      { category: "인사/표현", korean: "괜찮아요", myanmar: "ရပါတယ်", roman: "gwaenchanayo", emoji: "🙂" },
+      { category: "인사/표현", korean: "네", myanmar: "ဟုတ်ကဲ့", roman: "ne", emoji: "✅" },
+      { category: "인사/표현", korean: "아니요", myanmar: "မဟုတ်ပါ", roman: "aniyo", emoji: "❌" },
+      { category: "인사/표현", korean: "실례합니다", myanmar: "ခဏလောက်ပါ", roman: "sillyehamnida", emoji: "✋" },
+      { category: "인사/표현", korean: "안녕히 가세요", myanmar: "ကောင်းကောင်းသွားပါ", roman: "annyeonghi gaseyo", emoji: "🚶" },
+      { category: "인사/표현", korean: "안녕히 계세요", myanmar: "ကောင်းကောင်းနေပါ", roman: "annyeonghi gyeseyo", emoji: "🏠" },
+      { category: "인사/표현", korean: "알겠습니다", myanmar: "နားလည်ပါပြီ", roman: "algesseumnida", emoji: "👌" },
+
+      { category: "사람/가족", korean: "사람", myanmar: "လူ", roman: "saram", emoji: "🧍" },
+      { category: "사람/가족", korean: "선생님", myanmar: "ဆရာ / ဆရာမ", roman: "seonsaengnim", emoji: "👨‍🏫" },
+      { category: "사람/가족", korean: "학생", myanmar: "ကျောင်းသား / ကျောင်းသူ", roman: "haksaeng", emoji: "🧑‍🎓" },
+      { category: "사람/가족", korean: "친구", myanmar: "သူငယ်ချင်း", roman: "chingu", emoji: "🧑‍🤝‍🧑" },
+      { category: "사람/가족", korean: "가족", myanmar: "မိသားစု", roman: "gajok", emoji: "👨‍👩‍👧" },
+      { category: "사람/가족", korean: "어머니", myanmar: "မိခင်", roman: "eomeoni", emoji: "👩" },
+      { category: "사람/가족", korean: "아버지", myanmar: "ဖခင်", roman: "abeoji", emoji: "👨" },
+      { category: "사람/가족", korean: "남자", myanmar: "ယောက်ျား", roman: "namja", emoji: "👨‍🦱" },
+      { category: "사람/가족", korean: "여자", myanmar: "မိန်းကလေး / အမျိုးသမီး", roman: "yeoja", emoji: "👩‍🦰" },
+      { category: "사람/가족", korean: "아이", myanmar: "ကလေး", roman: "ai", emoji: "🧒" },
+
+      { category: "숫자", korean: "하나", myanmar: "တစ်", roman: "hana", emoji: "1️⃣" },
+      { category: "숫자", korean: "둘", myanmar: "နှစ်", roman: "dul", emoji: "2️⃣" },
+      { category: "숫자", korean: "셋", myanmar: "သုံး", roman: "set", emoji: "3️⃣" },
+      { category: "숫자", korean: "넷", myanmar: "လေး", roman: "net", emoji: "4️⃣" },
+      { category: "숫자", korean: "다섯", myanmar: "ငါး", roman: "daseot", emoji: "5️⃣" },
+      { category: "숫자", korean: "여섯", myanmar: "ခြောက်", roman: "yeoseot", emoji: "6️⃣" },
+      { category: "숫자", korean: "일곱", myanmar: "ခုနစ်", roman: "ilgop", emoji: "7️⃣" },
+      { category: "숫자", korean: "여덟", myanmar: "ရှစ်", roman: "yeodeol", emoji: "8️⃣" },
+      { category: "숫자", korean: "아홉", myanmar: "ကိုး", roman: "ahop", emoji: "9️⃣" },
+      { category: "숫자", korean: "열", myanmar: "ဆယ်", roman: "yeol", emoji: "🔟" },
+
+      { category: "시간", korean: "오늘", myanmar: "ယနေ့", roman: "oneul", emoji: "📅" },
+      { category: "시간", korean: "내일", myanmar: "မနက်ဖြန်", roman: "naeil", emoji: "🌤️" },
+      { category: "시간", korean: "어제", myanmar: "မနေ့က", roman: "eoje", emoji: "🌙" },
+      { category: "시간", korean: "지금", myanmar: "အခု", roman: "jigeum", emoji: "⏰" },
+      { category: "시간", korean: "시간", myanmar: "အချိန်", roman: "sigan", emoji: "🕒" },
+      { category: "시간", korean: "아침", myanmar: "မနက်", roman: "achim", emoji: "🌅" },
+      { category: "시간", korean: "점심", myanmar: "နေ့လယ်စာ", roman: "jeomsim", emoji: "🍱" },
+      { category: "시간", korean: "저녁", myanmar: "ညနေ / ညစာ", roman: "jeonyeok", emoji: "🌆" },
+      { category: "시간", korean: "주", myanmar: "အပတ်", roman: "ju", emoji: "🗓️" },
+      { category: "시간", korean: "달", myanmar: "လ", roman: "dal", emoji: "📆" },
+
+      { category: "장소", korean: "집", myanmar: "အိမ်", roman: "jip", emoji: "🏠" },
+      { category: "장소", korean: "학교", myanmar: "ကျောင်း", roman: "hakgyo", emoji: "🏫" },
+      { category: "장소", korean: "회사", myanmar: "ကုမ္ပဏီ", roman: "hoesa", emoji: "🏢" },
+      { category: "장소", korean: "시장", myanmar: "ဈေး", roman: "sijang", emoji: "🛒" },
+      { category: "장소", korean: "병원", myanmar: "ဆေးရုံ", roman: "byeongwon", emoji: "🏥" },
+      { category: "장소", korean: "식당", myanmar: "စားသောက်ဆိုင်", roman: "sikdang", emoji: "🍽️" },
+      { category: "장소", korean: "화장실", myanmar: "အိမ်သာ", roman: "hwajangsil", emoji: "🚻" },
+      { category: "장소", korean: "은행", myanmar: "ဘဏ်", roman: "eunhaeng", emoji: "🏦" },
+      { category: "장소", korean: "버스정류장", myanmar: "ဘတ်စ်ကားမှတ်တိုင်", roman: "beoseu jeongnyujang", emoji: "🚏" },
+      { category: "장소", korean: "공항", myanmar: "လေဆိပ်", roman: "gonghang", emoji: "✈️" },
+
+      { category: "음식", korean: "물", myanmar: "ရေ", roman: "mul", emoji: "💧" },
+      { category: "음식", korean: "밥", myanmar: "ထမင်း", roman: "bap", emoji: "🍚" },
+      { category: "음식", korean: "빵", myanmar: "မုန့်", roman: "ppang", emoji: "🍞" },
+      { category: "음식", korean: "커피", myanmar: "ကော်ဖီ", roman: "keopi", emoji: "☕" },
+      { category: "음식", korean: "차", myanmar: "လက်ဖက်ရည်", roman: "cha", emoji: "🍵" },
+      { category: "음식", korean: "우유", myanmar: "နို့", roman: "uyu", emoji: "🥛" },
+      { category: "음식", korean: "과일", myanmar: "အသီး", roman: "gwail", emoji: "🍎" },
+      { category: "음식", korean: "고기", myanmar: "အသား", roman: "gogi", emoji: "🥩" },
+      { category: "음식", korean: "김치", myanmar: "ကင်မ်ချီ", roman: "gimchi", emoji: "🥬" },
+      { category: "음식", korean: "맛있어요", myanmar: "အရသာရှိတယ်", roman: "masisseoyo", emoji: "😋" },
+
+      { category: "동사", korean: "가다", myanmar: "သွားသည်", roman: "gada", emoji: "🚶‍♂️" },
+      { category: "동사", korean: "오다", myanmar: "လာသည်", roman: "oda", emoji: "🚶‍♀️" },
+      { category: "동사", korean: "먹다", myanmar: "စားသည်", roman: "meokda", emoji: "🍴" },
+      { category: "동사", korean: "마시다", myanmar: "သောက်သည်", roman: "masida", emoji: "🥤" },
+      { category: "동사", korean: "보다", myanmar: "ကြည့်သည်", roman: "boda", emoji: "👀" },
+      { category: "동사", korean: "듣다", myanmar: "နားထောင်သည်", roman: "deutda", emoji: "👂" },
+      { category: "동사", korean: "자다", myanmar: "အိပ်သည်", roman: "jada", emoji: "😴" },
+      { category: "동사", korean: "공부하다", myanmar: "စာလေ့လာသည်", roman: "gongbuhada", emoji: "📚" },
+      { category: "동사", korean: "일하다", myanmar: "အလုပ်လုပ်သည်", roman: "ilhada", emoji: "💼" },
+      { category: "동사", korean: "사다", myanmar: "ဝယ်သည်", roman: "sada", emoji: "🛍️" },
+
+      { category: "형용사", korean: "크다", myanmar: "ကြီးသည်", roman: "keuda", emoji: "🐘" },
+      { category: "형용사", korean: "작다", myanmar: "သေးသည်", roman: "jakda", emoji: "🐭" },
+      { category: "형용사", korean: "많다", myanmar: "များသည်", roman: "manta", emoji: "📚" },
+      { category: "형용사", korean: "적다", myanmar: "နည်းသည်", roman: "jeokda", emoji: "📕" },
+      { category: "형용사", korean: "좋다", myanmar: "ကောင်းသည်", roman: "jota", emoji: "👍" },
+      { category: "형용사", korean: "나쁘다", myanmar: "မကောင်းသည်", roman: "nappeuda", emoji: "👎" },
+      { category: "형용사", korean: "빠르다", myanmar: "မြန်သည်", roman: "ppareuda", emoji: "⚡" },
+      { category: "형용사", korean: "느리다", myanmar: "နှေးသည်", roman: "neurida", emoji: "🐢" },
+      { category: "형용사", korean: "비싸다", myanmar: "ဈေးကြီးသည်", roman: "bissada", emoji: "💸" },
+      { category: "형용사", korean: "싸다", myanmar: "ဈေးပေါသည်", roman: "ssada", emoji: "🏷️" },
+
+      { category: "질문/표현", korean: "뭐", myanmar: "ဘာ", roman: "mwo", emoji: "❓" },
+      { category: "질문/표현", korean: "어디", myanmar: "ဘယ်မှာ", roman: "eodi", emoji: "📍" },
+      { category: "질문/표현", korean: "누구", myanmar: "ဘယ်သူ", roman: "nugu", emoji: "🧑" },
+      { category: "질문/표현", korean: "언제", myanmar: "ဘယ်တော့", roman: "eonje", emoji: "📅" },
+      { category: "질문/표현", korean: "왜", myanmar: "ဘာကြောင့်", roman: "wae", emoji: "🤔" },
+      { category: "질문/표현", korean: "어떻게", myanmar: "ဘယ်လို", roman: "eotteoke", emoji: "🛠️" },
+      { category: "질문/표현", korean: "얼마예요", myanmar: "ဘယ်လောက်လဲ", roman: "eolmayeyo", emoji: "💰" },
+      { category: "질문/표현", korean: "주세요", myanmar: "ပေးပါ", roman: "juseyo", emoji: "🙏" },
+      { category: "질문/표현", korean: "도와주세요", myanmar: "ကူညီပါ", roman: "dowajuseyo", emoji: "🆘" },
+      { category: "질문/표현", korean: "모르겠어요", myanmar: "မသိဘူး / မသိပါ", roman: "moreugesseoyo", emoji: "😵" },
+
+      { category: "생활", korean: "자동차", myanmar: "ကား", roman: "jadongcha", emoji: "🚗" },
+      { category: "생활", korean: "버스", myanmar: "ဘတ်စ်ကား", roman: "beoseu", emoji: "🚌" },
+      { category: "생활", korean: "택시", myanmar: "တက္ကစီ", roman: "taeksi", emoji: "🚕" },
+      { category: "생활", korean: "길", myanmar: "လမ်း", roman: "gil", emoji: "🛣️" },
+      { category: "생활", korean: "왼쪽", myanmar: "ဘယ်ဘက်", roman: "oenjjok", emoji: "⬅️" },
+      { category: "생활", korean: "오른쪽", myanmar: "ညာဘက်", roman: "oreunjjok", emoji: "➡️" },
+      { category: "생활", korean: "이름", myanmar: "နာမည်", roman: "ireum", emoji: "🏷️" },
+      { category: "생활", korean: "책", myanmar: "စာအုပ်", roman: "chaek", emoji: "📘" },
+      { category: "생활", korean: "돈", myanmar: "ပိုက်ဆံ", roman: "don", emoji: "💵" },
+      { category: "생활", korean: "가방", myanmar: "အိတ်", roman: "gabang", emoji: "🎒" }
+    ];
+
+    const synth = window.speechSynthesis;
+    const wrap = document.getElementById('wrap');
+    const card = document.getElementById('card');
+    const statusText = document.getElementById('statusText');
+    const progressBar = document.getElementById('progressBar');
+    const slideNo = document.getElementById('slideNo');
+    const categoryChip = document.getElementById('categoryChip');
+    const emojiBox = document.getElementById('emojiBox');
+    const koreanWord = document.getElementById('koreanWord');
+    const myanmarMeaning = document.getElementById('myanmarMeaning');
+    const romanText = document.getElementById('romanText');
+
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const recordBtn = document.getElementById('recordBtn');
+
+    let currentIndex = 0;
+    let isAutoplay = false;
+    let voices = [];
+    let nextTimer = null;
+    const gapBetweenVoices = 250;
+    const gapAfterSpeech = 800;
+
+    function loadVoices() {
+      if (!('speechSynthesis' in window)) return;
+      voices = synth.getVoices();
+    }
+
+    function getKoreanVoices() {
+      const koreanVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('ko'));
+      if (!koreanVoices.length) return { primary: null, secondary: null };
+
+      const malePatterns = [
+        /injoon/i, /bongjin/i, /gookmin/i, /hyunsu/i, /minsu/i, /male/i,
+        /man/i, /boy/i, /guy/i, /jun/i, /hyun/i, /woo/i, /jin/i, /david/i,
+        /microsoft.*korean.*male/i, /google.*ko-kr.*male/i
+      ];
+      const femalePatterns = [
+        /sunhi/i, /heami/i, /seoyeon/i, /yuna/i, /soyoung/i, /jiwon/i,
+        /female/i, /woman/i, /girl/i, /zira/i, /aria/i
+      ];
+
+      const maleVoices = koreanVoices.filter(v => malePatterns.some(p => p.test(v.name)));
+      const femaleVoices = koreanVoices.filter(v => femalePatterns.some(p => p.test(v.name)));
+
+      // 사용자가 좋아한 기존 두 번째 음성(예전 male 후보)을 첫 번째로 우선 배치
+      const primary = maleVoices[0]
+        || koreanVoices.find(v => !femaleVoices.includes(v))
+        || koreanVoices[1]
+        || koreanVoices[0]
+        || null;
+
+      // 뒤에 재생할 음성은 primary와 다른 남자 음성을 우선 탐색
+      const secondary = maleVoices.find(v => v !== primary)
+        || koreanVoices.find(v => v !== primary && malePatterns.some(p => p.test(v.name)))
+        || koreanVoices.find(v => v !== primary && !femaleVoices.includes(v))
+        || koreanVoices.find(v => v !== primary)
+        || primary
+        || null;
+
+      return { primary, secondary };
+    }
+
+    function setStatus(text) {
+      statusText.textContent = text;
+    }
+
+    function updateProgress() {
+      progressBar.style.width = `${((currentIndex + 1) / words.length) * 100}%`;
+    }
+
+    function renderCard() {
+      const item = words[currentIndex];
+      card.classList.remove('fade');
+      void card.offsetWidth;
+      card.classList.add('fade');
+      slideNo.textContent = `${currentIndex + 1} / ${words.length}`;
+      categoryChip.textContent = item.category;
+      emojiBox.textContent = item.emoji;
+      koreanWord.textContent = item.korean;
+      myanmarMeaning.textContent = item.myanmar;
+      romanText.textContent = item.roman;
+      updateProgress();
+    }
+
+    function clearNextTimer() {
+      if (nextTimer) {
+        clearTimeout(nextTimer);
+        nextTimer = null;
+      }
+    }
+
+    function speakCurrentWord() {
+      if (!('speechSynthesis' in window)) {
+        setStatus('이 브라우저는 TTS를 지원하지 않습니다.');
+        return;
+      }
+
+      clearNextTimer();
+      synth.cancel();
+
+      const item = words[currentIndex];
+      const { primary, secondary } = getKoreanVoices();
+      const sequence = [primary, secondary].filter(Boolean);
+
+      if (!sequence.length) {
+        setStatus('한국어 음성을 찾지 못했습니다.');
+        return;
+      }
+
+      let seqIndex = 0;
+
+      function speakSequence() {
+        const currentVoice = sequence[seqIndex];
+        const utter = new SpeechSynthesisUtterance(item.korean);
+        utter.lang = currentVoice?.lang || 'ko-KR';
+        if (currentVoice) utter.voice = currentVoice;
+        utter.rate = 0.82;
+        utter.pitch = 1;
+        utter.volume = 1;
+
+        const roleText = seqIndex === 0 ? '첫 번째 음성' : '두 번째 남자 음성';
+        utter.onstart = () => setStatus(`재생 중 · ${item.korean} · ${roleText}`);
+        utter.onend = () => {
+          if (seqIndex < sequence.length - 1) {
+            seqIndex += 1;
+            nextTimer = setTimeout(() => {
+              speakSequence();
+            }, gapBetweenVoices);
+            return;
+          }
+
+          if (isAutoplay) {
+            nextTimer = setTimeout(() => {
+              if (currentIndex < words.length - 1) {
+                currentIndex += 1;
+                renderCard();
+                speakCurrentWord();
+              } else {
+                isAutoplay = false;
+                setStatus('끝났습니다');
+              }
+            }, gapAfterSpeech);
+          } else {
+            setStatus('준비됨');
+          }
+        };
+        utter.onerror = () => {
+          setStatus('소리 재생 오류');
+          isAutoplay = false;
+        };
+
+        synth.speak(utter);
+      }
+
+      speakSequence();
+    }
+
+    function playAutoplay() {
+      isAutoplay = true;
+      speakCurrentWord();
+    }
+
+    function pauseAutoplay() {
+      isAutoplay = false;
+      clearNextTimer();
+      if ('speechSynthesis' in window) synth.cancel();
+      setStatus('일시정지');
+    }
+
+    function goPrev() {
+      pauseAutoplay();
+      currentIndex = Math.max(0, currentIndex - 1);
+      renderCard();
+    }
+
+    function goNext() {
+      pauseAutoplay();
+      currentIndex = Math.min(words.length - 1, currentIndex + 1);
+      renderCard();
+    }
+
+    function restartAll() {
+      pauseAutoplay();
+      currentIndex = 0;
+      renderCard();
+      setStatus('처음으로 이동');
+    }
+
+    function toggleRecordingMode() {
+      wrap.classList.toggle('recording-mode');
+      if (wrap.classList.contains('recording-mode')) {
+        setStatus('녹화 모드');
+      } else {
+        setStatus('준비됨');
+      }
+    }
+
+    playBtn.addEventListener('click', playAutoplay);
+    pauseBtn.addEventListener('click', pauseAutoplay);
+    prevBtn.addEventListener('click', goPrev);
+    nextBtn.addEventListener('click', goNext);
+    restartBtn.addEventListener('click', restartAll);
+    recordBtn.addEventListener('click', toggleRecordingMode);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        isAutoplay ? pauseAutoplay() : playAutoplay();
+      }
+      if (e.key === 'ArrowRight') goNext();
+      if (e.key === 'ArrowLeft') goPrev();
+    });
+
+    if ('speechSynthesis' in window) {
+      loadVoices();
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+      }
+    } else {
+      setStatus('이 브라우저는 TTS를 지원하지 않습니다.');
+    }
+
+    renderCard();
+  </script>
+</body>
+</html>
