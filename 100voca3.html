@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC 100 Essential Words - Video Maker</title>
+    <!-- 폰트 불러오기: 한국어, 미얀마어, 로마자용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 기본 화면 설정: 16:9 비율(유튜브 등 영상용 비율)에 맞춤 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1e293b; /* 영상 녹화 시 깔끔한 짙은 슬레이트 배경 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* 16:9 캔버스 */
+        #video-canvas {
+            position: relative;
+            width: 100%;
+            max-width: 1920px;
+            aspect-ratio: 16 / 9;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* 로고 설정 */
+        #logo {
+            position: absolute;
+            top: 40px;
+            right: 50px;
+            height: 80px; /* 로고 높이 */
+            z-index: 10;
+        }
+
+        /* 프로그레스 바 (진행도) */
+        #progress-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: #e2e8f0;
+            z-index: 10;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #fbbf24; /* JOY 학원 포인트 컬러 */
+            transition: width 0.3s ease;
+        }
+
+        /* 단어 카운터 */
+        #counter {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #64748b;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* 메인 텍스트 컨테이너 */
+        #content-wrapper {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+        }
+        
+        #content-wrapper.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* 한국어 텍스트 */
+        #ko-text {
+            font-size: 140px;
+            font-weight: 900;
+            color: #0f4c81; /* 클래식 블루 */
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: -2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 로마자 발음 기호 */
+        #rom-text {
+            font-size: 40px;
+            font-family: 'Poppins', sans-serif;
+            color: #94a3b8;
+            margin: 10px 0 40px 0;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* 미얀마어 뜻 */
+        #mm-text {
+            font-size: 75px;
+            font-family: 'Noto Sans Myanmar', sans-serif;
+            color: #b45309; /* 앰버 다크 */
+            font-weight: 700;
+            margin: 0;
+            padding: 20px 60px;
+            background-color: #fef3c7;
+            border-radius: 20px;
+            border: 2px solid #fde68a;
+        }
+
+        /* 시작 오버레이 화면 */
+        #start-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 76, 129, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            color: white;
+        }
+
+        #start-overlay h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        #start-overlay p {
+            font-size: 24px;
+            margin-bottom: 50px;
+            color: #cbd5e1;
+        }
+
+        #start-btn {
+            padding: 20px 50px;
+            font-size: 30px;
+            font-weight: 700;
+            color: #0f4c81;
+            background-color: #fbbf24;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        #start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        #end-screen {
+            display: none;
+            font-size: 80px;
+            font-weight: 900;
+            color: #0f4c81;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="video-canvas">
+        <!-- 프로그레스 바 -->
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <!-- 왼쪽 상단 카운터 -->
+        <div id="counter">0 / 100</div>
+
+        <!-- 오른쪽 상단 로고 (경로: logo.png) -->
+        <img id="logo" src="logo.png" alt="JKLC Logo" onerror="this.style.display='none'">
+
+        <!-- 단어 표시 영역 -->
+        <div id="content-wrapper">
+            <p id="ko-text">안녕하세요</p>
+            <p id="rom-text">[ annyeonghaseyo ]</p>
+            <p id="mm-text">မင်္ဂလာပါ</p>
+        </div>
+
+        <!-- 완료 화면 -->
+        <div id="end-screen">
+            수고하셨습니다!<br>
+            <span style="font-size: 50px; color: #b45309; font-family: 'Noto Sans Myanmar', sans-serif;">ကျေးဇူးတင်ပါတယ်။</span>
+        </div>
+
+        <!-- 시작 오버레이 (화면 녹화 준비용) -->
+        <div id="start-overlay">
+            <h1>JKLC 필수 한국어 100단어</h1>
+            <p>화면 녹화를 시작한 후 아래 버튼을 누르세요. (마우스 커서 숨김 권장)</p>
+            <button id="start-btn">자동 재생 시작</button>
+        </div>
+    </div>
+
+    <script>
+        // 100단어 데이터 (한국어, 미얀마어, 로마자 발음)
+        const wordList = [
+            { ko: "안녕하세요", mm: "မင်္ဂလာပါ", rom: "annyeonghaseyo" },
+            { ko: "감사합니다", mm: "ကျေးဇူးတင်ပါတယ်", rom: "gamsahamnida" },
+            { ko: "죄송합니다", mm: "တောင်းပန်ပါတယ်", rom: "joesonghamnida" },
+            { ko: "네", mm: "ဟုတ်ကဲ့", rom: "ne" },
+            { ko: "아니요", mm: "ဟင့်အင်း", rom: "aniyo" },
+            { ko: "괜찮아요", mm: "ရပါတယ် / အဆင်ပြေပါတယ်", rom: "gwaenchanayo" },
+            { ko: "반갑습니다", mm: "တွေ့ရတာဝမ်းသာပါတယ်", rom: "bangapseumnida" },
+            { ko: "안녕히 계세요", mm: "ကောင်းကောင်းနေခဲ့ပါ", rom: "annyeonghi gyeseyo" },
+            { ko: "안녕히 가세요", mm: "ကောင်းကောင်းသွားပါ", rom: "annyeonghi gaseyo" },
+            { ko: "부탁합니다", mm: "ကျေးဇူးပြု၍", rom: "butakamnida" },
+            { ko: "저", mm: "ကျွန်တော် / ကျွန်မ", rom: "jeo" },
+            { ko: "당신", mm: "ခင်ဗျား / ရှင်", rom: "dangsin" },
+            { ko: "우리", mm: "ကျွန်တော်တို့ / ကျွန်မတို့", rom: "uri" },
+            { ko: "친구", mm: "သူငယ်ချင်း", rom: "chingu" },
+            { ko: "가족", mm: "မိသားစု", rom: "gajok" },
+            { ko: "엄마", mm: "အမေ", rom: "eomma" },
+            { ko: "아빠", mm: "အဖေ", rom: "appa" },
+            { ko: "선생님", mm: "ဆရာ / ဆရာမ", rom: "seonsaengnim" },
+            { ko: "학생", mm: "ကျောင်းသား", rom: "haksaeng" },
+            { ko: "사람", mm: "လူ", rom: "saram" },
+            { ko: "남자", mm: "ယောကျာ်းလေး", rom: "namja" },
+            { ko: "여자", mm: "မိန်းကလေး", rom: "yeoja" },
+            { ko: "이름", mm: "နာမည်", rom: "ireum" },
+            { ko: "나이", mm: "အသက်", rom: "nai" },
+            { ko: "집", mm: "အိမ်", rom: "jip" },
+            { ko: "학교", mm: "ကျောင်း", rom: "hakgyo" },
+            { ko: "회사", mm: "ရုံး / ကုမ္ပဏီ", rom: "hoesa" },
+            { ko: "화장실", mm: "အိမ်သာ", rom: "hwajangsil" },
+            { ko: "식당", mm: "စားသောက်ဆိုင်", rom: "sikdang" },
+            { ko: "병원", mm: "ဆေးရုံ", rom: "byeongwon" },
+            { ko: "시장", mm: "ဈေး", rom: "sijang" },
+            { ko: "은행", mm: "ဘဏ်", rom: "eunhaeng" },
+            { ko: "가게", mm: "ဆိုင်", rom: "gage" },
+            { ko: "약국", mm: "ဆေးဆိုင်", rom: "yakguk" },
+            { ko: "방", mm: "အခန်း", rom: "bang" },
+            { ko: "오늘", mm: "ဒီနေ့", rom: "oneul" },
+            { ko: "내일", mm: "မနက်ဖြန်", rom: "naeil" },
+            { ko: "어제", mm: "မနေ့က", rom: "eoje" },
+            { ko: "지금", mm: "အခု", rom: "jigeum" },
+            { ko: "아침", mm: "မနက်", rom: "achim" },
+            { ko: "점심", mm: "နေ့လယ်", rom: "jeomsim" },
+            { ko: "저녁", mm: "ညနေ", rom: "jeonyeok" },
+            { ko: "밤", mm: "ည", rom: "bam" },
+            { ko: "시간", mm: "အချိန်", rom: "sigan" },
+            { ko: "날짜", mm: "ရက်စွဲ", rom: "naljja" },
+            { ko: "월요일", mm: "တနင်္လာနေ့", rom: "woryoil" },
+            { ko: "주말", mm: "စနေ၊ တနင်္ဂနွေ", rom: "jumal" },
+            { ko: "물", mm: "ရေ", rom: "mul" },
+            { ko: "밥", mm: "ထမင်း", rom: "bap" },
+            { ko: "빵", mm: "ပေါင်မုန့်", rom: "ppang" },
+            { ko: "고기", mm: "အသား", rom: "gogi" },
+            { ko: "과일", mm: "သစ်သီး", rom: "gwail" },
+            { ko: "커피", mm: "ကော်ဖီ", rom: "keopi" },
+            { ko: "옷", mm: "အဝတ်အစား", rom: "ot" },
+            { ko: "신발", mm: "ဖိနပ်", rom: "sinbal" },
+            { ko: "가방", mm: "အိတ်", rom: "gabang" },
+            { ko: "책", mm: "စာအုပ်", rom: "chaek" },
+            { ko: "돈", mm: "ပိုက်ဆံ", rom: "don" },
+            { ko: "핸드폰", mm: "ဖုန်း", rom: "haendeupon" },
+            { ko: "차", mm: "ကား", rom: "cha" },
+            { ko: "버스", mm: "ဘတ်စ်ကား", rom: "beoseu" },
+            { ko: "택시", mm: "အငှားကား", rom: "taeksi" },
+            { ko: "기차", mm: "ရထား", rom: "gicha" },
+            { ko: "비행기", mm: "လေယာဉ်ပျံ", rom: "bihaenggi" },
+            { ko: "가다", mm: "သွားသည်", rom: "gada" },
+            { ko: "오다", mm: "လာသည်", rom: "oda" },
+            { ko: "먹다", mm: "စားသည်", rom: "meokda" },
+            { ko: "마시다", mm: "သောက်သည်", rom: "masida" },
+            { ko: "자다", mm: "အိပ်သည်", rom: "jada" },
+            { ko: "일어나다", mm: "ထသည်", rom: "ireonada" },
+            { ko: "보다", mm: "ကြည့်သည်", rom: "boda" },
+            { ko: "듣다", mm: "နားထောင်သည်", rom: "deutda" },
+            { ko: "말하다", mm: "ပြောသည်", rom: "malhada" },
+            { ko: "읽다", mm: "ဖတ်သည်", rom: "ikda" },
+            { ko: "쓰다", mm: "ရေးသည်", rom: "sseuda" },
+            { ko: "하다", mm: "လုပ်သည်", rom: "hada" },
+            { ko: "일하다", mm: "အလုပ်လုပ်သည်", rom: "ilhada" },
+            { ko: "배우다", mm: "သင်ယူသည်", rom: "baeuda" },
+            { ko: "사다", mm: "ဝယ်သည်", rom: "sada" },
+            { ko: "만나다", mm: "တွေ့သည်", rom: "mannada" },
+            { ko: "좋아하다", mm: "ကြိုက်သည်", rom: "joahada" },
+            { ko: "사랑하다", mm: "ချစ်သည်", rom: "saranghada" },
+            { ko: "알다", mm: "သိသည်", rom: "alda" },
+            { ko: "모르다", mm: "မသိဘူး", rom: "moreuda" },
+            { ko: "크다", mm: "ကြီးသည်", rom: "keuda" },
+            { ko: "작다", mm: "ငယ်သည်", rom: "jakda" },
+            { ko: "많다", mm: "များသည်", rom: "manta" },
+            { ko: "적다", mm: "နည်းသည်", rom: "jeokda" },
+            { ko: "좋다", mm: "ကောင်းသည်", rom: "jota" },
+            { ko: "나쁘다", mm: "ဆိုးသည်", rom: "nappeuda" },
+            { ko: "예쁘다", mm: "လှသည်", rom: "yeppeuda" },
+            { ko: "비싸다", mm: "ဈေးကြီးသည်", rom: "bissada" },
+            { ko: "싸다", mm: "ဈေးပေါသည်", rom: "ssada" },
+            { ko: "덥다", mm: "ပူသည်", rom: "deopda" },
+            { ko: "춥다", mm: "အေးသည်", rom: "chupda" },
+            { ko: "맛있다", mm: "အရသာရှိသည်", rom: "masitda" },
+            { ko: "재미있다", mm: "စိတ်ဝင်စားစရာကောင်းသည်", rom: "jaemiitda" },
+            { ko: "어렵다", mm: "ခက်သည်", rom: "eoryeopda" },
+            { ko: "쉽다", mm: "လွယ်သည်", rom: "swipda" },
+            { ko: "아프다", mm: "နာသည် / ဖျားသည်", rom: "apeuda" }
+        ];
+
+        let currentIndex = 0;
+        let globalUtterance = null; // 가비지 컬렉션 방지용
+
+        const startOverlay = document.getElementById('start-overlay');
+        const startBtn = document.getElementById('start-btn');
+        const contentWrapper = document.getElementById('content-wrapper');
+        const endScreen = document.getElementById('end-screen');
+        
+        const koText = document.getElementById('ko-text');
+        const romText = document.getElementById('rom-text');
+        const mmText = document.getElementById('mm-text');
+        
+        const counter = document.getElementById('counter');
+        const progressBar = document.getElementById('progress-bar');
+
+        // TTS 및 다음 단어 재생 로직
+        function playNextWord() {
+            if (currentIndex >= wordList.length) {
+                // 100단어 끝
+                contentWrapper.style.display = 'none';
+                endScreen.style.display = 'block';
+                progressBar.style.width = '100%';
+                return;
+            }
+
+            const word = wordList[currentIndex];
+
+            // 1. 화면 업데이트 (페이드 인/아웃 효과 적용)
+            contentWrapper.classList.remove('active');
+            
+            setTimeout(() => {
+                koText.textContent = word.ko;
+                romText.textContent = `[ ${word.rom} ]`;
+                mmText.textContent = word.mm;
+                
+                counter.textContent = `${currentIndex + 1} / ${wordList.length}`;
+                progressBar.style.width = `${((currentIndex) / wordList.length) * 100}%`;
+                
+                contentWrapper.classList.add('active');
+
+                // 2. 글자가 나타난 후 TTS 발음 읽기 (약간의 딜레이)
+                setTimeout(() => {
+                    speak(word.ko, () => {
+                        // 3. 읽기 완료 후, 사용자가 글씨를 볼 수 있도록 2초 대기 후 다음 단어로
+                        currentIndex++;
+                        setTimeout(playNextWord, 2000); 
+                    });
+                }, 600); // 글자 뜨고 0.6초 후 발음
+
+            }, 500); // 페이드아웃 시간
+        }
+
+        // 웹 브라우저 내장 TTS 엔진 사용 함수
+        function speak(text, onEndCallback) {
+            if ('speechSynthesis' in window) {
+                globalUtterance = new SpeechSynthesisUtterance(text);
+                globalUtterance.lang = 'ko-KR'; // 한국어 목소리
+                globalUtterance.rate = 0.85;     // 약간 천천히 (외국인 학습자용)
+                globalUtterance.pitch = 1.0;
+
+                globalUtterance.onend = function() {
+                    if (onEndCallback) onEndCallback();
+                };
+
+                globalUtterance.onerror = function(e) {
+                    console.error('TTS Error:', e);
+                    if (onEndCallback) onEndCallback(); // 에러가 나도 다음으로 넘어가게
+                };
+
+                window.speechSynthesis.speak(globalUtterance);
+            } else {
+                console.warn("이 브라우저는 TTS를 지원하지 않습니다.");
+                setTimeout(onEndCallback, 1500); // TTS 안될경우 1.5초 후 자동 넘김
+            }
+        }
+
+        // 시작 버튼 이벤트
+        startBtn.addEventListener('click', () => {
+            startOverlay.style.display = 'none';
+            
+            // 첫 TTS 초기화 (브라우저 정책 우회)
+            const initUtterance = new SpeechSynthesisUtterance('');
+            window.speechSynthesis.speak(initUtterance);
+
+            // 1초 뒤부터 본격적인 단어 재생 시작
+            setTimeout(playNextWord, 1000);
+        });
+
+    </script>
+</body>
+</html>
