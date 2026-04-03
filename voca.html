@@ -142,38 +142,32 @@
     }
 
     .content-side {
-      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 40px 42px;
-      isolation: isolate;
     }
 
-    .content-side::before {
-      content: "";
-      position: absolute;
-      inset: 24px;
-      background-image: url("logo.png");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: min(78%, 420px);
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
-      filter: grayscale(10%);
-    }
-
-    .content-side > * {
-      position: relative;
-      z-index: 1;
+    .slide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
     }
 
     .slide-no {
       font-size: 16px;
       font-weight: 800;
       color: var(--primary);
-      margin-bottom: 8px;
+      margin-bottom: 0;
+    }
+
+    .logo-mark {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      flex-shrink: 0;
     }
 
     .korean {
@@ -252,10 +246,7 @@
       min-height: 650px;
     }
 
-    .recording-mode .content-side::before {
-      opacity: 0.1;
-      background-size: min(82%, 460px);
-    }
+    
 
     @keyframes fadeSlide {
       from { opacity: 0; transform: translateY(12px); }
@@ -278,9 +269,13 @@
         padding: 26px 22px 34px;
       }
 
-      .content-side::before {
-        inset: 18px;
-        background-size: min(72%, 300px);
+      .slide-header {
+        align-items: flex-start;
+      }
+
+      .logo-mark {
+        width: 62px;
+        height: 62px;
       }
 
       .emoji-box {
@@ -316,7 +311,10 @@
           <div class="category-chip" id="categoryChip">인사/표현</div>
         </div>
         <div class="content-side">
-          <div class="slide-no" id="slideNo">1 / 100</div>
+          <div class="slide-header">
+            <div class="slide-no" id="slideNo">1 / 100</div>
+            <img src="logo.png" alt="JOY logo" class="logo-mark">
+          </div>
           <div class="korean" id="koreanWord">안녕하세요</div>
           <div class="myanmar" id="myanmarMeaning">မင်္ဂလာပါ</div>
           <div class="roman" id="romanText">annyeonghaseyo</div>
