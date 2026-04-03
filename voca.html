@@ -255,7 +255,49 @@
       min-height: 650px;
     }
 
-    
+    .hidden {
+      display: none !important;
+    }
+
+    .intro-screen {
+      min-height: 650px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(239,246,255,0.96));
+      border: 1px solid rgba(255,255,255,0.65);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 28px;
+    }
+
+    .intro-logo {
+      width: min(240px, 42vw);
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 24px;
+    }
+
+    .intro-title {
+      font-size: clamp(42px, 6vw, 74px);
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .intro-subtitle {
+      font-size: clamp(20px, 2.6vw, 30px);
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .intro-active .progress-wrap {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     @keyframes fadeSlide {
       from { opacity: 0; transform: translateY(12px); }
@@ -314,6 +356,12 @@
 
       <div class="progress-wrap">
         <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="intro-screen hidden fade" id="introScreen">
+        <img src="logo.png" alt="JOY logo" class="intro-logo">
+        <div class="intro-title">한국어 필수 단어 100</div>
+        <div class="intro-subtitle">JOY KOREAN LANGUAGE CENTER</div>
       </div>
 
       <div class="card fade" id="card">
@@ -461,6 +509,7 @@
     const synth = window.speechSynthesis;
     const wrap = document.getElementById('wrap');
     const card = document.getElementById('card');
+    const introScreen = document.getElementById('introScreen');
     const statusText = document.getElementById('statusText');
     const progressBar = document.getElementById('progressBar');
     const slideNo = document.getElementById('slideNo');
@@ -481,8 +530,10 @@
     let isAutoplay = false;
     let voices = [];
     let nextTimer = null;
+    let introTimer = null;
     const gapBetweenVoices = 250;
     const gapAfterSpeech = 800;
+    const introDuration = 3000;
 
     function loadVoices() {
       if (!('speechSynthesis' in window)) return;
@@ -553,6 +604,38 @@
       }
     }
 
+    function clearIntroTimer() {
+      if (introTimer) {
+        clearTimeout(introTimer);
+        introTimer = null;
+      }
+    }
+
+    function showIntro() {
+      wrap.classList.add('intro-active');
+      introScreen.classList.remove('hidden');
+      card.classList.add('hidden');
+      setStatus('인트로 표시 중');
+    }
+
+    function hideIntro() {
+      wrap.classList.remove('intro-active');
+      introScreen.classList.add('hidden');
+      card.classList.remove('hidden');
+    }
+
+    function playIntroThenStart() {
+      clearNextTimer();
+      clearIntroTimer();
+      if ('speechSynthesis' in window) synth.cancel();
+      showIntro();
+      introTimer = setTimeout(() => {
+        hideIntro();
+        renderCard();
+        speakCurrentWord();
+      }, introDuration);
+    }
+
     function speakCurrentWord() {
       if (!('speechSynthesis' in window)) {
         setStatus('이 브라우저는 TTS를 지원하지 않습니다.');
@@ -597,11 +680,7 @@
             nextTimer = setTimeout(() => {
               if (currentIndex < words.length - 1) {
                 currentIndex += 1;
-                document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-    });
-
-    renderCard();
+                renderCard();
                 speakCurrentWord();
               } else {
                 isAutoplay = false;
@@ -625,13 +704,23 @@
 
     function playAutoplay() {
       isAutoplay = true;
-      speakCurrentWord();
+      if (wrap.classList.contains('recording-mode')) {
+        playIntroThenStart();
+      } else {
+        hideIntro();
+        renderCard();
+        speakCurrentWord();
+      }
     }
 
     function pauseAutoplay() {
       isAutoplay = false;
       clearNextTimer();
+      clearIntroTimer();
       if ('speechSynthesis' in window) synth.cancel();
+      if (wrap.classList.contains('intro-active')) {
+        hideIntro();
+      }
       setStatus('일시정지');
     }
 
@@ -656,9 +745,13 @@
 
     function toggleRecordingMode() {
       wrap.classList.toggle('recording-mode');
+      clearIntroTimer();
       if (wrap.classList.contains('recording-mode')) {
+        showIntro();
         setStatus('녹화 모드');
       } else {
+        hideIntro();
+        renderCard();
         setStatus('준비됨');
       }
     }
@@ -677,6 +770,10 @@
       }
       if (e.key === 'ArrowRight') goNext();
       if (e.key === 'ArrowLeft') goPrev();
+    });
+
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
     });
 
     if ('speechSynthesis' in window) {
