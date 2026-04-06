@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Self-Intro & Family Quiz</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="users" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">자기소개와 가족</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Self-Intro & Family</p>
+            
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 17</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    자신과 가족을 한국어로 소개하는 방법을 배워봅시다!<br>
+                    <span class="font-bold">မိမိကိုယ်ကိုနှင့် မိသားစုအကြောင်းကို ကိုရီးယားလို မိတ်ဆက်နည်းကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+        </div>
+
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div class="flex justify-center my-4 content-watermark">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
+            </button>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "'이름'을 묻는 가장 정중한 표현은 무엇입니까?",
+                m: "'နာမည်' ကိုမေးရာတွင် အယဉ်ကျေးဆုံးအသုံးအနှုန်းမှာ?",
+                options: ["성함이 어떻게 되세요?", "누구예요?", "어디에 살아요?", "몇 살이에요?"],
+                correct: 0,
+                hint: "이름의 높임말인 '성함'이 들어간 문장을 찾으세요.",
+                rationale: "'성함'은 이름의 높임말로 처음 만나는 분에게 사용합니다."
+            },
+            {
+                q: "자신의 국적을 말할 때 알맞은 문장은?",
+                m: "မိမိ၏ နိုင်ငံသားကို ပြောဆိုရာတွင် မှန်ကန်သော စာကြောင်းမှာ?",
+                options: ["저는 미얀마 사람이에요.", "저는 미얀마에 가요.", "저는 미얀마를 좋아해요.", "저는 미얀마가 아니에요."],
+                correct: 0,
+                hint: "나라 이름 뒤에 '사람'을 붙여보세요.",
+                rationale: "국적은 '나라명 + 사람이에요'라고 표현합니다."
+            },
+            {
+                q: "직업이 'Cook'인 사람이 자신을 소개할 때 하는 말은?",
+                m: "အလုပ်အကိုင်မှာ 'စားဖိုမှူး' ဖြစ်သူက မည်သို့ပြောသနည်း။",
+                options: ["제 직업은 의사예요.", "제 직업은 요리사예요.", "제 직업은 경찰이에요.", "제 직업은 학생이에요."],
+                correct: 1,
+                hint: "음식을 만드는 사람을 한국어로 찾아보세요.",
+                rationale: "음식 만드는 직업은 '요리사'입니다."
+            },
+            {
+                q: "나이를 묻는 '몇 살이에요?'의 높은 말은?",
+                m: "အသက်ကိုမေးသော အယဉ်ကျေးဆုံး အသုံးအနှုန်းမှာ?",
+                options: ["연세가 어떻게 되세요?", "생일이 언제예요?", "어디가 아파요?", "나이가 많아요?"],
+                correct: 0,
+                hint: "나이의 높임말인 '연세'가 들어간 문장입니다.",
+                rationale: "어른의 나이를 여쭤볼 때는 '연세'를 사용합니다."
+            },
+            {
+                q: "남자가 나이가 더 많은 남자 형제를 부르는 말은?",
+                m: "အမျိုးသားတစ်ဦးက အသက်ကြီးသော အမျိုးသားကို ခေါ်ဆိုသောစကားမှာ?",
+                options: ["언니", "오빠", "누나", "형"],
+                correct: 3,
+                hint: "말하는 사람이 남자일 때 쓰는 호칭입니다.",
+                rationale: "남자가 형을 부를 때는 '형'이라고 합니다."
+            },
+            {
+                q: "여자가 나이가 더 많은 남자 형제를 부르는 말은?",
+                m: "အမျိုးသမီးတစ်ဦးက အသက်ကြီးသော အမျိုးသားကို ခေါ်ဆိုသောစကားမှာ?",
+                options: ["오빠", "형", "언니", "누나"],
+                correct: 0,
+                hint: "말하는 사람이 여자일 때 쓰는 호칭입니다.",
+                rationale: "여자가 손위 남자 형제를 부를 때는 '오빠'라고 합니다."
+            },
+            {
+                q: "부모님을 소개할 때 '아버지와 어머니'를 합쳐 부르는 말은?",
+                m: "မိဘများကို ပေါင်းစပ်ခေါ်ဆိုသောစကားမှာ?",
+                options: ["동생", "친구", "부모님", "선생님"],
+                correct: 2,
+                hint: "Parents를 뜻하는 한국어 단어를 고르세요.",
+                rationale: "아버지와 어머니를 통칭하여 '부모님'이라 합니다."
+            },
+            {
+                q: "가족이 몇 명인지 물어볼 때 알맞은 질문은?",
+                m: "မိသားစုဝင် ဘယ်နှစ်ယောက်ရှိသလဲဟု မေးမြန်းရာတွင်?",
+                options: ["가족이 누구예요?", "가족이 어디에 있어요?", "가족이 몇 명이에요?", "가족이 언제 와요?"],
+                correct: 2,
+                hint: "수량을 묻는 '몇'이 포함되어야 합니다.",
+                rationale: "인원수를 물을 때는 '몇 명이에요?'라고 묻습니다."
+            },
+            {
+                q: "빈칸에 알맞은 말은? \"저는 동생이 ( ).\"",
+                m: "ကွက်လပ်ဖြည့်ပါ။ \"ကျွန်တော့်မှာ ညီ/ညီမ ( )။\"",
+                options: ["있어요", "가요", "먹어요", "해요"],
+                correct: 0,
+                hint: "Have/Exist의 뜻을 가진 단어를 선택하세요.",
+                rationale: "소유나 존재를 나타낼 때는 '있어요'를 씁니다."
+            },
+            {
+                q: "사람을 높여서 셀 때 사용하는 단위는?",
+                m: "လူများကို ရေတွက်ရာတွင် အယဉ်ကျေးဆုံး အသုံးအနှုန်းမှာ?",
+                options: ["개", "분", "마리", "권"],
+                correct: 1,
+                hint: "한 명, 두 명보다 더 예의 바른 표현입니다.",
+                rationale: "어른이나 손님을 셀 때는 '분'을 사용합니다."
+            }
+        ];
+
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
