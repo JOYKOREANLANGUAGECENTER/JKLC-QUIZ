@@ -204,6 +204,75 @@
       color: #334155;
     }
 
+    .content-body a {
+      color: var(--joy-blue-deep);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      word-break: break-all;
+      transition: color 0.2s ease;
+    }
+
+    .content-body a:hover {
+      color: #1e40af;
+    }
+
+    .search-shell {
+      position: relative;
+      min-width: min(100%, 320px);
+    }
+
+    .search-shell i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(255,255,255,0.88);
+      border-radius: 1rem;
+      padding: 0.85rem 1rem 0.85rem 2.6rem;
+      font-weight: 700;
+      color: #334155;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(37, 99, 235, 0.45);
+      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08);
+      background: rgba(255,255,255,0.98);
+    }
+
+    .post-preview {
+      color: #64748b;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-top: 0.45rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
     .footer-glow {
       background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.92));
       backdrop-filter: blur(10px);
@@ -286,10 +355,17 @@
       </div>
 
       <div id="view-list" class="fade-in h-full flex flex-col">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 md:p-6 border-b border-slate-100 bg-white/70 backdrop-blur-sm shrink-0">
-          <div class="flex flex-wrap gap-2 items-center">
-            <span class="px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase rounded-full shadow-sm tracking-[0.24em]">All Posts</span>
-            <span class="px-4 py-1.5 bg-slate-100 text-slate-500 text-[10px] font-black uppercase rounded-full tracking-[0.24em]">Notices First</span>
+        <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 p-5 md:p-6 border-b border-slate-100 bg-white/70 backdrop-blur-sm shrink-0">
+          <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+            <div class="flex flex-wrap gap-2 items-center">
+              <span class="px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase rounded-full shadow-sm tracking-[0.24em]">All Posts</span>
+              <span class="px-4 py-1.5 bg-slate-100 text-slate-500 text-[10px] font-black uppercase rounded-full tracking-[0.24em]">Notices First</span>
+              <span id="post-count" class="px-4 py-1.5 bg-amber-50 text-amber-700 text-[10px] font-black uppercase rounded-full tracking-[0.24em] border border-amber-100">0 Posts</span>
+            </div>
+            <div class="search-shell w-full xl:w-[320px]">
+              <i data-lucide="search"></i>
+              <input id="search-posts" type="text" placeholder="Search title, author, content..." class="search-input">
+            </div>
           </div>
           <button onclick="boardApp.showWrite()" class="shine-btn bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-5 py-3 rounded-2xl text-sm font-black transition flex items-center justify-center gap-2 shadow-lg active:scale-95">
             <i data-lucide="pen-line" class="w-4 h-4"></i>
@@ -468,6 +544,14 @@
         modal.classList.add('hidden');
         if (onConfirm) onConfirm(showInput ? pwdInput.value : null);
       };
+      if (showInput) {
+        pwdInput.onkeydown = (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            newConfirmBtn.click();
+          }
+        };
+      }
       newCancelBtn.onclick = () => {
         modal.classList.add('hidden');
       };
@@ -484,10 +568,99 @@
         posts: [],
         currentPostId: null,
         userId: null,
+        searchTerm: '',
         _val: "NDc0Nw==",
         get _sv() { return atob(this._val); },
 
+        escapeHTML: (value = '') => {
+          return String(value)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+        },
+
+        formatDate: (value) => {
+          if (!value) return '';
+          const d = value.toDate();
+          return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+        },
+
+        formatDateTime: (value) => {
+          if (!value) return '';
+          const d = value.toDate();
+          return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} at ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+        },
+
+        getPlainPreview: (text = '', maxLength = 120) => {
+          const normalized = String(text).split('
+').join(' ').split('	').join(' ').trim();
+          if (!normalized) return 'No preview available.';
+          return normalized.length > maxLength ? `${normalized.slice(0, maxLength).trim()}…` : normalized;
+        },
+
+        linkifyText: (text = '') => {
+          const escaped = window.boardApp.escapeHTML(text);
+          const isWhitespace = (char) => char === ' ' || char === '
+' || char === '	' || char === '
+';
+          const isUrlStartAt = (source, index) => {
+            return source.startsWith('http://', index) || source.startsWith('https://', index) || source.startsWith('www.', index);
+          };
+          const wrapLink = (token) => {
+            let candidate = token;
+            let trailing = '';
+            const trailingChars = '.,!?)]';
+            while (candidate && trailingChars.includes(candidate[candidate.length - 1])) {
+              trailing = candidate[candidate.length - 1] + trailing;
+              candidate = candidate.slice(0, -1);
+            }
+            if (!candidate) return token;
+            const href = candidate.startsWith('www.') ? `https://${candidate}` : candidate;
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer">${candidate}</a>${trailing}`;
+          };
+
+          let result = '';
+          let i = 0;
+          while (i < escaped.length) {
+            if (isUrlStartAt(escaped, i)) {
+              let j = i;
+              while (j < escaped.length && !isWhitespace(escaped[j])) {
+                j += 1;
+              }
+              result += wrapLink(escaped.slice(i, j));
+              i = j;
+            } else {
+              result += escaped[i];
+              i += 1;
+            }
+          }
+          return result.split('
+').join('<br>');
+        },
+
+        getFilteredPosts: () => {
+          const keyword = window.boardApp.searchTerm.trim().toLowerCase();
+          if (!keyword) return window.boardApp.posts;
+          return window.boardApp.posts.filter((post) => {
+            const target = [post.title, post.author, post.content, post.category].join(' ').toLowerCase();
+            return target.includes(keyword);
+          });
+        },
+
+        setupSearch: () => {
+          const input = document.getElementById('search-posts');
+          if (!input || input.dataset.bound === 'true') return;
+          input.dataset.bound = 'true';
+          input.addEventListener('input', (event) => {
+            window.boardApp.searchTerm = event.target.value || '';
+            window.boardApp.renderList();
+          });
+        },
+
         init: async () => {
+          window.boardApp.setupSearch();
           document.getElementById('loading-overlay').classList.remove('hidden');
           if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
             try {
@@ -558,7 +731,13 @@
 
         renderList: () => {
           const container = document.getElementById('post-list-container');
+          const countEl = document.getElementById('post-count');
           container.innerHTML = '';
+
+          const filteredPosts = window.boardApp.getFilteredPosts();
+          if (countEl) {
+            countEl.textContent = `${filteredPosts.length} Posts`;
+          }
 
           if (window.boardApp.posts.length === 0) {
             container.innerHTML = `
@@ -570,7 +749,18 @@
             return;
           }
 
-          window.boardApp.posts.forEach(post => {
+          if (filteredPosts.length === 0) {
+            container.innerHTML = `
+              <div class="rounded-[1.8rem] border border-dashed border-slate-200 bg-white/75 p-14 text-center">
+                <div class="text-slate-300 font-bold uppercase tracking-[0.24em] text-xs mb-3">No search results</div>
+                <p class="text-slate-500 font-bold">Try another keyword.</p>
+              </div>
+            `;
+            lucide.createIcons();
+            return;
+          }
+
+          filteredPosts.forEach(post => {
             let catStyle = "bg-slate-100 text-slate-500";
             if (post.isNotice) catStyle = "bg-red-500 text-white";
             else if (post.category === "Question") catStyle = "bg-green-500 text-white";
@@ -578,31 +768,30 @@
 
             const rowClass = post.isNotice ? "notice-row" : "normal-row";
             const titleClass = post.isNotice ? "font-black text-slate-900" : "font-extrabold text-slate-800";
-            let dateStr = "";
-            if (post.createdAt) {
-              const d = post.createdAt.toDate();
-              dateStr = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
-            }
+            const dateStr = window.boardApp.formatDate(post.createdAt);
+            const preview = window.boardApp.escapeHTML(window.boardApp.getPlainPreview(post.content, 140));
+            const hasUrl = (post.content || '').includes('http://') || (post.content || '').includes('https://') || (post.content || '').includes('www.');
 
             container.innerHTML += `
               <div onclick="boardApp.readPost('${post.id}')" class="post-row ${rowClass} rounded-[1.6rem] border border-slate-100 p-5 md:p-6 cursor-pointer group">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div class="flex items-start gap-4 min-w-0">
+                  <div class="flex items-start gap-4 min-w-0 flex-1">
                     <div class="mt-0.5 w-10 h-10 shrink-0 rounded-2xl ${post.isNotice ? 'bg-red-100 text-red-600' : 'bg-blue-50 text-blue-600'} flex items-center justify-center border border-white shadow-sm">
                       <i data-lucide="${post.isNotice ? 'megaphone' : post.category === 'Question' ? 'circle-help' : 'message-square-text'}" class="w-4 h-4"></i>
                     </div>
-                    <div class="min-w-0">
+                    <div class="min-w-0 w-full">
                       <div class="flex flex-wrap items-center gap-2 mb-2">
                         <span class="px-2.5 py-1 text-[10px] font-black rounded-full ${catStyle} uppercase tracking-[0.18em] shadow-sm">${post.category}</span>
                         ${post.isNotice ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-red-100 text-red-600 uppercase tracking-[0.18em]">Priority</span>' : ''}
+                        ${hasUrl ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-violet-100 text-violet-700 uppercase tracking-[0.18em]">Link</span>' : ''}
                       </div>
                       <h3 class="text-base md:text-lg ${titleClass} line-clamp-1 group-hover:text-blue-700 transition-colors">${post.title}</h3>
-                      <p class="text-sm text-slate-400 font-bold mt-1">Tap to open this post</p>
+                      <p class="post-preview">${preview}</p>
                     </div>
                   </div>
-                  <div class="flex items-center gap-5 text-xs text-slate-400 font-bold shrink-0 md:pl-4">
-                    <span class="flex items-center gap-2 max-w-[120px] line-clamp-1"><i data-lucide="user" class="w-3.5 h-3.5"></i>${post.author}</span>
-                    <span class="rounded-full bg-white/80 px-3 py-1.5 border border-slate-100">${dateStr}</span>
+                  <div class="flex items-center gap-3 md:gap-4 text-xs text-slate-400 font-bold shrink-0 md:pl-4 flex-wrap md:flex-nowrap">
+                    <span class="meta-chip max-w-[140px] line-clamp-1"><i data-lucide="user" class="w-3.5 h-3.5"></i>${post.author}</span>
+                    <span class="meta-chip"><i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>${dateStr}</span>
                   </div>
                 </div>
               </div>
@@ -628,15 +817,9 @@
 
           document.getElementById('read-title').innerText = post.title;
           document.getElementById('read-author').innerText = post.author;
-          document.getElementById('read-content').innerText = post.content;
+          document.getElementById('read-content').innerHTML = window.boardApp.linkifyText(post.content || '');
           document.getElementById('read-avatar').innerText = post.author.charAt(0).toUpperCase();
-
-          let dateStr = "";
-          if (post.createdAt) {
-            const d = post.createdAt.toDate();
-            dateStr = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} at ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-          }
-          document.getElementById('read-date').innerText = dateStr;
+          document.getElementById('read-date').innerText = window.boardApp.formatDateTime(post.createdAt);
 
           lucide.createIcons();
         },
@@ -660,9 +843,9 @@
           try {
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), {
               category,
-              title: document.getElementById('input-title').value,
-              author: document.getElementById('input-author').value,
-              content: document.getElementById('input-content').value,
+              title: document.getElementById('input-title').value.trim(),
+              author: document.getElementById('input-author').value.trim(),
+              content: document.getElementById('input-content').value.trim(),
               password: pwd,
               createdAt: serverTimestamp(),
               isNotice: category === "Notice",
