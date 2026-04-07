@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>취미 한국어 공부</title>
+  <link rel="icon" type="image/png" href="favicon1.png" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --line: #dbe4f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-soft: #eaf2ff;
+      --accent: #0f766e;
+      --accent-soft: #ecfdf5;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 220px);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 18px 14px 48px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #2563eb, #0f766e);
+      color: white;
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-logo {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+      flex-shrink: 0;
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 118px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      color: var(--primary);
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .home-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 860px;
+      font-size: 16px;
+      opacity: 0.96;
+    }
+
+    .controls {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    input, select, button {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--text);
+      padding: 13px 14px;
+      font: inherit;
+    }
+
+    button {
+      border: none;
+      font-weight: 800;
+      cursor: pointer;
+      background: #0f172a;
+      color: white;
+    }
+
+    .tabs {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      width: auto;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    .section {
+      margin-top: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .photo-wrap {
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(180deg, #eff6ff, #f8fafc);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .photo-wrap.fruit-bg {
+      background: linear-gradient(180deg, #fff7ed, #fefce8);
+    }
+
+    .photo-wrap.animal-bg {
+      background: linear-gradient(180deg, #eef2ff, #ecfeff);
+    }
+
+    .photo-emoji {
+      font-size: 110px;
+      line-height: 1;
+      filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.12));
+      user-select: none;
+    }
+
+    .card-logo-badge {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.9);
+      border-radius: 10px;
+      padding: 4px;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .photo-label {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .word-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .word-logo {
+      width: 67px;
+      height: 67px;
+      object-fit: contain;
+      flex-shrink: 0;
+      opacity: 0.95;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .korean {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .myanmar {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.3;
+    }
+
+    .roman {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .mini-btn {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mini-btn.listen {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+
+    
+
+    
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .quiz-section {
+      margin-top: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .quiz-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .quiz-visual {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #fff7ed, #fefce8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      min-height: 280px;
+    }
+
+    .quiz-emoji {
+      font-size: 120px;
+      line-height: 1;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.12));
+    }
+
+    .quiz-logo {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.92);
+      border-radius: 12px;
+      padding: 4px;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+    }
+
+    .quiz-myanmar {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--accent);
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .quiz-panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fbfdff;
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-score {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .quiz-question {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .quiz-option {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+      color: var(--text);
+      padding: 16px 14px;
+      font-size: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .quiz-option:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .quiz-option.correct {
+      background: #ecfdf5;
+      border-color: #86efac;
+      color: #166534;
+    }
+
+    .quiz-option.wrong {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: #b91c1c;
+    }
+
+    .quiz-status {
+      min-height: 28px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .quiz-actions button {
+      flex: 1;
+    }
+
+    .quiz-next {
+      background: var(--primary);
+      color: white;
+    }
+
+    .quiz-reset {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .fallback-emoji {
+      font-size: 84px;
+      line-height: 1;
+    }
+
+    @media (max-width: 980px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .korean {
+        font-size: 24px;
+      }
+      .myanmar {
+        font-size: 20px;
+      }
+      .hero-top {
+        align-items: flex-start;
+      }
+      .brand-area {
+        width: 100%;
+      }
+      .home-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand-area">
+          <img src="logo.png" alt="JOY logo" class="hero-logo">
+          <div>
+            <h1>취미 한국어 공부</h1>
+            <p>ငါတို့ ကြိုက်တဲ့ ဝါသနာတွေကို ကိုရီးယားလို ဘယ်လိုပြောရမလဲ လေ့လာကြရအောင်။</p>
+          </div>
+        </div>
+        <a href="index.html" class="home-btn">HOME</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="controls">
+        <select id="sortSelect">
+          <option value="default">기본순</option>
+          <option value="korean">가나다순</option>
+          <option value="myanmar">미얀마어순</option>
+        </select>
+        <button id="speakAllBtn">현재 보이는 단어 듣기</button>
+      </div>
+      
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 id="sectionTitle">취미 보기</h2>
+        <div class="hint">취미 이미지 + 한국어 + 미얀마어 병기</div>
+      </div>
+      <div class="grid" id="cardGrid"></div>
+    </section>
+
+    <section class="quiz-section">
+      <div class="section-head">
+        <h2>취미 퀴즈</h2>
+        <div class="hint">이미지와 미얀마어 뜻을 보고 한국어 취미 단어를 맞혀 보세요.</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-visual">
+          <div class="quiz-emoji" id="quizEmoji">🍎</div>
+          <div class="quiz-myanmar" id="quizMyanmar">ပန်းသီး</div>
+          <img src="logo.png" alt="JOY logo" class="quiz-logo" draggable="false">
+        </div>
+        <div class="quiz-panel">
+          <div class="quiz-top">
+            <div class="quiz-question">이 취미는 한국어로 무엇일까요?</div>
+            <div class="quiz-score" id="quizScore">점수 0 / 0</div>
+          </div>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-status" id="quizStatus">정답을 선택해 보세요.</div>
+          <div class="quiz-actions">
+            <button class="quiz-next" id="quizNextBtn" type="button">다음 문제</button>
+            <button class="quiz-reset" id="quizResetBtn" type="button">처음부터</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const vocab = [
+      { category: 'hobby', ko: '독서', mm: 'စာဖတ်ခြင်း', roman: 'dokseo', en: 'reading', emoji: '📚' },
+      { category: 'hobby', ko: '운동', mm: 'လေ့ကျင့်ခန်းလုပ်ခြင်း', roman: 'undong', en: 'exercise', emoji: '🏃' },
+      { category: 'hobby', ko: '축구', mm: 'ဘောလုံးကစားခြင်း', roman: 'chukgu', en: 'soccer', emoji: '⚽' },
+      { category: 'hobby', ko: '농구', mm: 'ဘတ်စကတ်ဘောကစားခြင်း', roman: 'nonggu', en: 'basketball', emoji: '🏀' },
+      { category: 'hobby', ko: '수영', mm: 'ရေကူးခြင်း', roman: 'suyeong', en: 'swimming', emoji: '🏊' },
+      { category: 'hobby', ko: '노래하기', mm: 'သီချင်းဆိုခြင်း', roman: 'noraehagi', en: 'singing', emoji: '🎤' },
+      { category: 'hobby', ko: '춤추기', mm: 'ကခြင်း', roman: 'chumchugi', en: 'dancing', emoji: '💃' },
+      { category: 'hobby', ko: '그림 그리기', mm: 'ပန်းချီဆွဲခြင်း', roman: 'geurim geurigi', en: 'drawing', emoji: '🎨' },
+      { category: 'hobby', ko: '영화 보기', mm: 'ရုပ်ရှင်ကြည့်ခြင်း', roman: 'yeonghwa bogi', en: 'watching movies', emoji: '🎬' },
+      { category: 'hobby', ko: '음악 듣기', mm: 'ဂီတနားထောင်ခြင်း', roman: 'eumak deutgi', en: 'listening to music', emoji: '🎧' },
+      { category: 'hobby', ko: '게임하기', mm: 'ဂိမ်းကစားခြင်း', roman: 'geimhagi', en: 'playing games', emoji: '🎮' },
+      { category: 'hobby', ko: '요리하기', mm: 'ဟင်းချက်ခြင်း', roman: 'yorihagi', en: 'cooking', emoji: '🍳' },
+      { category: 'hobby', ko: '사진 찍기', mm: 'ဓာတ်ပုံရိုက်ခြင်း', roman: 'sajin jjikgi', en: 'taking photos', emoji: '📷' },
+      { category: 'hobby', ko: '여행하기', mm: 'ခရီးသွားခြင်း', roman: 'yeohaenghagi', en: 'traveling', emoji: '✈️' },
+      { category: 'hobby', ko: '등산', mm: 'တောင်တက်ခြင်း', roman: 'deungsan', en: 'hiking', emoji: '🥾' },
+      { category: 'hobby', ko: '자전거 타기', mm: 'စက်ဘီးစီးခြင်း', roman: 'jajeongeo tagi', en: 'cycling', emoji: '🚴' },
+      { category: 'hobby', ko: '낚시', mm: 'ငါးမျှားခြင်း', roman: 'nakssi', en: 'fishing', emoji: '🎣' },
+      { category: 'hobby', ko: '쇼핑', mm: 'စျေးဝယ်ခြင်း', roman: 'syoping', en: 'shopping', emoji: '🛍️' }
+    ];
+
+    const synth = window.speechSynthesis;
+        const sortSelect = document.getElementById('sortSelect');
+    const speakAllBtn = document.getElementById('speakAllBtn');
+        const cardGrid = document.getElementById('cardGrid');
+    const sectionTitle = document.getElementById('sectionTitle');
+    const quizEmoji = document.getElementById('quizEmoji');
+    const quizMyanmar = document.getElementById('quizMyanmar');
+    const quizOptions = document.getElementById('quizOptions');
+    const quizStatus = document.getElementById('quizStatus');
+    const quizScore = document.getElementById('quizScore');
+    const quizNextBtn = document.getElementById('quizNextBtn');
+    const quizResetBtn = document.getElementById('quizResetBtn');
+
+    let quizPool = [];
+    let quizIndex = 0;
+    let score = 0;
+    let solvedCount = 0;
+    let currentAnswer = '';
+    let answered = false;
+
+    
+        function getFilteredData() {
+      let data = [...vocab];
+
+      if (sortSelect.value === 'korean') {
+        data.sort((a, b) => a.ko.localeCompare(b.ko, 'ko'));
+      } else if (sortSelect.value === 'myanmar') {
+        data.sort((a, b) => a.mm.localeCompare(b.mm));
+      }
+
+      return data;
+    }
+
+    function speakText(text, onEnd = null) {
+      if (!('speechSynthesis' in window)) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ko-KR';
+      utter.rate = 0.85;
+      utter.pitch = 1;
+      utter.volume = 1;
+      utter.onend = () => {
+        if (typeof onEnd === 'function') onEnd();
+      };
+      synth.speak(utter);
+    }
+
+    function speakSequence(items, index = 0) {
+      if (!items.length || index >= items.length) return;
+      speakText(items[index].ko, () => {
+        setTimeout(() => speakSequence(items, index + 1), 250);
+      });
+    }
+
+    function renderCards() {
+      const data = getFilteredData();
+      sectionTitle.textContent = '취미 보기';
+
+      cardGrid.innerHTML = data.map((item) => `
+        <article class="card">
+          <div class="photo-wrap">
+            <div class="photo-emoji" aria-label="${item.en}">${item.emoji}</div>
+            <span class="photo-label">취미</span>
+            <img src="logo.png" alt="JOY logo" class="card-logo-badge" draggable="false">
+          </div>
+          <div class="card-body">
+            <div class="word-row">
+              <div class="korean">${item.ko}</div>
+              <img src="logo.png" alt="JOY logo" class="word-logo" draggable="false">
+            </div>
+            <div class="myanmar">${item.mm}</div>
+            <div class="roman">${item.roman}</div>
+            <div class="action-row">
+              <button class="mini-btn listen" type="button" data-listen="${item.ko}">듣기</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      cardGrid.querySelectorAll('[data-listen]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if ('speechSynthesis' in window) {
+            synth.cancel();
+            speakText(btn.dataset.listen);
+          }
+        });
+      });
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function buildQuizOptions(answer) {
+      const others = shuffle(vocab.filter(item => item.ko !== answer).map(item => item.ko)).slice(0, 3);
+      return shuffle([answer, ...others]);
+    }
+
+    function updateScore() {
+      quizScore.textContent = `점수 ${score} / ${solvedCount}`;
+    }
+
+    function loadQuizQuestion() {
+      if (!quizPool.length || quizIndex >= quizPool.length) {
+        quizPool = shuffle(vocab);
+        quizIndex = 0;
+      }
+
+      const item = quizPool[quizIndex];
+      currentAnswer = item.ko;
+      answered = false;
+      quizEmoji.textContent = item.emoji;
+      quizMyanmar.textContent = item.mm;
+      quizStatus.textContent = '정답을 선택해 보세요.';
+      quizOptions.innerHTML = buildQuizOptions(item.ko).map(option => `
+        <button class="quiz-option" type="button" data-option="${option}">${option}</button>
+      `).join('');
+
+      quizOptions.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (answered) return;
+          answered = true;
+          solvedCount += 1;
+          const picked = btn.dataset.option;
+          const optionButtons = [...quizOptions.querySelectorAll('.quiz-option')];
+
+          optionButtons.forEach(optionBtn => {
+            if (optionBtn.dataset.option === currentAnswer) {
+              optionBtn.classList.add('correct');
+            }
+          });
+
+          if (picked === currentAnswer) {
+            score += 1;
+            btn.classList.add('correct');
+            quizStatus.textContent = `정답입니다! → ${currentAnswer}`;
+            if ('speechSynthesis' in window) {
+              synth.cancel();
+              speakText(currentAnswer);
+            }
+          } else {
+            btn.classList.add('wrong');
+            quizStatus.textContent = `틀렸어요. 정답은 ${currentAnswer} 입니다.`;
+          }
+
+          updateScore();
+        });
+      });
+    }
+
+    function nextQuizQuestion() {
+      quizIndex += 1;
+      loadQuizQuestion();
+    }
+
+    function resetQuiz() {
+      score = 0;
+      solvedCount = 0;
+      quizPool = shuffle(vocab);
+      quizIndex = 0;
+      updateScore();
+      loadQuizQuestion();
+    }
+
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+    sortSelect.addEventListener('change', renderCards);
+    quizNextBtn.addEventListener('click', nextQuizQuestion);
+    quizResetBtn.addEventListener('click', resetQuiz);
+    speakAllBtn.addEventListener('click', () => {
+      if ('speechSynthesis' in window) {
+        synth.cancel();
+        speakSequence(getFilteredData());
+      }
+    });
+    renderCards();
+    resetQuiz();
+  </script>
+</body>
+</html>
