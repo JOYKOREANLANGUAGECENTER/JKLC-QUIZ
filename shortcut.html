@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - 홈 화면에 추가하기 (App처럼 쓰기)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc;
+        }
+        .step-card {
+            animation: slideUp 0.4s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .step-card:nth-child(1) { animation-delay: 0.1s; }
+        .step-card:nth-child(2) { animation-delay: 0.2s; }
+        .step-card:nth-child(3) { animation-delay: 0.3s; }
+        .step-card:nth-child(4) { animation-delay: 0.4s; }
+        .step-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* 탭 전환 시 부드러운 효과 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden font-black text-lg md:text-xl tracking-tighter items-center">
+                    <span class="text-yellow-400">J</span><span class="text-blue-600">K</span><span class="text-green-600">L</span><span class="text-red-600">C</span>
+                </div>
+            </a>
+            <a href="index.html" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-100 text-blue-600 rounded-lg text-[11px] md:text-sm font-black transition flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="home" class="w-3.5 h-3.5 md:w-4 md:h-4"></i> HOME
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-xl mx-auto w-full px-4 py-8 relative flex flex-col">
+        
+        <!-- Title Section -->
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-black text-slate-900 mb-2 leading-tight">
+                스마트폰 홈 화면에 추가하기
+            </h1>
+            <p class="text-sm text-slate-500 font-medium">ဖုန်း Home Screen တွင် App ကဲ့သို့ ထည့်နည်း</p>
+        </div>
+
+        <!-- Device Toggle Tabs -->
+        <div class="flex p-1 bg-slate-200/60 rounded-xl mb-8 shadow-inner">
+            <button onclick="switchTab('android')" id="tab-android" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold text-sm transition-all bg-white text-green-600 shadow-sm">
+                <i data-lucide="smartphone" class="w-4 h-4"></i> Android
+            </button>
+            <button onclick="switchTab('ios')" id="tab-ios" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700">
+                <i data-lucide="apple" class="w-4 h-4"></i> iPhone
+            </button>
+        </div>
+
+        <!-- ==================== ANDROID CONTENT ==================== -->
+        <div id="content-android" class="tab-content active space-y-4">
+            <!-- Step 1 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-black text-sm">1</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">크롬(Chrome) 브라우저에서 홈페이지를 엽니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">Chrome browser ဖွင့်ပြီး JKLC website ကိုသွားပါ။</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-black text-sm">2</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">오른쪽 위 <span class="text-green-600">점 3개(메뉴)</span>를 누릅니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">ညာဘက်အပေါ်ရှိ အစက်သုံးစက် (⋮) ကို နှိပ်ပါ။</p>
+                    <div class="inline-flex items-center justify-center w-10 h-10 bg-slate-100 rounded-lg border border-slate-200">
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-slate-700"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-black text-sm">3</div>
+                <div class="w-full">
+                    <h3 class="font-bold text-slate-800 text-base mb-1">메뉴에서 <span class="text-green-600">홈 화면에 추가</span>를 선택합니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">"Add to Home screen" (ပင်မစခရင်သို့ ထည့်ရန်) ကို ရွေးပါ။</p>
+                    <div class="bg-slate-100 rounded-lg p-3 flex items-center gap-3 border border-slate-200">
+                        <i data-lucide="monitor-smartphone" class="w-5 h-5 text-slate-600"></i>
+                        <span class="text-sm font-medium text-slate-700">홈 화면에 추가 (Add to Home screen)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-black text-sm">4</div>
+                <div class="w-full">
+                    <h3 class="font-bold text-slate-800 text-base mb-1"><span class="text-green-600">추가(Add)</span>를 한 번 더 누릅니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">"Add" (ထည့်ရန်) ကို ထပ်နှိပ်ပါ။</p>
+                    <div class="flex justify-end">
+                        <span class="text-green-600 font-bold text-sm bg-green-50 px-3 py-1.5 rounded-lg">추가 (Add)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card bg-green-600 p-5 rounded-2xl shadow-md border border-green-700 flex gap-4 items-center text-white">
+                <div class="w-12 h-12 shrink-0 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-lg mb-0.5">완료되었습니다! 🎉</h3>
+                    <p class="text-[13px] text-green-100 font-medium">ဖုန်း screen ပေါ်မှာ JKLC app လေး ရောက်လာပါပြီ!</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==================== iOS CONTENT ==================== -->
+        <div id="content-ios" class="tab-content space-y-4">
+            <!-- Step 1 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-sm">1</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">Safari 또는 Chrome에서 홈페이지를 엽니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">Browser ဖွင့်ပြီး JKLC website ကိုသွားပါ။</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-sm">2</div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">화면 아래(또는 위)의 <span class="text-blue-600">공유(Share) 버튼</span>을 누릅니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">အောက်ခြေရှိ Share (မျှဝေရန်) ခလုတ်ကို နှိပ်ပါ။</p>
+                    <div class="inline-flex items-center justify-center w-10 h-10 bg-slate-100 rounded-lg border border-slate-200">
+                        <i data-lucide="share" class="w-5 h-5 text-slate-700"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-sm">3</div>
+                <div class="w-full">
+                    <h3 class="font-bold text-slate-800 text-base mb-1">메뉴를 내려서 <span class="text-blue-600">홈 화면에 추가</span>를 선택합니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">"Add to Home Screen" ကို ရွေးပါ။</p>
+                    <div class="bg-slate-100 rounded-lg p-3 flex items-center gap-3 border border-slate-200">
+                        <div class="w-8 h-8 bg-white rounded flex items-center justify-center shadow-sm">
+                            <i data-lucide="plus-square" class="w-5 h-5 text-slate-700"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-700">홈 화면에 추가 (Add to Home Screen)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                <div class="w-8 h-8 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-sm">4</div>
+                <div class="w-full">
+                    <h3 class="font-bold text-slate-800 text-base mb-1">오른쪽 위의 <span class="text-blue-600">추가(Add)</span>를 누릅니다.</h3>
+                    <p class="text-[13px] text-slate-500 mb-3">ညာဘက်အပေါ်ထောင့်ရှိ "Add" ကို နှိပ်ပါ။</p>
+                    <div class="flex justify-end">
+                        <span class="text-blue-600 font-bold text-sm bg-blue-50 px-3 py-1.5 rounded-lg">추가 (Add)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card bg-blue-600 p-5 rounded-2xl shadow-md border border-blue-700 flex gap-4 items-center text-white">
+                <div class="w-12 h-12 shrink-0 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-lg mb-0.5">완료되었습니다! 🎉</h3>
+                    <p class="text-[13px] text-blue-100 font-medium">ဖုန်း screen ပေါ်မှာ JKLC app လေး ရောက်လာပါပြီ!</p>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-800 text-white rounded-xl font-bold shadow-sm hover:bg-slate-700 transition">
+                메인으로 돌아가기 (Back to Main)
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center mt-auto border-t border-slate-200 bg-white">
+        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">
+            JOY KOREAN LANGUAGE CENTER <br><span class="font-normal opacity-70">YANGON · HLEDAN</span>
+        </p>
+        <p class="text-[9px] font-bold text-slate-300">&copy; 2026 JKLC.</p>
+    </footer>
+
+    <script>
+        // 아이콘 렌더링
+        lucide.createIcons();
+
+        // 탭 전환 로직
+        function switchTab(platform) {
+            const btnAndroid = document.getElementById('tab-android');
+            const btnIos = document.getElementById('tab-ios');
+            const contentAndroid = document.getElementById('content-android');
+            const contentIos = document.getElementById('content-ios');
+
+            if (platform === 'android') {
+                // 안드로이드 탭 활성화
+                btnAndroid.className = "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold text-sm transition-all bg-white text-green-600 shadow-sm";
+                btnIos.className = "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700";
+                
+                contentAndroid.classList.add('active');
+                contentIos.classList.remove('active');
+            } else {
+                // iOS 탭 활성화
+                btnIos.className = "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold text-sm transition-all bg-white text-blue-600 shadow-sm";
+                btnAndroid.className = "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700";
+                
+                contentIos.classList.add('active');
+                contentAndroid.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
