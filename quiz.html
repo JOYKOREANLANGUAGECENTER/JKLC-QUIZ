@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- 요청하신 파비콘 코드 삽입 -->
-	<link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="icon" href="favicon1.png" type="image/png">	
 	<link rel="apple-touch-icon" href="favicon1.png">	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOY Korean Language Center - Quiz Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 폰트 설정: 한국어와 미얀마어가 모두 잘 보이도록 설정되어 있습니다 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { 
-            --j: #FFD700; /* 노란색 (JOY) */
-            --k: #0070BB; /* 파란색 (KOREAN) */
-            --l: #228B22; /* 초록색 (LANGUAGE) */
-            --c: #ED1C24; /* 빨간색 (CENTER) */
+            --j: #FFD700; /* JOY (Yellow) */
+            --k: #0070BB; /* KOREAN (Blue) */
+            --l: #228B22; /* LANGUAGE (Green) */
+            --c: #ED1C24; /* CENTER (Red) */
         }
         body { 
             font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; 
             background: #f8fafc; 
             scroll-behavior: smooth; 
             line-height: 1.6; 
-            
-            /* [우클릭/드래그 금지] 텍스트 선택 방지 CSS */
+            /* 불펌 방지 설정 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -39,31 +36,28 @@
         .badge-today { animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-        /* 페이지네이션 버튼 스타일 */
         .page-btn { transition: all 0.2s; }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        /* 워터마크 스타일 (불펌 방지) */
+        /* 로고 워터마크 */
         .watermark-bg {
             position: fixed;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            pointer-events: none; /* 클릭 방해 금지 */
-            z-index: 9999; /* 최상단에 위치 */
+            pointer-events: none;
+            z-index: 9999;
             background-image: url('logo.png');
             background-repeat: repeat;
-            background-size: 375px; /* 지정하신 375px 크기 */
-            opacity: 0.05; /* 은은하게 투명도 조절 */
-            transform: rotate(-20deg); /* 사선으로 배치 */
+            background-size: 375px;
+            opacity: 0.05;
+            transform: rotate(-20deg);
         }
     </style>
 </head>
-<!-- [우클릭/드래그 금지] 속성 추가 -->
 <body class="flex flex-col min-h-screen relative overflow-x-hidden" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
-    <!-- 불펌 방지 워터마크 -->
     <div class="watermark-bg"></div>
 
     <div class="jklc-top-bar"></div>
@@ -83,49 +77,42 @@
 
     <div class="max-w-md mx-auto w-full p-6 flex-grow relative z-10">
         <header class="text-center py-8">
-            <img src="logo.png" 
-                 alt="JKLC 로고" class="h-24 mx-auto mb-4 drop-shadow-md">
+            <img src="logo.png" alt="JKLC 로고" class="h-24 mx-auto mb-4 drop-shadow-md">
             <p class="text-blue-600 font-bold mt-1 tracking-widest uppercase text-[10px]">Daily Quiz Hub</p>
         </header>
 
-        <!-- 오늘의 퀴즈 섹션 (가장 최근 퀴즈 하나만 노출) -->
         <section class="mb-12 text-left">
             <h3 class="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4 flex items-center">
                 <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-ping"></span>
                 Today's Quiz
             </h3>
             
-            <!-- [업데이트] Day 17 자기소개와 가족 퀴즈 업데이트 -->
-            <a href="quiz17.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+            <a href="quiz18.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
                 <div class="relative z-10 text-left">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 04. 06</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 17: 자기소개와 가족</h2>
-                    <p class="text-sm font-bold opacity-80 text-left">မိမိကိုယ်ကိုနှင့် မိသားစုအကြောင်း မိတ်ဆက်ခြင်း</p>
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 04. 07</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 18: 작업장 실전 한국어</h2>
+                    <p class="text-sm font-bold opacity-80 text-left">စက်ရုံလုပ်ငန်းခွင်သုံး ကိုရီးယားစကား</p>
                     <div class="mt-8 flex items-center font-black text-sm text-left">
                         퀴즈 시작하기 <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">👨‍👩‍👧‍👦</div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">👷‍♂️</div>
             </a>
         </section>
 
-        <!-- 전체 퀴즈 목록 섹션 -->
         <section class="space-y-4 text-left">
             <div class="flex items-center justify-between px-2 mb-4">
                 <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Quizzes</h3>
                 <span id="page-indicator" class="text-[10px] font-bold text-blue-500">Page 1</span>
             </div>
 
-            <!-- 목록 컨테이너 -->
             <div id="quiz-list-container" class="space-y-4"></div>
 
-            <!-- 페이지 이동 버튼 -->
             <div class="flex justify-between items-center pt-6 px-2">
                 <button id="prev-page" onclick="changePage(-1)" class="page-btn flex items-center gap-2 text-xs font-black text-slate-400 hover:text-blue-600 transition uppercase tracking-widest">
                     <i data-lucide="chevron-left" class="w-4 h-4"></i> Prev
                 </button>
-                <div id="page-dots" class="flex gap-1.5">
-                </div>
+                <div id="page-dots" class="flex gap-1.5"></div>
                 <button id="next-page" onclick="changePage(1)" class="page-btn flex items-center gap-2 text-xs font-black text-slate-400 hover:text-blue-600 transition uppercase tracking-widest">
                     Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
@@ -149,8 +136,15 @@
     </footer>
 
     <script>
-        // 전체 퀴즈 데이터 관리 (Day 17 추가 및 데이터 최신화)
+        // 전체 퀴즈 데이터 (Day 18까지 최신화)
         const allQuizzes = [
+            {
+                date: "2026. 04. 07",
+                day: "Day 18",
+                title: "작업장 실전 한국어",
+                desc: "စက်ရုံလုပ်ငန်းခွင်သုံး ကိုရီးယားစကား",
+                link: "quiz18.html"
+            },
             {
                 date: "2026. 04. 06",
                 day: "Day 17",
@@ -176,7 +170,7 @@
                 date: "2026. 04. 03",
                 day: "Day 14",
                 title: "취미와 여가생활",
-                desc: "ဝါသနာနှင့် အားလပ်ချိန် အသုံးအနှုန်းများ",
+                desc: "ဝါသနာနှင့် အားလပ်ချိန် အသုံး어နှုန်းများ",
                 link: "quiz14.html"
             },
             {
@@ -279,13 +273,11 @@
             const container = document.getElementById('quiz-list-container');
             const pageIndicator = document.getElementById('page-indicator');
             const totalPages = Math.ceil(allQuizzes.length / itemsPerPage);
-            
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const paginatedItems = allQuizzes.slice(start, end);
 
             container.innerHTML = '';
-            
             paginatedItems.forEach(quiz => {
                 container.innerHTML += `
                     <a href="${quiz.link}" class="quiz-card group block bg-white p-5 rounded-[2rem] shadow-sm flex justify-between items-center border border-slate-50 relative z-10">
@@ -312,7 +304,6 @@
             for(let i=1; i<=totalPages; i++) {
                 dotsContainer.innerHTML += `<div class="w-1.5 h-1.5 rounded-full ${i === currentPage ? 'bg-blue-600' : 'bg-slate-200'}"></div>`;
             }
-
             lucide.createIcons();
         }
 
