@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Factory & Safety Quiz</title>
+    <!-- 요청하신 파비콘 코드 삽입 -->
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        /* 워터마크 스타일 */
+        .watermark-bg {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            pointer-events: none; z-index: 0;
+            background-image: url('logo.png'); background-repeat: repeat;
+            background-size: 375px; opacity: 0.05; transform: rotate(-20deg);
+        }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <div class="watermark-bg"></div>
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <!-- 상단 컬러 바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="hard-hat" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">작업장 실전 한국어</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Factory & Safety</p>
+            
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 18</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    공장이나 작업장에서 쓰는 업무 지시와 안전 용어를 배웁니다.<br>
+                    <span class="font-bold">စက်ရုံ သို့မဟုတ် လုပ်ငန်းခွင်တွင် အသုံးပြုသော အလုပ်ညွှန်ကြားချက်များနှင့် လုံခြုံရေး ဝေါဟာရများကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+        </div>
+
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div class="flex justify-center my-4 content-watermark">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
+            </button>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "공장에서 일할 때 발을 보호하기 위해 꼭 신어야 하는 신발은?",
+                m: "အလုပ်လုပ်နေစဉ် ခြေထောက်ကို ကာကွယ်ရန် စီးရသော ဖိနပ်မှာ အဘယ်နည်း။",
+                options: ["운동화", "슬리퍼", "안전화", "구두"],
+                correct: 2,
+                hint: "Safety shoes를 뜻하는 한국어 단어입니다.",
+                rationale: "작업장에서는 무거운 물건이 떨어질 때 발을 보호하기 위해 '안전화'를 신어야 합니다."
+            },
+            {
+                q: "만든 제품에 문제가 있거나 상태가 나쁜 것을 무엇이라고 합니까?",
+                m: "ထုတ်ကုန်တွင် ပြဿနာရှိခြင်း သို့မဟုတ် မကောင်းခြင်းကို မည်သို့ခေါ်သနည်း။",
+                options: ["우수", "정상", "최고", "불량"],
+                correct: 3,
+                hint: "Defective product를 뜻하는 공장 필수 단어입니다.",
+                rationale: "기준에 맞지 않고 흠이 있거나 잘못 만들어진 제품을 '불량(품)'이라고 합니다."
+            },
+            {
+                q: "퇴근 시간이 지났지만 일이 많아서 밤까지 계속 일하는 것을 무엇이라고 합니까?",
+                m: "ရုံးဆင်းချိန်ကျော်လွန်သော်လည်း အလုပ်များသဖြင့် ညဘက်အထိ ဆက်လုပ်ခြင်းကို မည်သို့ခေါ်သနည်း။",
+                options: ["지각", "결근", "야근", "조퇴"],
+                correct: 2,
+                hint: "밤(夜)에 하는 근무라는 뜻입니다.",
+                rationale: "정해진 업무 시간 이후에 밤늦게까지 일하는 것을 '야근' 또는 '연장 근무'라고 합니다."
+            },
+            {
+                q: "기계가 움직이고 있어서 다칠 수 있을 때 주변 사람에게 하는 말은?",
+                m: "စက်များလည်ပတ်နေပြီး ထိခိုက်ဒဏ်ရာရနိုင်သည့်အခါ သတိပေးသော စကားမှာ အဘယ်နည်း။",
+                options: ["조심하세요!", "축하해요!", "안녕하세요!", "빨리 오세요!"],
+                correct: 0,
+                hint: "Be careful!의 의미를 가진 경고 표현입니다.",
+                rationale: "위험한 상황에서 주의를 줄 때는 '조심하세요' 또는 '위험합니다'라고 크게 말합니다."
+            },
+            {
+                q: "공장에서 일을 시작하기 위해 아침에 회사에 오는 것을 무엇이라고 합니까?",
+                m: "စက်ရုံတွင် အလုပ်စတင်ရန် နံနက်ပိုင်း ရုံးလာခြင်းကို မည်သို့ခေါ်သနည်း။",
+                options: ["퇴근", "출근", "휴가", "외출"],
+                correct: 1,
+                hint: "일하러 나간다는 뜻의 단어입니다.",
+                rationale: "회사나 공장에 일을 하러 가는 것을 '출근'이라고 합니다. 반대는 '퇴근'입니다."
+            },
+            {
+                q: "무거운 짐을 혼자 옮기기 힘들 때 동료에게 하는 알맞은 말은?",
+                m: "လေးလံသော ပစ္စည်းများကို ရွှေ့ပြောင်းရာတွင် လုပ်ဖော်ကိုင်ဖက်အား အတူတူမရအောင်ဟု မည်သို့ပြောရမည်နည်း။",
+                options: ["저리 가세요", "같이 들어요", "혼자 할게요", "다 했어요"],
+                correct: 1,
+                hint: "함께 하자는 권유의 표현을 찾아보세요.",
+                rationale: "도움이 필요할 때는 '도와주세요' 또는 '같이 들어요'라고 부탁합니다."
+            },
+            {
+                q: "작업이 끝난 후, 사용하는 기계의 전원을 어떻게 해야 합니까?",
+                m: "အလုပ်ပြီးသွားသောအခါ စက်၏ ပါဝါကို မည်သို့လုပ်ရမည်နည်း။",
+                options: ["켜야 합니다", "꺼야 합니다", "씻어야 합니다", "버려야 합니다"],
+                correct: 1,
+                hint: "Turn off의 의미를 가진 한국어 동사입니다.",
+                rationale: "사고를 막고 전기를 아끼기 위해 사용이 끝난 기계는 전원을 '꺼야' 합니다."
+            },
+            {
+                q: "공장이나 작업장에 불이 났을 때 가장 먼저 크게 외쳐야 하는 말은?",
+                m: "စက်ရုံတွင် မီးလောင်သောအခါ ပထမဆုံး အကျယ်ကြီးအော်ရမည့်စကားမှာ အဘယ်နည်း။",
+                options: ["물이야!", "불이야!", "바람이야!", "도둑이야!"],
+                correct: 1,
+                hint: "Fire! 를 의미하는 단어를 크게 소리쳐야 합니다.",
+                rationale: "화재가 발생했을 때는 주변 사람들에게 알리기 위해 '불이야!'라고 크게 외칩니다."
+            },
+            {
+                q: "작업장 바닥에 물이나 기름이 있어서 넘어질 수 있을 때 알맞은 표지판 내용은?",
+                m: "လုပ်ငန်းခွင်ကြမ်းပြင် ချောနေသဖြင့် ချော်လဲနိုင်သည့်အခါ သင့်တော်သော ဆိုင်းဘုတ်စာသားမှာ အဘယ်နည်း။",
+                options: ["추락 주의", "고온 주의", "미끄럼 주의", "감전 주의"],
+                correct: 2,
+                hint: "바닥이 미끄러운 상태를 조심하라는 뜻입니다.",
+                rationale: "바닥이 미끄러워 넘어질 위험이 있을 때는 '미끄럼 주의' 표지판을 세웁니다."
+            },
+            {
+                q: "일을 마치고 작업장 주변을 깨끗하게 치우고 도구를 제자리에 두는 것은?",
+                m: "အလုပ်ပြီးနောက် လုပ်ငန်းခွင်ပတ်ဝန်းကျင်ကို သန့်ရှင်းရေးလုပ်ပြီး ကိရိယာများကို နေရာတကျထားခြင်းကို မည်သို့ခေါ်သနည်း။",
+                options: ["정리 정돈", "준비 운동", "점심 식사", "기계 수리"],
+                correct: 0,
+                hint: "물건을 가지런히 바르게 놓는다는 뜻의 단어입니다.",
+                rationale: "안전하고 효율적인 작업을 위해 도구를 제자리에 두고 깨끗하게 하는 것을 '정리 정돈'이라고 합니다."
+            }
+        ];
+
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
