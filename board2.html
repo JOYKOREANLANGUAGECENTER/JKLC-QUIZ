@@ -1,894 +1,541 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <link rel="icon" href="favicon1.png" type="image/png">
-  <link rel="apple-touch-icon" href="favicon1.png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JOY Korean - Notice Board</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    :root {
-      --joy-yellow: #facc15;
-      --joy-blue: #2563eb;
-      --joy-blue-deep: #1d4ed8;
-      --joy-green: #16a34a;
-      --joy-red: #dc2626;
-      --joy-ink: #0f172a;
-      --joy-slate: #475569;
-      --joy-line: rgba(148, 163, 184, 0.18);
-      --joy-card: rgba(255,255,255,0.82);
-      --joy-shadow: 0 20px 45px rgba(15, 23, 42, 0.10);
-      --joy-shadow-soft: 0 10px 30px rgba(37, 99, 235, 0.10);
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      color: var(--joy-ink);
-      background:
-        radial-gradient(circle at top left, rgba(250, 204, 21, 0.16), transparent 28%),
-        radial-gradient(circle at top right, rgba(37, 99, 235, 0.14), transparent 30%),
-        linear-gradient(180deg, #f8fbff 0%, #f6f8fc 42%, #eff4fb 100%);
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      min-height: 100vh;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.45), transparent 80%);
-      opacity: 0.28;
-      z-index: 0;
-    }
-
-    .text-joy-yellow { color: var(--joy-yellow); }
-    .bg-joy-yellow { background-color: var(--joy-yellow); }
-    .text-joy-blue { color: var(--joy-blue); }
-    .bg-joy-blue { background-color: var(--joy-blue); }
-    .text-joy-green { color: var(--joy-green); }
-    .bg-joy-green { background-color: var(--joy-green); }
-    .text-joy-red { color: var(--joy-red); }
-    .bg-joy-red { background-color: var(--joy-red); }
-
-    .fade-in { animation: fadeIn 0.32s ease; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .loader {
-      border: 3px solid rgba(255,255,255,0.45);
-      border-top: 3px solid var(--joy-blue);
-      border-radius: 999px;
-      width: 30px;
-      height: 30px;
-      animation: spin 0.9s linear infinite;
-      display: inline-block;
-      box-shadow: 0 0 0 6px rgba(255,255,255,0.35);
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .glass {
-      background: rgba(255,255,255,0.74);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.70);
-      box-shadow: var(--joy-shadow);
-    }
-
-    .section-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.84));
-      border: 1px solid var(--joy-line);
-      box-shadow: var(--joy-shadow);
-    }
-
-    .soft-ring:focus {
-      outline: none;
-      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.10);
-      border-color: rgba(37, 99, 235, 0.70);
-    }
-
-    .line-clamp-1 {
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .shine-btn {
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .shine-btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.28) 50%, transparent 75%);
-      transform: translateX(-120%);
-      transition: transform 0.7s ease;
-      z-index: -1;
-    }
-
-    .shine-btn:hover::before {
-      transform: translateX(120%);
-    }
-
-    .board-shell {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-badge {
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(250, 204, 21, 0.14));
-      border: 1px solid rgba(37, 99, 235, 0.10);
-      box-shadow: var(--joy-shadow-soft);
-    }
-
-    .post-row {
-      position: relative;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .post-row:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 24px rgba(15, 23, 42, 0.06);
-      z-index: 1;
-    }
-
-    .notice-row {
-      background: linear-gradient(90deg, rgba(254, 242, 242, 0.95), rgba(255,255,255,0.96));
-      border-left: 6px solid #ef4444;
-    }
-
-    .normal-row {
-      background: linear-gradient(90deg, rgba(255,255,255,0.94), rgba(248, 250, 252, 0.95));
-      border-left: 6px solid transparent;
-    }
-
-    .normal-row:hover {
-      background: linear-gradient(90deg, rgba(239, 246, 255, 0.88), rgba(255,255,255,0.98));
-      border-left-color: rgba(59, 130, 246, 0.7);
-    }
-
-    .floating-orb {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(10px);
-      opacity: 0.55;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .orb-1 {
-      width: 150px;
-      height: 150px;
-      top: -22px;
-      right: 30px;
-      background: rgba(37, 99, 235, 0.12);
-    }
-
-    .orb-2 {
-      width: 110px;
-      height: 110px;
-      bottom: 34px;
-      left: -20px;
-      background: rgba(250, 204, 21, 0.15);
-    }
-
-    .content-body {
-      font-size: 1.05rem;
-      line-height: 2;
-      color: #334155;
-    }
-
-    .content-body a {
-      color: var(--joy-blue-deep);
-      font-weight: 800;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      word-break: break-all;
-      transition: color 0.2s ease;
-    }
-
-    .content-body a:hover {
-      color: #1e40af;
-    }
-
-    .search-shell {
-      position: relative;
-      min-width: min(100%, 320px);
-    }
-
-    .search-shell i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #94a3b8;
-      width: 16px;
-      height: 16px;
-      pointer-events: none;
-    }
-
-    .search-input {
-      width: 100%;
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      background: rgba(255,255,255,0.88);
-      border-radius: 1rem;
-      padding: 0.85rem 1rem 0.85rem 2.6rem;
-      font-weight: 700;
-      color: #334155;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-      transition: all 0.2s ease;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: rgba(37, 99, 235, 0.45);
-      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08);
-      background: rgba(255,255,255,0.98);
-    }
-
-    .post-preview {
-      color: #64748b;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      margin-top: 0.45rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .meta-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.84);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-    }
-
-    .footer-glow {
-      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.92));
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    @media (max-width: 768px) {
-      .content-body {
-        font-size: 1rem;
-        line-height: 1.9;
-      }
-    }
-  </style>
-</head>
-<body class="flex flex-col" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-  <header class="sticky top-0 z-50 border-b border-white/60 bg-white/75 backdrop-blur-xl">
-    <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="index.html" class="flex items-center gap-3 group">
-        <div class="relative">
-          <div class="absolute -inset-2 rounded-2xl bg-blue-100/70 blur-md opacity-0 group-hover:opacity-100 transition"></div>
-          <img src="logo.png" alt="JKLC Logo" class="relative h-12 w-auto drop-shadow-sm" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="hidden relative font-black text-2xl tracking-tighter items-center rounded-2xl px-3 py-2 bg-white shadow-sm border border-slate-100">
-            <span class="text-joy-yellow">J</span><span class="text-joy-blue">K</span><span class="text-joy-green">L</span><span class="text-joy-red">C</span>
-          </div>
-        </div>
-        <div class="flex flex-col text-left leading-tight">
-          <span class="text-[11px] font-black uppercase tracking-[0.28em] text-slate-400">JOY Korean</span>
-          <span class="text-sm md:text-base font-extrabold text-slate-800 tracking-tight">Notice Board</span>
-        </div>
-      </a>
-
-      <div class="flex gap-2 md:gap-3">
-        <a href="quiz.html" class="px-3 py-2 rounded-xl text-sm text-slate-600 hover:text-blue-700 font-bold transition flex items-center gap-2 hover:bg-blue-50 border border-transparent hover:border-blue-100">
-          <i data-lucide="gamepad-2" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Quiz</span>
-        </a>
-        <a href="index.html" class="px-3 py-2 rounded-xl text-sm text-slate-600 hover:text-blue-700 font-bold transition flex items-center gap-2 hover:bg-blue-50 border border-transparent hover:border-blue-100">
-          <i data-lucide="home" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Home</span>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 md:py-10 board-shell">
-    <section class="relative mb-8 md:mb-10 overflow-hidden rounded-[2rem] glass px-6 py-7 md:px-8 md:py-8">
-      <div class="floating-orb orb-1"></div>
-      <div class="floating-orb orb-2"></div>
-      <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-        <div>
-          <div class="inline-flex items-center gap-2 hero-badge rounded-full px-4 py-2 mb-4">
-            <i data-lucide="sparkles" class="w-4 h-4 text-blue-600"></i>
-            <span class="text-[11px] font-black tracking-[0.24em] uppercase text-slate-600">Student Community Board</span>
-          </div>
-          <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight flex items-center gap-3">
-            <i data-lucide="message-square-more" class="text-blue-600 w-8 h-8 md:w-9 md:h-9"></i>
-            Board
-          </h1>
-          <p class="text-slate-500 font-medium text-sm md:text-base">
-            Official announcements, student questions, and important updates from JOY Korean Language Center.
-          </p>
-        </div>
-        <div class="grid grid-cols-2 gap-3 md:min-w-[260px]">
-          <div class="rounded-2xl bg-white/80 border border-slate-100 px-4 py-4 shadow-sm">
-            <div class="text-[10px] uppercase tracking-[0.22em] font-black text-slate-400 mb-2">Status</div>
-            <div class="text-sm font-extrabold text-slate-800 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>Live Board</div>
-          </div>
-          <div class="rounded-2xl bg-white/80 border border-slate-100 px-4 py-4 shadow-sm">
-            <div class="text-[10px] uppercase tracking-[0.22em] font-black text-slate-400 mb-2">Mode</div>
-            <div class="text-sm font-extrabold text-slate-800">Realtime Sync</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-card rounded-[2rem] overflow-hidden min-h-[560px] relative">
-      <div id="loading-overlay" class="absolute inset-0 bg-white/65 backdrop-blur-md z-20 flex flex-col items-center justify-center hidden">
-        <div class="loader mb-4"></div>
-        <p class="text-sm text-slate-500 font-black tracking-[0.28em] uppercase">Syncing</p>
-      </div>
-
-      <div id="view-list" class="fade-in h-full flex flex-col">
-        <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 p-5 md:p-6 border-b border-slate-100 bg-white/70 backdrop-blur-sm shrink-0">
-          <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
-            <div class="flex flex-wrap gap-2 items-center">
-              <span class="px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase rounded-full shadow-sm tracking-[0.24em]">All Posts</span>
-              <span class="px-4 py-1.5 bg-slate-100 text-slate-500 text-[10px] font-black uppercase rounded-full tracking-[0.24em]">Notices First</span>
-              <span id="post-count" class="px-4 py-1.5 bg-amber-50 text-amber-700 text-[10px] font-black uppercase rounded-full tracking-[0.24em] border border-amber-100">0 Posts</span>
-            </div>
-            <div class="search-shell w-full xl:w-[320px]">
-              <i data-lucide="search"></i>
-              <input id="search-posts" type="text" placeholder="Search title, author, content..." class="search-input">
-            </div>
-          </div>
-          <button onclick="boardApp.showWrite()" class="shine-btn bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-5 py-3 rounded-2xl text-sm font-black transition flex items-center justify-center gap-2 shadow-lg active:scale-95">
-            <i data-lucide="pen-line" class="w-4 h-4"></i>
-            Create Post
-          </button>
-        </div>
-
-        <div id="post-list-container" class="p-3 md:p-4 space-y-3 flex-grow overflow-y-auto bg-gradient-to-b from-white/30 to-slate-50/50">
-        </div>
-      </div>
-
-      <div id="view-read" class="hidden fade-in p-6 md:p-10 h-full flex flex-col">
-        <button onclick="boardApp.showList()" class="w-fit text-slate-400 hover:text-blue-600 font-black mb-8 flex items-center gap-2 text-xs transition uppercase tracking-[0.24em] rounded-full px-3 py-2 hover:bg-blue-50 shrink-0">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-          Back to list
-        </button>
-
-        <div class="rounded-[1.8rem] border border-slate-100 bg-gradient-to-br from-white to-slate-50 p-6 md:p-8 shadow-sm mb-8 shrink-0">
-          <div class="flex justify-between items-start gap-4">
-            <div class="w-full">
-              <div class="flex flex-wrap items-center gap-3 mb-4">
-                <span id="read-category" class="px-3 py-1.5 text-[10px] font-black rounded-full bg-gray-100 text-gray-500 uppercase tracking-[0.24em] shadow-sm">Category</span>
-                <h2 id="read-title" class="text-2xl md:text-4xl font-black text-slate-900 leading-tight tracking-tight">Post Title</h2>
-              </div>
-              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-slate-400 mt-5">
-                <div class="flex items-center gap-3">
-                  <div id="read-avatar" class="w-11 h-11 bg-gradient-to-br from-blue-100 to-blue-50 text-blue-700 rounded-2xl flex items-center justify-center font-black text-sm border border-blue-100 shadow-sm">A</div>
-                  <div>
-                    <div id="read-author" class="font-extrabold text-slate-700 text-sm">Author Name</div>
-                    <div class="text-xs text-slate-400 font-bold uppercase tracking-[0.18em]">Posted by</div>
-                  </div>
-                </div>
-                <span id="read-date" class="text-xs font-bold opacity-70 rounded-full bg-slate-100 px-3 py-1.5 w-fit">Date</span>
-              </div>
-            </div>
-            <button id="btn-delete" onclick="boardApp.deleteCurrentPost()" class="text-red-300 hover:text-red-600 p-3 rounded-2xl hover:bg-red-50 transition border border-transparent hover:border-red-100">
-              <i data-lucide="trash-2" class="w-5 h-5"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="content-body rounded-[1.8rem] bg-white/80 border border-slate-100 p-6 md:p-8 flex-grow whitespace-pre-wrap shadow-sm">
-          <div id="read-content">Content...</div>
-        </div>
-      </div>
-
-      <div id="view-write" class="hidden fade-in p-6 md:p-10 overflow-y-auto bg-gradient-to-b from-white/35 to-slate-50/30">
-        <div class="flex justify-between items-center mb-8 border-b border-slate-100 pb-6">
-          <div>
-            <p class="text-[11px] font-black uppercase tracking-[0.26em] text-slate-400 mb-2">Create New Post</p>
-            <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Post Content</h2>
-          </div>
-          <button onclick="boardApp.showList()" class="text-slate-300 hover:text-slate-600 p-3 rounded-2xl hover:bg-white border border-transparent hover:border-slate-100 transition">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
-        </div>
-
-        <form id="write-form" onsubmit="boardApp.submitPost(event)" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.24em] mb-2">Category</label>
-              <select id="input-category" class="soft-ring w-full border border-slate-200 bg-white rounded-2xl px-5 py-3.5 transition font-bold text-slate-700 shadow-sm">
-                <option value="General">General</option>
-                <option value="Question">Question</option>
-                <option value="Notice">Announcement (Admin Only)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.24em] mb-2">Name</label>
-              <input type="text" id="input-author" required placeholder="Display name" class="soft-ring w-full border border-slate-200 bg-white rounded-2xl px-5 py-3.5 transition font-bold text-slate-700 shadow-sm">
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.24em] mb-2">Password <span class="text-red-400 font-bold ml-1">* Needed to delete the post</span></label>
-            <input type="password" id="input-password" required placeholder="4 digit password" class="soft-ring w-full md:w-1/2 border border-slate-200 bg-white rounded-2xl px-5 py-3.5 transition font-bold text-slate-700 shadow-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.24em] mb-2">Subject</label>
-            <input type="text" id="input-title" required placeholder="Subject title" class="soft-ring w-full border border-slate-200 bg-white rounded-2xl px-5 py-3.5 transition font-bold text-slate-700 shadow-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.24em] mb-2">Message</label>
-            <textarea id="input-content" required rows="7" placeholder="Write your message..." class="soft-ring w-full border border-slate-200 bg-white rounded-2xl px-5 py-4 transition font-bold text-slate-700 resize-y shadow-sm"></textarea>
-          </div>
-
-          <div class="pt-8 flex justify-end gap-3 border-t border-slate-100 mt-10">
-            <button type="button" onclick="boardApp.showList()" class="px-8 py-3.5 text-slate-400 rounded-2xl font-black uppercase tracking-[0.24em] hover:bg-white transition text-xs border border-transparent hover:border-slate-100">Cancel</button>
-            <button type="submit" id="btn-submit" class="shine-btn px-10 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl font-black uppercase tracking-[0.24em] hover:from-blue-700 hover:to-blue-800 transition shadow-xl flex items-center gap-2 text-xs active:scale-95">
-              Submit Post
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div id="custom-modal" class="fixed inset-0 bg-slate-950/40 z-[100] flex items-center justify-center hidden backdrop-blur-md px-4">
-        <div class="w-full max-w-md rounded-[2rem] border border-white/70 bg-white/92 p-8 shadow-2xl">
-          <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 mb-4">
-            <i data-lucide="shield-alert" class="w-6 h-6"></i>
-          </div>
-          <h3 id="modal-title" class="text-2xl font-black text-slate-900 mb-2 tracking-tight">Alert</h3>
-          <p id="modal-message" class="text-slate-500 mb-6 font-medium leading-relaxed">Message</p>
-
-          <div id="modal-input-area" class="mb-6 hidden">
-            <input type="password" id="modal-password" placeholder="Enter password" class="soft-ring w-full border border-slate-200 bg-white rounded-2xl px-5 py-3.5 font-bold transition shadow-sm">
-          </div>
-
-          <div class="flex justify-end gap-3">
-            <button id="modal-btn-cancel" class="px-5 py-3 text-slate-400 font-black text-xs uppercase tracking-[0.24em] hover:bg-slate-100 rounded-2xl hidden">Cancel</button>
-            <button id="modal-btn-confirm" class="shine-btn px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-black text-xs uppercase tracking-[0.24em] hover:from-blue-700 hover:to-blue-800 rounded-2xl shadow-lg">Confirm</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer-glow py-8 border-t border-white/60 mt-auto">
-    <div class="max-w-5xl mx-auto px-4 text-center">
-      <img src="logo.png" alt="JKLC" class="h-9 mx-auto mb-4 drop-shadow-sm" onerror="this.style.display='none';">
-      <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.45em] mb-2 leading-relaxed">
-        JOY KOREAN LANGUAGE CENTER <br>
-        YANGON · HLEDAN
-      </p>
-      <p class="text-[10px] font-bold text-slate-300 tracking-[0.18em]">&copy; 2026 JKLC. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBOIj7UFkPNrH-eQgUAp6X4QytT61yY1Rk",
-      authDomain: "joy-korean-cdba0.firebaseapp.com",
-      projectId: "joy-korean-cdba0",
-      storageBucket: "joy-korean-cdba0.firebasestorage.app",
-      messagingSenderId: "509083643772",
-      appId: "1:509083643772:web:e80c40c02d7928a82b7ef9"
-    };
-
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'joy-korean-board';
-
-    let app, auth, db;
-    let unsubscribeAuth, unsubscribeData;
-
-    const showModal = (title, message, showInput = false, onConfirm = null) => {
-      const modal = document.getElementById('custom-modal');
-      document.getElementById('modal-title').innerText = title;
-      document.getElementById('modal-message').innerText = message;
-      const inputArea = document.getElementById('modal-input-area');
-      const pwdInput = document.getElementById('modal-password');
-      const cancelBtn = document.getElementById('modal-btn-cancel');
-      const confirmBtn = document.getElementById('modal-btn-confirm');
-
-      if (showInput) {
-        inputArea.classList.remove('hidden');
-        cancelBtn.classList.remove('hidden');
-        pwdInput.value = '';
-        setTimeout(() => pwdInput.focus(), 50);
-      } else {
-        inputArea.classList.add('hidden');
-        cancelBtn.classList.add('hidden');
-      }
-
-      modal.classList.remove('hidden');
-
-      const newConfirmBtn = confirmBtn.cloneNode(true);
-      confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
-      const newCancelBtn = cancelBtn.cloneNode(true);
-      cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
-
-      newConfirmBtn.onclick = () => {
-        modal.classList.add('hidden');
-        if (onConfirm) onConfirm(showInput ? pwdInput.value : null);
-      };
-      if (showInput) {
-        pwdInput.onkeydown = (event) => {
-          if (event.key === 'Enter') {
-            event.preventDefault();
-            newConfirmBtn.click();
-          }
-        };
-      }
-      newCancelBtn.onclick = () => {
-        modal.classList.add('hidden');
-      };
-
-      lucide.createIcons();
-    };
-
-    if (Object.keys(firebaseConfig).length > 0) {
-      app = initializeApp(firebaseConfig);
-      auth = getAuth(app);
-      db = getFirestore(app);
-
-      window.boardApp = {
-        posts: [],
-        currentPostId: null,
-        userId: null,
-        searchTerm: '',
-        _val: "NDc0Nw==",
-        get _sv() { return atob(this._val); },
-
-        escapeHTML: (value = '') => {
-          return String(value)
-            .replaceAll('&', '&amp;')
-            .replaceAll('<', '&lt;')
-            .replaceAll('>', '&gt;')
-            .replaceAll('"', '&quot;')
-            .replaceAll("'", '&#39;');
-        },
-
-        formatDate: (value) => {
-          if (!value) return '';
-          const d = value.toDate();
-          return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
-        },
-
-        formatDateTime: (value) => {
-          if (!value) return '';
-          const d = value.toDate();
-          return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} at ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-        },
-
-        getPlainPreview: (text = '', maxLength = 120) => {
-          const normalized = String(text).split('
-').join(' ').split('	').join(' ').trim();
-          if (!normalized) return 'No preview available.';
-          return normalized.length > maxLength ? `${normalized.slice(0, maxLength).trim()}…` : normalized;
-        },
-
-        linkifyText: (text = '') => {
-          const escaped = window.boardApp.escapeHTML(text);
-          const isWhitespace = (char) => char === ' ' || char === '
-' || char === '	' || char === '
-';
-          const isUrlStartAt = (source, index) => {
-            return source.startsWith('http://', index) || source.startsWith('https://', index) || source.startsWith('www.', index);
-          };
-          const wrapLink = (token) => {
-            let candidate = token;
-            let trailing = '';
-            const trailingChars = '.,!?)]';
-            while (candidate && trailingChars.includes(candidate[candidate.length - 1])) {
-              trailing = candidate[candidate.length - 1] + trailing;
-              candidate = candidate.slice(0, -1);
-            }
-            if (!candidate) return token;
-            const href = candidate.startsWith('www.') ? `https://${candidate}` : candidate;
-            return `<a href="${href}" target="_blank" rel="noopener noreferrer">${candidate}</a>${trailing}`;
-          };
-
-          let result = '';
-          let i = 0;
-          while (i < escaped.length) {
-            if (isUrlStartAt(escaped, i)) {
-              let j = i;
-              while (j < escaped.length && !isWhitespace(escaped[j])) {
-                j += 1;
-              }
-              result += wrapLink(escaped.slice(i, j));
-              i = j;
-            } else {
-              result += escaped[i];
-              i += 1;
-            }
-          }
-          return result.split('
-').join('<br>');
-        },
-
-        getFilteredPosts: () => {
-          const keyword = window.boardApp.searchTerm.trim().toLowerCase();
-          if (!keyword) return window.boardApp.posts;
-          return window.boardApp.posts.filter((post) => {
-            const target = [post.title, post.author, post.content, post.category].join(' ').toLowerCase();
-            return target.includes(keyword);
-          });
-        },
-
-        setupSearch: () => {
-          const input = document.getElementById('search-posts');
-          if (!input || input.dataset.bound === 'true') return;
-          input.dataset.bound = 'true';
-          input.addEventListener('input', (event) => {
-            window.boardApp.searchTerm = event.target.value || '';
-            window.boardApp.renderList();
-          });
-        },
-
-        init: async () => {
-          window.boardApp.setupSearch();
-          document.getElementById('loading-overlay').classList.remove('hidden');
-          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            try {
-              await signInWithCustomToken(auth, __initial_auth_token);
-            } catch (e) {
-              await signInAnonymously(auth);
-            }
-          } else {
-            await signInAnonymously(auth);
-          }
-
-          unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-            if (user) {
-              window.boardApp.userId = user.uid;
-              window.boardApp.setupDataListener();
-            } else {
-              document.getElementById('loading-overlay').classList.add('hidden');
-              showModal('Error', 'Session error.');
-            }
-          });
-        },
-
-        setupDataListener: () => {
-          const postsRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts');
-          unsubscribeData = onSnapshot(query(postsRef), (snapshot) => {
-            const fetchedPosts = [];
-            snapshot.forEach((item) => {
-              fetchedPosts.push({ id: item.id, ...item.data() });
-            });
-
-            fetchedPosts.sort((a, b) => {
-              if (a.isNotice && !b.isNotice) return -1;
-              if (!a.isNotice && b.isNotice) return 1;
-              return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0);
-            });
-
-            window.boardApp.posts = fetchedPosts;
-
-            if (!document.getElementById('view-list').classList.contains('hidden')) {
-              window.boardApp.renderList();
-            } else if (window.boardApp.currentPostId) {
-              if (!window.boardApp.posts.find(p => p.id === window.boardApp.currentPostId)) {
-                window.boardApp.showList();
-              }
-            }
-
-            document.getElementById('loading-overlay').classList.add('hidden');
-          }, () => {
-            document.getElementById('loading-overlay').classList.add('hidden');
-            showModal('Error', 'Sync failed.');
-          });
-        },
-
-        showList: () => {
-          window.boardApp.currentPostId = null;
-          document.getElementById('view-write').classList.add('hidden');
-          document.getElementById('view-read').classList.add('hidden');
-          document.getElementById('view-list').classList.remove('hidden');
-          window.boardApp.renderList();
-        },
-
-        showWrite: () => {
-          document.getElementById('view-list').classList.add('hidden');
-          document.getElementById('view-read').classList.add('hidden');
-          document.getElementById('view-write').classList.remove('hidden');
-          document.getElementById('write-form').reset();
-        },
-
-        renderList: () => {
-          const container = document.getElementById('post-list-container');
-          const countEl = document.getElementById('post-count');
-          container.innerHTML = '';
-
-          const filteredPosts = window.boardApp.getFilteredPosts();
-          if (countEl) {
-            countEl.textContent = `${filteredPosts.length} Posts`;
-          }
-
-          if (window.boardApp.posts.length === 0) {
-            container.innerHTML = `
-              <div class="rounded-[1.8rem] border border-dashed border-slate-200 bg-white/75 p-14 text-center text-slate-300 font-bold uppercase tracking-[0.24em] text-xs">
-                No entries yet.
-              </div>
-            `;
-            lucide.createIcons();
-            return;
-          }
-
-          if (filteredPosts.length === 0) {
-            container.innerHTML = `
-              <div class="rounded-[1.8rem] border border-dashed border-slate-200 bg-white/75 p-14 text-center">
-                <div class="text-slate-300 font-bold uppercase tracking-[0.24em] text-xs mb-3">No search results</div>
-                <p class="text-slate-500 font-bold">Try another keyword.</p>
-              </div>
-            `;
-            lucide.createIcons();
-            return;
-          }
-
-          filteredPosts.forEach(post => {
-            let catStyle = "bg-slate-100 text-slate-500";
-            if (post.isNotice) catStyle = "bg-red-500 text-white";
-            else if (post.category === "Question") catStyle = "bg-green-500 text-white";
-            else if (post.category === "General") catStyle = "bg-blue-100 text-blue-700";
-
-            const rowClass = post.isNotice ? "notice-row" : "normal-row";
-            const titleClass = post.isNotice ? "font-black text-slate-900" : "font-extrabold text-slate-800";
-            const dateStr = window.boardApp.formatDate(post.createdAt);
-            const preview = window.boardApp.escapeHTML(window.boardApp.getPlainPreview(post.content, 140));
-            const hasUrl = (post.content || '').includes('http://') || (post.content || '').includes('https://') || (post.content || '').includes('www.');
-
-            container.innerHTML += `
-              <div onclick="boardApp.readPost('${post.id}')" class="post-row ${rowClass} rounded-[1.6rem] border border-slate-100 p-5 md:p-6 cursor-pointer group">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div class="flex items-start gap-4 min-w-0 flex-1">
-                    <div class="mt-0.5 w-10 h-10 shrink-0 rounded-2xl ${post.isNotice ? 'bg-red-100 text-red-600' : 'bg-blue-50 text-blue-600'} flex items-center justify-center border border-white shadow-sm">
-                      <i data-lucide="${post.isNotice ? 'megaphone' : post.category === 'Question' ? 'circle-help' : 'message-square-text'}" class="w-4 h-4"></i>
-                    </div>
-                    <div class="min-w-0 w-full">
-                      <div class="flex flex-wrap items-center gap-2 mb-2">
-                        <span class="px-2.5 py-1 text-[10px] font-black rounded-full ${catStyle} uppercase tracking-[0.18em] shadow-sm">${post.category}</span>
-                        ${post.isNotice ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-red-100 text-red-600 uppercase tracking-[0.18em]">Priority</span>' : ''}
-                        ${hasUrl ? '<span class="px-2.5 py-1 text-[10px] font-black rounded-full bg-violet-100 text-violet-700 uppercase tracking-[0.18em]">Link</span>' : ''}
-                      </div>
-                      <h3 class="text-base md:text-lg ${titleClass} line-clamp-1 group-hover:text-blue-700 transition-colors">${post.title}</h3>
-                      <p class="post-preview">${preview}</p>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-3 md:gap-4 text-xs text-slate-400 font-bold shrink-0 md:pl-4 flex-wrap md:flex-nowrap">
-                    <span class="meta-chip max-w-[140px] line-clamp-1"><i data-lucide="user" class="w-3.5 h-3.5"></i>${post.author}</span>
-                    <span class="meta-chip"><i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>${dateStr}</span>
-                  </div>
-                </div>
-              </div>
-            `;
-          });
-
-          lucide.createIcons();
-        },
-
-        readPost: (id) => {
-          const post = window.boardApp.posts.find(p => p.id === id);
-          if (!post) return;
-
-          window.boardApp.currentPostId = id;
-          document.getElementById('view-list').classList.add('hidden');
-          document.getElementById('view-read').classList.remove('hidden');
-
-          const catEl = document.getElementById('read-category');
-          catEl.innerText = post.category;
-          if (post.isNotice) catEl.className = "px-3 py-1.5 text-[10px] font-black rounded-full bg-red-500 text-white shadow-md uppercase tracking-[0.24em]";
-          else if (post.category === "Question") catEl.className = "px-3 py-1.5 text-[10px] font-black rounded-full bg-green-500 text-white shadow-md uppercase tracking-[0.24em]";
-          else catEl.className = "px-3 py-1.5 text-[10px] font-black rounded-full bg-blue-100 text-blue-700 shadow-sm uppercase tracking-[0.24em]";
-
-          document.getElementById('read-title').innerText = post.title;
-          document.getElementById('read-author').innerText = post.author;
-          document.getElementById('read-content').innerHTML = window.boardApp.linkifyText(post.content || '');
-          document.getElementById('read-avatar').innerText = post.author.charAt(0).toUpperCase();
-          document.getElementById('read-date').innerText = window.boardApp.formatDateTime(post.createdAt);
-
-          lucide.createIcons();
-        },
-
-        submitPost: async (e) => {
-          e.preventDefault();
-          if (!window.boardApp.userId) return;
-
-          const btnSubmit = document.getElementById('btn-submit');
-          const category = document.getElementById('input-category').value;
-          const pwd = document.getElementById('input-password').value;
-
-          if (category === "Notice" && pwd !== window.boardApp._sv) {
-            showModal('Error', 'Incorrect admin password.');
-            return;
-          }
-
-          btnSubmit.disabled = true;
-          btnSubmit.innerHTML = 'Sending...';
-
-          try {
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), {
-              category,
-              title: document.getElementById('input-title').value.trim(),
-              author: document.getElementById('input-author').value.trim(),
-              content: document.getElementById('input-content').value.trim(),
-              password: pwd,
-              createdAt: serverTimestamp(),
-              isNotice: category === "Notice",
-              uid: window.boardApp.userId
-            });
-            window.boardApp.showList();
-          } catch (error) {
-            showModal('Error', 'Failed to save.');
-          } finally {
-            btnSubmit.disabled = false;
-            btnSubmit.innerHTML = 'Submit Post';
-          }
-        },
-
-        deleteCurrentPost: () => {
-          if (!window.boardApp.currentPostId) return;
-          const post = window.boardApp.posts.find(p => p.id === window.boardApp.currentPostId);
-
-          showModal('Security', 'Enter password to delete this post.', true, async (inputPwd) => {
-            if (!inputPwd) return;
-
-            if (inputPwd === post.password || inputPwd === window.boardApp._sv) {
-              try {
-                document.getElementById('loading-overlay').classList.remove('hidden');
-                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'posts', window.boardApp.currentPostId));
-                window.boardApp.showList();
-              } catch (error) {
-                document.getElementById('loading-overlay').classList.add('hidden');
-                showModal('Error', 'Failed to delete.');
-              }
-            } else {
-              showModal('Error', 'Access denied.');
-            }
-          });
+    <link rel="icon" href="favicon1.png" type="image/png"> 
+    <link rel="apple-touch-icon" href="favicon1.png"> 
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - Notice Board</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc; 
+            /* 텍스트 선택 방지 (우클릭/드래그 금지) */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
-      };
+        
+        /* 텍스트 내용 등 꼭 선택이 필요한 곳은 선택 허용 */
+        .allow-select {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
 
-      window.addEventListener('load', window.boardApp.init);
-    } else {
-      document.body.innerHTML = `<div class="p-20 text-center"><h1 class="text-3xl font-black mb-4">Setup Required</h1><p>Config missing.</p></div>`;
-    }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #2563eb; border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    lucide.createIcons();
-  </script>
+        /* 커스텀 스크롤바 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800" oncontextmenu="return false" ondragstart="return false">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="logo.png" alt="JKLC Logo" class="h-11 w-auto transition-transform group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden font-black text-2xl tracking-tighter items-center">
+                    <span class="text-yellow-400">J</span><span class="text-blue-600">K</span><span class="text-green-600">L</span><span class="text-red-600">C</span>
+                </div>
+            </a>
+            
+            <div class="flex gap-5">
+                <a href="quiz.html" class="text-sm text-slate-500 hover:text-blue-600 font-bold transition flex items-center gap-1.5">
+                    <i data-lucide="gamepad-2" class="w-4 h-4"></i> Quiz
+                </a>
+                <a href="index.html" class="text-sm text-slate-500 hover:text-blue-600 font-bold transition flex items-center gap-1.5">
+                    <i data-lucide="home" class="w-4 h-4"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 md:py-12 relative flex flex-col">
+        
+        <!-- 타이틀 영역 -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-black text-gray-900 mb-2 flex items-center gap-3 tracking-tight">
+                <div class="p-2 bg-blue-100 text-blue-600 rounded-xl">
+                    <i data-lucide="message-square" class="w-6 h-6"></i>
+                </div>
+                JKLC Notice Board
+            </h1>
+            <p class="text-slate-500 font-medium">공지사항 및 학습 자료 게시판 (ကြေညာချက်နှင့် သင်ကြားရေးပစ္စည်းများ)</p>
+        </div>
+
+        <!-- 메인 보드 컨테이너 -->
+        <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden flex-grow flex flex-col relative min-h-[600px]">
+            
+            <div id="loading-overlay" class="absolute inset-0 bg-white/90 backdrop-blur-sm z-10 flex flex-col items-center justify-center hidden">
+                <div class="loader mb-3"></div>
+                <p class="text-sm text-blue-600 font-bold tracking-widest uppercase">Loading...</p>
+            </div>
+
+            <!-- ================= 1. List View ================= -->
+            <div id="view-list" class="fade-in flex flex-col h-full flex-grow">
+                <!-- 상단 툴바 -->
+                <div class="flex justify-between items-center p-5 md:px-8 md:py-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3.5 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase rounded-full shadow-sm tracking-widest flex items-center gap-1.5">
+                            <i data-lucide="layers" class="w-3 h-3"></i> All Posts
+                        </span>
+                    </div>
+                    <button onclick="boardApp.showWrite()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all flex items-center gap-2 shadow-md hover:shadow-lg active:scale-95">
+                        <i data-lucide="pen-line" class="w-4 h-4"></i> 글쓰기 (Write)
+                    </button>
+                </div>
+
+                <!-- 리스트 목록 -->
+                <div id="post-list-container" class="divide-y divide-slate-100 flex-grow overflow-y-auto">
+                    <!-- Posts will be injected here -->
+                </div>
+            </div>
+
+            <!-- ================= 2. Read View ================= -->
+            <div id="view-read" class="hidden fade-in flex flex-col h-full flex-grow overflow-y-auto bg-white">
+                <div class="p-6 md:p-10 max-w-3xl mx-auto w-full">
+                    <button onclick="boardApp.showList()" class="text-slate-400 hover:text-blue-600 font-bold mb-8 flex items-center gap-1.5 text-xs transition uppercase tracking-widest shrink-0 w-fit group">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to list
+                    </button>
+                    
+                    <!-- 글 헤더 -->
+                    <div class="border-b border-slate-100 pb-6 mb-8 shrink-0">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="w-full">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span id="read-category" class="px-2.5 py-1 text-[10px] font-black rounded-md bg-slate-100 text-slate-500 uppercase tracking-widest shadow-sm">Category</span>
+                                    <h2 id="read-title" class="text-2xl md:text-3xl font-black text-slate-900 leading-tight allow-select">Post Title</h2>
+                                </div>
+                                <div class="flex items-center text-sm text-slate-400 mt-5">
+                                    <div class="flex items-center gap-2.5 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
+                                        <div class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-[10px]" id="read-avatar">A</div>
+                                        <span id="read-author" class="font-bold text-slate-700 text-xs">Author Name</span>
+                                    </div>
+                                    <span class="mx-3 opacity-30">|</span>
+                                    <span id="read-date" class="text-xs font-bold opacity-70">Date</span>
+                                </div>
+                            </div>
+                            <button id="btn-delete" onclick="boardApp.deleteCurrentPost()" title="글 삭제" class="text-red-300 hover:text-red-600 p-2.5 rounded-full hover:bg-red-50 transition shrink-0">
+                                <i data-lucide="trash-2" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 📎 학습 자료 전용 링크 UI -->
+                    <div id="read-attached-link" class="hidden mb-8 p-4 md:p-5 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-2xl border border-blue-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+                        <div class="flex items-center gap-4 overflow-hidden">
+                            <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm shrink-0 border border-blue-50 group-hover:scale-105 transition-transform">
+                                <i data-lucide="external-link" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <p class="text-xs font-black text-blue-800 mb-1 uppercase tracking-widest flex items-center gap-2">
+                                    학습 자료 링크 <span class="font-normal text-[10px] text-blue-600 bg-blue-100 px-1.5 rounded">(Material Link)</span>
+                                </p>
+                                <a id="read-link-url" href="#" target="_blank" class="text-sm md:text-base font-bold text-slate-600 hover:text-blue-600 truncate block transition-colors">https://...</a>
+                            </div>
+                        </div>
+                        <a id="read-link-btn" href="#" target="_blank" class="shrink-0 bg-white text-blue-600 border border-blue-200 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:bg-blue-600 hover:text-white transition-all active:scale-95 text-center flex items-center justify-center gap-2">
+                            자료 열기 <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+
+                    <!-- 글 본문 -->
+                    <div id="read-content" class="text-slate-700 leading-relaxed text-[15px] md:text-[17px] allow-select">
+                        <!-- Content will be injected here. URLs will be converted to links. -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= 3. Write View ================= -->
+            <div id="view-write" class="hidden fade-in flex flex-col h-full flex-grow overflow-y-auto bg-slate-50/30">
+                <div class="p-6 md:p-10 max-w-3xl mx-auto w-full">
+                    <div class="flex justify-between items-center mb-8 pb-4 border-b border-slate-200">
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-900 tracking-tight">새 글 작성 (Write)</h2>
+                            <p class="text-xs text-slate-500 font-bold mt-1">공지사항이나 질문, 자료를 올려주세요.</p>
+                        </div>
+                        <button onclick="boardApp.showList()" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    </div>
+
+                    <form id="write-form" onsubmit="boardApp.submitPost(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">분류 (Category)</label>
+                                <select id="input-category" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700 appearance-none cursor-pointer">
+                                    <option value="General">일반 (General)</option>
+                                    <option value="Question">질문 (Question)</option>
+                                    <option value="Notice">공지 (Notice) *Admin</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">이름 (Name)</label>
+                                <input type="text" id="input-author" required placeholder="작성자 이름" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 flex items-center justify-between">
+                                    <span>비밀번호 (Password)</span>
+                                    <span class="text-red-400 font-bold text-[10px]">*글 삭제 시 필요</span>
+                                </label>
+                                <input type="password" id="input-password" required placeholder="숫자 4자리" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">제목 (Title)</label>
+                            <input type="text" id="input-title" required placeholder="글 제목을 입력하세요" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700">
+                        </div>
+
+                        <!-- 학습 자료 전용 링크 입력란 -->
+                        <div class="p-5 bg-blue-50/50 rounded-2xl border border-blue-100">
+                            <label class="block text-xs font-black text-blue-700 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                                <i data-lucide="link" class="w-4 h-4"></i> 학습 자료 링크 (Material URL) <span class="text-blue-400 font-normal ml-1 text-[10px]">*선택사항 (Optional)</span>
+                            </label>
+                            <input type="url" id="input-link" placeholder="https://..." class="w-full bg-white border-2 border-blue-100 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition font-medium text-slate-600 text-sm">
+                            <p class="text-[10px] text-blue-500 font-bold mt-2 ml-1">이곳에 구글 드라이브나 유튜브 등의 링크를 넣으면 글 상단에 예쁜 버튼이 생깁니다.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">본문 (Message)</label>
+                            <textarea id="input-content" required rows="7" placeholder="내용을 작성하세요. 본문에 적힌 주소(https://...)도 자동으로 클릭 가능한 링크로 변환됩니다." class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-medium text-slate-700 resize-y leading-relaxed"></textarea>
+                        </div>
+
+                        <div class="pt-6 flex justify-end gap-3 border-t border-slate-200 mt-10">
+                            <button type="button" onclick="boardApp.showList()" class="px-8 py-3.5 text-slate-500 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition text-xs">취소 (Cancel)</button>
+                            <button type="submit" id="btn-submit" class="px-10 py-3.5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-blue-700 transition shadow-xl hover:shadow-blue-600/30 flex items-center gap-2 text-xs active:scale-95">
+                                글 등록하기 (Submit)
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- ================= Custom Modal ================= -->
+            <div id="custom-modal" class="fixed inset-0 bg-slate-900/40 z-[100] flex items-center justify-center hidden backdrop-blur-sm">
+                <div class="bg-white rounded-[2rem] p-8 max-w-sm w-full mx-4 shadow-2xl border border-white">
+                    <h3 id="modal-title" class="text-xl font-black text-slate-900 mb-2 tracking-tight">알림</h3>
+                    <p id="modal-message" class="text-slate-500 mb-8 font-medium text-sm">메시지 내용</p>
+                    
+                    <div id="modal-input-area" class="mb-6 hidden">
+                        <input type="password" id="modal-password" placeholder="비밀번호 입력" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-500 font-bold transition text-center tracking-widest">
+                    </div>
+                    
+                    <div class="flex justify-end gap-3">
+                        <button id="modal-btn-cancel" class="px-5 py-2.5 text-slate-500 font-black text-xs uppercase tracking-widest hover:bg-slate-100 rounded-xl hidden">취소</button>
+                        <button id="modal-btn-confirm" class="px-6 py-2.5 bg-blue-600 text-white font-black text-xs uppercase tracking-widest hover:bg-blue-700 rounded-xl shadow-md">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-8 border-t border-slate-100 mt-auto">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <img src="logo.png" alt="JKLC" class="h-8 mx-auto mb-4 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all" onerror="this.style.display='none';">
+            
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2 leading-relaxed">
+                JOY KOREAN LANGUAGE CENTER <br>
+                <span class="text-slate-300">YANGON · HLEDAN</span>
+            </p>
+            <p class="text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBOIj7UFkPNrH-eQgUAp6X4QytT61yY1Rk",
+            authDomain: "joy-korean-cdba0.firebaseapp.com",
+            projectId: "joy-korean-cdba0",
+            storageBucket: "joy-korean-cdba0.firebasestorage.app",
+            messagingSenderId: "509083643772",
+            appId: "1:509083643772:web:e80c40c02d7928a82b7ef9"
+        };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'joy-korean-board';
+        
+        let app, auth, db;
+        let unsubscribeAuth, unsubscribeData;
+        
+        // --- 텍스트 보안 및 링크 변환 유틸리티 ---
+        const escapeHTML = (str) => {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+            }[tag]));
+        };
+
+        const linkify = (text) => {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            // 줄바꿈 보존을 위해 pre-wrap 속성을 사용하므로 별도의 <br> 치환은 하지 않음
+            return text.replace(urlRegex, function(url) {
+                return `<a href="${url}" target="_blank" class="text-blue-500 underline decoration-blue-200 hover:decoration-blue-500 hover:text-blue-700 underline-offset-4 font-bold transition-all break-all select-all inline-block max-w-full">${url}</a>`;
+            });
+        };
+        // ------------------------------------
+
+        const showModal = (title, message, showInput = false, onConfirm = null) => {
+            const modal = document.getElementById('custom-modal');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            const inputArea = document.getElementById('modal-input-area');
+            const pwdInput = document.getElementById('modal-password');
+            const cancelBtn = document.getElementById('modal-btn-cancel');
+            const confirmBtn = document.getElementById('modal-btn-confirm');
+            
+            if (showInput) { 
+                inputArea.classList.remove('hidden'); 
+                cancelBtn.classList.remove('hidden'); 
+                pwdInput.value = ''; 
+                setTimeout(() => pwdInput.focus(), 100);
+            } else { 
+                inputArea.classList.add('hidden'); 
+                cancelBtn.classList.add('hidden'); 
+            }
+            
+            modal.classList.remove('hidden');
+            const newConfirmBtn = confirmBtn.cloneNode(true); confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+            const newCancelBtn = cancelBtn.cloneNode(true); cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+            
+            newConfirmBtn.onclick = () => { modal.classList.add('hidden'); if (onConfirm) onConfirm(showInput ? pwdInput.value : null); };
+            newCancelBtn.onclick = () => { modal.classList.add('hidden'); };
+        };
+
+        if (Object.keys(firebaseConfig).length > 0) {
+            app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app);
+            window.boardApp = {
+                posts: [], currentPostId: null, userId: null,
+                _val: "NDc0Nw==", // "4747"
+                get _sv() { return atob(this._val); },
+                
+                init: async () => {
+                    document.getElementById('loading-overlay').classList.remove('hidden');
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
+                        try { await signInWithCustomToken(auth, __initial_auth_token); } 
+                        catch (e) { await signInAnonymously(auth); } 
+                    } else { 
+                        await signInAnonymously(auth); 
+                    }
+                    unsubscribeAuth = onAuthStateChanged(auth, (user) => { 
+                        if (user) { 
+                            window.boardApp.userId = user.uid; 
+                            window.boardApp.setupDataListener(); 
+                        } else { 
+                            document.getElementById('loading-overlay').classList.add('hidden'); 
+                            showModal('오류', '인증 세션 오류가 발생했습니다.'); 
+                        } 
+                    });
+                },
+
+                setupDataListener: () => {
+                    const postsRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts');
+                    unsubscribeData = onSnapshot(query(postsRef), (snapshot) => {
+                        const fetchedPosts = []; 
+                        snapshot.forEach((doc) => { fetchedPosts.push({ id: doc.id, ...doc.data() }); });
+                        
+                        // 정렬: 공지사항이 먼저 오고, 그 다음 최신순
+                        fetchedPosts.sort((a, b) => { 
+                            if (a.isNotice && !b.isNotice) return -1; 
+                            if (!a.isNotice && b.isNotice) return 1;
+                            return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0); 
+                        });
+                        window.boardApp.posts = fetchedPosts;
+                        
+                        if (!document.getElementById('view-list').classList.contains('hidden')) window.boardApp.renderList();
+                        else if (window.boardApp.currentPostId) { 
+                            if (!window.boardApp.posts.find(p => p.id === window.boardApp.currentPostId)) window.boardApp.showList(); 
+                        }
+                        document.getElementById('loading-overlay').classList.add('hidden');
+                    }, (error) => { 
+                        document.getElementById('loading-overlay').classList.add('hidden'); 
+                        showModal('오류', '데이터를 불러오지 못했습니다.'); 
+                    });
+                },
+
+                showList: () => { 
+                    window.boardApp.currentPostId = null; 
+                    document.getElementById('view-write').classList.add('hidden'); 
+                    document.getElementById('view-read').classList.add('hidden'); 
+                    document.getElementById('view-list').classList.remove('hidden'); 
+                    window.boardApp.renderList(); 
+                },
+
+                showWrite: () => { 
+                    document.getElementById('view-list').classList.add('hidden'); 
+                    document.getElementById('view-read').classList.add('hidden'); 
+                    document.getElementById('view-write').classList.remove('hidden'); 
+                    document.getElementById('write-form').reset(); 
+                },
+
+                renderList: () => {
+                    const container = document.getElementById('post-list-container'); container.innerHTML = '';
+                    if(window.boardApp.posts.length === 0) { 
+                        container.innerHTML = `<div class="p-20 text-center flex flex-col items-center justify-center opacity-50"><i data-lucide="file-question" class="w-12 h-12 mb-3 text-slate-300"></i><span class="text-slate-400 font-bold tracking-widest text-sm uppercase">등록된 게시물이 없습니다.</span></div>`; 
+                        lucide.createIcons();
+                        return; 
+                    }
+                    
+                    window.boardApp.posts.forEach(post => {
+                        const isNotice = post.isNotice;
+                        const bgClass = isNotice ? "bg-red-50/40 border-l-[6px] border-l-red-500" : "bg-white hover:bg-slate-50 border-l-[6px] border-l-transparent hover:border-l-blue-400";
+                        const titleClass = isNotice ? "font-black text-slate-900" : "font-bold text-slate-800";
+                        
+                        let catStyle = "bg-slate-100 text-slate-500"; 
+                        if(isNotice) catStyle = "bg-red-500 text-white"; 
+                        else if(post.category === "Question") catStyle = "bg-green-500 text-white";
+                        
+                        let dateStr = ""; 
+                        if (post.createdAt) { 
+                            const d = post.createdAt.toDate(); 
+                            dateStr = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`; 
+                        }
+                        
+                        // 첨부 링크가 있는지 아이콘 표시
+                        const linkIcon = post.link ? `<i data-lucide="link" class="w-3.5 h-3.5 text-blue-400 ml-2" title="링크 포함"></i>` : '';
+
+                        container.innerHTML += `
+                            <div onclick="boardApp.readPost('${post.id}')" class="p-5 md:p-6 cursor-pointer transition-all ${bgClass} flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6 group">
+                                <div class="flex items-center gap-4 flex-grow min-w-0">
+                                    <span class="shrink-0 px-2.5 py-1 text-[10px] font-black rounded-md ${catStyle} uppercase tracking-widest shadow-sm">${post.category}</span>
+                                    <h3 class="text-base md:text-lg ${titleClass} truncate group-hover:text-blue-600 transition-colors flex items-center">${post.title} ${linkIcon}</h3>
+                                </div>
+                                <div class="flex items-center justify-between md:justify-end gap-6 text-xs text-slate-400 font-bold shrink-0 ml-16 md:ml-0">
+                                    <span class="truncate max-w-[100px] flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5"></i> ${post.author}</span>
+                                    <span class="w-20 text-right opacity-70">${dateStr}</span>
+                                </div>
+                            </div>`;
+                    }); 
+                    lucide.createIcons();
+                },
+
+                readPost: (id) => {
+                    const post = window.boardApp.posts.find(p => p.id === id); if(!post) return; 
+                    window.boardApp.currentPostId = id;
+                    
+                    document.getElementById('view-list').classList.add('hidden'); 
+                    document.getElementById('view-read').classList.remove('hidden');
+                    
+                    // 카테고리
+                    const catEl = document.getElementById('read-category'); catEl.innerText = post.category;
+                    if(post.isNotice) catEl.className = "px-2.5 py-1 text-[10px] font-black rounded-md bg-red-500 text-white shadow-sm uppercase tracking-widest";
+                    else if(post.category === "Question") catEl.className = "px-2.5 py-1 text-[10px] font-black rounded-md bg-green-500 text-white shadow-sm uppercase tracking-widest";
+                    else catEl.className = "px-2.5 py-1 text-[10px] font-black rounded-md bg-slate-100 text-slate-500 shadow-sm uppercase tracking-widest";
+                    
+                    // 텍스트 매핑
+                    document.getElementById('read-title').innerText = post.title; 
+                    document.getElementById('read-author').innerText = post.author;
+                    document.getElementById('read-avatar').innerText = post.author.charAt(0).toUpperCase();
+                    
+                    let dateStr = ""; 
+                    if (post.createdAt) { 
+                        const d = post.createdAt.toDate(); 
+                        dateStr = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; 
+                    }
+                    document.getElementById('read-date').innerText = dateStr; 
+
+                    // 1. 학습 자료 (Link) 영역 처리
+                    const attachedLinkBox = document.getElementById('read-attached-link');
+                    if (post.link && post.link.trim().startsWith('http')) {
+                        attachedLinkBox.classList.remove('hidden');
+                        attachedLinkBox.classList.add('flex'); // 모바일 flex 대응
+                        document.getElementById('read-link-url').innerText = post.link.trim();
+                        document.getElementById('read-link-url').href = post.link.trim();
+                        document.getElementById('read-link-btn').href = post.link.trim();
+                    } else {
+                        attachedLinkBox.classList.add('hidden');
+                        attachedLinkBox.classList.remove('flex');
+                    }
+
+                    // 2. 본문 내용 (HTML 이스케이프 후 링크 텍스트를 실제 <a> 태그로 변환)
+                    const safeContent = escapeHTML(post.content);
+                    document.getElementById('read-content').innerHTML = `<p class="whitespace-pre-wrap">${linkify(safeContent)}</p>`;
+                },
+
+                submitPost: async (e) => {
+                    e.preventDefault(); if (!window.boardApp.userId) return;
+                    
+                    const btnSubmit = document.getElementById('btn-submit'); 
+                    const category = document.getElementById('input-category').value; 
+                    const pwd = document.getElementById('input-password').value;
+                    const title = document.getElementById('input-title').value.trim();
+                    const author = document.getElementById('input-author').value.trim();
+                    const content = document.getElementById('input-content').value.trim();
+                    const link = document.getElementById('input-link').value.trim();
+                    
+                    if (category === "Notice" && pwd !== window.boardApp._sv) { 
+                        showModal('권한 오류', '공지사항 작성은 학원 관리자만 가능합니다. (비밀번호 불일치)'); return; 
+                    }
+                    
+                    btnSubmit.disabled = true; 
+                    btnSubmit.innerHTML = `<div class="loader !w-4 !h-4 !border-2 !border-white !border-t-transparent mr-2"></div> 등록 중...`;
+                    
+                    try { 
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { 
+                            category, title, author, content, link, password: pwd, 
+                            createdAt: serverTimestamp(), isNotice: category === "Notice", uid: window.boardApp.userId 
+                        }); 
+                        window.boardApp.showList(); 
+                    } 
+                    catch (error) { showModal('오류', '게시물을 등록하는데 실패했습니다.'); } 
+                    finally { 
+                        btnSubmit.disabled = false; 
+                        btnSubmit.innerHTML = `글 등록하기 (Submit)`; 
+                    }
+                },
+
+                deleteCurrentPost: () => {
+                    if (!window.boardApp.currentPostId) return; 
+                    const post = window.boardApp.posts.find(p => p.id === window.boardApp.currentPostId);
+                    
+                    showModal('보안 인증', '이 글을 삭제하려면 비밀번호를 입력하세요.', true, async (inputPwd) => {
+                        if (!inputPwd) return; 
+                        if (inputPwd === post.password || inputPwd === window.boardApp._sv) {
+                            try { 
+                                document.getElementById('loading-overlay').classList.remove('hidden'); 
+                                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'posts', window.boardApp.currentPostId)); 
+                                window.boardApp.showList(); 
+                            } 
+                            catch (error) { 
+                                document.getElementById('loading-overlay').classList.add('hidden'); 
+                                showModal('오류', '글 삭제에 실패했습니다.'); 
+                            }
+                        } else { 
+                            showModal('오류', '비밀번호가 일치하지 않습니다.'); 
+                        }
+                    });
+                }
+            };
+            window.addEventListener('load', window.boardApp.init);
+        } else { 
+            document.body.innerHTML = `<div class="p-20 text-center"><h1 class="text-3xl font-black mb-4">Setup Required</h1><p>Config missing.</p></div>`; 
+        }
+        lucide.createIcons();
+    </script>
 </body>
 </html>
