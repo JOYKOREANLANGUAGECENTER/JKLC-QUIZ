@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>과일 한국어 공부</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --line: #dbe4f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-soft: #eaf2ff;
+      --accent: #0f766e;
+      --accent-soft: #ecfdf5;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 220px);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 18px 14px 48px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #2563eb, #0f766e);
+      color: white;
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-logo {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+      flex-shrink: 0;
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 118px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      color: var(--primary);
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .home-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 860px;
+      font-size: 16px;
+      opacity: 0.96;
+    }
+
+    .controls {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    input, select, button {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--text);
+      padding: 13px 14px;
+      font: inherit;
+    }
+
+    button {
+      border: none;
+      font-weight: 800;
+      cursor: pointer;
+      background: #0f172a;
+      color: white;
+    }
+
+    .tabs {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      width: auto;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    .section {
+      margin-top: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .photo-wrap {
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(180deg, #eff6ff, #f8fafc);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .photo-wrap.fruit-bg {
+      background: linear-gradient(180deg, #fff7ed, #fefce8);
+    }
+
+    .photo-wrap.animal-bg {
+      background: linear-gradient(180deg, #eef2ff, #ecfeff);
+    }
+
+    .photo-emoji {
+      font-size: 110px;
+      line-height: 1;
+      filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.12));
+      user-select: none;
+    }
+
+    .card-logo-badge {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.9);
+      border-radius: 10px;
+      padding: 4px;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .photo-label {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .word-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .word-logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      flex-shrink: 0;
+      opacity: 0.95;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .korean {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .myanmar {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.3;
+    }
+
+    .roman {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .mini-btn {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mini-btn.listen {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+
+    
+
+    
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .fallback-emoji {
+      font-size: 84px;
+      line-height: 1;
+    }
+
+    @media (max-width: 980px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .korean {
+        font-size: 24px;
+      }
+      .myanmar {
+        font-size: 20px;
+      }
+      .hero-top {
+        align-items: flex-start;
+      }
+      .brand-area {
+        width: 100%;
+      }
+      .home-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand-area">
+          <img src="logo.png" alt="JOY logo" class="hero-logo">
+          <div>
+            <h1>과일 한국어 공부</h1>
+            <p>ငါတို့ကြိုက်တဲ့ အရသာရှိတဲ့ သစ်သီးတွေကို ကိုရီးယားလို ဘယ်လိုပြောရမလဲ လေ့လာကြရအောင်။</p>
+          </div>
+        </div>
+        <a href="index.html" class="home-btn">HOME</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="controls">
+        <select id="sortSelect">
+          <option value="default">기본순</option>
+          <option value="korean">가나다순</option>
+          <option value="myanmar">미얀마어순</option>
+        </select>
+        <button id="speakAllBtn">현재 보이는 단어 듣기</button>
+      </div>
+      
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 id="sectionTitle">과일 보기</h2>
+        <div class="hint">과일 사진 + 한국어 + 미얀마어 병기</div>
+      </div>
+      <div class="grid" id="cardGrid"></div>
+    </section>
+  </div>
+
+  <script>
+    const vocab = [
+      { category: 'fruit', ko: '사과', mm: 'ပန်းသီး', roman: 'sagwa', en: 'apple', emoji: '🍎' },
+      { category: 'fruit', ko: '바나나', mm: 'ငှက်ပျောသီး', roman: 'banana', en: 'banana', emoji: '🍌' },
+      { category: 'fruit', ko: '포도', mm: 'စပျစ်သီး', roman: 'podo', en: 'grape', emoji: '🍇' },
+      { category: 'fruit', ko: '오렌지', mm: 'လိမ္မော်သီး', roman: 'orenji', en: 'orange', emoji: '🍊' },
+      { category: 'fruit', ko: '수박', mm: 'ဖရဲသီး', roman: 'subak', en: 'watermelon', emoji: '🍉' },
+      { category: 'fruit', ko: '딸기', mm: 'စတော်ဘယ်ရီသီး', roman: 'ttalgi', en: 'strawberry', emoji: '🍓' },
+      { category: 'fruit', ko: '망고', mm: 'သရက်သီး', roman: 'manggo', en: 'mango', emoji: '🥭' },
+      { category: 'fruit', ko: '파인애플', mm: 'နာနတ်သီး', roman: 'paeinaepeul', en: 'pineapple', emoji: '🍍' },
+      { category: 'fruit', ko: '복숭아', mm: 'မက်မွန်သီး', roman: 'boksunga', en: 'peach', emoji: '🍑' },
+      { category: 'fruit', ko: '배', mm: 'သစ်တော်သီး', roman: 'bae', en: 'pear', emoji: '🍐' },
+      { category: 'fruit', ko: '체리', mm: 'ချယ်ရီသီး', roman: 'cheri', en: 'cherry', emoji: '🍒' },
+      { category: 'fruit', ko: '레몬', mm: 'သံပုရာသီး', roman: 'lemon', en: 'lemon', emoji: '🍋' },
+      { category: 'fruit', ko: '멜론', mm: 'မက်လွန်သီး', roman: 'mellon', en: 'melon', emoji: '🍈' },
+      { category: 'fruit', ko: '코코넛', mm: 'အုန်းသီး', roman: 'kokoneot', en: 'coconut', emoji: '🥥' },
+      { category: 'fruit', ko: '블루베리', mm: 'ဘလူးဘယ်ရီသီး', roman: 'beulluberi', en: 'blueberry', emoji: '🫐' },
+      { category: 'fruit', ko: '키위', mm: 'ကီဝီသီး', roman: 'kiwi', en: 'kiwi', emoji: '🥝' },
+      { category: 'fruit', ko: '자두', mm: 'ဇီးသီး', roman: 'jadu', en: 'plum', emoji: '🟣' },
+      { category: 'fruit', ko: '아보카도', mm: 'ထောပတ်သီး', roman: 'abokado', en: 'avocado', emoji: '🥑' }
+    ];
+
+    const synth = window.speechSynthesis;
+        const sortSelect = document.getElementById('sortSelect');
+    const speakAllBtn = document.getElementById('speakAllBtn');
+        const cardGrid = document.getElementById('cardGrid');
+    const sectionTitle = document.getElementById('sectionTitle');
+
+    
+        function getFilteredData() {
+      let data = [...vocab];
+
+      if (sortSelect.value === 'korean') {
+        data.sort((a, b) => a.ko.localeCompare(b.ko, 'ko'));
+      } else if (sortSelect.value === 'myanmar') {
+        data.sort((a, b) => a.mm.localeCompare(b.mm));
+      }
+
+      return data;
+    }
+
+    function speakText(text, onEnd = null) {
+      if (!('speechSynthesis' in window)) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ko-KR';
+      utter.rate = 0.85;
+      utter.pitch = 1;
+      utter.volume = 1;
+      utter.onend = () => {
+        if (typeof onEnd === 'function') onEnd();
+      };
+      synth.speak(utter);
+    }
+
+    function speakSequence(items, index = 0) {
+      if (!items.length || index >= items.length) return;
+      speakText(items[index].ko, () => {
+        setTimeout(() => speakSequence(items, index + 1), 250);
+      });
+    }
+
+    function renderCards() {
+      const data = getFilteredData();
+      sectionTitle.textContent = '과일 보기';
+
+      cardGrid.innerHTML = data.map((item) => `
+        <article class="card">
+          <div class="photo-wrap fruit-bg">
+            <div class="photo-emoji" aria-label="${item.en}">${item.emoji}</div>
+            <span class="photo-label">과일</span>
+            <img src="logo.png" alt="JOY logo" class="card-logo-badge" draggable="false">
+          </div>
+          <div class="card-body">
+            <div class="word-row">
+              <div class="korean">${item.ko}</div>
+              <img src="logo.png" alt="JOY logo" class="word-logo" draggable="false">
+            </div>
+            <div class="myanmar">${item.mm}</div>
+            <div class="roman">${item.roman}</div>
+            <div class="action-row">
+              <button class="mini-btn listen" type="button" data-listen="${item.ko}">듣기</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      cardGrid.querySelectorAll('[data-listen]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if ('speechSynthesis' in window) {
+            synth.cancel();
+            speakText(btn.dataset.listen);
+          }
+        });
+      });
+    }
+
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    });
+    sortSelect.addEventListener('change', renderCards);
+    speakAllBtn.addEventListener('click', () => {
+      if ('speechSynthesis' in window) {
+        synth.cancel();
+        speakSequence(getFilteredData());
+      }
+    });
+    renderCards();
+  </script>
+</body>
+</html>
