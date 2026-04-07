@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JKLC - Basic Vocabulary 100</title>
-    <!-- 파비콘 삽입 -->
     <link rel="icon" href="logo.png" type="image/png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,7 +28,7 @@
             user-select: none;
         }
 
-        /* 화면 출력용 스타일 (A4 용지 2장 분량 처리) */
+        /* 화면 출력용 스타일 */
         .page-container {
             width: 210mm; 
             min-height: 297mm; 
@@ -38,14 +37,15 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             position: relative;
             box-sizing: border-box;
-            padding: 10mm 15mm;
+            /* 여백 대폭 축소 */
+            padding: 8mm 12mm;
             overflow: hidden; 
             z-index: 1;
             display: flex;
             flex-direction: column;
         }
 
-        /* 인쇄 시 페이지 나누기 설정 */
+        /* 인쇄용 타이트한 설정 (하단 잘림 완벽 방지) */
         @media print {
             @page { size: A4 portrait; margin: 0; }
             body { background-color: white; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0; }
@@ -53,9 +53,10 @@
                 margin: 0; 
                 box-shadow: none; 
                 border: none; 
-                padding: 10mm 15mm; 
+                padding: 6mm 10mm; /* 인쇄시 상하 여백을 더 줄임 */
                 height: 297mm; 
-                page-break-after: always; /* 페이지 넘김 강제 */
+                max-height: 297mm; /* 297mm를 넘지 않도록 강제 */
+                page-break-after: always;
             }
             .page-container:last-child {
                 page-break-after: auto;
@@ -69,11 +70,11 @@
             }
             .vocab-box.verb { background-color: #f8fafc !important; }
             .vocab-box.adj { background-color: #f0fdf4 !important; }
+            .vocab-box.expr { background-color: #fefce8 !important; }
             
             .page-container::before { opacity: 0.1 !important; }
         }
 
-        /* 워터마크 패턴 */
         .page-container::before {
             content: "";
             position: absolute;
@@ -87,25 +88,22 @@
             pointer-events: none; 
         }
 
-        /* 그리드 시스템 (4칸 배열) */
+        /* 간격 극단적 축소 */
         .vocab-grid-4 { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
-            gap: 6px; 
-            margin-bottom: 8px; 
-            flex-grow: 1;
+            gap: 3px; /* 6px -> 3px 로 축소 */
+            margin-bottom: 4px; 
             align-content: start;
         }
 
-        /* 단어 박스 디자인 */
         .vocab-box {
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 6px;
             text-align: center;
-            padding: 6px 2px;
+            padding: 2px; /* 패딩 최소화 */
             background-color: rgba(255, 255, 255, 0.85); 
             position: relative;
-            backdrop-filter: blur(2px); 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -113,28 +111,27 @@
         
         .vocab-box.verb { background-color: rgba(248, 250, 252, 0.85); border-color: #cbd5e1; }
         .vocab-box.adj { background-color: rgba(240, 253, 244, 0.85); border-color: #bbf7d0; }
-        .vocab-box.expr { background-color: rgba(254, 252, 232, 0.85); border-color: #fef08a; }
+        .vocab-box.expr { background-color: rgba(254, 252, 232, 0.85); border-color: #fde047; }
 
-        /* 단어 텍스트 디자인 */
-        .kor-word { font-size: 1.4rem; font-weight: 900; line-height: 1.1; color: var(--jklc-blue); margin-bottom: 2px; letter-spacing: -0.5px; }
+        /* 글자 크기 미세 축소 및 라인하이트 고정 (미얀마 폰트 잘림 방지) */
+        .kor-word { font-size: 1.25rem; font-weight: 900; line-height: 1; color: var(--jklc-blue); margin-bottom: 1px; letter-spacing: -0.5px; }
         .verb .kor-word { color: var(--jklc-red); }
         .adj .kor-word { color: var(--jklc-green); }
-        .expr .kor-word { color: #d97706; font-size: 1.15rem; }
+        .expr .kor-word { color: #d97706; font-size: 1.05rem; }
         
-        .eng-pron { font-size: 0.7rem; color: #64748b; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 2px; font-family: sans-serif; }
-        .mm-pron { font-size: 0.95rem; color: #b45309; font-weight: bold; font-family: 'Pyidaungsu', sans-serif; line-height: 1.2; }
+        .eng-pron { font-size: 0.65rem; color: #64748b; font-weight: bold; letter-spacing: 0px; margin-bottom: 1px; font-family: sans-serif; line-height: 1; }
+        .mm-pron { font-size: 0.85rem; color: #b45309; font-weight: bold; font-family: 'Pyidaungsu', sans-serif; line-height: 1.1; } /* 미얀마 폰트 상하공간 제어 */
         
-        /* 타이틀 */
         .box-title {
             background-color: var(--jklc-blue);
             color: white;
             display: inline-block;
-            padding: 3px 12px;
+            padding: 2px 10px;
             border-radius: 20px;
             font-weight: 900;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            margin-top: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            margin-top: 2px;
             letter-spacing: 1px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -142,16 +139,17 @@
         .adj-title { background-color: var(--jklc-green); }
         .expr-title { background-color: #d97706; }
 
-        .header-line { border-bottom: 3px solid var(--jklc-yellow); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-end; }
+        /* 헤더 높이 축소 */
+        .header-line { border-bottom: 3px solid var(--jklc-yellow); padding-bottom: 4px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: flex-end; }
         
         .footer-line { 
             border-top: 1px solid #cbd5e1; 
-            padding-top: 6px; 
-            font-size: 10px; 
+            padding-top: 4px; 
+            font-size: 9px; 
             color: #94a3b8; 
             text-align: center; 
             text-transform: uppercase; 
-            letter-spacing: 2px; 
+            letter-spacing: 1px; 
             margin-top: auto; 
             width: 100%;
         }
@@ -179,11 +177,11 @@
         <!-- 헤더 영역 -->
         <div class="header-line">
             <div>
-                <h1 class="text-3xl font-black text-slate-800 tracking-tighter">기초 어휘 100 (1)</h1>
-                <p class="text-slate-500 font-bold text-sm mt-1">အခြေခံ ဝေါဟာရ ၁၀၀ - JKLC</p>
+                <h1 class="text-2xl font-black text-slate-800 tracking-tighter">기초 어휘 100 (1)</h1>
+                <p class="text-slate-500 font-bold text-xs mt-1">အခြေခံ ဝေါဟာရ ၁၀၀ - JKLC</p>
             </div>
-            <!-- 상단 로고 삽입 -->
-            <img src="logo.png" alt="JKLC Logo" class="h-12 object-contain" onerror="this.style.display='none'">
+            <!-- 로고 크기 살짝 축소 -->
+            <img src="logo.png" alt="JKLC Logo" class="h-10 object-contain" onerror="this.style.display='none'">
         </div>
 
         <div class="text-center">
@@ -226,7 +224,7 @@
             <div class="vocab-box"><div class="kor-word">돈</div><div class="eng-pron">[don]</div><div class="mm-pron">ပိုက်ဆံ</div></div>
 
             <!-- 교통/시간 -->
-            <div class="vocab-box"><div class="kor-word">차</div><div class="eng-pron">[cha]</div><div class="mm-pron">ကား / လက်ဖက်ရည်</div></div>
+            <div class="vocab-box"><div class="kor-word">차</div><div class="eng-pron">[cha]</div><div class="mm-pron">ကား/လက်ဖက်ရည်</div></div>
             <div class="vocab-box"><div class="kor-word">버스</div><div class="eng-pron">[beoseu]</div><div class="mm-pron">ဘတ်စ်ကား</div></div>
             <div class="vocab-box"><div class="kor-word">기차</div><div class="eng-pron">[gicha]</div><div class="mm-pron">ရထား</div></div>
             <div class="vocab-box"><div class="kor-word">이름</div><div class="eng-pron">[ireum]</div><div class="mm-pron">နာမည်</div></div>
@@ -262,10 +260,10 @@
         <!-- 헤더 영역 -->
         <div class="header-line">
             <div>
-                <h1 class="text-3xl font-black text-slate-800 tracking-tighter">기초 어휘 100 (2)</h1>
-                <p class="text-slate-500 font-bold text-sm mt-1">အခြေခံ ဝေါဟာရ ၁၀၀ - JKLC</p>
+                <h1 class="text-2xl font-black text-slate-800 tracking-tighter">기초 어휘 100 (2)</h1>
+                <p class="text-slate-500 font-bold text-xs mt-1">အခြေခံ ဝေါဟာရ ၁၀၀ - JKLC</p>
             </div>
-            <img src="logo.png" alt="JKLC Logo" class="h-12 object-contain" onerror="this.style.display='none'">
+            <img src="logo.png" alt="JKLC Logo" class="h-10 object-contain" onerror="this.style.display='none'">
         </div>
 
         <div class="text-center">
@@ -334,13 +332,13 @@
         <div class="vocab-grid-4" style="margin-bottom: 0;">
             <div class="vocab-box expr"><div class="kor-word">네</div><div class="eng-pron">[ne]</div><div class="mm-pron">ဟုတ်ကဲ့</div></div>
             <div class="vocab-box expr"><div class="kor-word">아니요</div><div class="eng-pron">[aniyo]</div><div class="mm-pron">ဟင့်အင်း</div></div>
-            <div class="vocab-box expr"><div class="kor-word">안녕하세요</div><div class="eng-pron">[annyeong...]</div><div class="mm-pron">မင်္ဂလာပါ</div></div>
-            <div class="vocab-box expr"><div class="kor-word">감사합니다</div><div class="eng-pron">[gamsa...]</div><div class="mm-pron">ကျေးဇူးတင်ပါတယ်</div></div>
+            <div class="vocab-box expr"><div class="kor-word" style="font-size: 0.95rem; margin-top: 4px;">안녕하세요</div><div class="eng-pron">[annyeong...]</div><div class="mm-pron">မင်္ဂလာပါ</div></div>
+            <div class="vocab-box expr"><div class="kor-word" style="font-size: 0.95rem; margin-top: 4px;">감사합니다</div><div class="eng-pron">[gamsa...]</div><div class="mm-pron">ကျေးဇူးတင်ပါတယ်</div></div>
             
-            <div class="vocab-box expr"><div class="kor-word">죄송합니다</div><div class="eng-pron">[joesong...]</div><div class="mm-pron">တောင်းပန်ပါတယ်</div></div>
-            <div class="vocab-box expr"><div class="kor-word">미안해요</div><div class="eng-pron">[mianhaeyo]</div><div class="mm-pron">ဆောရီးပါ</div></div>
-            <div class="vocab-box expr"><div class="kor-word">괜찮아요</div><div class="eng-pron">[gwaench...]</div><div class="mm-pron">ရပါတယ်</div></div>
-            <div class="vocab-box expr"><div class="kor-word">안녕히 가세요</div><div class="eng-pron">[annyeonghi...]</div><div class="mm-pron">ကောင်းကောင်းသွားပါ</div></div>
+            <div class="vocab-box expr"><div class="kor-word" style="font-size: 0.95rem; margin-top: 4px;">죄송합니다</div><div class="eng-pron">[joesong...]</div><div class="mm-pron">တောင်းပန်ပါတယ်</div></div>
+            <div class="vocab-box expr"><div class="kor-word" style="font-size: 0.95rem; margin-top: 4px;">미안해요</div><div class="eng-pron">[mianhaeyo]</div><div class="mm-pron">ဆောရီးပါ</div></div>
+            <div class="vocab-box expr"><div class="kor-word" style="font-size: 0.95rem; margin-top: 4px;">괜찮아요</div><div class="eng-pron">[gwaench...]</div><div class="mm-pron">ရပါတယ်</div></div>
+            <div class="vocab-box expr"><div class="kor-word" style="font-size: 0.85rem; margin-top: 4px;">안녕히 가세요</div><div class="eng-pron">[annyeonghi...]</div><div class="mm-pron">ကောင်းကောင်းသွားပါ</div></div>
         </div>
 
         <!-- 하단 푸터 -->
