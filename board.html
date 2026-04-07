@@ -36,42 +36,42 @@
     <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="JKLC Logo" class="h-11 w-auto transition-transform group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="hidden font-black text-2xl tracking-tighter items-center">
+                <img src="logo.png" alt="JKLC Logo" class="h-10 md:h-11 w-auto transition-transform group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden font-black text-xl md:text-2xl tracking-tighter items-center">
                     <span class="text-yellow-400">J</span><span class="text-blue-600">K</span><span class="text-green-600">L</span><span class="text-red-600">C</span>
                 </div>
             </a>
-            <div class="flex gap-5">
-                <a href="quiz.html" class="text-sm text-slate-500 hover:text-blue-600 font-bold transition flex items-center gap-1.5"><i data-lucide="gamepad-2" class="w-4 h-4"></i> Quiz</a>
-                <a href="index.html" class="text-sm text-slate-500 hover:text-blue-600 font-bold transition flex items-center gap-1.5"><i data-lucide="home" class="w-4 h-4"></i> Home</a>
+            <div class="flex gap-4 md:gap-5">
+                <a href="quiz.html" class="text-xs md:text-sm text-slate-500 hover:text-blue-600 font-bold transition flex items-center gap-1.5"><i data-lucide="gamepad-2" class="w-4 h-4"></i> Quiz</a>
+                <a href="index.html" class="text-xs md:text-sm text-slate-500 hover:text-blue-600 font-bold transition flex items-center gap-1.5"><i data-lucide="home" class="w-4 h-4"></i> Home</a>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 md:py-12 relative flex flex-col">
-        <div class="mb-8">
-            <h1 class="text-3xl font-black text-gray-900 mb-2 flex items-center gap-3 tracking-tight">
-                <div class="p-2 bg-blue-100 text-blue-600 rounded-xl"><i data-lucide="message-square" class="w-6 h-6"></i></div>
+    <main class="flex-grow max-w-4xl mx-auto w-full px-3 md:px-4 py-6 md:py-12 relative flex flex-col">
+        <div class="mb-6 md:mb-8 px-1 md:px-0">
+            <h1 class="text-2xl md:text-3xl font-black text-gray-900 mb-2 flex items-center gap-2.5 md:gap-3 tracking-tight">
+                <div class="p-1.5 md:p-2 bg-blue-100 text-blue-600 rounded-xl"><i data-lucide="message-square" class="w-5 h-5 md:w-6 md:h-6"></i></div>
                 JKLC Notice Board
             </h1>
-            <p class="text-slate-500 font-medium">공지사항 및 학습 자료 게시판 (ကြေညာချက်နှင့် သင်ကြားရေးပစ္စည်းများ)</p>
+            <p class="text-xs md:text-sm text-slate-500 font-medium">공지사항 및 학습 자료 게시판 (ကြေညာချက်နှင့် သင်ကြားရေးပစ္စည်းများ)</p>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden flex-grow flex flex-col relative min-h-[600px]">
+        <div class="bg-white rounded-2xl md:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden flex-grow flex flex-col relative min-h-[500px] md:min-h-[600px]">
             <div id="loading-overlay" class="absolute inset-0 bg-white/90 backdrop-blur-sm z-10 flex flex-col items-center justify-center hidden">
                 <div class="loader mb-3"></div>
-                <p class="text-sm text-blue-600 font-bold tracking-widest uppercase" id="loading-text">Loading...</p>
+                <p class="text-xs md:text-sm text-blue-600 font-bold tracking-widest uppercase" id="loading-text">Loading...</p>
             </div>
 
             <!-- List View -->
             <div id="view-list" class="fade-in flex flex-col h-full flex-grow">
-                <div class="flex justify-between items-center p-5 md:px-8 md:py-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
+                <div class="flex justify-between items-center p-4 md:px-8 md:py-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
                     <div class="flex items-center gap-3">
-                        <span class="px-3.5 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase rounded-full shadow-sm tracking-widest flex items-center gap-1.5"><i data-lucide="layers" class="w-3 h-3"></i> All Posts</span>
+                        <span class="px-3 md:px-3.5 py-1 md:py-1.5 bg-blue-600 text-white text-[9px] md:text-[10px] font-black uppercase rounded-full shadow-sm tracking-widest flex items-center gap-1.5"><i data-lucide="layers" class="w-3 h-3"></i> All Posts</span>
                     </div>
-                    <button onclick="boardApp.showWrite()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all flex items-center gap-2 shadow-md hover:shadow-lg active:scale-95">
-                        <i data-lucide="pen-line" class="w-4 h-4"></i> 글쓰기 (Write)
+                    <button onclick="boardApp.showWrite()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 md:px-5 md:py-2.5 rounded-xl text-xs md:text-sm font-black transition-all flex items-center gap-2 shadow-md hover:shadow-lg active:scale-95">
+                        <i data-lucide="pen-line" class="w-3.5 h-3.5 md:w-4 md:h-4"></i> 글쓰기 (Write)
                     </button>
                 </div>
                 <div id="post-list-container" class="divide-y divide-slate-100 flex-grow overflow-y-auto"></div>
@@ -79,101 +79,101 @@
 
             <!-- Read View -->
             <div id="view-read" class="hidden fade-in flex flex-col h-full flex-grow overflow-y-auto bg-white">
-                <div class="p-6 md:p-10 max-w-3xl mx-auto w-full">
-                    <button onclick="boardApp.showList()" class="text-slate-400 hover:text-blue-600 font-bold mb-8 flex items-center gap-1.5 text-xs transition uppercase tracking-widest shrink-0 w-fit group">
-                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to list
+                <div class="p-5 md:p-10 max-w-3xl mx-auto w-full">
+                    <button onclick="boardApp.showList()" class="text-slate-400 hover:text-blue-600 font-bold mb-6 md:mb-8 flex items-center gap-1.5 text-[10px] md:text-xs transition uppercase tracking-widest shrink-0 w-fit group">
+                        <i data-lucide="arrow-left" class="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-1 transition-transform"></i> Back to list
                     </button>
                     
-                    <div class="border-b border-slate-100 pb-6 mb-8 shrink-0">
+                    <div class="border-b border-slate-100 pb-5 md:pb-6 mb-6 md:mb-8 shrink-0">
                         <div class="flex justify-between items-start gap-4">
                             <div class="w-full">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span id="read-category" class="px-2.5 py-1 text-[10px] font-black rounded-md shadow-sm">Category</span>
-                                    <h2 id="read-title" class="text-2xl md:text-3xl font-black text-slate-900 leading-tight allow-select">Title</h2>
+                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-3">
+                                    <span id="read-category" class="w-fit px-2 py-1 md:px-2.5 md:py-1 text-[9px] md:text-[10px] font-black rounded-md shadow-sm">Category</span>
+                                    <h2 id="read-title" class="text-xl md:text-3xl font-black text-slate-900 leading-snug md:leading-tight allow-select">Title</h2>
                                 </div>
-                                <div class="flex items-center text-sm text-slate-400 mt-5">
-                                    <div class="flex items-center gap-2.5 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
-                                        <div class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-[10px]" id="read-avatar">A</div>
-                                        <span id="read-author" class="font-bold text-slate-700 text-xs">Author</span>
+                                <div class="flex items-center text-xs md:text-sm text-slate-400 mt-4 md:mt-5">
+                                    <div class="flex items-center gap-2 bg-slate-50 px-2.5 py-1 md:px-3 md:py-1.5 rounded-full border border-slate-100">
+                                        <div class="w-5 h-5 md:w-6 md:h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-black text-[9px] md:text-[10px]" id="read-avatar">A</div>
+                                        <span id="read-author" class="font-bold text-slate-700 text-[10px] md:text-xs">Author</span>
                                     </div>
-                                    <span class="mx-3 opacity-30">|</span>
-                                    <span id="read-date" class="text-xs font-bold opacity-70">Date</span>
+                                    <span class="mx-2 md:mx-3 opacity-30">|</span>
+                                    <span id="read-date" class="text-[10px] md:text-xs font-bold opacity-70">Date</span>
                                 </div>
                             </div>
-                            <button id="btn-delete" onclick="boardApp.deleteCurrentPost()" class="text-red-300 hover:text-red-600 p-2.5 rounded-full hover:bg-red-50 transition shrink-0"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                            <button id="btn-delete" onclick="boardApp.deleteCurrentPost()" class="text-red-300 hover:text-red-600 p-2 md:p-2.5 rounded-full hover:bg-red-50 transition shrink-0"><i data-lucide="trash-2" class="w-4 h-4 md:w-5 md:h-5"></i></button>
                         </div>
                     </div>
 
-                    <div id="read-attached-link" class="hidden mb-8 p-4 md:p-5 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-2xl border border-blue-100 flex-col sm:flex-row sm:items-center justify-between gap-4 group">
-                        <div class="flex items-center gap-4 overflow-hidden">
-                            <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm shrink-0 border border-blue-50 group-hover:scale-105 transition-transform"><i data-lucide="external-link" class="w-6 h-6 text-blue-600"></i></div>
+                    <div id="read-attached-link" class="hidden mb-6 md:mb-8 p-3 md:p-5 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-xl md:rounded-2xl border border-blue-100 flex-col sm:flex-row sm:items-center justify-between gap-3 md:gap-4 group">
+                        <div class="flex items-center gap-3 md:gap-4 overflow-hidden">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0 border border-blue-50 group-hover:scale-105 transition-transform"><i data-lucide="external-link" class="w-5 h-5 md:w-6 md:h-6 text-blue-600"></i></div>
                             <div class="overflow-hidden">
-                                <p class="text-xs font-black text-blue-800 mb-1 uppercase tracking-widest flex items-center gap-2">학습 자료 링크 <span class="font-normal text-[10px] text-blue-600 bg-blue-100 px-1.5 rounded">(Link)</span></p>
-                                <a id="read-link-url" href="#" target="_blank" class="text-sm md:text-base font-bold text-slate-600 hover:text-blue-600 truncate block transition-colors">URL</a>
+                                <p class="text-[10px] md:text-xs font-black text-blue-800 mb-0.5 md:mb-1 uppercase tracking-widest flex items-center gap-2">학습 자료 링크 <span class="font-normal text-[9px] md:text-[10px] text-blue-600 bg-blue-100 px-1 md:px-1.5 rounded">(Link)</span></p>
+                                <a id="read-link-url" href="#" target="_blank" class="text-[13px] md:text-base font-bold text-slate-600 hover:text-blue-600 truncate block transition-colors">URL</a>
                             </div>
                         </div>
-                        <a id="read-link-btn" href="#" target="_blank" class="shrink-0 bg-white text-blue-600 border border-blue-200 px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:bg-blue-600 hover:text-white transition-all active:scale-95 text-center flex items-center justify-center gap-2">자료 열기 <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                        <a id="read-link-btn" href="#" target="_blank" class="shrink-0 bg-white text-blue-600 border border-blue-200 px-4 py-2 md:px-5 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest shadow-sm hover:bg-blue-600 hover:text-white transition-all active:scale-95 text-center flex items-center justify-center gap-1.5 md:gap-2">자료 열기 <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
                     </div>
 
-                    <div id="read-content" class="text-slate-700 leading-relaxed text-[15px] md:text-[17px] allow-select"></div>
+                    <div id="read-content" class="text-slate-700 leading-relaxed text-sm md:text-[17px] allow-select"></div>
                 </div>
             </div>
 
             <!-- Write View -->
             <div id="view-write" class="hidden fade-in flex flex-col h-full flex-grow overflow-y-auto bg-slate-50/30">
-                <div class="p-6 md:p-10 max-w-3xl mx-auto w-full">
-                    <div class="flex justify-between items-center mb-8 pb-4 border-b border-slate-200">
+                <div class="p-5 md:p-10 max-w-3xl mx-auto w-full">
+                    <div class="flex justify-between items-center mb-6 md:mb-8 pb-3 md:pb-4 border-b border-slate-200">
                         <div>
-                            <h2 class="text-2xl font-black text-slate-900 tracking-tight">새 글 작성 (Write)</h2>
-                            <p class="text-xs text-slate-500 font-bold mt-1">공지사항이나 질문, 자료를 올려주세요.</p>
+                            <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">새 글 작성 (Write)</h2>
+                            <p class="text-[10px] md:text-xs text-slate-500 font-bold mt-1">공지사항이나 질문, 자료를 올려주세요.</p>
                         </div>
-                        <button onclick="boardApp.showList()" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+                        <button onclick="boardApp.showList()" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition"><i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6"></i></button>
                     </div>
 
-                    <form id="write-form" onsubmit="boardApp.submitPost(event)" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form id="write-form" onsubmit="boardApp.submitPost(event)" class="space-y-5 md:space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                             <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">분류 (Category)</label>
-                                <select id="input-category" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700 appearance-none">
+                                <label class="block text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 md:mb-2">분류 (Category)</label>
+                                <select id="input-category" class="w-full bg-white border-2 border-slate-200 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-sm md:text-base text-slate-700 appearance-none">
                                     <option value="General">일반 (General)</option>
                                     <option value="Question">질문 (Question)</option>
                                     <option value="Notice">공지 (Notice) *Admin</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">이름 (Name)</label>
-                                <input type="text" id="input-author" required placeholder="작성자 이름" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700">
+                                <label class="block text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 md:mb-2">이름 (Name)</label>
+                                <input type="text" id="input-author" required placeholder="작성자 이름" class="w-full bg-white border-2 border-slate-200 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-sm md:text-base text-slate-700">
                             </div>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                             <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 flex items-center justify-between">
+                                <label class="block text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 md:mb-2 flex items-center justify-between">
                                     <span>비밀번호 (Password)</span>
-                                    <span class="text-red-400 font-bold text-[10px]">*글 삭제 시 필요</span>
+                                    <span class="text-red-400 font-bold text-[9px] md:text-[10px]">*글 삭제 시 필요</span>
                                 </label>
-                                <input type="password" id="input-password" required placeholder="숫자 4자리" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700">
+                                <input type="password" id="input-password" required placeholder="숫자 4자리" class="w-full bg-white border-2 border-slate-200 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-sm md:text-base text-slate-700">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">제목 (Title)</label>
-                            <input type="text" id="input-title" required placeholder="글 제목을 입력하세요" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-slate-700">
+                            <label class="block text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 md:mb-2">제목 (Title)</label>
+                            <input type="text" id="input-title" required placeholder="글 제목을 입력하세요" class="w-full bg-white border-2 border-slate-200 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-3.5 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-bold text-sm md:text-base text-slate-700">
                         </div>
 
-                        <div class="p-5 bg-blue-50/50 rounded-2xl border border-blue-100">
-                            <label class="block text-xs font-black text-blue-700 uppercase tracking-widest mb-2 flex items-center gap-1.5"><i data-lucide="link" class="w-4 h-4"></i> 학습 자료 링크 (Material URL) <span class="text-blue-400 font-normal ml-1 text-[10px]">*선택사항 (Optional)</span></label>
-                            <input type="url" id="input-link" placeholder="https://..." class="w-full bg-white border-2 border-blue-100 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition font-medium text-slate-600 text-sm">
+                        <div class="p-4 md:p-5 bg-blue-50/50 rounded-xl md:rounded-2xl border border-blue-100">
+                            <label class="block text-[10px] md:text-xs font-black text-blue-700 uppercase tracking-widest mb-1.5 md:mb-2 flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5 md:w-4 md:h-4"></i> 학습 자료 링크 (Material URL) <span class="text-blue-400 font-normal ml-1 text-[9px] md:text-[10px]">*선택사항 (Optional)</span></label>
+                            <input type="url" id="input-link" placeholder="https://..." class="w-full bg-white border-2 border-blue-100 rounded-lg md:rounded-xl px-4 py-2.5 md:px-5 md:py-3 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition font-medium text-slate-600 text-[13px] md:text-sm">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">본문 (Message)</label>
-                            <textarea id="input-content" required rows="7" placeholder="내용을 작성하세요. (인터넷 주소는 자동 링크 처리됩니다.)" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-medium text-slate-700 resize-y leading-relaxed"></textarea>
+                            <label class="block text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest mb-1.5 md:mb-2">본문 (Message)</label>
+                            <textarea id="input-content" required rows="7" placeholder="내용을 작성하세요. (인터넷 주소는 자동 링크 처리됩니다.)" class="w-full bg-white border-2 border-slate-200 rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition font-medium text-sm md:text-base text-slate-700 resize-y leading-relaxed"></textarea>
                         </div>
 
-                        <div class="pt-6 flex justify-end gap-3 border-t border-slate-200 mt-10">
-                            <button type="button" onclick="boardApp.showList()" class="px-8 py-3.5 text-slate-500 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition text-xs">취소 (Cancel)</button>
-                            <button type="submit" id="btn-submit" class="px-10 py-3.5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-blue-700 transition shadow-xl hover:shadow-blue-600/30 flex items-center gap-2 text-xs active:scale-95">
+                        <div class="pt-5 md:pt-6 flex justify-end gap-2 md:gap-3 border-t border-slate-200 mt-6 md:mt-10">
+                            <button type="button" onclick="boardApp.showList()" class="px-6 py-3 md:px-8 md:py-3.5 text-slate-500 rounded-xl md:rounded-2xl font-black uppercase tracking-widest hover:bg-slate-200 transition text-[10px] md:text-xs w-full md:w-auto">취소 (Cancel)</button>
+                            <button type="submit" id="btn-submit" class="px-6 py-3 md:px-10 md:py-3.5 bg-blue-600 text-white rounded-xl md:rounded-2xl font-black uppercase tracking-widest hover:bg-blue-700 transition shadow-xl hover:shadow-blue-600/30 flex items-center justify-center gap-2 text-[10px] md:text-xs active:scale-95 w-full md:w-auto">
                                 글 등록하기 (Submit)
                             </button>
                         </div>
@@ -183,17 +183,17 @@
             
             <!-- Custom Modal -->
             <div id="custom-modal" class="fixed inset-0 bg-slate-900/40 z-[100] flex items-center justify-center hidden backdrop-blur-sm">
-                <div class="bg-white rounded-[2rem] p-8 max-w-sm w-full mx-4 shadow-2xl border border-white">
-                    <h3 id="modal-title" class="text-xl font-black text-slate-900 mb-2 tracking-tight">알림</h3>
-                    <p id="modal-message" class="text-slate-500 mb-8 font-medium text-sm">메시지 내용</p>
+                <div class="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 max-w-sm w-full mx-4 shadow-2xl border border-white">
+                    <h3 id="modal-title" class="text-lg md:text-xl font-black text-slate-900 mb-1 md:mb-2 tracking-tight">알림</h3>
+                    <p id="modal-message" class="text-slate-500 mb-6 md:mb-8 font-medium text-xs md:text-sm">메시지 내용</p>
                     
-                    <div id="modal-input-area" class="mb-6 hidden">
-                        <input type="password" id="modal-password" placeholder="비밀번호 입력" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-500 font-bold transition text-center tracking-widest">
+                    <div id="modal-input-area" class="mb-5 md:mb-6 hidden">
+                        <input type="password" id="modal-password" placeholder="비밀번호 입력" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 md:px-5 md:py-3 focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-500 font-bold transition text-center tracking-widest text-sm">
                     </div>
                     
-                    <div class="flex justify-end gap-3">
-                        <button id="modal-btn-cancel" class="px-5 py-2.5 text-slate-500 font-black text-xs uppercase tracking-widest hover:bg-slate-100 rounded-xl hidden">취소</button>
-                        <button id="modal-btn-confirm" class="px-6 py-2.5 bg-blue-600 text-white font-black text-xs uppercase tracking-widest hover:bg-blue-700 rounded-xl shadow-md">확인</button>
+                    <div class="flex justify-end gap-2 md:gap-3">
+                        <button id="modal-btn-cancel" class="px-4 py-2 md:px-5 md:py-2.5 text-slate-500 font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-slate-100 rounded-lg md:rounded-xl hidden">취소</button>
+                        <button id="modal-btn-confirm" class="px-5 py-2 md:px-6 md:py-2.5 bg-blue-600 text-white font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-blue-700 rounded-lg md:rounded-xl shadow-md">확인</button>
                     </div>
                 </div>
             </div>
@@ -201,22 +201,21 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white py-8 border-t border-slate-100 mt-auto">
+    <footer class="bg-white py-6 md:py-8 border-t border-slate-100 mt-auto">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2 leading-relaxed">
+            <p class="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] md:tracking-[0.3em] mb-1.5 md:mb-2 leading-relaxed">
                 JOY KOREAN LANGUAGE CENTER <br><span class="text-slate-300">YANGON · HLEDAN</span>
             </p>
-            <p class="text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC. All rights reserved.</p>
+            <p class="text-[8px] md:text-[9px] font-bold text-slate-300 tracking-wider">&copy; 2026 JKLC. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // 사용자님의 Firebase 정보
         const firebaseConfig = {
             apiKey: "AIzaSyBOIj7UFkPNrH-eQgUAp6X4QytT61yY1Rk",
             authDomain: "joy-korean-cdba0.firebaseapp.com",
@@ -225,7 +224,7 @@
             messagingSenderId: "509083643772",
             appId: "1:509083643772:web:e80c40c02d7928a82b7ef9"
         };
-        const appId = 'joy-korean-board'; // 로컬 실행을 위한 고정 ID
+        const appId = 'joy-korean-board'; 
         
         let app, auth, db;
         let unsubscribeAuth, unsubscribeData;
@@ -271,14 +270,12 @@
                 
                 init: async () => {
                     document.getElementById('loading-overlay').classList.remove('hidden');
-                    
                     try {
-                        // 로컬 환경을 위해 익명 로그인 강제 실행
                         await signInAnonymously(auth);
                     } catch (error) {
                         console.error("Auth Error:", error);
                         document.getElementById('loading-overlay').classList.add('hidden');
-                        showModal('Firebase 인증 에러', '익명 로그인이 켜져 있지 않습니다. Firebase 콘솔 설정을 확인해주세요.\n\n' + error.message);
+                        showModal('Firebase 인증 에러', '익명 로그인이 켜져 있지 않습니다.\n\n' + error.message);
                         return;
                     }
 
@@ -312,7 +309,7 @@
                     }, (error) => { 
                         console.error("Firestore DB Error:", error);
                         document.getElementById('loading-overlay').classList.add('hidden'); 
-                        showModal('데이터베이스 접근 에러', 'Firebase 규칙(Rules)이 설정되어 있지 않습니다.\n\n' + error.message); 
+                        showModal('데이터베이스 접근 에러', '데이터를 불러올 수 없습니다.\n\n' + error.message); 
                     });
                 },
 
@@ -322,17 +319,31 @@
                 renderList: () => {
                     const container = document.getElementById('post-list-container'); container.innerHTML = '';
                     if(window.boardApp.posts.length === 0) { 
-                        container.innerHTML = `<div class="p-20 text-center flex flex-col items-center justify-center opacity-50"><i data-lucide="file-question" class="w-12 h-12 mb-3 text-slate-300"></i><span class="text-slate-400 font-bold tracking-widest text-sm uppercase">등록된 게시물이 없습니다.</span></div>`; lucide.createIcons(); return; 
+                        container.innerHTML = `<div class="p-16 md:p-20 text-center flex flex-col items-center justify-center opacity-50"><i data-lucide="file-question" class="w-10 h-10 md:w-12 md:h-12 mb-3 text-slate-300"></i><span class="text-slate-400 font-bold tracking-widest text-xs md:text-sm uppercase">등록된 게시물이 없습니다.</span></div>`; lucide.createIcons(); return; 
                     }
                     window.boardApp.posts.forEach(post => {
                         const isNotice = post.isNotice;
-                        const bgClass = isNotice ? "bg-red-50/40 border-l-[6px] border-l-red-500" : "bg-white hover:bg-slate-50 border-l-[6px] border-l-transparent hover:border-l-blue-400";
+                        const bgClass = isNotice ? "bg-red-50/40 border-l-[4px] md:border-l-[6px] border-l-red-500" : "bg-white hover:bg-slate-50 border-l-[4px] md:border-l-[6px] border-l-transparent hover:border-l-blue-400";
                         const titleClass = isNotice ? "font-black text-slate-900" : "font-bold text-slate-800";
                         let catStyle = "bg-slate-100 text-slate-500"; if(isNotice) catStyle = "bg-red-500 text-white"; else if(post.category === "Question") catStyle = "bg-green-500 text-white";
                         let dateStr = ""; if (post.createdAt) { const d = post.createdAt.toDate(); dateStr = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`; }
-                        const linkIcon = post.link ? `<i data-lucide="link" class="w-3.5 h-3.5 text-blue-400 ml-2"></i>` : '';
+                        const linkIcon = post.link ? `<span class="inline-block align-middle ml-1"><i data-lucide="link" class="w-3 h-3 md:w-3.5 md:h-3.5 text-blue-400"></i></span>` : '';
 
-                        container.innerHTML += `<div onclick="boardApp.readPost('${post.id}')" class="p-5 md:p-6 cursor-pointer transition-all ${bgClass} flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6 group"><div class="flex items-center gap-4 flex-grow min-w-0"><span class="shrink-0 px-2.5 py-1 text-[10px] font-black rounded-md ${catStyle} uppercase tracking-widest shadow-sm">${post.category}</span><h3 class="text-base md:text-lg ${titleClass} truncate group-hover:text-blue-600 transition-colors flex items-center">${post.title} ${linkIcon}</h3></div><div class="flex items-center justify-between md:justify-end gap-6 text-xs text-slate-400 font-bold shrink-0 ml-16 md:ml-0"><span class="truncate max-w-[100px] flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5"></i> ${post.author}</span><span class="w-20 text-right opacity-70">${dateStr}</span></div></div>`;
+                        // 모바일 화면 레이아웃 최적화 (글자 크기 축소 및 line-clamp-2 적용)
+                        container.innerHTML += `
+                        <div onclick="boardApp.readPost('${post.id}')" class="p-4 md:p-6 cursor-pointer transition-all ${bgClass} flex flex-col md:flex-row md:items-center justify-between gap-2.5 md:gap-6 group">
+                            <div class="flex items-start md:items-center gap-3 md:gap-4 flex-grow min-w-0">
+                                <span class="shrink-0 px-2 md:px-2.5 py-1 text-[9px] md:text-[10px] font-black rounded-md ${catStyle} uppercase tracking-widest shadow-sm mt-0.5 md:mt-0">${post.category}</span>
+                                <h3 class="text-[14px] md:text-lg leading-snug md:leading-normal ${titleClass} line-clamp-2 md:truncate group-hover:text-blue-600 transition-colors pr-2">
+                                    ${post.title}
+                                    ${linkIcon}
+                                </h3>
+                            </div>
+                            <div class="flex items-center justify-between md:justify-end gap-4 md:gap-6 text-[11px] md:text-xs text-slate-400 font-bold shrink-0 ml-[44px] md:ml-0 border-t md:border-t-0 border-slate-100/50 pt-2 md:pt-0 mt-1 md:mt-0">
+                                <span class="truncate max-w-[100px] flex items-center gap-1.5"><i data-lucide="user" class="w-3 h-3 md:w-3.5 md:h-3.5"></i> ${post.author}</span>
+                                <span class="w-18 md:w-20 text-right opacity-70">${dateStr}</span>
+                            </div>
+                        </div>`;
                     }); lucide.createIcons();
                 },
 
@@ -340,7 +351,7 @@
                     const post = window.boardApp.posts.find(p => p.id === id); if(!post) return; 
                     window.boardApp.currentPostId = id; document.getElementById('view-list').classList.add('hidden'); document.getElementById('view-read').classList.remove('hidden');
                     const catEl = document.getElementById('read-category'); catEl.innerText = post.category;
-                    if(post.isNotice) catEl.className = "px-2.5 py-1 text-[10px] font-black rounded-md bg-red-500 text-white shadow-sm uppercase tracking-widest"; else if(post.category === "Question") catEl.className = "px-2.5 py-1 text-[10px] font-black rounded-md bg-green-500 text-white shadow-sm uppercase tracking-widest"; else catEl.className = "px-2.5 py-1 text-[10px] font-black rounded-md bg-slate-100 text-slate-500 shadow-sm uppercase tracking-widest";
+                    if(post.isNotice) catEl.className = "w-fit px-2 py-1 md:px-2.5 md:py-1 text-[9px] md:text-[10px] font-black rounded-md bg-red-500 text-white shadow-sm uppercase tracking-widest"; else if(post.category === "Question") catEl.className = "w-fit px-2 py-1 md:px-2.5 md:py-1 text-[9px] md:text-[10px] font-black rounded-md bg-green-500 text-white shadow-sm uppercase tracking-widest"; else catEl.className = "w-fit px-2 py-1 md:px-2.5 md:py-1 text-[9px] md:text-[10px] font-black rounded-md bg-slate-100 text-slate-500 shadow-sm uppercase tracking-widest";
                     document.getElementById('read-title').innerText = post.title; document.getElementById('read-author').innerText = post.author; document.getElementById('read-avatar').innerText = post.author.charAt(0).toUpperCase();
                     let dateStr = ""; if (post.createdAt) { const d = post.createdAt.toDate(); dateStr = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
                     document.getElementById('read-date').innerText = dateStr; 
@@ -353,12 +364,7 @@
 
                 submitPost: async (e) => {
                     e.preventDefault(); 
-                    
-                    // 인증 오류 확인!
-                    if (!window.boardApp.userId) {
-                        showModal('인증 에러', 'Firebase 데이터베이스와 연결되지 않았습니다. (익명 로그인 기능이 꺼져있을 수 있습니다.)');
-                        return;
-                    }
+                    if (!window.boardApp.userId) { showModal('인증 에러', '서버와 연결되지 않았습니다.'); return; }
                     
                     const btnSubmit = document.getElementById('btn-submit'); 
                     const category = document.getElementById('input-category').value; 
@@ -370,14 +376,13 @@
                     
                     if (category === "Notice" && pwd !== window.boardApp._sv) { showModal('권한 오류', '공지사항 작성은 학원 관리자만 가능합니다. (비밀번호 불일치)'); return; }
                     
-                    btnSubmit.disabled = true; btnSubmit.innerHTML = `<div class="loader !w-4 !h-4 !border-2 !border-white !border-t-transparent mr-2"></div> 등록 중...`;
+                    btnSubmit.disabled = true; btnSubmit.innerHTML = `<div class="loader !w-3 !h-3 md:!w-4 md:!h-4 !border-2 !border-white !border-t-transparent mr-2"></div> 등록 중...`;
                     
                     try { 
                         await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { category, title, author, content, link, password: pwd, createdAt: serverTimestamp(), isNotice: category === "Notice", uid: window.boardApp.userId }); 
                         window.boardApp.showList(); 
                     } catch (error) { 
-                        console.error("쓰기 에러:", error);
-                        showModal('글 등록 실패', 'Firebase Firestore의 규칙(Rules) 설정 때문에 글 쓰기가 거부되었습니다.\n\n' + error.message); 
+                        console.error("쓰기 에러:", error); showModal('글 등록 실패', error.message); 
                     } finally { btnSubmit.disabled = false; btnSubmit.innerHTML = `글 등록하기 (Submit)`; }
                 },
 
