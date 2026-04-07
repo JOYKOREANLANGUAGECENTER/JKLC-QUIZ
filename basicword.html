@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - Basic Vocabulary 100</title>
+    <!-- 파비콘 삽입 -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #dc2626;
+            --jklc-green: #16a34a;
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f1f5f9;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* 화면 출력용 스타일 (A4 용지 2장 분량 처리) */
+        .page-container {
+            width: 210mm; 
+            min-height: 297mm; 
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            padding: 10mm 15mm;
+            overflow: hidden; 
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 인쇄 시 페이지 나누기 설정 */
+        @media print {
+            @page { size: A4 portrait; margin: 0; }
+            body { background-color: white; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0; }
+            .page-container { 
+                margin: 0; 
+                box-shadow: none; 
+                border: none; 
+                padding: 10mm 15mm; 
+                height: 297mm; 
+                page-break-after: always; /* 페이지 넘김 강제 */
+            }
+            .page-container:last-child {
+                page-break-after: auto;
+            }
+            .no-print { display: none !important; }
+            
+            .vocab-box {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background-color: #ffffff !important;
+            }
+            .vocab-box.verb { background-color: #f8fafc !important; }
+            .vocab-box.adj { background-color: #f0fdf4 !important; }
+            
+            .page-container::before { opacity: 0.1 !important; }
+        }
+
+        /* 워터마크 패턴 */
+        .page-container::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: url('logo.png');
+            background-repeat: repeat;
+            background-size: 250px; 
+            opacity: 0.10; 
+            transform: rotate(-25deg); 
+            z-index: -1;
+            pointer-events: none; 
+        }
+
+        /* 그리드 시스템 (4칸 배열) */
+        .vocab-grid-4 { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 6px; 
+            margin-bottom: 8px; 
+            flex-grow: 1;
+            align-content: start;
+        }
+
+        /* 단어 박스 디자인 */
+        .vocab-box {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            padding: 6px 2px;
+            background-color: rgba(255, 255, 255, 0.85); 
+            position: relative;
+            backdrop-filter: blur(2px); 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .vocab-box.verb { background-color: rgba(248, 250, 252, 0.85); border-color: #cbd5e1; }
+        .vocab-box.adj { background-color: rgba(240, 253, 244, 0.85); border-color: #bbf7d0; }
+        .vocab-box.expr { background-color: rgba(254, 252, 232, 0.85); border-color: #fef08a; }
+
+        /* 단어 텍스트 디자인 */
+        .kor-word { font-size: 1.4rem; font-weight: 900; line-height: 1.1; color: var(--jklc-blue); margin-bottom: 2px; letter-spacing: -0.5px; }
+        .verb .kor-word { color: var(--jklc-red); }
+        .adj .kor-word { color: var(--jklc-green); }
+        .expr .kor-word { color: #d97706; font-size: 1.15rem; }
+        
+        .eng-pron { font-size: 0.7rem; color: #64748b; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 2px; font-family: sans-serif; }
+        .mm-pron { font-size: 0.95rem; color: #b45309; font-weight: bold; font-family: 'Pyidaungsu', sans-serif; line-height: 1.2; }
+        
+        /* 타이틀 */
+        .box-title {
+            background-color: var(--jklc-blue);
+            color: white;
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .verb-title { background-color: var(--jklc-red); }
+        .adj-title { background-color: var(--jklc-green); }
+        .expr-title { background-color: #d97706; }
+
+        .header-line { border-bottom: 3px solid var(--jklc-yellow); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-end; }
+        
+        .footer-line { 
+            border-top: 1px solid #cbd5e1; 
+            padding-top: 6px; 
+            font-size: 10px; 
+            color: #94a3b8; 
+            text-align: center; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-top: auto; 
+            width: 100%;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false">
+
+    <!-- 상단 컨트롤 버튼 -->
+    <div class="no-print fixed top-6 right-6 z-50 flex flex-col items-end gap-3">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="bg-white text-slate-700 border border-slate-200 px-5 py-3 rounded-full font-bold shadow-lg hover:bg-slate-50 hover:scale-105 transition-all flex items-center gap-2">
+                <i data-lucide="home" class="w-5 h-5"></i> 홈으로
+            </a>
+            <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-3 rounded-full font-black shadow-lg hover:bg-blue-700 hover:scale-105 transition-all flex items-center gap-2">
+                <i data-lucide="printer" class="w-5 h-5"></i> 인쇄하기
+            </button>
+        </div>
+        <p class="text-xs text-center text-slate-500 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm border border-slate-100">
+            인쇄 설정: 여백 <b>없음</b> / 배경 그래픽 <b>체크</b>
+        </p>
+    </div>
+
+    <!-- ==================== Page 1 : 명사 (Nouns) ==================== -->
+    <div class="page-container">
+        <!-- 헤더 영역 -->
+        <div class="header-line">
+            <div>
+                <h1 class="text-3xl font-black text-slate-800 tracking-tighter">기초 어휘 100 (1)</h1>
+                <p class="text-slate-500 font-bold text-sm mt-1">အခြေခံ ဝေါဟာရ ၁၀၀ - JKLC</p>
+            </div>
+            <!-- 상단 로고 삽입 -->
+            <img src="logo.png" alt="JKLC Logo" class="h-12 object-contain" onerror="this.style.display='none'">
+        </div>
+
+        <div class="text-center">
+            <div class="box-title">명사 - 사람 / 사물 (နာမ် - လူ / အရာဝတ္ထု)</div>
+        </div>
+        
+        <!-- 52단어 그리드 (13줄 x 4칸) -->
+        <div class="vocab-grid-4">
+            <!-- 사람/대명사 -->
+            <div class="vocab-box"><div class="kor-word">나</div><div class="eng-pron">[na]</div><div class="mm-pron">ငါ / ကျွန်တော်</div></div>
+            <div class="vocab-box"><div class="kor-word">너</div><div class="eng-pron">[neo]</div><div class="mm-pron">မင်း / သင်</div></div>
+            <div class="vocab-box"><div class="kor-word">우리</div><div class="eng-pron">[uri]</div><div class="mm-pron">ကျွန်တော်တို့</div></div>
+            <div class="vocab-box"><div class="kor-word">사람</div><div class="eng-pron">[saram]</div><div class="mm-pron">လူ</div></div>
+            
+            <div class="vocab-box"><div class="kor-word">친구</div><div class="eng-pron">[chingu]</div><div class="mm-pron">သူငယ်ချင်း</div></div>
+            <div class="vocab-box"><div class="kor-word">가족</div><div class="eng-pron">[gajok]</div><div class="mm-pron">မိသားစု</div></div>
+            <div class="vocab-box"><div class="kor-word">남자</div><div class="eng-pron">[namja]</div><div class="mm-pron">ယောကျာ်း</div></div>
+            <div class="vocab-box"><div class="kor-word">여자</div><div class="eng-pron">[yeoja]</div><div class="mm-pron">မိန်းမ</div></div>
+            
+            <!-- 장소/건물 -->
+            <div class="vocab-box"><div class="kor-word">집</div><div class="eng-pron">[jip]</div><div class="mm-pron">အိမ်</div></div>
+            <div class="vocab-box"><div class="kor-word">학교</div><div class="eng-pron">[hakgyo]</div><div class="mm-pron">ကျောင်း</div></div>
+            <div class="vocab-box"><div class="kor-word">회사</div><div class="eng-pron">[hoesa]</div><div class="mm-pron">ကုမ္ပဏီ</div></div>
+            <div class="vocab-box"><div class="kor-word">식당</div><div class="eng-pron">[sikdang]</div><div class="mm-pron">စားသောက်ဆိုင်</div></div>
+            
+            <div class="vocab-box"><div class="kor-word">병원</div><div class="eng-pron">[byeongwon]</div><div class="mm-pron">ဆေးရုံ</div></div>
+            <div class="vocab-box"><div class="kor-word">가게</div><div class="eng-pron">[gage]</div><div class="mm-pron">ဆိုင်</div></div>
+            <div class="vocab-box"><div class="kor-word">시장</div><div class="eng-pron">[sijang]</div><div class="mm-pron">ဈေး</div></div>
+            <div class="vocab-box"><div class="kor-word">나라</div><div class="eng-pron">[nara]</div><div class="mm-pron">နိုင်ငံ</div></div>
+
+            <!-- 음식/사물 -->
+            <div class="vocab-box"><div class="kor-word">물</div><div class="eng-pron">[mul]</div><div class="mm-pron">ရေ</div></div>
+            <div class="vocab-box"><div class="kor-word">밥</div><div class="eng-pron">[bap]</div><div class="mm-pron">ထမင်း</div></div>
+            <div class="vocab-box"><div class="kor-word">빵</div><div class="eng-pron">[ppang]</div><div class="mm-pron">ပေါင်မုန့်</div></div>
+            <div class="vocab-box"><div class="kor-word">커피</div><div class="eng-pron">[keopi]</div><div class="mm-pron">ကော်ဖီ</div></div>
+            
+            <div class="vocab-box"><div class="kor-word">옷</div><div class="eng-pron">[ot]</div><div class="mm-pron">အဝတ်အစား</div></div>
+            <div class="vocab-box"><div class="kor-word">가방</div><div class="eng-pron">[gabang]</div><div class="mm-pron">အိတ်</div></div>
+            <div class="vocab-box"><div class="kor-word">책</div><div class="eng-pron">[chaek]</div><div class="mm-pron">စာအုပ်</div></div>
+            <div class="vocab-box"><div class="kor-word">돈</div><div class="eng-pron">[don]</div><div class="mm-pron">ပိုက်ဆံ</div></div>
+
+            <!-- 교통/시간 -->
+            <div class="vocab-box"><div class="kor-word">차</div><div class="eng-pron">[cha]</div><div class="mm-pron">ကား / လက်ဖက်ရည်</div></div>
+            <div class="vocab-box"><div class="kor-word">버스</div><div class="eng-pron">[beoseu]</div><div class="mm-pron">ဘတ်စ်ကား</div></div>
+            <div class="vocab-box"><div class="kor-word">기차</div><div class="eng-pron">[gicha]</div><div class="mm-pron">ရထား</div></div>
+            <div class="vocab-box"><div class="kor-word">이름</div><div class="eng-pron">[ireum]</div><div class="mm-pron">နာမည်</div></div>
+            
+            <div class="vocab-box"><div class="kor-word">시간</div><div class="eng-pron">[sigan]</div><div class="mm-pron">အချိန်</div></div>
+            <div class="vocab-box"><div class="kor-word">오늘</div><div class="eng-pron">[oneul]</div><div class="mm-pron">ဒီနေ့</div></div>
+            <div class="vocab-box"><div class="kor-word">내일</div><div class="eng-pron">[naeil]</div><div class="mm-pron">မနက်ဖြန်</div></div>
+            <div class="vocab-box"><div class="kor-word">어제</div><div class="eng-pron">[eoje]</div><div class="mm-pron">မနေ့က</div></div>
+            
+            <div class="vocab-box"><div class="kor-word">지금</div><div class="eng-pron">[jigeum]</div><div class="mm-pron">အခု</div></div>
+            <div class="vocab-box"><div class="kor-word">아침</div><div class="eng-pron">[achim]</div><div class="mm-pron">မနက်</div></div>
+            <div class="vocab-box"><div class="kor-word">점심</div><div class="eng-pron">[jeomsim]</div><div class="mm-pron">နေ့လယ်</div></div>
+            <div class="vocab-box"><div class="kor-word">저녁</div><div class="eng-pron">[jeonyeok]</div><div class="mm-pron">ညနေ</div></div>
+            
+            <!-- 기타 명사 -->
+            <div class="vocab-box"><div class="kor-word">밤</div><div class="eng-pron">[bam]</div><div class="mm-pron">ည</div></div>
+            <div class="vocab-box"><div class="kor-word">날씨</div><div class="eng-pron">[nalssi]</div><div class="mm-pron">ရာသီဥတု</div></div>
+            <div class="vocab-box"><div class="kor-word">비</div><div class="eng-pron">[bi]</div><div class="mm-pron">မိုး</div></div>
+            <div class="vocab-box"><div class="kor-word">눈</div><div class="eng-pron">[nun]</div><div class="mm-pron">နှင်း / မျက်လုံး</div></div>
+            
+            <div class="vocab-box"><div class="kor-word">일</div><div class="eng-pron">[il]</div><div class="mm-pron">အလုပ်</div></div>
+            <div class="vocab-box"><div class="kor-word">앞</div><div class="eng-pron">[ap]</div><div class="mm-pron">ရှေ့</div></div>
+            <div class="vocab-box"><div class="kor-word">뒤</div><div class="eng-pron">[dwi]</div><div class="mm-pron">နောက်</div></div>
+            <div class="vocab-box"><div class="kor-word">옆</div><div class="eng-pron">[yeop]</div><div class="mm-pron">ဘေး</div></div>
+        </div>
+
+        <div class="footer-line">JOY KOREAN LANGUAGE CENTER - HLEDAN, YANGON (Page 1/2)</div>
+    </div>
+
+
+    <!-- ==================== Page 2 : 동사, 형용사, 부사/인사 ==================== -->
+    <div class="page-container">
+        <!-- 헤더 영역 -->
+        <div class="header-line">
+            <div>
+                <h1 class="text-3xl font-black text-slate-800 tracking-tighter">기초 어휘 100 (2)</h1>
+                <p class="text-slate-500 font-bold text-sm mt-1">အခြေခံ ဝေါဟာရ ၁၀၀ - JKLC</p>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-12 object-contain" onerror="this.style.display='none'">
+        </div>
+
+        <div class="text-center">
+            <div class="box-title verb-title">동사 (ကြိယာ)</div>
+        </div>
+        
+        <!-- 동사 (20개) -->
+        <div class="vocab-grid-4">
+            <div class="vocab-box verb"><div class="kor-word">가다</div><div class="eng-pron">[gada]</div><div class="mm-pron">သွားသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">오다</div><div class="eng-pron">[oda]</div><div class="mm-pron">လာသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">하다</div><div class="eng-pron">[hada]</div><div class="mm-pron">လုပ်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">먹다</div><div class="eng-pron">[meokda]</div><div class="mm-pron">စားသည်</div></div>
+            
+            <div class="vocab-box verb"><div class="kor-word">마시다</div><div class="eng-pron">[masida]</div><div class="mm-pron">သောက်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">자다</div><div class="eng-pron">[jada]</div><div class="mm-pron">အိပ်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">보다</div><div class="eng-pron">[boda]</div><div class="mm-pron">ကြည့်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">듣다</div><div class="eng-pron">[deutda]</div><div class="mm-pron">နားထောင်သည်</div></div>
+            
+            <div class="vocab-box verb"><div class="kor-word">읽다</div><div class="eng-pron">[ikda]</div><div class="mm-pron">ဖတ်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">쓰다</div><div class="eng-pron">[sseuda]</div><div class="mm-pron">ရေးသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">사다</div><div class="eng-pron">[sada]</div><div class="mm-pron">ဝယ်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">만나다</div><div class="eng-pron">[mannada]</div><div class="mm-pron">တွေ့သည်</div></div>
+            
+            <div class="vocab-box verb"><div class="kor-word">배우다</div><div class="eng-pron">[baeuda]</div><div class="mm-pron">သင်ယူသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">일하다</div><div class="eng-pron">[ilhada]</div><div class="mm-pron">အလုပ်လုပ်သည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">쉬다</div><div class="eng-pron">[swida]</div><div class="mm-pron">နားသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">놀다</div><div class="eng-pron">[nolda]</div><div class="mm-pron">ကစားသည်</div></div>
+            
+            <div class="vocab-box verb"><div class="kor-word">알다</div><div class="eng-pron">[alda]</div><div class="mm-pron">သိသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">모르다</div><div class="eng-pron">[moreuda]</div><div class="mm-pron">မသိပါ</div></div>
+            <div class="vocab-box verb"><div class="kor-word">주다</div><div class="eng-pron">[juda]</div><div class="mm-pron">ပေးသည်</div></div>
+            <div class="vocab-box verb"><div class="kor-word">받다</div><div class="eng-pron">[batda]</div><div class="mm-pron">ရရှိသည်</div></div>
+        </div>
+
+        <div class="text-center">
+            <div class="box-title adj-title">형용사 & 부사 (နာမဝိသေသန & ကြိယာဝိသေသန)</div>
+        </div>
+
+        <!-- 형용사 & 부사 (20개) -->
+        <div class="vocab-grid-4">
+            <div class="vocab-box adj"><div class="kor-word">크다</div><div class="eng-pron">[keuda]</div><div class="mm-pron">ကြီးသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">작다</div><div class="eng-pron">[jakda]</div><div class="mm-pron">သေးသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">많다</div><div class="eng-pron">[manta]</div><div class="mm-pron">များသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">적다</div><div class="eng-pron">[jeokda]</div><div class="mm-pron">နည်းသည်</div></div>
+            
+            <div class="vocab-box adj"><div class="kor-word">좋다</div><div class="eng-pron">[jota]</div><div class="mm-pron">ကောင်းသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">나쁘다</div><div class="eng-pron">[nappeuda]</div><div class="mm-pron">ဆိုးသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">비싸다</div><div class="eng-pron">[bissada]</div><div class="mm-pron">ဈေးကြီးသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">싸다</div><div class="eng-pron">[ssada]</div><div class="mm-pron">ဈေးပေါသည်</div></div>
+            
+            <div class="vocab-box adj"><div class="kor-word">예쁘다</div><div class="eng-pron">[yeppeuda]</div><div class="mm-pron">လှသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">아프다</div><div class="eng-pron">[apeuda]</div><div class="mm-pron">နာကျင်သည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">맛있다</div><div class="eng-pron">[masitda]</div><div class="mm-pron">အရသာရှိသည်</div></div>
+            <div class="vocab-box adj"><div class="kor-word">바쁘다</div><div class="eng-pron">[bappeuda]</div><div class="mm-pron">အလုပ်များသည်</div></div>
+
+            <div class="vocab-box"><div class="kor-word">아주</div><div class="eng-pron">[aju]</div><div class="mm-pron">အရမ်း</div></div>
+            <div class="vocab-box"><div class="kor-word">조금</div><div class="eng-pron">[jogeum]</div><div class="mm-pron">နည်းနည်း</div></div>
+            <div class="vocab-box"><div class="kor-word">빨리</div><div class="eng-pron">[ppalli]</div><div class="mm-pron">မြန်မြန်</div></div>
+            <div class="vocab-box"><div class="kor-word">천천히</div><div class="eng-pron">[cheoncheonhi]</div><div class="mm-pron">ဖြည်းဖြည်း</div></div>
+        </div>
+
+        <!-- 기타 유용한 표현 (8개) -->
+        <div class="text-center mt-1">
+            <div class="box-title expr-title">기본 표현 (အခြေခံ အသုံးအနှုန်းများ)</div>
+        </div>
+        <div class="vocab-grid-4" style="margin-bottom: 0;">
+            <div class="vocab-box expr"><div class="kor-word">네</div><div class="eng-pron">[ne]</div><div class="mm-pron">ဟုတ်ကဲ့</div></div>
+            <div class="vocab-box expr"><div class="kor-word">아니요</div><div class="eng-pron">[aniyo]</div><div class="mm-pron">ဟင့်အင်း</div></div>
+            <div class="vocab-box expr"><div class="kor-word">안녕하세요</div><div class="eng-pron">[annyeong...]</div><div class="mm-pron">မင်္ဂလာပါ</div></div>
+            <div class="vocab-box expr"><div class="kor-word">감사합니다</div><div class="eng-pron">[gamsa...]</div><div class="mm-pron">ကျေးဇူးတင်ပါတယ်</div></div>
+            
+            <div class="vocab-box expr"><div class="kor-word">죄송합니다</div><div class="eng-pron">[joesong...]</div><div class="mm-pron">တောင်းပန်ပါတယ်</div></div>
+            <div class="vocab-box expr"><div class="kor-word">미안해요</div><div class="eng-pron">[mianhaeyo]</div><div class="mm-pron">ဆောရီးပါ</div></div>
+            <div class="vocab-box expr"><div class="kor-word">괜찮아요</div><div class="eng-pron">[gwaench...]</div><div class="mm-pron">ရပါတယ်</div></div>
+            <div class="vocab-box expr"><div class="kor-word">안녕히 가세요</div><div class="eng-pron">[annyeonghi...]</div><div class="mm-pron">ကောင်းကောင်းသွားပါ</div></div>
+        </div>
+
+        <!-- 하단 푸터 -->
+        <div class="footer-line">JOY KOREAN LANGUAGE CENTER - HLEDAN, YANGON (Page 2/2)</div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+            }
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
