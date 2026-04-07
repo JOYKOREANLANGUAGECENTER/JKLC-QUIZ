@@ -21,12 +21,18 @@
     <!-- Header -->
     <header class="bg-white shadow-md border-b-4 border-yellow-400 sticky-header">
         <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10">
+            <!-- 로고 영역에도 홈 링크 추가 -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="https://joykoreanlanguagecenter.github.io/JKLC-QUIZ/logo.png" alt="JKLC" class="h-10 transition-transform group-hover:scale-105">
                 <h1 class="text-lg font-black text-slate-800 hidden sm:block">Essential 100</h1>
-            </div>
+            </a>
             <div class="flex items-center gap-2">
-                <span id="voice-status" class="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Audio Ready 🔊</span>
+                <span id="voice-status" class="hidden sm:inline-block text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Audio Ready 🔊</span>
+                
+                <!-- 추가된 HOME 버튼 -->
+                <a href="index.html" class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-100 text-blue-600 rounded-lg text-[11px] md:text-sm font-black transition flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="home" class="w-3.5 h-3.5 md:w-4 md:h-4"></i> HOME
+                </a>
             </div>
         </div>
         <!-- Search Bar -->
