@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JKLC - Basic Hangeul Chart</title>
     <!-- 파비콘 삽입 -->
-    <link rel="icon" href="favicon1.png" type="image/png">
+    <link rel="icon" href="logo.png" type="image/png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
@@ -23,14 +23,14 @@
             color: #1e293b;
             margin: 0;
             padding: 0;
-            /* 텍스트 선택 방지 */
+            /* 텍스트 선택 및 드래그 완벽 방지 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* မျက်နှာပြင်ပေါ်တွင်ပြသရန် (Screen styles) */
+        /* 화면 출력용 스타일 */
         .page-container {
             width: 210mm; 
             min-height: 297mm; 
@@ -40,28 +40,28 @@
             position: relative;
             box-sizing: border-box;
             padding: 12mm 15mm;
-            overflow: hidden;
+            overflow: hidden; /* 워터마크가 밖으로 나가지 않도록 */
             z-index: 1;
-            /* Flexbox로 변경하여 푸터를 자동으로 맨 아래로 밀어냄 */
             display: flex;
             flex-direction: column;
         }
 
-        /* 워터마크 스타일 */
+        /* 워터마크 패턴 (중간중간 반복되도록 사선 배열) */
         .page-container::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('KakaoTalk_20260331_101425466.png');
-            background-repeat: no-repeat;
-            background-position: center 55%;
-            background-size: 65%;
-            opacity: 0.05; /* 연하게 설정 */
+            /* 회전했을 때 빈 공간이 없도록 영역을 크게 확장 */
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: url('logo.png'); /* 지정해주신 파일명 적용 */
+            background-repeat: repeat;
+            background-size: 160px; /* 로고 패턴 크기 */
+            opacity: 0.04; /* 글씨 가독성을 위해 아주 연하게 설정 (조절 가능) */
+            transform: rotate(-25deg); /* 사선 각도 */
             z-index: -1;
-            pointer-events: none;
+            pointer-events: none; /* 클릭 방해 금지 */
         }
 
-        /* ပရင့်ထုတ်ရန် (Print styles) */
+        /* 인쇄용 스타일 */
         @media print {
             @page { size: A4 portrait; margin: 0; }
             body { background-color: white; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -69,23 +69,24 @@
             .no-print { display: none !important; }
         }
 
-        /* 그리드 시스템 & 간격 최적화 */
+        /* 그리드 시스템 & 간격 */
         .hangeul-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
         .hangeul-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
         .words-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
 
+        /* 박스 디자인 */
         .hangeul-box {
             border: 2px solid #e2e8f0;
             border-radius: 10px;
             text-align: center;
-            padding: 6px 4px; /* 여백 살짝 줄임 */
-            background-color: rgba(255, 255, 255, 0.8);
+            padding: 6px 4px;
+            background-color: rgba(255, 255, 255, 0.85); /* 워터마크 위에서 글씨가 잘 보이도록 반투명 배경 */
             position: relative;
             backdrop-filter: blur(2px);
         }
         
-        .hangeul-box.vowel { background-color: rgba(248, 250, 252, 0.8); border-color: #cbd5e1; }
-        .hangeul-box.double { background-color: rgba(240, 253, 244, 0.8); border-color: #bbf7d0; }
+        .hangeul-box.vowel { background-color: rgba(248, 250, 252, 0.85); border-color: #cbd5e1; }
+        .hangeul-box.double { background-color: rgba(240, 253, 244, 0.85); border-color: #bbf7d0; }
 
         .kor-char { font-size: 2.3rem; font-weight: 900; line-height: 1.1; color: var(--jklc-blue); margin-bottom: 2px; }
         .vowel .kor-char { color: var(--jklc-red); }
@@ -111,7 +112,6 @@
 
         .header-line { border-bottom: 3px solid var(--jklc-yellow); padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end; }
         
-        /* 푸터 스타일 변경 - 절대 위치 제거, margin-top: auto로 하단 고정 */
         .footer-line { 
             border-top: 1px solid #cbd5e1; 
             padding-top: 8px; 
@@ -120,11 +120,10 @@
             text-align: center; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
-            margin-top: auto; /* 핵심: 남은 공간을 모두 위쪽 마진으로 써서 아래로 밂 */
+            margin-top: auto; 
             width: 100%;
         }
 
-        /* 단어장 박스 */
         .word-box {
             border: 2px solid #e2e8f0;
             border-radius: 10px;
@@ -138,7 +137,7 @@
         .word-mm { font-size: 0.95rem; color: #b45309; font-family: 'Pyidaungsu', sans-serif; font-weight: bold; text-align: right;}
     </style>
 </head>
-<!-- 우클릭, 드래그 방지 적용 -->
+<!-- body 태그에서 우클릭 방지, 드래그 방지 적용 -->
 <body oncontextmenu="return false" ondragstart="return false">
 
     <!-- 프린트 버튼 -->
@@ -151,14 +150,14 @@
 
     <!-- ==================== Hangeul Chart Page ==================== -->
     <div class="page-container">
-        <!-- 헤더 영역 (로고 삽입) -->
+        <!-- 헤더 영역 -->
         <div class="header-line">
             <div>
                 <h1 class="text-3xl font-black text-slate-800 tracking-tighter">한글 기초 (Basic Hangeul)</h1>
                 <p class="text-slate-500 font-bold text-sm mt-1">ကိုရီးယား အက္ခရာ အခြေခံ - JKLC</p>
             </div>
-            <!-- 선명한 로고 이미지 적용 -->
-            <img src="KakaoTalk_20260331_101425466.png" alt="JKLC Logo" class="h-14 object-contain" onerror="this.style.display='none'">
+            <!-- 상단 로고 삽입 -->
+            <img src="logo.png" alt="JKLC Logo" class="h-14 object-contain" onerror="this.style.display='none'">
         </div>
 
         <!-- 1. 자음 (Consonants) -->
@@ -249,16 +248,20 @@
             </div>
         </div>
 
-        <!-- 하단 푸터 (Flexbox margin-top: auto로 인해 항상 맨 아래 위치) -->
+        <!-- 하단 푸터 -->
         <div class="footer-line">JOY KOREAN LANGUAGE CENTER - HLEDAN, YANGON</div>
     </div>
 
     <script>
         lucide.createIcons();
         
-        // 추가적인 보안: 단축키를 통한 복사/개발자 도구 오픈 방지 (선택적)
+        // 추가적인 복사 방지 로직 (단축키 제어)
         document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U')) {
+            // Ctrl+C, Ctrl+V, Ctrl+U (소스보기), Ctrl+P (인쇄), F12 방지
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+            }
+            if (e.key === 'F12') {
                 e.preventDefault();
             }
         });
