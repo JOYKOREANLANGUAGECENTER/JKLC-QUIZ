@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - Basic Hangeul Chart</title>
+    <!-- 파비콘 삽입 -->
+    <link rel="icon" href="favicon1.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #dc2626;
+            --jklc-green: #16a34a;
+        }
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f1f5f9;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            /* 텍스트 선택 방지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* မျက်နှာပြင်ပေါ်တွင်ပြသရန် (Screen styles) */
+        .page-container {
+            width: 210mm; 
+            min-height: 297mm; 
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            padding: 12mm 15mm;
+            overflow: hidden;
+            z-index: 1;
+            /* Flexbox로 변경하여 푸터를 자동으로 맨 아래로 밀어냄 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 워터마크 스타일 */
+        .page-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('KakaoTalk_20260331_101425466.png');
+            background-repeat: no-repeat;
+            background-position: center 55%;
+            background-size: 65%;
+            opacity: 0.05; /* 연하게 설정 */
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ပရင့်ထုတ်ရန် (Print styles) */
+        @media print {
+            @page { size: A4 portrait; margin: 0; }
+            body { background-color: white; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .page-container { margin: 0; box-shadow: none; border: none; padding: 12mm 15mm; height: 297mm; }
+            .no-print { display: none !important; }
+        }
+
+        /* 그리드 시스템 & 간격 최적화 */
+        .hangeul-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
+        .hangeul-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
+        .words-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
+
+        .hangeul-box {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            text-align: center;
+            padding: 6px 4px; /* 여백 살짝 줄임 */
+            background-color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+        
+        .hangeul-box.vowel { background-color: rgba(248, 250, 252, 0.8); border-color: #cbd5e1; }
+        .hangeul-box.double { background-color: rgba(240, 253, 244, 0.8); border-color: #bbf7d0; }
+
+        .kor-char { font-size: 2.3rem; font-weight: 900; line-height: 1.1; color: var(--jklc-blue); margin-bottom: 2px; }
+        .vowel .kor-char { color: var(--jklc-red); }
+        .double .kor-char { color: var(--jklc-green); }
+        
+        .eng-pron { font-size: 0.75rem; color: #64748b; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 2px; font-family: sans-serif; }
+        .mm-pron { font-size: 1rem; color: #b45309; font-weight: bold; font-family: 'Pyidaungsu', sans-serif; }
+        
+        .box-title {
+            background-color: var(--jklc-blue);
+            color: white;
+            display: inline-block;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .vowel-title { background-color: var(--jklc-red); }
+        .double-title { background-color: var(--jklc-green); }
+
+        .header-line { border-bottom: 3px solid var(--jklc-yellow); padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-end; }
+        
+        /* 푸터 스타일 변경 - 절대 위치 제거, margin-top: auto로 하단 고정 */
+        .footer-line { 
+            border-top: 1px solid #cbd5e1; 
+            padding-top: 8px; 
+            font-size: 10px; 
+            color: #94a3b8; 
+            text-align: center; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-top: auto; /* 핵심: 남은 공간을 모두 위쪽 마진으로 써서 아래로 밂 */
+            width: 100%;
+        }
+
+        /* 단어장 박스 */
+        .word-box {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .word-kor { font-size: 1.2rem; font-weight: 900; color: #334155; }
+        .word-mm { font-size: 0.95rem; color: #b45309; font-family: 'Pyidaungsu', sans-serif; font-weight: bold; text-align: right;}
+    </style>
+</head>
+<!-- 우클릭, 드래그 방지 적용 -->
+<body oncontextmenu="return false" ondragstart="return false">
+
+    <!-- 프린트 버튼 -->
+    <div class="no-print fixed top-6 right-6 z-50">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-3 rounded-full font-black shadow-lg hover:bg-blue-700 hover:scale-105 transition-all flex items-center gap-2">
+            <i data-lucide="printer"></i> PDF로 인쇄하기
+        </button>
+        <p class="text-xs text-center mt-2 text-slate-500 bg-white/80 px-2 py-1 rounded">여백: <b>없음</b> / 배경 그래픽: <b>체크</b></p>
+    </div>
+
+    <!-- ==================== Hangeul Chart Page ==================== -->
+    <div class="page-container">
+        <!-- 헤더 영역 (로고 삽입) -->
+        <div class="header-line">
+            <div>
+                <h1 class="text-3xl font-black text-slate-800 tracking-tighter">한글 기초 (Basic Hangeul)</h1>
+                <p class="text-slate-500 font-bold text-sm mt-1">ကိုရီးယား အက္ခရာ အခြေခံ - JKLC</p>
+            </div>
+            <!-- 선명한 로고 이미지 적용 -->
+            <img src="KakaoTalk_20260331_101425466.png" alt="JKLC Logo" class="h-14 object-contain" onerror="this.style.display='none'">
+        </div>
+
+        <!-- 1. 자음 (Consonants) -->
+        <div class="text-center">
+            <div class="box-title">기본 자음 (အခြေခံ ဗျည်း ၁၄ လုံး)</div>
+        </div>
+        <div class="hangeul-grid-4">
+            <div class="hangeul-box"><div class="kor-char">ㄱ</div><div class="eng-pron">[g/k]</div><div class="mm-pron">ဂ / က</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㄴ</div><div class="eng-pron">[n]</div><div class="mm-pron">န</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㄷ</div><div class="eng-pron">[d/t]</div><div class="mm-pron">ဒ / တ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㄹ</div><div class="eng-pron">[r/l]</div><div class="mm-pron">ရ / လ</div></div>
+            
+            <div class="hangeul-box"><div class="kor-char">ㅁ</div><div class="eng-pron">[m]</div><div class="mm-pron">မ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅂ</div><div class="eng-pron">[b/p]</div><div class="mm-pron">ဘ / ပ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅅ</div><div class="eng-pron">[s]</div><div class="mm-pron">စ / ဆ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅇ</div><div class="eng-pron">[-/ng]</div><div class="mm-pron">အ / င</div></div>
+            
+            <div class="hangeul-box"><div class="kor-char">ㅈ</div><div class="eng-pron">[j]</div><div class="mm-pron">ဂျ / ချ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅊ</div><div class="eng-pron">[ch]</div><div class="mm-pron">ချ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅋ</div><div class="eng-pron">[k]</div><div class="mm-pron">ခ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅌ</div><div class="eng-pron">[t]</div><div class="mm-pron">ထ</div></div>
+            
+            <div class="hangeul-box"><div class="kor-char">ㅍ</div><div class="eng-pron">[p]</div><div class="mm-pron">ဖ</div></div>
+            <div class="hangeul-box"><div class="kor-char">ㅎ</div><div class="eng-pron">[h]</div><div class="mm-pron">ဟ</div></div>
+            <div class="hangeul-box" style="visibility: hidden;"></div>
+            <div class="hangeul-box" style="visibility: hidden;"></div>
+        </div>
+
+        <!-- 2. 쌍자음 (Double Consonants) -->
+        <div class="text-center mt-1">
+            <div class="box-title double-title">쌍자음 (အသံပြင်း ဗျည်း ၅ လုံး)</div>
+        </div>
+        <div class="hangeul-grid-5">
+            <div class="hangeul-box double"><div class="kor-char">ㄲ</div><div class="eng-pron">[kk]</div><div class="mm-pron">က</div></div>
+            <div class="hangeul-box double"><div class="kor-char">ㄸ</div><div class="eng-pron">[tt]</div><div class="mm-pron">တ</div></div>
+            <div class="hangeul-box double"><div class="kor-char">ㅃ</div><div class="eng-pron">[pp]</div><div class="mm-pron">ပ</div></div>
+            <div class="hangeul-box double"><div class="kor-char">ㅆ</div><div class="eng-pron">[ss]</div><div class="mm-pron">စ</div></div>
+            <div class="hangeul-box double"><div class="kor-char">ㅉ</div><div class="eng-pron">[jj]</div><div class="mm-pron">ကျ</div></div>
+        </div>
+
+        <!-- 3. 모음 (Vowels) -->
+        <div class="text-center mt-1">
+            <div class="box-title vowel-title">기본 모음 (အခြေခံ သရ ၁၀ လုံး)</div>
+        </div>
+        <div class="hangeul-grid-4">
+            <div class="hangeul-box vowel"><div class="kor-char">ㅏ</div><div class="eng-pron">[a]</div><div class="mm-pron">အာ</div></div>
+            <div class="hangeul-box vowel"><div class="kor-char">ㅑ</div><div class="eng-pron">[ya]</div><div class="mm-pron">ယာ</div></div>
+            <div class="hangeul-box vowel"><div class="kor-char">ㅓ</div><div class="eng-pron">[eo]</div><div class="mm-pron">အော</div></div>
+            <div class="hangeul-box vowel"><div class="kor-char">ㅕ</div><div class="eng-pron">[yeo]</div><div class="mm-pron">ယော</div></div>
+            
+            <div class="hangeul-box vowel"><div class="kor-char">ㅗ</div><div class="eng-pron">[o]</div><div class="mm-pron">အို</div></div>
+            <div class="hangeul-box vowel"><div class="kor-char">ㅛ</div><div class="eng-pron">[yo]</div><div class="mm-pron">ရို</div></div>
+            <div class="hangeul-box vowel"><div class="kor-char">ㅜ</div><div class="eng-pron">[u]</div><div class="mm-pron">အူ</div></div>
+            <div class="hangeul-box vowel"><div class="kor-char">ㅠ</div><div class="eng-pron">[yu]</div><div class="mm-pron">ယူ</div></div>
+            
+            <div class="hangeul-box vowel" style="grid-column: 2 / 3;"><div class="kor-char">ㅡ</div><div class="eng-pron">[eu]</div><div class="mm-pron">အ် / အຶ</div></div>
+            <div class="hangeul-box vowel" style="grid-column: 3 / 4;"><div class="kor-char">ㅣ</div><div class="eng-pron">[i]</div><div class="mm-pron">အီ</div></div>
+        </div>
+
+        <!-- 4. 기본 인사말 & 조합 원리 -->
+        <div class="words-grid mt-2">
+            <div class="word-box">
+                <div class="word-kor">안녕하세요</div>
+                <div class="word-mm">မင်္ဂလာပါ</div>
+            </div>
+            <div class="word-box">
+                <div class="word-kor">감사합니다</div>
+                <div class="word-mm">ကျေးဇူးတင်ပါတယ်</div>
+            </div>
+            <div class="word-box">
+                <div class="word-kor">선생님</div>
+                <div class="word-mm">ဆရာ/ဆရာမ</div>
+            </div>
+            <div class="word-box">
+                <div class="word-kor">학생</div>
+                <div class="word-mm">ကျောင်းသား/သူ</div>
+            </div>
+        </div>
+
+        <!-- 안내 박스 -->
+        <div class="bg-blue-50/90 border border-blue-200 rounded-xl p-3 mb-4 flex items-center gap-3 backdrop-blur-sm">
+            <i data-lucide="info" class="text-blue-500 w-6 h-6 shrink-0"></i>
+            <div class="flex-1 flex justify-between items-center">
+                <p class="text-sm font-bold text-slate-700">자음과 모음이 만나 글자가 됩니다.<br><span class="text-xs text-slate-500 font-normal">(ဗျည်းနှင့် သရ ပေါင်း၍ စာလုံးဖြစ်လာသည်။)</span></p>
+                <p class="text-xl font-black text-blue-600 bg-white px-4 py-1 rounded-lg shadow-sm border border-blue-100">
+                    ㄱ + ㅏ = 가
+                </p>
+            </div>
+        </div>
+
+        <!-- 하단 푸터 (Flexbox margin-top: auto로 인해 항상 맨 아래 위치) -->
+        <div class="footer-line">JOY KOREAN LANGUAGE CENTER - HLEDAN, YANGON</div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // 추가적인 보안: 단축키를 통한 복사/개발자 도구 오픈 방지 (선택적)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
