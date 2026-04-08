@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <link rel="icon" href="favicon1.png" type="image/png">	
+    <!-- 파비콘 설정 -->
+	<link rel="icon" href="favicon1.png" type="image/png">	
 	<link rel="apple-touch-icon" href="favicon1.png">	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOY Korean Language Center - Quiz Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 폰트 설정: 한국어와 미얀마어 최적화 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -81,25 +83,27 @@
             <p class="text-blue-600 font-bold mt-1 tracking-widest uppercase text-[10px]">Daily Quiz Hub</p>
         </header>
 
+        <!-- 오늘의 퀴즈 섹션 (Day 19 약속 정하기 업데이트) -->
         <section class="mb-12 text-left">
             <h3 class="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4 flex items-center">
                 <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-ping"></span>
                 Today's Quiz
             </h3>
             
-            <a href="quiz18.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
+            <a href="quiz19.html" class="block bg-blue-600 p-8 rounded-[2.5rem] shadow-xl text-white relative overflow-hidden group">
                 <div class="relative z-10 text-left">
-                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 04. 07</span>
-                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 18: 작업장 실전 한국어</h2>
-                    <p class="text-sm font-bold opacity-80 text-left">စက်ရုံလုပ်ငန်းခွင်သုံး ကိုရီးယားစကား</p>
+                    <span class="badge-today text-[9px] font-black bg-white/20 px-3 py-1 rounded-full uppercase">2026. 04. 08</span>
+                    <h2 class="text-2xl font-black mt-4 mb-2 leading-tight text-left">Day 19: 약속 정하기</h2>
+                    <p class="text-sm font-bold opacity-80 text-left">ချိန်းဆိုမှုများ ပြုလုပ်ခြင်းနှင့် အချိန်</p>
                     <div class="mt-8 flex items-center font-black text-sm text-left">
                         퀴즈 시작하기 <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">👷‍♂️</div>
+                <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">📅</div>
             </a>
         </section>
 
+        <!-- 전체 퀴즈 목록 섹션 -->
         <section class="space-y-4 text-left">
             <div class="flex items-center justify-between px-2 mb-4">
                 <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Quizzes</h3>
@@ -136,8 +140,15 @@
     </footer>
 
     <script>
-        // 전체 퀴즈 데이터 (Day 18까지 최신화)
+        // 전체 퀴즈 데이터 (Day 19 추가 및 최신화)
         const allQuizzes = [
+            {
+                date: "2026. 04. 08",
+                day: "Day 19",
+                title: "약속 정하기",
+                desc: "ချိန်းဆိုမှုများ ပြုလုပ်ခြင်းနှင့် အချိန်",
+                link: "quiz19.html"
+            },
             {
                 date: "2026. 04. 07",
                 day: "Day 18",
@@ -226,7 +237,7 @@
                 date: "2026. 03. 26",
                 day: "Day 6",
                 title: "학교에서 대화하기",
-                desc: "ကျောင်းတွင် အသုံးပြုသော စကားပြော",
+                desc: "ကျောင်းတွင် အသုံးပြုသော 스ကားပြော",
                 link: "quiz5.html"
             },
             {
