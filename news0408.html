@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (04.08)</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; -webkit-user-select: none; user-select: none; }
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        .news-card { transition: all 0.3s; border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        .burmese-text { line-height: 1.8; }
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 9999; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.08; transform: rotate(-20deg); }
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC" class="h-8 relative z-10">
+                <span class="text-xs font-black text-slate-400 border-l pl-3 uppercase tracking-widest">Global News</span>
+            </a>
+            <div class="flex gap-2">
+                <a href="newslist.html" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition">List</a>
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6 shadow-sm relative overflow-hidden">
+            <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="globe" class="w-8 h-8"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900">오늘의 글로벌 뉴스</h1>
+                    <span class="text-xs font-bold text-slate-500 bg-white/80 px-3 py-1 rounded-full tracking-tighter">2026. 04. 08</span>
+                </div>
+                <p class="text-xs font-medium text-slate-500 burmese-text">ကမ္ဘာတစ်ဝှမ်းမှ စိတ်ဝင်စားဖွယ် သတင်းများကို လေ့လာကြည့်ကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1544640808-32ca72ac7f37?w=600&q=80" alt="E-book" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Tech & Life</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="book" class="w-3.5 h-3.5"></i> 기술 / 생활</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">"언제 어디서든 읽어요" 글로벌 전자책 시장 급성장</h2>
+                    <p class="text-slate-500 text-sm font-medium">스마트 기기의 보급으로 종이책 대신 전자책(E-book)을 선호하는 독자들이 늘고 있습니다. 특히 환경 보호에 대한 관심이 높아지면서 종이를 아낄 수 있는 전자책 시장의 규모가 매년 15% 이상 커지고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ကမ္ဘာတစ်ဝှမ်းတွင် E-book အသုံးပြုမှု သိသိသာသာ မြင့်တက်လာ</h2>
+                    <p class="text-slate-500 text-xs">ပတ်ဝန်းကျင် ထိန်းသိမ်းရေးနှင့် အဆင်ပြေမှုတို့ကြောင့် စာဖတ်သူများသည် စက္ကူစာအုပ်များအစား E-book များကို ပိုမိုရွေးချယ်လာကြသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?w=600&q=80" alt="Kimchi" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">K-Food</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="utensils" class="w-3.5 h-3.5"></i> 문화 / 건강</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">면역력 높이는 '한국 발효음식', 전 세계 건강 트렌드 주도</h2>
+                    <p class="text-slate-500 text-sm font-medium">김치와 고추장 등 한국의 발효음식이 면역력 강화에 탁월하다는 사실이 알려지며 해외 시장에서 폭발적인 인기를 얻고 있습니다. 이제 K-푸드는 맛을 넘어 '건강식'의 대명사가 되었습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ကိုရီးယား အချဉ်ဖောက်ထားသော အစားအစာများ ကမ္ဘာ့ကျန်းမာရေးတွင် ရေပန်းစားလာ</h2>
+                    <p class="text-slate-500 text-xs">ကင်မ်ချီနှင့် အခြားအချဉ်ဖောက်အစားအစာများသည် ကိုယ်ခံအားကောင်းစေသဖြင့် ကမ္ဘာတစ်ဝှမ်း ကျန်းမာရေးအစားအစာအဖြစ် လူကြိုက်များလာသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80" alt="Recycle Fashion" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-amber-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Environment</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-amber-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 패션</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">폐플라스틱의 변신, '리사이클 패션' 명품 시장 장악</h2>
+                    <p class="text-slate-500 text-sm font-medium">버려진 페트병이나 폐그물에서 추출한 섬유로 만든 옷들이 명품 브랜드의 런웨이에 오르고 있습니다. 소비자들은 이제 디자인뿐만 아니라 '윤리적 소비'를 중요하게 생각합니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ပလတ်စတစ်အဟောင်းများမှ ပြန်လည်ပြုလုပ်ထားသော ဖက်ရှင်များ ခေတ်စားလာ</h2>
+                    <p class="text-slate-500 text-xs">ပတ်ဝန်းကျင်ကို ထိန်းသိမ်းရန်အတွက် အမှိုက်များမှ ပြန်လည်ထုတ်လုပ်ထားသော အဝတ်အထည်များကို လူငယ်များ ပိုမိုဝယ်ယူလာကြသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&q=80" alt="Mars Mission" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-purple-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Space</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-purple-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="rocket" class="w-3.5 h-3.5"></i> 과학 / 우주</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">화성 유인 탐사선 발사 카운트다운, 인류의 꿈 실현될까</h2>
+                    <p class="text-slate-500 text-sm font-medium">인류 최초의 화성 유인 탐사를 위한 우주선 발사 준비가 최종 단계에 접어들었습니다. 이번 미션이 성공하면 인간은 지구를 넘어 다른 행성에서 거주할 수 있는 새로운 시대를 열게 됩니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">အင်္ဂါဂြိုဟ်သို့ လူလိုက်ပါမည့် အာကာသယာဉ် လွှတ်တင်ရန် အဆင်သင့်ဖြစ်</h2>
+                    <p class="text-slate-500 text-xs">လူသားများ အင်္ဂါဂြိုဟ်ပေါ်တွင် နေထိုင်နိုင်ရေးအတွက် ပထမဆုံးသော လူလိုက်ပါမည့် ခရီးစဉ်ကို မကြာမီ စတင်တော့မည်ဖြစ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600"><i data-lucide="languages" class="w-6 h-6"></i></div>
+                <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                <div class="vocab-item"><h3 class="text-lg font-bold">선호하다 <span class="text-xs font-normal text-slate-400 ml-2">(Prefer)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပိုမိုနှစ်သက်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">보급 <span class="text-xs font-normal text-slate-400 ml-2">(Supply/Dissemination)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပျံ့နှံ့မှု / ဖြန့်ဖြူးမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">발효음식 <span class="text-xs font-normal text-slate-400 ml-2">(Fermented food)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အချဉ်ဖောက်ထားသော အစားအစာ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">대명사 <span class="text-xs font-normal text-slate-400 ml-2">(Pronoun/Epitome)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကိုယ်စားပြုသောအရာ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">추출하다 <span class="text-xs font-normal text-slate-400 ml-2">(Extract)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထုတ်ယူသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">윤리적 <span class="text-xs font-normal text-slate-400 ml-2">(Ethical)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကျင့်ဝတ်နှင့်ညီသော</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">거주하다 <span class="text-xs font-normal text-slate-400 ml-2">(Reside)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">နေထိုင်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">장악하다 <span class="text-xs font-normal text-slate-400 ml-2">(Dominate)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လွှမ်းမိုးချုပ်ကိုင်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">강화 <span class="text-xs font-normal text-slate-400 ml-2">(Strengthening)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အားကောင်းစေခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">최종 <span class="text-xs font-normal text-slate-400 ml-2">(Final)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">နောက်ဆုံးအဆင့်</p></div>
+            </div>
+        </article>
+
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl p-8 md:p-10 text-white text-center">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full"><i data-lucide="brain" class="w-12 h-12"></i></div>
+                    <h2 class="text-3xl font-black">어휘 퀴즈 챌린지!</h2>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">시작하기 (Start)</button>
+                </div>
+            </div>
+            <div id="quiz-play-view" class="hidden text-left">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Question 1 / 10</span>
+                    <span id="score-display" class="font-bold">0</span>
+                </div>
+                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10 text-center"></h3>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black shadow-md tracking-tighter">다음 (Next) <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+            </div>
+            <div id="quiz-result-view" class="hidden space-y-8">
+                <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                <p class="text-blue-100 font-bold">오늘의 어휘를 모두 마스터했습니다!</p>
+                <button onclick="location.reload()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg">다시 하기</button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
+            <p class="text-[9px] font-bold text-slate-300">© 2026 JKLC Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+
+        const quizData = [
+            { q: "선호하다", a: "ပိုမိုနှစ်သက်သည်", choices: ["ပိုမိုနှစ်သက်သည်", "နေထိုင်သည်", "ဖြန့်ဖြူးမှု", "ထုတ်ယူသည်"] },
+            { q: "보급", a: "ပျံ့နှံ့မှု / ဖြန့်ဖြူးမှု", choices: ["ပျံ့နှံ့မှု / ဖြန့်ဖြူးမှု", "နောက်ဆုံးအဆင့်", "အားကောင်းစေခြင်း", "ကိုယ်စားပြုသောအရာ"] },
+            { q: "발효음식", a: "အချဉ်ဖောက်ထားသော အစားအစာ", choices: ["အချဉ်ဖောက်ထားသော အစားအစာ", "ကျန်းမာရေးအစားအစာ", "မူရင်းလက်ရာ", "ဆန်းသစ်တီထွင်သော"] },
+            { q: "대명사", a: "ကိုယ်စားပြုသောအရာ", choices: ["ကိုယ်စားပြုသောအရာ", "နေထိုင်သည်", "ပိုမိုနှစ်သက်သည်", "လွှမ်းမိုးချုပ်ကိုင်သည်"] },
+            { q: "추출하다", a: "ထုတ်ယူသည်", choices: ["ထုတ်ယူသည်", "အားကောင်းစေခြင်း", "ဖြန့်ဖြူးမှု", "နောက်ဆုံးအဆင့်"] },
+            { q: "윤리적", a: "ကျင့်ဝတ်နှင့်ညီသော", choices: ["ကျင့်ဝတ်နှင့်ညီသော", "ဆန်းသစ်တီထွင်သော", "အခြေခံ", "မှန်မှန်"] },
+            { q: "거주하다", a: "နေထိုင်သည်", choices: ["နေထိုင်သည်", "ပိုမိုနှစ်သက်သည်", "ဖြန့်ဖြူးမှု", "ထုတ်ယူသည်"] },
+            { q: "장악하다", a: "လွှမ်းမိုးချုပ်ကိုင်သည်", choices: ["လွှမ်းမိုးချုပ်ကိုင်သည်", "နောက်ဆုံးအဆင့်", "အားကောင်းစေခြင်း", "ထုတ်ယူသည်"] },
+            { q: "강화", a: "အားကောင်းစေခြင်း", choices: ["အားကောင်းစေခြင်း", "ဖြန့်ဖြူးမှု", "ပိုမိုနှစ်သက်သည်", "နေထိုင်သည်"] },
+            { q: "최종", a: "နောက်ဆုံးအဆင့်", choices: ["နောက်ဆုံးအဆင့်", "အားကောင်းစေခြင်း", "ဖြန့်ဖြူးမှု", "ထုတ်ယူသည်"] }
+        ];
+
+        let currentIndex = 0, score = 0, canAnswer = true;
+        const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+        function startQuiz() {
+            document.getElementById('vocab-section').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true; const data = quizData[currentIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은?`;
+            document.getElementById('next-btn').classList.add('hidden');
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            shuffle([...data.choices]).forEach(choice => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-center shadow-sm';
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (!canAnswer) return; canAnswer = false;
+                    if (choice === data.a) { btn.classList.add('correct'); score++; document.getElementById('score-display').innerText = score; }
+                    else { btn.classList.add('wrong'); Array.from(grid.children).forEach(c => { if(c.innerText === data.a) c.classList.add('correct'); }); }
+                    document.getElementById('next-btn').classList.remove('hidden');
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < 10) showQuestion();
+            else {
+                document.getElementById('quiz-play-view').classList.add('hidden');
+                document.getElementById('quiz-result-view').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / 10`;
+            }
+        }
+    </script>
+</body>
+</html>
