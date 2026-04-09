@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Shopping Quiz</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --jklc-blue: #0070BB;
+            --jklc-yellow: #FFD700;
+            --jklc-red: #ED1C24;
+            --jklc-green: #228B22;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif;
+            background-color: #f0f4f8;
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        .watermark-bg {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            pointer-events: none; z-index: 0;
+            background-image: url('logo.png'); background-repeat: repeat;
+            background-size: 375px; opacity: 0.05; transform: rotate(-20deg);
+        }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+    <div class="watermark-bg"></div>
+
+    <div id="app" class="quiz-container relative overflow-hidden">
+        
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div>
+            <div class="flex-1 bg-[#0070BB]"></div>
+            <div class="flex-1 bg-[#228B22]"></div>
+            <div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                </a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner">
+                <i data-lucide="shopping-cart" class="w-10 h-10"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">쇼핑과 물건 사기</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Shopping & Prices</p>
+            
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 20</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">
+                    시장에서 물건을 사고 가격을 묻는 한국어를 배웁니다!<br>
+                    <span class="font-bold">ဈေးဝယ်ရာတွင် ဈေးနှုန်းမေးမြန်းခြင်းနှင့် ကိုရီးယားစကားပြောကို လေ့လာကြရအောင်။</span>
+                </p>
+            </div>
+
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3">
+                <i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)
+            </button>
+        </div>
+
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div>
+                <span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span>
+            </div>
+
+            <div class="mb-6 text-left">
+                <h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2>
+                <p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p>
+            </div>
+
+            <div class="flex justify-center my-4 content-watermark">
+                <img src="logo.png" alt="JKLC" class="h-10 w-auto">
+            </div>
+
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300">
+                    <div class="flex items-center mb-2">
+                        <span id="result-icon" class="text-2xl mr-2"></span>
+                        <h3 id="result-title" class="font-black text-lg tracking-tight"></h3>
+                    </div>
+                    <p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p>
+                    <div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80">
+                         <p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p>
+                         <p id="hint-text" class="text-xs font-medium italic"></p>
+                    </div>
+                </div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">
+                    다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2>
+            <p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left">
+                <div class="absolute -top-6 -right-6 opacity-10">
+                    <i data-lucide="award" class="w-32 h-32 text-white"></i>
+                </div>
+                <p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p>
+                <div class="text-7xl font-black tracking-tighter" id="final-score">0</div>
+                <p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p>
+            </div>
+
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)
+            </button>
+            
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기
+            </button>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p>
+        </footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3');
+        const sndWrong = new Audio('wrong.mp3');
+
+        const quizData = [
+            {
+                q: "물건의 가격(Price)이 궁금할 때 하는 질문은 무엇입니까?",
+                m: "ပစ္စည်းတစ်ခု၏ ဈေးနှုန်းကို သိလိုသည့်အခါ မည်သို့မေးရမည်နည်း။",
+                options: ["이거 얼마예요?", "이거 맛있어요?", "이거 예뻐요?", "이거 어디예요?"],
+                correct: 0,
+                hint: "How much is it? 이라는 의미의 표현을 찾으세요.",
+                rationale: "가격을 물어볼 때는 '얼마예요?'라는 표현을 사용합니다."
+            },
+            {
+                q: "가격이 너무 높아서 판매자에게 깎아달라고 부탁할 때 하는 말은?",
+                m: "ဈေးကြီးလွန်းသဖြင့် ရောင်းသူအား ဈေးလျှော့ပေးရန် တောင်းဆိုသည့်အခါ မည်သို့ပြောသနည်း။",
+                options: ["더 비싸게 해주세요.", "조금 깎아 주세요.", "나중에 올게요.", "안 살 거예요."],
+                correct: 1,
+                hint: "Please give me a discount의 의미를 가진 한국어입니다.",
+                rationale: "시장에서 가격을 흥정할 때는 '조금 깎아 주세요'라고 부탁합니다."
+            },
+            {
+                q: "사과 세 개를 달라고 할 때 알맞은 단위는 무엇입니까?",
+                m: "ပန်းသီး ၃ လုံးပေးပါဟု ပြောသည့်အခါ သင့်တော်သော ယူနစ်မှာ?",
+                options: ["병", "장", "개", "권"],
+                correct: 2,
+                hint: "일반적인 물건이나 과일을 셀 때 쓰는 단위입니다.",
+                rationale: "과일이나 빵 등 일반적인 물건은 '개'라는 단위를 사용합니다."
+            },
+            {
+                q: "물건을 사고 돈 대신 긁어서 결제하는 것은 무엇입니까?",
+                m: "ပစ္စည်းဝယ်ပြီး ငွေသားအစား ကတ်ဖြင့်ပေးချေခြင်းကို မည်သို့ခေါ်သနည်း။",
+                options: ["우표", "편지", "현금", "카드"],
+                correct: 3,
+                hint: "신용카드나 체크카드를 뜻합니다.",
+                rationale: "돈 대신 결제하는 도구는 '카드'입니다. 종이 돈은 '현금'이라고 합니다."
+            },
+            {
+                q: "책을 다섯 권 살 때, '다섯'은 어떻게 읽습니까?",
+                m: "စာအုပ် ၅ အုပ်ဝယ်သည့်အခါ '다섯' ကို မည်သို့ဖတ်သနည်း။",
+                options: ["오", "다섯", "다섯 명", "다섯 살"],
+                correct: 1,
+                hint: "Native Korean(하나, 둘, 셋...)으로 읽어야 합니다.",
+                rationale: "물건의 수량을 셀 때는 고유어 수사(다섯)를 사용합니다."
+            },
+            {
+                q: "물건을 넣어서 가져갈 수 있는 비닐이나 종이로 된 것은?",
+                m: "ပစ္စည်းများကို ထည့်ယူသွားနိုင်သော ပလတ်စတစ် သို့မဟုတ် စက္ကူအိတ်ကို မည်သို့ခေါ်သနည်း။",
+                options: ["봉투", "그릇", "책상", "상자"],
+                correct: 0,
+                hint: "Bag을 뜻하는 단어로 '비닐OO'라고도 합니다.",
+                rationale: "상점에서 물건을 담아주는 가방 형태의 것은 '봉투'라고 합니다."
+            },
+            {
+                q: "백화점에서 가격을 아주 싸게 파는 기간을 무엇이라고 합니까?",
+                m: "ကုန်တိုက်ကြီးများတွင် ဈေးနှုန်းများကို အလွန်သက်သာစွာ ရောင်းချသည့်ကာလကို မည်သို့ခေါ်သနည်း။",
+                options: ["축제", "휴가", "세일(할인)", "이사"],
+                correct: 2,
+                hint: "Sale 이라는 영어 단어에서 온 한국어 표현입니다.",
+                rationale: "가격을 할인해서 판매하는 것을 '세일' 또는 '할인'이라고 합니다."
+            },
+            {
+                q: "계산을 마친 후 내가 얼마를 냈는지 보여주는 종이는?",
+                m: "ငွေရှင်းပြီးနောက် မည်မျှပေးချေခဲ့သည်ကို ပြသသည့် စက္ကူမှာ?",
+                options: ["달력", "영수증", "명함", "지도"],
+                correct: 1,
+                hint: "Receipt를 뜻하는 한국어 단어입니다.",
+                rationale: "구매 내역과 가격이 적힌 종이는 '영수증'입니다."
+            },
+            {
+                q: "생수를 두 개 살 때 알맞은 단위는 무엇입니까?",
+                m: "ရေသန့် ၂ ဘူးဝယ်သည့်အခါ သင့်တော်သော ယူနစ်မှာ?",
+                options: ["병", "그릇", "명", "대"],
+                correct: 0,
+                hint: "Bottle을 뜻하는 한국어 단위입니다.",
+                rationale: "물이나 주스 같은 음료수는 '병'이라는 단위를 사용합니다."
+            },
+            {
+                q: "물건을 다 사고 가게를 나갈 때 하는 인사는?",
+                m: "ပစ္စည်းဝယ်ပြီး ဆိုင်မှထွက်သည့်အခါ မည်သို့ နှုတ်ဆက်ရမည်နည်း။",
+                options: ["실례합니다.", "안녕히 계세요.", "어서 오세요.", "맛있게 드세요."],
+                correct: 1,
+                hint: "남아있는 사람에게 하는 작별 인사입니다.",
+                rationale: "상점을 떠날 때는 주인에게 '안녕히 계세요'라고 인사합니다."
+            }
+        ];
+
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q;
+                document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡";
+                document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale;
+                document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
