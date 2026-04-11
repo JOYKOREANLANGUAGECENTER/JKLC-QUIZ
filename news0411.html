@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (04.11)</title>
+    <link rel="icon" href="favicon1.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; -webkit-user-select: none; user-select: none; }
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        .news-card { transition: all 0.3s; border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        .burmese-text { line-height: 1.8; }
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 9999; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.08; transform: rotate(-20deg); }
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC" class="h-8 relative z-10" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+                <span class="text-xs font-black text-slate-400 border-l pl-3 uppercase tracking-widest">Global News</span>
+            </a>
+            <div class="flex gap-2">
+                <a href="newslist.html" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition">List</a>
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6 shadow-sm relative overflow-hidden">
+            <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="globe-2" class="w-8 h-8"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900">오늘의 글로벌 뉴스</h1>
+                    <span class="text-xs font-bold text-slate-500 bg-white/80 px-3 py-1 rounded-full tracking-tighter">2026. 04. 11</span>
+                </div>
+                <p class="text-xs font-medium text-slate-500 burmese-text">ယနေ့ ကမ္ဘာ့သတင်း ၄ ခုကို ဖတ်ပြီး ကိုရီးယားဘာသာနဲ့ အတူ လေ့လာကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+        <!-- 뉴스 1 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&q=80"
+                     alt="Wolf"
+                     onerror="this.src='https://images.unsplash.com/photo-1517849845537-4d257902454a?w=600&q=80'"
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-slate-700 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Wildlife</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-slate-700 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="paw-print" class="w-3.5 h-3.5"></i> 사회 / 동물</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">대전 동물원 탈출 늑대, 한국 온라인에서 뜻밖의 화제</h2>
+                    <p class="text-slate-500 text-sm font-medium">대전의 한 동물원에서 탈출한 늑대 한 마리가 며칠 동안 잡히지 않으면서 한국 온라인에서 큰 화제가 됐습니다. 사람들은 이 늑대에게 이름을 붙이고 밈과 패러디를 만들었으며, 단순한 동물 탈출 사건이 전국적인 관심거리로 번졌습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">တိရစ္ဆာန်ဥယျာဉ်မှ လွတ်မြောက်သွားသော ဝံပုလွေကြောင့် ကိုရီးယားအွန်လိုင်းပေါ်တွင် စိတ်ဝင်စားမှုမြင့်တက်</h2>
+                    <p class="text-slate-500 text-xs">ဝံပုလွေတစ်ကောင် လွတ်ထွက်သွားသည့် သတင်းသည် လူမှုကွန်ရက်များတွင် meme နှင့် parody များအဖြစ် ပျံ့နှံ့သွားပြီး တစ်နိုင်ငံလုံး၏ အာရုံစိုက်မှုကို ရရှိခဲ့သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 2 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
+                     alt="Semiconductor"
+                     onerror="this.src='https://images.unsplash.com/photo-1563770660941-10a6360762a5?w=600&q=80'"
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Chips</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> 경제 / 기술</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">일본, 차세대 반도체 육성 위해 라피더스 추가 지원</h2>
+                    <p class="text-slate-500 text-sm font-medium">일본 정부는 자국 반도체 산업 경쟁력을 높이기 위해 라피더스에 약 40억 달러 규모의 추가 지원을 승인했습니다. 목표는 첨단 반도체 생산과 공급망 강화를 통해 미래 기술 산업의 기반을 키우는 것입니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ဂျပန်၊ နောက်မျိုးဆက် semiconductor ဖွံ့ဖြိုးရေးအတွက် Rapidus ကို ထပ်မံထောက်ပံ့</h2>
+                    <p class="text-slate-500 text-xs">အဆင့်မြင့် chip များကို ပြည်တွင်းတွင် ထုတ်လုပ်နိုင်ရန်နှင့် supply chain ကို ပိုမိုခိုင်မာစေရန် ရည်ရွယ်ထားသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 3 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=600&q=80"
+                     alt="Cyclone"
+                     onerror="this.src='https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600&q=80'"
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-cyan-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Weather</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-cyan-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="cloud-rain-wind" class="w-3.5 h-3.5"></i> 기후 / 재난</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">뉴질랜드, 사이클론 대비 비상... 일부 지역 대피령</h2>
+                    <p class="text-slate-500 text-sm font-medium">뉴질랜드는 사이클론 바이아누의 접근에 대비해 오클랜드와 북섬 일부 지역에서 홍수와 강풍 가능성을 경고했습니다. 일부 해안 지역에는 대피 명령이 내려졌고, 당국은 정전과 침수에 대비하라고 당부했습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">New Zealand တွင် cyclone အန္တရာယ်ကြောင့် အရေးပေါ်ပြင်ဆင်မှုနှင့် တစ်ချို့ဒေသများ ရွှေ့ပြောင်းခိုင်း</h2>
+                    <p class="text-slate-500 text-xs">မိုးသည်းထန်ခြင်း၊ လေပြင်းတိုက်ခတ်ခြင်းနှင့် ရေကြီးမှု အန္တရာယ်ကြောင့် ကမ်းရိုးတန်းဒေသများတွင် သတိပေးချက်များ ထုတ်ပြန်ထားသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- 뉴스 4 -->
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80"
+                     alt="Data center energy"
+                     onerror="this.src='https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=600&q=80'"
+                     class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-amber-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">AI & Energy</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-amber-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="factory" class="w-3.5 h-3.5"></i> 기술 / 환경</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">AI 전력 수요 급증... 깨끗한 공기 정책에도 새 부담</h2>
+                    <p class="text-slate-500 text-sm font-medium">로이터는 AI와 데이터센터 확대로 미국 전력 수요가 크게 늘어나면서 석탄 발전 의존이 다시 커질 수 있다고 전했습니다. 이 때문에 전력 공급은 늘어나더라도 대기질과 환경 정책에는 새로운 부담이 생길 수 있다는 우려가 나옵니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">AI နှင့် data center များကြောင့် လျှပ်စစ်လိုအပ်ချက် မြင့်တက်ပြီး သန့်ရှင်းသောလေထုမူဝါဒများ အပေါ် ဖိအားတိုးလာ</h2>
+                    <p class="text-slate-500 text-xs">နည်းပညာဖွံ့ဖြိုးမှုက လျှပ်စစ်သုံးစွဲမှုကို မြှင့်တင်ပေးသော်လည်း ပတ်ဝန်းကျင်နှင့် ကျန်းမာရေးဘက်တွင် စိုးရိမ်မှုအသစ်များလည်း ဖြစ်ပေါ်စေသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Vocab Section -->
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                <div class="vocab-item"><h3 class="text-lg font-bold">탈출 <span class="text-xs font-normal text-slate-400 ml-2">(Escape)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လွတ်မြောက်ခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">화제 <span class="text-xs font-normal text-slate-400 ml-2">(Hot topic)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လူစိတ်ဝင်စားသော အကြောင်းအရာ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">패러디 <span class="text-xs font-normal text-slate-400 ml-2">(Parody)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပုံတူဟာသ / ပျော်ရွှင်စရာအတုယူရေးသားမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">전국적 <span class="text-xs font-normal text-slate-400 ml-2">(Nationwide)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တစ်နိုင်ငံလုံးဆိုင်ရာ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">대피령 <span class="text-xs font-normal text-slate-400 ml-2">(Evacuation order)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ရွှေ့ပြောင်းခိုင်းသည့် အမိန့်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">강풍 <span class="text-xs font-normal text-slate-400 ml-2">(Strong wind)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လေပြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">급증 <span class="text-xs font-normal text-slate-400 ml-2">(Rapid increase)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လျင်မြန်စွာ တိုးလာခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">의존 <span class="text-xs font-normal text-slate-400 ml-2">(Dependence)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">မှီခိုမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">대기질 <span class="text-xs font-normal text-slate-400 ml-2">(Air quality)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လေထုအရည်အသွေး</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">부담 <span class="text-xs font-normal text-slate-400 ml-2">(Burden)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဝန်ထုပ်ဝန်ပိုး / ဖိအား</p></div>
+            </div>
+        </article>
+
+        <!-- Quiz Container -->
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl p-8 md:p-10 text-white text-center">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full"><i data-lucide="help-circle" class="w-12 h-12"></i></div>
+                    <h2 class="text-3xl font-black">어휘 퀴즈 도전!</h2>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">시작하기</button>
+                </div>
+            </div>
+            <div id="quiz-play-view" class="hidden text-left">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Question 1 / 10</span>
+                    <span id="score-display" class="font-bold">0</span>
+                </div>
+                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10 text-center"></h3>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black shadow-md tracking-tighter">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            </div>
+            <div id="quiz-result-view" class="hidden space-y-8">
+                <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                <p class="text-blue-100 font-bold">오늘도 훌륭한 한국어 학습이었습니다!</p>
+                <button onclick="location.reload()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg">다시 하기</button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
+            <p class="text-[9px] font-bold text-slate-300">© 2026 JKLC Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+
+        const quizData = [
+            { q: "탈출", a: "လွတ်မြောက်ခြင်း", choices: ["လွတ်မြောက်ခြင်း", "လေထုအရည်အသွေး", "ခွင့်ပြုသည်", "လေပြင်း"] },
+            { q: "화제", a: "လူစိတ်ဝင်စားသော အကြောင်းအရာ", choices: ["လူစိတ်ဝင်စားသော အကြောင်းအရာ", "ရွှေ့ပြောင်းခိုင်းသည့် အမိန့်", "မှီခိုမှု", "ဖိအား"] },
+            { q: "패러디", a: "ပုံတူဟာသ / ပျော်ရွှင်စရာအတုယူရေးသားမှု", choices: ["ပုံတူဟာသ / ပျော်ရွှင်စရာအတုယူရေးသားမှု", "ထောက်ပံ့ရေးကွင်းဆက်", "လွတ်မြောက်ခြင်း", "လျင်မြန်စွာ တိုးလာခြင်း"] },
+            { q: "전국적", a: "တစ်နိုင်ငံလုံးဆိုင်ရာ", choices: ["တစ်နိုင်ငံလုံးဆိုင်ရာ", "လူစိတ်ဝင်စားသော အကြောင်းအရာ", "လေထုအရည်အသွေး", "လေပြင်း"] },
+            { q: "대피령", a: "ရွှေ့ပြောင်းခိုင်းသည့် အမိန့်", choices: ["ရွှေ့ပြောင်းခိုင်းသည့် အမိန့်", "ဖိအား", "ယှဉ်ပြိုင်နိုင်စွမ်း", "မှီခိုမှု"] },
+            { q: "강풍", a: "လေပြင်း", choices: ["လေပြင်း", "ပြန်လာခြင်း", "ထောက်ပံ့ရေးကွင်းဆက်", "ဖိအား"] },
+            { q: "급증", a: "လျင်မြန်စွာ တိုးလာခြင်း", choices: ["လျင်မြန်စွာ တိုးလာခြင်း", "ရွှေ့ပြောင်းခိုင်းသည့် အမိန့်", "ခွင့်ပြုသည်", "မှီခိုမှု"] },
+            { q: "의존", a: "မှီခိုမှု", choices: ["မှီခိုမှု", "လေထုအရည်အသွေး", "လေပြင်း", "ယှဉ်ပြိုင်နိုင်စွမ်း"] },
+            { q: "대기질", a: "လေထုအရည်အသွေး", choices: ["လေထုအရည်အသွေး", "ထောက်ပံ့ရေးကွင်းဆက်", "ပြန်လာခြင်း", "ခွင့်ပြုသည်"] },
+            { q: "부담", a: "ဝန်ထုပ်ဝန်ပိုး / ဖိအား", choices: ["ဝန်ထုပ်ဝန်ပိုး / ဖိအား", "မှီခိုမှု", "လျင်မြန်စွာ တိုးလာခြင်း", "ရွှေ့ပြောင်းခိုင်းသည့် အမိန့်"] }
+        ];
+
+        let currentIndex = 0, score = 0, canAnswer = true;
+        const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+        function startQuiz() {
+            document.getElementById('vocab-section').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true; const data = quizData[currentIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은?`;
+            document.getElementById('next-btn').classList.add('hidden');
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            shuffle([...data.choices]).forEach(choice => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-center shadow-sm';
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (!canAnswer) return; canAnswer = false;
+                    if (choice === data.a) {
+                        btn.classList.add('correct');
+                        score++;
+                        document.getElementById('score-display').innerText = score;
+                    } else {
+                        btn.classList.add('wrong');
+                        Array.from(grid.children).forEach(c => {
+                            if (c.innerText === data.a) c.classList.add('correct');
+                        });
+                    }
+                    document.getElementById('next-btn').classList.remove('hidden');
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < 10) showQuestion();
+            else {
+                document.getElementById('quiz-play-view').classList.add('hidden');
+                document.getElementById('quiz-result-view').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / 10`;
+            }
+        }
+    </script>
+</body>
+</html>
