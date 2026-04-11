@@ -45,7 +45,6 @@
             background-size: 375px; opacity: 0.05; transform: rotate(-20deg);
         }
         .thumb-container img { width: 100%; height: 100%; object-fit: cover; }
-        .img-fallback { background: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #94a3b8; }
     </style>
 </head>
 <body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
@@ -57,13 +56,13 @@
         <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <a href="index.html" class="flex items-center">
-                    <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10" onerror="this.style.display='none'">
+                    <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 </a>
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
                     <span class="text-xs font-black text-slate-400 uppercase tracking-widest select-none">News Archive</span>
                 </div>
             </div>
-            <div class="flex items-center gap-3 text-right">
+            <div class="flex items-center gap-3">
                 <a href="index.html" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">
                     <i data-lucide="home" class="w-3.5 h-3.5"></i>
                     <span>Home</span>
@@ -85,14 +84,13 @@
 
     <main id="news-container" class="max-w-4xl mx-auto px-4 pb-16 space-y-4 w-full flex-grow relative z-10">
 
-        <!-- 04.09 [TODAY] - 요청하신 잘 나오는 이미지로 업데이트 -->
+
+        <!-- 04.09 -->
         <a href="news0409.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
-                    <img src="https://plus.unsplash.com/premium_photo-1664202526559-e21e9c0fe46a?w=400&auto=format&fit=crop&q=80" 
-                         alt="무인 점포" 
-                         onerror="this.parentElement.innerHTML='<div class=\'img-fallback w-full h-full\'><i data-lucide=\'shopping-cart\' class=\'w-8 h-8 opacity-20\'></i></div>'; lucide.createIcons();">
-                    <div class="absolute top-2 right-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-sm animate-pulse">New</div>
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80" alt="무인 점포">
+                    
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
                     <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded w-fit mb-1">2026. 04. 09</span>
@@ -105,8 +103,9 @@
         <!-- 04.08 -->
         <a href="news0408.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
                     <img src="https://images.unsplash.com/photo-1544640808-32ca72ac7f37?w=400&q=80" alt="">
+                    <div class="absolute top-2 right-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-sm animate-pulse">New</div>
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
                     <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 04. 08</span>
@@ -119,7 +118,7 @@
         <!-- 04.07 -->
         <a href="news0407.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
                     <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400&q=80" alt="">
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
@@ -133,7 +132,7 @@
         <!-- 04.06 -->
         <a href="news0406.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
                     <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&q=80" alt="">
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
@@ -144,10 +143,10 @@
             </div>
         </a>
 
-        <!-- 04.05 -->
+        <!-- 04.05 [RESTORED] -->
         <a href="news0405.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
                     <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=400&q=80" alt="">
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
@@ -158,17 +157,66 @@
             </div>
         </a>
 
-        <!-- 이전 아카이브 (3월) -->
-        <div class="pt-10 pb-4">
-            <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                <i data-lucide="history" class="w-4 h-4"></i> March Archive
-            </h3>
-        </div>
+        <!-- 04.04 -->
+        <a href="news0404.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 04. 04</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">'AI 실시간 통역기' 해외 여행 필수품 등극</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.AI 통역기 2.해양 보존 3.스마트 팜 4.긍정적 확언</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 04.03 -->
+        <a href="news0403.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 04. 03</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">인류의 달 거주용 '에코 돔' 설계 완성, 2030년 착공 목표</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.달 기지 2.수소 에너지 3.K-디저트 4.거북목 예방</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 04.02 -->
+        <a href="news0402.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 04. 02</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">AI 진단 기술, 암 초기 발견율 95%까지 상승</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.AI 진단 2.친환경 패션 3.한옥 스테이 4.눈 건강 법칙</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 04.01 -->
+        <a href="news0401.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 04. 01</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">전고체 배터리 상용화 임박... 전기차 시장의 미래</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.전고체 배터리 2.해저 쓰레기 3.스마트 관광 4.3분 호흡법</p>
+                </div>
+            </div>
+        </a>
 
         <!-- 03.31 -->
         <a href="news0331.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
                     <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=400&q=80" alt="">
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
@@ -182,7 +230,7 @@
         <!-- 03.30 -->
         <a href="news0330.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
             <div class="flex flex-col sm:flex-row p-4 gap-4">
-                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container bg-slate-100">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
                     <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=400&q=80" alt="">
                 </div>
                 <div class="sm:w-3/4 flex flex-col justify-center">
@@ -193,11 +241,109 @@
             </div>
         </a>
 
+        <!-- 03.29 -->
+        <a href="news0329.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 29</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">도심형 항공 모빌리티(UAM), 서울 시범 운행 시작</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.UAM 2.야생 동물 복원 3.스마트 팜 4.긍정적 확언</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 03.28 (Updated for consistency) -->
+        <a href="news0328.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 28</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">한국, '워케이션' 성지로 급부상... 디지털 노마드 유입</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.워케이션 2.심해 생물 3.한국 라면 4.슬로우 리빙</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 03.27 -->
+        <a href="news0327.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 27</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">유엔, 해양 플라스틱 오염 방지 역사적 협약 타결</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.해양 협약 2.미술 시장 3.유연 근무제 4.숙면법</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 03.26 -->
+        <a href="news0326.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 26</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">아마존 정글 속 숨겨진 고대 도시, 레이저 기술로 발견</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.아마존 유적 2.소셜미디어 책임 3.외계 수증기 4.디지털 디톡스</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 03.25 -->
+        <a href="news0325.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 25</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">미국-이란, 협상 제안 속 군사적 긴장 최고조</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.국제 정세 2.AI 윤리 3.전기 항공기 4.마음 챙김</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 03.24 -->
+        <a href="news0324.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 24</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">한국 교육부, 외국인 유학생 장학금 대폭 확대 발표</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.장학 제도 2.메타버스 공연 3.탄소 중립 4.아침 독서</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 03.23 -->
+        <a href="news0323.html" class="news-list-card block bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden group">
+            <div class="flex flex-col sm:flex-row p-4 gap-4">
+                <div class="sm:w-1/4 h-32 relative overflow-hidden rounded-xl thumb-container">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400&q=80" alt="">
+                </div>
+                <div class="sm:w-3/4 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-fit mb-1">2026. 03. 23</span>
+                    <h2 class="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-colors">글로벌 기후 변화 대응을 위한 새로운 국제 협약 체결</h2>
+                    <p class="text-slate-500 text-xs line-clamp-1">1.기후 협약 2.우주 정거장 3.K-컬처 4.스트레스 관리</p>
+                </div>
+            </div>
+        </a>
+
     </main>
 
     <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
         <div class="max-w-4xl mx-auto px-6">
-            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80" onerror="this.style.display='none'">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80">
             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4">JOY KOREAN LANGUAGE CENTER</p>
             <p class="text-[9px] font-bold text-slate-300">© 2026 JKLC Global News. All rights reserved.</p>
         </div>
