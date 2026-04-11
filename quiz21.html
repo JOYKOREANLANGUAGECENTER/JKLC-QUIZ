@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Dining & Ordering Quiz</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --jklc-blue: #0070BB; --jklc-yellow: #FFD700; --jklc-red: #ED1C24; --jklc-green: #228B22; }
+        body { font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; background-color: #f0f4f8; line-height: 1.6; user-select: none; }
+        .quiz-container { max-width: 500px; margin: 0 auto; min-height: 100vh; background: white; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 0; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.05; transform: rotate(-20deg); }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="watermark-bg"></div>
+    <div id="app" class="quiz-container relative overflow-hidden">
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div><div class="flex-1 bg-[#0070BB]"></div><div class="flex-1 bg-[#228B22]"></div><div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm"><i data-lucide="home" class="w-4 h-4"></i></a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm"><i data-lucide="list" class="w-4 h-4"></i></a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner"><i data-lucide="utensils" class="w-10 h-10"></i></div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">음식 주문과 식사 예절</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Dining & Ordering</p>
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 21</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">식당에서 음식을 주문하고 예의 있게 식사하는 법을 배웁니다!<br><span class="font-bold">စားသောက်ဆိုင်တွင် မှာယူခြင်းနှင့် ယဉ်ကျေးစွာ စားသောက်ခြင်းကို လေ့လာကြရအောင်။</span></p>
+            </div>
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3"><i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)</button>
+        </div>
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8"><div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div><span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span></div>
+            <div class="mb-6 text-left"><h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2><p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p></div>
+            <div class="flex justify-center my-4 content-watermark"><img src="logo.png" alt="JKLC" class="h-10 w-auto"></div>
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300"><div class="flex items-center mb-2"><span id="result-icon" class="text-2xl mr-2"></span><h3 id="result-title" class="font-black text-lg tracking-tight"></h3></div><p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p><div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80"><p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p><p id="hint-text" class="text-xs font-medium italic"></p></div></div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+            </div>
+        </div>
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50"><h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2><p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left"><div class="absolute -top-6 -right-6 opacity-10"><i data-lucide="award" class="w-32 h-32 text-white"></i></div><p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p><div class="text-7xl font-black tracking-tighter" id="final-score">0</div><p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p></div>
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2"><i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)</button>
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2"><i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기</button>
+        </div>
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10"><img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50"><p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p></footer>
+    </div>
+    <script>
+        const sndCorrect = new Audio('correct.mp3'); const sndWrong = new Audio('wrong.mp3');
+        const quizData = [
+            { q: "식당에서 점원을 부를 때 사용하는 가장 일반적인 말은?", m: "စားသောက်ဆိုင်တွင် ဝန်ထမ်းကို ခေါ်သည့်အခါ အသုံးအများဆုံး စကားမှာ?", options: ["저기요!", "여보세요!", "누구세요?", "안녕요!"], correct: 0, hint: "Excuse me! 에 해당하는 표현입니다.", rationale: "한국 식당에서 주문을 하거나 도움이 필요할 때는 '저기요' 또는 '여기요'라고 부릅니다." },
+            { q: "식사 전에 정중하게 하는 인사말은?", m: "မစားသုံးမီ ယဉ်ကျေးစွာ ပြောဆိုရမည့် နှုတ်ဆက်စကားမှာ?", options: ["잘 먹었습니다.", "잘 먹겠습니다.", "맛있어요.", "어어서 오세요."], correct: 1, hint: "I will eat well 을 뜻하는 말입니다.", rationale: "식사를 시작하기 전에는 음식을 준비한 사람에게 '잘 먹겠습니다'라고 인사합니다." },
+            { q: "식사 후에 정중하게 하는 인사말은?", m: "စားသောက်ပြီးနောက် ယဉ်ကျေးစွာ ပြောဆိုရမည့် နှုတ်ဆက်စကားမှာ?", options: ["잘 먹겠습니다.", "배고파요.", "잘 먹었습니다.", "실례합니다."], correct: 2, hint: "I ate well (Thank you for the meal) 을 뜻합니다.", rationale: "식사를 마친 후에는 '잘 먹었습니다'라고 감사 인사를 합니다." },
+            { q: "카페에서 차가운 음료를 원할 때 사용하는 단어는?", m: "ကော်ဖီဆိုင်တွင် အအေးလိုချင်သည့်အခါ အသုံးပြုသော စကားလုံးမှာ?", options: ["따뜻한 거", "차가운 거 (아이스)", "매운 거", "짠 거"], correct: 1, hint: "Cold / Ice 를 뜻하는 한국어입니다.", rationale: "음료를 주문할 때 차가운 것을 원하면 '차가운 거' 또는 '아이스'라고 말합니다." },
+            { q: "음식이 너무 매울 때 점원에게 요청할 수 있는 말은?", m: "အစားအစာ အရမ်းစပ်နေပါက ဝန်ထမ်းအား တောင်းဆိုနိုင်သည့် စကားမှာ?", options: ["더 맵게 해주세요.", "맵지 않게 해주세요.", "빨리 주세요.", "포장해 주세요."], correct: 1, hint: "Not spicy 를 뜻하는 표현입니다.", rationale: "매운 것을 못 먹는 경우 주문할 때 '맵지 않게 해주세요'라고 말하면 좋습니다." },
+            { q: "식당에서 다 먹지 못한 음식을 집에 가져가고 싶을 때 하는 말은?", m: "စားမကုန်သော အစားအစာများကို အိမ်ယူသွားချင်သည့်အခါ မည်သို့ပြောရမည်နည်း။", options: ["버려 주세요.", "포장해 주세요.", "맛없어요.", "여기 있어요."], correct: 1, hint: "To pack / Wrap up 을 뜻합니다.", rationale: "음식을 싸가고 싶을 때는 '포장해 주세요' 또는 '남은 거 싸 주세요'라고 합니다." },
+            { q: "한국에서 밥을 먹을 때 국을 떠먹는 도구는?", m: "ကိုရီးယားတွင် ထမင်းစားသည့်အခါ ဟင်းရည်သောက်သည့် ကိရိယာမှာ?", options: ["포크", "나이프", "숟가락", "젓가락"], correct: 2, hint: "Spoon 을 뜻하는 한국어입니다.", rationale: "한국에서는 밥과 국을 '숟가락'으로 먹고, 반찬은 '젓가락'으로 먹습니다." },
+            { q: "음식의 간이 약해서 소금이 더 필요할 때 표현하는 맛은?", m: "ဟင်းအရသာ လျော့နေသဖြင့် ဆားပိုလိုသည့်အခါ ဖော်ပြသော အရသာမှာ?", options: ["짜요", "달아요", "셔요", "싱거워요"], correct: 3, hint: "Bland / Weak in salt 를 뜻합니다.", rationale: "소금기가 부족해서 맛이 없는 상태를 '싱겁다'라고 합니다." },
+            { q: "카페에서 매장 안에서 마시지 않고 밖으로 가져가는 것을 무엇이라고 합니까?", m: "ကော်ဖီဆိုင်တွင် ဆိုင်ထဲမှာမသောက်ဘဲ အပြင်ယူသွားခြင်းကို မည်သို့ခေါ်သနည်း။", options: ["테이크아웃 (포장)", "배달", "예약", "주문"], correct: 0, hint: "Take-out 을 뜻하는 외래어 표현입니다.", rationale: "음료나 음식을 밖으로 가져가는 것은 '테이크아웃' 또는 '포장'이라고 합니다." },
+            { q: "반찬이 더 필요할 때 점원에게 하는 알맞은 말은?", m: "ဟင်းရံများ ထပ်လိုသည့်အခါ ဝန်ထမ်းအား ပြောဆိုရမည့် စကားမှာ?", options: ["반찬 좀 더 주세요.", "반찬이 비싸요.", "반찬이 없어요.", "반찬이 싫어요."], correct: 0, hint: "Give me more side dishes 를 뜻합니다.", rationale: "한국 식당은 보통 반찬 리필이 무료입니다. '반찬 좀 더 주세요'라고 하면 됩니다." }
+        ];
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q; document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡"; document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale; document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
