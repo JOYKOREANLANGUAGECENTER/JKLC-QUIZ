@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Public Offices & Emergencies Quiz</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --jklc-blue: #0070BB; --jklc-yellow: #FFD700; --jklc-red: #ED1C24; --jklc-green: #228B22; }
+        body { font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; background-color: #f0f4f8; line-height: 1.6; user-select: none; }
+        .quiz-container { max-width: 500px; margin: 0 auto; min-height: 100vh; background: white; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 0; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.05; transform: rotate(-20deg); }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="watermark-bg"></div>
+    <div id="app" class="quiz-container relative overflow-hidden">
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div><div class="flex-1 bg-[#0070BB]"></div><div class="flex-1 bg-[#228B22]"></div><div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm"><i data-lucide="home" class="w-4 h-4"></i></a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm"><i data-lucide="list" class="w-4 h-4"></i></a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner"><i data-lucide="shield-alert" class="w-10 h-10"></i></div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">공공기관과 긴급 상황</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Public Offices & Emergencies</p>
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 23</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">경찰서, 소방서 이용법과 비자 관련 공공기관 업무를 배웁니다!<br><span class="font-bold">ရဲစခန်း၊ မီးသတ်စခန်း အသုံးပြုပုံနှင့် ဗီဇာဆိုင်ရာ အစိုးရရုံးလုပ်ငန်းများကို လေ့လာကြရအောင်။</span></p>
+            </div>
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3"><i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)</button>
+        </div>
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8"><div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div><span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span></div>
+            <div class="mb-6 text-left"><h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2><p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p></div>
+            <div class="flex justify-center my-4 content-watermark"><img src="logo.png" alt="JKLC" class="h-10 w-auto"></div>
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300"><div class="flex items-center mb-2"><span id="result-icon" class="text-2xl mr-2"></span><h3 id="result-title" class="font-black text-lg tracking-tight"></h3></div><p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p><div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80"><p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p><p id="hint-text" class="text-xs font-medium italic"></p></div></div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+            </div>
+        </div>
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50"><h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2><p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left"><div class="absolute -top-6 -right-6 opacity-10"><i data-lucide="award" class="w-32 h-32 text-white"></i></div><p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p><div class="text-7xl font-black tracking-tighter" id="final-score">0</div><p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p></div>
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2"><i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)</button>
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2"><i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기</button>
+        </div>
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10"><img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50"><p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p></footer>
+    </div>
+    <script>
+        const sndCorrect = new Audio('correct.mp3'); const sndWrong = new Audio('wrong.mp3');
+        const quizData = [
+            { q: "도둑을 맞았거나 싸움이 났을 때 신고하는 전화번호는?", m: "ပစ္စည်းအခိုးခံရခြင်း သို့မဟုတ် ရန်ဖြစ်ခြင်းများ ဖြစ်ပွားပါက တိုင်ကြားရမည့် ဖုန်းနံပါတ်မှာ?", options: ["112", "119", "114", "110"], correct: 0, hint: "Police 를 부르는 번호입니다.", rationale: "범죄 신고나 경찰의 도움이 필요할 때는 '112'로 전화합니다." },
+            { q: "집에 불이 났을 때 신고해야 하는 전화번호는?", m: "အိမ်မီးလောင်ပါက တိုင်ကြားရမည့် ဖုန်းနံပါတ်မှာ?", options: ["112", "117", "119", "100"], correct: 2, hint: "Fire station 을 부르는 번호입니다.", rationale: "화재 신고나 응급 환자 발생 시 구조를 요청하는 번호는 '119'입니다." },
+            { q: "외국인이 비자를 연장하거나 주소를 신고하러 가는 곳은?", m: "နိုင်ငံခြားသားများ ဗီဇာသက်တမ်းတိုးခြင်း သို့မဟုတ် လိပ်စာတိုင်ကြားရန် သွားရမည့်နေရာမှာ?", options: ["출입국 관리소", "우체국", "도서관", "은행"], correct: 0, hint: "Immigration office ကို ဆိုလိုပါသည်။", rationale: "체류 자격이나 비자 관련 업무는 '출입국 관리소'에서 담당합니다." },
+            { q: "편지나 택배를 고향으로 보내려고 할 때 가는 곳은?", m: "စာ သို့မဟုတ် ပါဆယ်များကို နေရပ်သို့ ပို့လိုသည့်အခါ သွားရမည့်နေရာမှာ?", options: ["소방서", "우체국", "경찰서", "학교"], correct: 1, hint: "Post office 를 뜻하는 단어입니다.", rationale: "우편물이나 택배를 보낼 때는 '우체국'에 가야 합니다." },
+            { q: "주소지 근처에서 서류를 떼거나 민원 업무를 보는 곳은?", m: "နေထိုင်ရာ လိပ်စာအနီးတွင် စာရွက်စာတမ်းများ ထုတ်ယူခြင်း သို့မဟုတ် အစိုးရကိစ္စများ ဆောင်ရွက်သည့်နေရာမှာ?", options: ["백화점", "주민센터 (동사무소)", "영화관", "공원"], correct: 1, hint: "Community Service Center 를 뜻합니다.", rationale: "주거 지역의 행정 업무를 처리하는 곳은 '주민센터' 혹은 '동사무소'라고 합니다." },
+            { q: "누군가 나를 괴롭히거나 위험할 때 크게 외치는 말은?", m: "တစ်စုံတစ်ယောက်က မိမိအား နှောင့်ယှက်ခြင်း သို့မဟုတ် အန္တရာယ်ရှိသည့်အခါ အသံကျယ်ကျယ်နှင့် အော်ရမည့်စကားမှာ?", options: ["안녕하세요!", "도와주세요!", "반가워요!", "어디예요?"], correct: 1, hint: "Help me! 를 뜻하는 한국어입니다.", rationale: "위험한 상황에서는 주변 사람들에게 '도와주세요'라고 크게 외쳐야 합니다." },
+            { q: "외국인이 한국에서 항상 가지고 다녀야 하는 신분증은?", m: "နိုင်ငံခြားသားများ ကိုရီးယားတွင် အမြဲဆောင်ထားရမည့် မှတ်ပုံတင်မှာ?", options: ["학생증", "외국인 등록증", "도서카드", "운전면허증"], correct: 1, hint: "Alien Registration Card 를 뜻합니다.", rationale: "한국에 90일 이상 체류하는 외국인은 '외국인 등록증'이 반드시 있어야 합니다." },
+            { q: "길에서 지갑이나 가방을 잃어버렸을 때 가는 곳은?", m: "လမ်းတွင် ပိုက်ဆံအိတ် သို့မဟုတ် အိတ် ပျောက်ဆုံးသွားပါက သွားရမည့်နေရာမှာ?", options: ["약국", "파출소 (경찰관서)", "식당", "카페"], correct: 1, hint: "Police substation ကို ဆိုလိုပါသည်။", rationale: "분실물을 신고하거나 도움을 요청할 때는 가까운 '파출소'나 '지구대'에 갑니다." },
+            { q: "서류를 완성한 후 본인임을 확인하기 위해 이름을 직접 적는 것은?", m: "စာရွက်စာတမ်း ဖြည့်စွက်ပြီးနောက် မိမိကိုယ်တိုင်ဖြစ်ကြောင်း အတည်ပြုရန် အမည်ကို တိုက်ရိုက်ရေးသားခြင်းမှာ?", options: ["도장", "서명 (사인)", "사진", "복사"], correct: 1, hint: "Signature 를 뜻하는 단어입니다.", rationale: "본인의 이름을 직접 적어 확인하는 것을 '서명' 혹은 '사인'이라고 합니다." },
+            { q: "공공기관 업무 시간은 보통 몇 시부터 몇 시까지입니까?", m: "အစိုးရရုံးများ၏ အလုပ်ချိန်မှာ ပုံမှန်အားဖြင့် မည်သည့်အချိန်မှ မည်သည့်အချိန်ထိနည်း။", options: ["09:00 ~ 18:00", "12:00 ~ 24:00", "06:00 ~ 15:00", "24시간"], correct: 0, hint: "오전 9시부터 오후 6시까지입니다.", rationale: "대부분의 한국 공공기관은 평일 오전 9시에 시작하여 오후 6시에 종료합니다." }
+        ];
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q; document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡"; document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale; document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
