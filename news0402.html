@@ -30,19 +30,19 @@
     <div class="jklc-top-bar"></div>
 
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
-        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center text-left">
             <a href="index.html" class="flex items-center gap-3">
                 <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
                 <div class="hidden sm:block border-l border-slate-200 pl-3">
                     <span class="text-xs font-black text-slate-400 uppercase tracking-widest select-none">Global News</span>
                 </div>
             </a>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 relative z-10">
                 <div class="hidden md:flex flex-col text-right mr-2">
                     <span class="text-xs font-black text-slate-800">2026. 04. 02</span>
                     <span class="text-[10px] text-slate-400 font-bold flex items-center justify-end gap-1"><i data-lucide="cloud" class="w-3 h-3"></i> Yangon</span>
                 </div>
-                <div class="flex gap-2 relative z-10">
+                <div class="flex gap-2">
                     <a href="newslist.html" class="flex items-center gap-1 px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase shadow-sm hover:bg-slate-200 transition">
                         <i data-lucide="list" class="w-3.5 h-3.5"></i> List
                     </a>
@@ -55,116 +55,122 @@
     </nav>
 
     <header class="max-w-4xl mx-auto px-4 py-10 w-full text-left">
-        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 shadow-sm relative overflow-hidden">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-4 shadow-sm relative overflow-hidden text-left">
             <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
                 <i data-lucide="activity" class="w-6 h-6"></i>
             </div>
             <div class="relative z-10 w-full">
                 <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2">
-                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">오늘의 글로벌 뉴스</h1>
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight text-left">오늘의 글로벌 뉴스</h1>
                     <span class="text-sm font-bold text-slate-500 bg-white/60 px-3 py-1 rounded-full">2026. 04. 02</span>
                 </div>
-                <p class="text-xs font-medium text-slate-500 burmese-text">ယနေ့ ကမ္ဘာ့သတင်းများကို ကိုရီးယားဘာသာဖြင့် လေ့လာကြည့်ကြရအောင်။</p>
+                <p class="text-xs font-medium text-slate-500 burmese-text text-left">ယနေ့ ကမ္ဘာ့သတင်းများကို ကိုရီးယားဘာသာဖြင့် လေ့လာကြည့်ကြရအောင်။</p>
             </div>
         </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+        <!-- 뉴스 1 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative p-2">
                 <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
                 <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">AI Medical</span>
             </div>
-            <div class="p-6 md:p-8 md:w-3/5">
+            <div class="p-6 md:p-8 md:w-3/5 text-left">
                 <div class="mb-5">
                     <div class="flex items-center text-blue-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="brain" class="w-3.5 h-3.5"></i> 과학 / 의료</div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3">AI 진단 기술, 암 초기 발견율 95%까지 끌어올려</h2>
-                    <p class="text-slate-500 text-sm font-medium">최신 인공지능 알고리즘이 의료 영상 분석을 통해 인간 의사가 놓치기 쉬운 미세한 암 세포를 정확히 찾아내고 있습니다. 이 기술은 의료계의 판도를 바꿀 혁신으로 평가받습니다.</p>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 text-left">AI 진단 기술, 암 초기 발견율 95%까지 끌어올려</h2>
+                    <p class="text-slate-500 text-sm font-medium text-left">최신 인공지능 알고리즘이 의료 영상 분석을 통해 인간 의사가 놓치기 쉬운 미세한 암 세포를 정확히 찾아내고 있습니다. 이 기술은 의료계의 판도를 바꿀 혁신으로 평가받습니다.</p>
                 </div>
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                <div class="burmese-text">
+                <div class="burmese-text text-left">
                     <h2 class="text-base font-bold text-slate-800 mb-2">AI နည်းပညာကြောင့် ကင်ဆာရောဂါစောစီးစွာသိရှိနိုင်မှု ၉၅% ထိရှိလာ</h2>
-                    <p class="text-slate-500 text-xs">AI စနစ်များက ဆရာဝန်များ သတိမထားမိနိုင်သော ကင်ဆာဆဲလ်များကို တိကျစွာ ရှာဖွေဖော်ထုတ်ပေးနိုင်ပြီဖြစ်သည်။</p>
+                    <p class="text-slate-500 text-xs text-left">AI စနစ်များက ဆရာဝန်များ သတိမထားမိနိုင်သော ကင်ဆာဆဲလ်များကို တိကျစွာ ရှာဖွေဖော်ထုတ်ပေးနိုင်ပြီဖြစ်သည်။</p>
                 </div>
             </div>
         </article>
 
+        <!-- 뉴스 2 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
                 <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
                 <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">Eco Fashion</span>
             </div>
-            <div class="p-6 md:p-8 md:w-3/5">
+            <div class="p-6 md:p-8 md:w-3/5 text-left">
                 <div class="mb-5">
                     <div class="flex items-center text-green-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="leaf" class="w-3.5 h-3.5"></i> 환경 / 라이프</div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3">버려진 페트병의 변신, 세계적 패션 브랜드들 '친환경' 선언</h2>
-                    <p class="text-slate-500 text-sm font-medium">유명 의류 브랜드들이 재활용 소재 사용 비중을 대폭 늘리고 있습니다. 환경을 생각하는 '가치 소비'가 MZ세대의 핵심 트렌드로 자리 잡으면서 패션 산업에도 변화의 바람이 불고 있습니다.</p>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 text-left">버려진 페트병의 변신, 세계적 패션 브랜드들 '친환경' 선언</h2>
+                    <p class="text-slate-500 text-sm font-medium text-left">유명 의류 브랜드들이 재활용 소재 사용 비중을 대폭 늘리고 있습니다. 환경을 생각하는 '가치 소비'가 MZ세대의 핵심 트렌드로 자리 잡으면서 패션 산업에도 변화의 바람이 불고 있습니다.</p>
                 </div>
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                <div class="burmese-text">
+                <div class="burmese-text text-left">
                     <h2 class="text-base font-bold text-slate-800 mb-2">ပလတ်စတစ်ပုလင်းဟောင်းများမှ အဝတ်အထည်များ ထုတ်လုပ်လာ</h2>
-                    <p class="text-slate-500 text-xs">ကမ္ဘာကျော် အဝတ်အထည်တံဆိပ်များက ပတ်ဝန်းကျင်ကို ထိန်းသိမ်းရန်အတွက် ပြန်လည်အသုံးပြုထားသော ပစ္စည်းများဖြင့် ထုတ်လုပ်လာကြသည်။</p>
+                    <p class="text-slate-500 text-xs text-left">ကမ္ဘာကျော် အဝတ်အထည်တံဆိပ်များက ပတ်ဝန်းကျင်ကို ထိန်းသိမ်းရန်အတွက် ပြန်လည်အသုံးပြုထားသော ပစ္စည်းများဖြင့် ထုတ်လုပ်လာကြသည်။</p>
                 </div>
             </div>
         </article>
 
+        <!-- 뉴스 3: 한옥 스테이 (이미지 교체 완료) -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative p-2">
-                <img src="https://images.unsplash.com/photo-1590664095641-7fa05f689813?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
+                <img src="https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
                 <span class="absolute bottom-6 left-6 bg-amber-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">K-Heritage</span>
             </div>
-            <div class="p-6 md:p-8 md:w-3/5">
+            <div class="p-6 md:p-8 md:w-3/5 text-left">
                 <div class="mb-5">
                     <div class="flex items-center text-amber-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> 문화 / 여행</div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3">전통 한옥의 매력에 빠진 외국인들, '한옥 스테이' 인기 폭발</h2>
-                    <p class="text-slate-500 text-sm font-medium">한국의 멋과 정취를 느낄 수 있는 한옥 체험이 최고의 여행 상품으로 각광받고 있습니다. 단순한 숙박을 넘어 다도, 서예 등 한국 문화를 직접 체험하는 기회로 인기를 끕니다.</p>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 text-left">전통 한옥의 매력에 빠진 외국인들, '한옥 스테이' 인기 폭발</h2>
+                    <p class="text-slate-500 text-sm font-medium text-left">한국의 멋과 정취를 느낄 수 있는 한옥 체험이 최고의 여행 상품으로 각광받고 있습니다. 단순한 숙박을 넘어 다도, 서예 등 한국 문화를 직접 체험하는 기회로 인기를 끕니다.</p>
                 </div>
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                <div class="burmese-text">
+                <div class="burmese-text text-left">
                     <h2 class="text-base font-bold text-slate-800 mb-2">ကိုရီးယားရိုးရာအိမ် (ဟန်အုတ်) များတွင် တည်းခိုခြင်းက ခေတ်စားလာ</h2>
-                    <p class="text-slate-500 text-xs">ကိုရီးယားနိုင်ငံသို့ လာရောက်လည်ပတ်သော နိုင်ငံခြားသားများကြားတွင် ရိုးရာဟန်အုတ်အိမ်များတွင် တည်းခိုခြင်းက အလွန်ရေပန်းစားနေသည်။</p>
+                    <p class="text-slate-500 text-xs text-left">ကိုရီးယားနိုင်ငံသို့ လာရောက်လည်ပတ်သော နိုင်ငံခြားသားများကြားတွင် ရိုးရာဟန်အုတ်အိမ်များတွင် တည်းခိုခြင်းက အလွန်ရေပန်းစားနေသည်။</p>
                 </div>
             </div>
         </article>
 
+        <!-- 뉴스 4 -->
         <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
                 <img src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?w=600&q=80" class="w-full h-full object-cover rounded-[2rem]">
                 <span class="absolute bottom-6 left-6 bg-indigo-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">Health Tips</span>
             </div>
-            <div class="p-6 md:p-8 md:w-3/5">
+            <div class="p-6 md:p-8 md:w-3/5 text-left">
                 <div class="mb-5">
                     <div class="flex items-center text-indigo-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="eye" class="w-3.5 h-3.5"></i> 건강 / 정보</div>
-                    <h2 class="text-xl font-black text-slate-900 mb-3">디지털 피로 해소법, '20-20-20' 법칙으로 눈 건강 지키세요</h2>
-                    <p class="text-slate-500 text-sm font-medium">모니터를 많이 보는 현대인을 위한 법칙입니다. 20분마다 20피트(약 6미터) 밖을 20초 동안 바라보는 작은 습관이 시력 저하와 안구건조증을 막아줍니다.</p>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 text-left">디지털 피로 해소법, '20-20-20' 법칙으로 눈 건강 지키세요</h2>
+                    <p class="text-slate-500 text-sm font-medium text-left">모니터를 많이 보는 현대인을 위한 법칙입니다. 20분마다 20피트(약 6미터) 밖을 20초 동안 바라보는 작은 습관이 시력 저하와 안구건조증을 막아줍니다.</p>
                 </div>
                 <div class="h-px w-full bg-slate-100 my-4"></div>
-                <div class="burmese-text">
+                <div class="burmese-text text-left">
                     <h2 class="text-base font-bold text-slate-800 mb-2">'20-20-20' နည်းလမ်းဖြင့် မျက်စိကျန်းမာရေးကို စောင့်ရှောက်ပါ</h2>
-                    <p class="text-slate-500 text-xs">မိနစ် ၂၀ တိုင်းတွင် ပေ ၂၀ အကွာအဝေးကို စက္ကန့် ၂၀ ကြာ ကြည့်ပေးခြင်းဖြင့် ကွန်ပျူတာကြောင့်ဖြစ်သော မျက်စိညောင်းညာမှုကို သက်သာစေနိုင်သည်။</p>
+                    <p class="text-slate-500 text-xs text-left">မိနစ် ၂၀ တိုင်းတွင် ပေ ၂၀ အကွာအဝေးကို စက္ကန့် ၂၀ ကြာ ကြည့်ပေးခြင်းဖြင့် ကွန်ပျူတာကြောင့်ဖြစ်သော မျက်စိညောင်းညာမှုကို သက်သာစေနိုင်သည်။</p>
                 </div>
             </div>
         </article>
 
-        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8">
-            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+        <!-- 어휘 섹션 -->
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden p-6 md:p-8 text-left">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 text-left">
                 <div class="bg-blue-100 p-2 rounded-xl text-blue-600"><i data-lucide="languages" class="w-6 h-6"></i></div>
-                <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+                <h2 class="text-xl font-black text-slate-900 text-left">오늘의 뉴스 어휘 (10단어)</h2>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
-                <div class="vocab-item"><h3 class="text-lg font-bold">진단 <span class="text-xs font-normal text-slate-400 ml-2">(Diagnosis)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ရောဂါရှာဖွေခြင်း</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">판도 <span class="text-xs font-normal text-slate-400 ml-2">(Landscape/Market)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အခြေအနေအရပ်ရပ် / နယ်ပယ်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">대폭 <span class="text-xs font-normal text-slate-400 ml-2">(Drastically)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အကြီးအကျယ် / သိသိသာသာ</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">가치 소비 <span class="text-xs font-normal text-slate-400 ml-2">(Ethical consumption)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">တန်ဖိုးထားသုံးစွဲခြင်း</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">정취 <span class="text-xs font-normal text-slate-400 ml-2">(Atmosphere/Sentiment)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ခံစားချက် / အငွေ့အသက်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">각광받다 <span class="text-xs font-normal text-slate-400 ml-2">(In the spotlight)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လူအများစိတ်ဝင်စားမှုကို ရရှိသည်</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">해소 <span class="text-xs font-normal text-slate-400 ml-2">(Resolution/Reduction)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပြေလျော့စေခြင်း / ဖြေရှင်းခြင်း</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">시력 <span class="text-xs font-normal text-slate-400 ml-2">(Eyesight)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အမြင်အာရုံ</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">소재 <span class="text-xs font-normal text-slate-400 ml-2">(Material)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကုန်ကြမ်းပစ္စည်း</p></div>
-                <div class="vocab-item"><h3 class="text-lg font-bold">체험 <span class="text-xs font-normal text-slate-400 ml-2">(Experience)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လက်တွေ့အတွေ့အကြုံ</p></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 text-left">
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">진단 <span class="text-xs font-normal text-slate-400 ml-2">(Diagnosis)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">ရောဂါရှာဖွေခြင်း</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">판도 <span class="text-xs font-normal text-slate-400 ml-2">(Landscape/Market)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">အခြေအနေအရပ်ရပ် / နယ်ပယ်</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">대폭 <span class="text-xs font-normal text-slate-400 ml-2">(Drastically)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">အကြီးအကျယ် / သိသိသာသာ</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">가치 소비 <span class="text-xs font-normal text-slate-400 ml-2">(Ethical consumption)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">တန်ဖိုးထားသုံးစွဲခြင်း</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">정취 <span class="text-xs font-normal text-slate-400 ml-2">(Atmosphere/Sentiment)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">ခံစားချက် / အငွေ့အသက်</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">각광받다 <span class="text-xs font-normal text-slate-400 ml-2">(In the spotlight)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">လူအများစိတ်ဝင်စားမှုကို ရရှိသည်</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">해소 <span class="text-xs font-normal text-slate-400 ml-2">(Resolution/Reduction)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">ပြေလျော့စေခြင်း / ဖြေရှင်းခြင်း</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">시력 <span class="text-xs font-normal text-slate-400 ml-2">(Eyesight)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">အမြင်အာရုံ</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">소재 <span class="text-xs font-normal text-slate-400 ml-2">(Material)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">ကုန်ကြမ်းပစ္စည်း</p></div>
+                <div class="vocab-item text-left"><h3 class="text-lg font-bold text-left">체험 <span class="text-xs font-normal text-slate-400 ml-2">(Experience)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1 text-left">လက်တွေ့အတွေ့အကြုံ</p></div>
             </div>
         </article>
 
+        <!-- 퀴즈 섹션 -->
         <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl p-8 md:p-10 text-white relative text-center">
             <div id="quiz-start-view">
                 <div class="flex flex-col items-center space-y-6">
@@ -179,21 +185,21 @@
                     <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold">Question 1 / 10</span>
                     <span id="score-display" class="font-bold">0</span>
                 </div>
-                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10"></h3>
-                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10 text-center"></h3>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"></div>
                 <div id="quiz-feedback" class="mt-8 text-center font-bold text-xl min-h-[1.5rem]"></div>
-                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black transition">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
             </div>
             <div id="quiz-result-view" class="hidden text-center space-y-8">
                 <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
-                <button onclick="resetQuiz()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg">퀴즈 다시 하기 (Try Again)</button>
+                <button onclick="resetQuiz()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition">퀴즈 다시 하기 (Try Again)</button>
             </div>
         </article>
     </main>
 
     <footer class="bg-white border-t py-12 text-center mt-auto relative z-10">
         <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80">
-        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
+        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] text-center">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
     </footer>
 
     <script>
@@ -208,10 +214,10 @@
             { q: "가치 소비", a: "တန်ဖိုးထားသုံးစွဲခြင်း", choices: ["တန်ဖိုးထားသုံးစွဲခြင်း", "ရောဂါရှာဖွေခြင်း", "လူအများစိတ်ဝင်စားမှု", "ဖြေရှင်းခြင်း"] },
             { q: "정취", a: "ခံစားချက် / အငွေ့အသက်", choices: ["ခံစားချက် / အငွေ့အသက်", "အကြီးအကျယ်", "အခြေအနေအရပ်ရပ်", "အမြင်အာရုံ"] },
             { q: "각광받다", a: "လူအများစိတ်ဝင်စားမှုကို ရရှိသည်", choices: ["လူအများစိတ်ဝင်စားမှုကို ရရှိသည်", "လက်တွေ့အတွေ့အကြုံ", "တန်ဖိုးထားသုံးစွဲခြင်း", "ရောဂါရှာဖွေခြင်း"] },
-            { q: "해소", a: "ပြ레လျော့စေခြင်း / ဖြေရှင်းခြင်း", choices: ["ပြေလျော့စေခြင်း / ဖြေရှင်းခြင်း", "ကုန်ကြမ်းပစ္စည်း", "အမြင်အာရုံ", "ခံစားချက်"] },
+            { q: "해소", a: "ပြေလျော့စေခြင်း / ဖြေရှင်းခြင်း", choices: ["ပြေလျော့စေခြင်း / ဖြေရှင်းခြင်း", "ကုန်ကြမ်းပစ္စည်း", "အမြင်အာရုံ", "ခံစားချက်"] },
             { q: "시력", a: "အမြင်အာရုံ", choices: ["အမြင်အာရုံ", "အခြေအနေအရပ်ရပ်", "လက်တွေ့အတွေ့အကြုံ", "ရောဂါရှာဖွေခြင်း"] },
             { q: "소재", a: "ကုန်ကြမ်းပစ္စည်း", choices: ["ကုန်ကြမ်းပစ္စည်း", "အကြီးအကျယ်", "တန်ဖိုးထားသုံးစွဲခြင်း", "ခံစားချက်"] },
-            { q: "체험", a: "လက်တွေ့အတွေ့အကြုံ", choices: ["လက်တွေ့အတွေ့အကြုံ", "လူအများစိတ်ဝင်စားမှု", "ဖြေရှင်းခြင်း", "ရောဂါရှาဖွေခြင်း"] }
+            { q: "체험", a: "လက်တွေ့အတွေ့အကြုံ", choices: ["လက်တွေ့အတွေ့အကြုံ", "လူအများစိတ်ဝင်စားမှု", "ဖြေရှင်းခြင်း", "ရောဂါရှာဖွေခြင်း"] }
         ];
 
         let currentQuizData = [], currentQIndex = 0, score = 0, canAnswer = true;
