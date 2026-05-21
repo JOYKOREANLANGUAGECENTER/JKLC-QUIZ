@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - 을지대학교 모의면접 (Eulji Univ. Interview)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f1f5f9;
+        }
+        .mm-text {
+            font-family: 'Pyidaungsu', sans-serif;
+            color: #b45309; /* 갈색 톤으로 미얀마어 구분 */
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+            .print-break { page-break-inside: avoid; margin-bottom: 20px; }
+            .shadow-sm, .shadow-md { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            .mm-text { color: #52525b; font-weight: bold; } /* 인쇄 시 뚜렷하게 보이도록 수정 */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 pb-12">
+
+    <div class="no-print bg-white shadow-sm sticky top-0 z-50 border-b-4 border-blue-600">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center font-black text-xl">J</div>
+                <h1 class="font-black text-lg">JKLC 면접 훈련 자료 (Full)</h1>
+            </div>
+            <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700 transition flex items-center gap-2">
+                <i data-lucide="printer" class="w-4 h-4"></i> 프린트하기
+            </button>
+        </div>
+    </div>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 mt-8">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-black text-slate-900 mb-2">을지대학교 마스터 프로그램 (E-VISA)</h1>
+            <h2 class="text-xl font-bold text-blue-600 mb-2">유학 및 어학연수 비자 모의면접 훈련</h2>
+            <p class="text-slate-500 font-bold mm-text !text-[#b45309] !mt-0">Eulji University Master Program & Language Course Interview Guide</p>
+        </div>
+
+        <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 mb-8 print-break">
+            <h3 class="font-black text-yellow-800 flex items-center gap-2 mb-3"><i data-lucide="lightbulb" class="w-5 h-5"></i> 원장님 훈련 포인트 (Teaching Tips)</h3>
+            <ul class="list-disc list-inside text-sm text-yellow-900 space-y-2 font-medium">
+                <li>
+                    학생이 질문을 들었을 때 <b>당황하지 않고 미소를 유지</b>하는지 체크해 주세요.<br>
+                    <span class="mm-text !text-yellow-700 !text-xs ml-5 block">ကျောင်းသားက မေးခွန်းကို ကြားတဲ့အခါ မထိတ်လန့်ဘဲ အပြုံးကို ထိန်းထားနိုင်ဖို့ သတိပေးပါ။</span>
+                </li>
+                <li>
+                    대답은 너무 길지 않게, <b>3~4문장으로 핵심만</b> 말하도록 지도해 주세요.<br>
+                    <span class="mm-text !text-yellow-700 !text-xs ml-5 block">အဖြေကို အရမ်းမရှည်စေဘဲ ဝါကျ ၃-၄ ကြောင်းနဲ့ အဓိကအချက်ကိုသာ ဖြေဖို့ လမ်းညွှန်ပေးပါ။</span>
+                </li>
+                <li>
+                    재정(부모님 수입, 학비)에 대한 질문은 <b>자신감 있고 크고 분명한 목소리</b>로 답해야 합니다.<br>
+                    <span class="mm-text !text-yellow-700 !text-xs ml-5 block">ငွေရေးကြေးရေး (မိဘဝင်ငွေ၊ ကျောင်းလခ) မေးခွန်းတွေကို ယုံကြည်မှုရှိရှိ အသံကျယ်ကျယ်နဲ့ ပြတ်ပြတ်သားသား ဖြေရပါမယ်။</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="space-y-6">
+            
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-black text-lg">Q1</div>
+                    <div class="w-full">
+                        <h3 class="text-lg font-black text-slate-800 mb-1">자기소개를 해보세요.</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ကိုယ်ကို မိတ်ဆက်ပေးပါ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                안녕하세요. 제 이름은 <span class="text-blue-600 border-b border-blue-600">[ 이름 ]</span> 입니다. 저는 미얀마 양곤에서 왔습니다.<br>
+                                저는 <span class="text-blue-600 border-b border-blue-600">[ 대학교 ]</span> 대학교에서 <span class="text-blue-600 border-b border-blue-600">[ 전공 ]</span>을 전공하고 졸업했습니다.<br>
+                                이번에 을지대학교 마스터 프로그램에 지원하게 되어 정말 기쁩니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    မင်္ဂလာပါရှင်/ခင်ဗျာ။ ကျွန်မ/ကျွန်တော်ရဲ့ နာမည်ကတော့ [နာမည်] ဖြစ်ပါတယ်။ မြန်မာနိုင်ငံ ရန်ကုန်မြို့ကနေ လာပါတယ်။<br>
+                                    ကျွန်မ/ကျွန်တော်က [တက္ကသိုလ်] ကနေ [မေဂျာ] ဘာသာရပ်နဲ့ ဘွဲ့ရရှိခဲ့ပါတယ်။<br>
+                                    ဒီတစ်ခေါက် Eulji တက္ကသိုလ်ရဲ့ Master Program ကို လျှောက်ထားခွင့်ရတဲ့အတွက် အရမ်းဝမ်းသာပါတယ်။
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-black text-lg">Q2</div>
+                    <div class="w-full">
+                        <h3 class="text-lg font-black text-slate-800 mb-1">왜 한국으로 유학을 가려고 하나요?</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">ကိုရီးယားမှာ ဘာလို့ ကျောင်းတက်ချင်တာလဲ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                한국은 교육 수준이 높고, 특히 제 전공인 <span class="text-blue-600 border-b border-blue-600">[ 본인 전공 ]</span> 분야가 매우 발전했기 때문입니다.<br>
+                                저는 한국의 선진 기술과 문화를 직접 배우고 싶습니다.<br>
+                                나중에 미얀마의 발전에 기여하는 전문가가 되기 위해 한국 유학을 결정했습니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    ကိုရီးယားနိုင်ငံက ပညာရေးအဆင့်အတန်းမြင့်မားပြီး အထူးသဖြင့် ကျွန်မ/ကျွန်တော်ရဲ့ [မေဂျာ] နယ်ပယ်မှာ အရမ်းတိုးတက်နေလို့ဖြစ်ပါတယ်။<br>
+                                    ကိုရီးယားရဲ့ အဆင့်မြင့်နည်းပညာနဲ့ ယဉ်ကျေးမှုကို ကိုယ်တိုင်သင်ယူချင်ပါတယ်။<br>
+                                    နောင်တစ်ချိန် မြန်မာနိုင်ငံရဲ့ ဖွံ့ဖြိုးတိုးတက်မှုကို အထောက်အကူပြုမယ့် ကျွမ်းကျင်သူတစ်ယောက်ဖြစ်လာဖို့ ကိုရီးယားမှာ ကျောင်းတက်ဖို့ ဆုံးဖြတ်ခဲ့တာပါ။
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-black text-lg">Q3</div>
+                    <div class="w-full">
+                        <h3 class="text-lg font-black text-slate-800 mb-1">많은 학교 중에서 왜 '을지대학교'를 선택했나요?</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">တခြားကျောင်းတွေအများကြီးထဲကမှ Eulji တက္ကသိုလ်ကို ဘာလို့ ရွေးချယ်တာလဲ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                을지대학교는 우수한 교수진과 실용적인 교육 시스템을 갖추고 있다고 들었습니다.<br>
+                                특히, 마스터 프로그램의 커리큘럼이 제가 깊이 공부하고 싶은 목표와 정확히 일치했습니다.<br>
+                                이 곳에서라면 제가 원하는 학문적 성취를 이룰 수 있다고 확신합니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    Eulji တက္ကသိုလ်ဟာ ထူးချွန်တဲ့ ဆရာ၊ ဆရာမတွေနဲ့ လက်တွေ့ကျတဲ့ ပညာရေးစနစ်ရှိတယ်လို့ ကြားသိရပါတယ်။<br>
+                                    အထူးသဖြင့် Master Program ရဲ့ သင်ရိုးညွှန်းတမ်းက ကျွန်မ/ကျွန်တော် လေ့လာချင်တဲ့ ရည်မှန်းချက်နဲ့ ကွက်တိကိုက်ညီနေပါတယ်။<br>
+                                    ဒီနေရာမှာဆိုရင် ကျွန်မ/ကျွန်တော် လိုချင်တဲ့ ပညာရေးအောင်မြင်မှုကို ရရှိနိုင်မယ်လို့ ယုံကြည်ပါတယ်။
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-black text-lg">Q4</div>
+                    <div class="w-full">
+                        <h3 class="text-lg font-black text-slate-800 mb-1">본인의 전공을 선택한 이유는 무엇인가요?</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ရဲ့ မေဂျာကို ဘာလို့ ရွေးချယ်ခဲ့တာလဲ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                저는 미얀마에서 대학교를 다니며 이 분야에 큰 흥미와 비전을 느꼈습니다.<br>
+                                앞으로 미얀마 사회가 발전하면서 이 전공과 관련된 전문가가 많이 필요할 것입니다.<br>
+                                그래서 한국의 앞선 지식을 배워서 이 분야의 최고가 되고 싶습니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    ကျွန်မ/ကျွန်တော်က မြန်မာနိုင်ငံမှာ တက္ကသိုလ်တက်နေရင်း ဒီနယ်ပယ်ကို အရမ်းစိတ်ဝင်စားပြီး အနာဂတ်အမြင်ကို ရရှိခဲ့ပါတယ်။<br>
+                                    ရှေ့ဆက်ပြီး မြန်မာ့လူဘောင် ဖွံ့ဖြိုးတိုးတက်လာတာနဲ့အမျှ ဒီမေဂျာနဲ့ပတ်သက်တဲ့ ကျွမ်းကျင်သူတွေ အများကြီး လိုအပ်လာပါလိမ့်မယ်။<br>
+                                    ဒါကြောင့် ကိုရီးယားရဲ့ အဆင့်မြင့် အသိပညာတွေကို သင်ယူပြီး ဒီနယ်ပယ်မှာ အကောင်းဆုံးဖြစ်ချင်ပါတယ်။
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-red-100 text-red-600 rounded-xl flex items-center justify-center font-black text-lg">Q5</div>
+                    <div class="w-full">
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                            <h3 class="text-lg font-black text-slate-800">한국에서의 학비와 생활비는 누가 지원하나요?</h3>
+                            <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-widest shrink-0">매우 중요</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">ကျောင်းလခနဲ့ နေထိုင်စရိတ်ကို ဘယ်သူက ထောက်ပံ့ပေးမှာလဲ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-3">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                저의 학비와 생활비는 모두 <span class="text-blue-600 border-b border-blue-600">[ 아버님 / 부모님 ]</span>께서 지원해 주십니다.<br>
+                                아버님께서는 미얀마에서 <span class="text-blue-600 border-b border-blue-600">[ 직업/회사 이름 ]</span>으로 일하고 계십니다.<br>
+                                부모님께서 안정적인 소득이 있으셔서 제가 한국에서 오직 공부에만 집중할 수 있습니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    ကျွန်မ/ကျွန်တော်ရဲ့ ကျောင်းလခနဲ့ နေထိုင်စရိတ်အားလုံးကို မိဘများက ထောက်ပံ့ပေးမှာပါ။<br>
+                                    အဖေက မြန်မာနိုင်ငံမှာ [အလုပ်အကိုင်] အဖြစ် အလုပ်လုပ်နေပါတယ်။<br>
+                                    မိဘများမှာ တည်ငြိမ်တဲ့ ဝင်ငွေရှိတဲ့အတွက် ကျွန်မ/ကျွန်တော် ကိုရီးယားမှာ စာကျက်ဖို့ တစ်ခုတည်းကိုသာ အာရုံစိုက်နိုင်ပါတယ်။
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-red-500 font-bold leading-tight">* Tip (သတိပြုရန်): 절대 "아르바이트(Part-time)를 하겠다"고 대답하면 안 됩니다. 오직 "공부"에만 집중하겠다고 해야 합니다. <br><span class="text-slate-500">"အချိန်ပိုင်းအလုပ် (Part-time) လုပ်မယ်" လို့ လုံးဝ မဖြေရပါ။ "စာကျက်ဖို့" သာ အာရုံစိုက်မယ်လို့ ဖြေရပါမယ်။</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-red-100 text-red-600 rounded-xl flex items-center justify-center font-black text-lg">Q6</div>
+                    <div class="w-full">
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                            <h3 class="text-lg font-black text-slate-800">한국 유학 과정을 모두 졸업한 후의 계획은 무엇입니까?</h3>
+                            <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-widest shrink-0">매우 중요</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">ဘွဲ့ရပြီးရင် ဘာလုပ်ဖို့ အစီအစဉ်ရှိလဲ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-3">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                마스터 프로그램을 마친 후에는 반드시 미얀마로 돌아올 계획입니다.<br>
+                                한국에서 배운 훌륭한 지식과 한국어 능력을 바탕으로, 미얀마에 있는 한국계 기업에 취업하는 것이 제 목표입니다.<br>
+                                한국과 미얀마를 잇는 가교 역할을 하고 싶습니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    Master Program ပြီးဆုံးသွားတဲ့အခါ မြန်မာနိုင်ငံကို မဖြစ်မနေ ပြန်လာမယ့် အစီအစဉ်ရှိပါတယ်။<br>
+                                    ကိုရီးယားမှာ သင်ယူခဲ့တဲ့ အသိပညာတွေနဲ့ ကိုရီးယားဘာသာစကားစွမ်းရည်ကို အခြေခံပြီး မြန်မာနိုင်ငံမှာရှိတဲ့ ကိုရီးယားကုမ္ပဏီမှာ အလုပ်ဝင်ဖို့က ကျွန်မ/ကျွန်တော်ရဲ့ ရည်မှန်းချက်ပါ။<br>
+                                    ကိုရီးယားနဲ့ မြန်မာကြား ပေါင်းကူးတံတားအဖြစ် တာဝန်ထမ်းဆောင်ချင်ပါတယ်။
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-red-500 font-bold leading-tight">* Tip (သတိပြုရန်): 불법 체류 의심을 피하기 위해 "졸업 후 반드시 미얀마로 귀국하겠다"는 의지를 강하게 보여주세요. <br><span class="text-slate-500">တရားမဝင်နေထိုင်မှုကို သံသယမဖြစ်စေရန် "ဘွဲ့ရပြီးရင် မြန်မာနိုင်ငံကို မဖြစ်မနေ ပြန်လာမယ်" ဆိုတဲ့ ဆန္ဒကို ပြင်းပြင်းထန်ထန် ပြသပါ။</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-black text-lg">Q7</div>
+                    <div class="w-full">
+                        <h3 class="text-lg font-black text-slate-800 mb-1">현재 한국어 실력은 어느 정도입니까? (TOPIK이 있나요?)</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">လက်ရှိ ကိုရီးယားဘာသာစကား အရည်အချင်းက ဘယ်လောက်ရှိလဲ။ (TOPIK ရှိလား။)</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                저는 양곤에 있는 JKLC 어학원에서 한국어를 열심히 공부하고 있습니다.<br>
+                                아직 부족한 점이 많지만, 기본적인 의사소통은 할 수 있습니다.<br>
+                                한국에 가면 어학당에서 더 열심히 공부해서 반드시 TOPIK 높은 급수를 따겠습니다.
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    ကျွန်မ/ကျွန်တော်က ရန်ကုန်မှာရှိတဲ့ JKLC ဘာသာစကားကျောင်းမှာ ကိုရီးယားစာကို ကြိုးကြိုးစားစား လေ့လာနေပါတယ်။<br>
+                                    လိုအပ်ချက်တွေ အများကြီးရှိနေသေးပေမယ့် အခြေခံ ဆက်သွယ်ပြောဆိုတာတော့ လုပ်နိုင်ပါတယ်။<br>
+                                    ကိုရီးယားကိုရောက်ရင် ဘာသာစကားကျောင်းမှာ ပိုကြိုးစားပြီး TOPIK အဆင့်မြင့်မြင့် ရအောင် မဖြစ်မနေ ယူပါမယ်။
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-black text-lg">Q8</div>
+                    <div class="w-full">
+                        <h3 class="text-lg font-black text-slate-800 mb-1">한국 생활 중 외롭거나 스트레스를 받으면 어떻게 할 건가요?</h3>
+                        <p class="text-sm text-slate-500 mb-4 font-bold">ကိုရီးယားမှာနေတုန်း အထီးကျန်တာ ဒါမှမဟုတ် စိတ်ဖိစီးမှုတွေရှိလာရင် ဘယ်လိုလုပ်မလဲ။</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                                저는 성격이 긍정적이고 사교적이라서 새로운 환경에 잘 적응하는 편입니다.<br>
+                                만약 스트레스를 받는다면, 다양한 국가의 유학생들, 그리고 한국 친구들을 사귀어 함께 대화하겠습니다.<br>
+                                그리고 맛있는 한국 음식을 먹으며 긍정적으로 극복하겠습니다!
+                            </p>
+                            <div class="border-t border-slate-200 pt-3">
+                                <p class="mm-text font-bold">
+                                    ကျွန်မ/ကျွန်တော်က အကောင်းမြင်တတ်ပြီး ပေါင်းသင်းဆက်ဆံရေးကောင်းလို့ ပတ်ဝန်းကျင်အသစ်နဲ့ အလွယ်တကူ အသားကျနိုင်ပါတယ်။<br>
+                                    အကယ်၍ စိတ်ဖိစီးမှုတွေရှိလာရင် နိုင်ငံပေါင်းစုံက ကျောင်းသားတွေ၊ ကိုရီးယားသူငယ်ချင်းတွေဖွဲ့ပြီး အတူတူ စကားပြောပါမယ်။<br>
+                                    ပြီးတော့ အရသာရှိတဲ့ ကိုရီးယားအစားအစာတွေကို စားရင်း အကောင်းမြင်စိတ်နဲ့ ဖြေဖျောက်ပါမယ်!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="no-print py-8 text-center mt-10 border-t border-slate-200">
+        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">
+            JOY KOREAN LANGUAGE CENTER <br><span class="font-normal opacity-70">YANGON · HLEDAN</span>
+        </p>
+        <p class="text-[9px] font-bold text-slate-300">Mock Interview Material</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
