@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - 원광대학교 석사(D-2) 모의면접 공통</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc;
+        }
+        .mm-text {
+            font-family: 'Pyidaungsu', sans-serif;
+            color: #0369a1; 
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        .highlight-blank {
+            color: #dc2626; /* 빨간색으로 빈칸 강조 */
+            font-weight: 900;
+            border-bottom: 2px solid #dc2626;
+            padding: 0 4px;
+            background-color: #fef2f2;
+        }
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+            .print-break { page-break-inside: avoid; margin-bottom: 24px; }
+            .shadow-sm, .shadow-md, .shadow-lg { box-shadow: none !important; border: 1px solid #cbd5e1; }
+            .mm-text { color: #334155; font-weight: bold; }
+            .bg-slate-50 { background-color: white !important; }
+            .print-only-logo { display: block !important; margin-bottom: 1rem; }
+            .highlight-blank { background-color: transparent; }
+        }
+        .print-only-logo { display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 pb-12">
+
+    <!-- Header (화면 상단 고정, 인쇄 시 숨김) -->
+    <div class="no-print bg-white shadow-sm sticky top-0 z-50 border-b-4 border-indigo-600">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- 로고 추가 -->
+                <img src="logo.png" alt="JKLC Logo" class="h-10 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-10 h-10 bg-indigo-900 text-white rounded-lg items-center justify-center font-black text-xl">J</div>
+                <div>
+                    <h1 class="font-black text-lg leading-tight">JKLC 1:1 모의면접 코칭</h1>
+                    <p class="text-xs text-slate-500 font-bold">원광대 석사 과정 (전공 공통 템플릿)</p>
+                </div>
+            </div>
+            <button onclick="window.print()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-indigo-700 transition flex items-center gap-2">
+                <i data-lucide="printer" class="w-4 h-4"></i> 교안 프린트
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 mt-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Left Sidebar: 1 Hour Lesson Plan -->
+        <aside class="md:w-1/4 print-break">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 sticky top-24">
+                <h3 class="font-black text-indigo-900 mb-4 flex items-center gap-2 border-b pb-2">
+                    <i data-lucide="clock" class="w-5 h-5"></i> 공통 코칭 가이드
+                </h3>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-slate-400 bg-slate-100 w-fit px-2 py-0.5 rounded">Check 1</span>
+                        <span class="text-slate-800">전공 확인 후 빈칸 채우기</span>
+                        <span class="text-slate-500 text-xs">빨간색 밑줄 친 곳을 수정하세요.</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 w-fit px-2 py-0.5 rounded">Check 2</span>
+                        <span class="text-slate-800">학업 계획 구체화</span>
+                        <span class="text-slate-500 text-xs">전공에 맞는 전문 용어 2~3개 추가</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-red-600 bg-red-50 w-fit px-2 py-0.5 rounded">Check 3</span>
+                        <span class="text-slate-800">비자 심사 필수 방어</span>
+                        <span class="text-slate-500 text-xs">학비 지원, 졸업 후 귀국 플랜 반복</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Right Content: Q&A Scripts -->
+        <div class="md:w-3/4 space-y-6">
+            
+            <!-- 인쇄 시에만 보이는 로고 -->
+            <div class="print-only-logo text-center">
+                <img src="logo.png" alt="JKLC Logo" class="h-16 mx-auto mb-4 object-contain">
+            </div>
+
+            <div class="text-center md:text-left mb-8">
+                <h1 class="text-3xl font-black text-slate-900 mb-2">원광대학교 석사(Master) 과정</h1>
+                <h2 class="text-xl font-bold text-indigo-600 mb-2">지원 전공: <span class="highlight-blank">[ 확인 후 기입 요망 ]</span></h2>
+                <p class="text-slate-500 font-bold mm-text !text-[#0369a1] !mt-0">Wonkwang University - Master's Degree Program Interview</p>
+            </div>
+
+            <!-- Q1 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-sm">Q1</span> 자기소개를 해보세요.
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ကိုယ်ကို မိတ်ဆက်ပေးပါ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        안녕하십니까. 저는 미얀마에서 온 <span class="highlight-blank">[ 학생 이름 ]</span> 입니다.<br>
+                        저는 학부에서 <span class="highlight-blank">[ 대학교 학사 전공 ]</span>을 전공했습니다.<br>
+                        제 전공 분야에 대해 더 깊이 있는 연구를 하고 싶어서, 역사와 전통이 깊은 원광대학교 <span class="highlight-blank">[ 지원하는 전공 이름 ]</span> 석사 과정에 지원하게 되어 매우 영광입니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            မင်္ဂလာပါရှင်/ခင်ဗျာ။ ကျွန်မ/ကျွန်တော်ကတော့ မြန်မာနိုင်ငံကလာတဲ့ <span class="text-red-600">[နာမည်]</span> ဖြစ်ပါတယ်။<br>
+                            ကျွန်မ/ကျွန်တော်က ဘွဲ့ကြိုတုန်းက <span class="text-red-600">[ဘွဲ့ရမေဂျာ]</span> ကို သင်ယူခဲ့ပါတယ်။<br>
+                            ကိုယ့်ရဲ့ မေဂျာနယ်ပယ်နဲ့ ပတ်သက်ပြီး ပိုမိုနက်ရှိုင်းတဲ့ သုတေသနတွေ လုပ်ချင်တဲ့အတွက် သမိုင်းကြောင်းနဲ့ အစဉ်အလာကြီးမားတဲ့ ဝန်ဂွမ်တက္ကသိုလ်(Wonkwang University) ရဲ့ <span class="text-red-600">[လျှောက်ထားမည့်မေဂျာ]</span> မဟာဘွဲ့သင်တန်းကို လျှောက်ထားခွင့်ရတဲ့အတွက် အလွန်ဂုဏ်ယူမိပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-sm">Q2</span> 왜 한국으로 유학을 결심했고, 왜 원광대학교인가요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုရီးယားကို ဘာလို့ ပညာသင်လာဖို့ ဆုံးဖြတ်ခဲ့တာလဲ၊ ပြီးတော့ ဘာလို့ ဝန်ဂွမ်တက္ကသိုလ်ကို ရွေးချယ်တာလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        한국은 제가 지원한 <span class="highlight-blank">[ 지원 전공 ]</span> 분야에서 세계적인 수준의 연구 성과와 발전을 보여주고 있습니다. 그 선진화된 시스템을 꼭 배우고 싶었습니다.<br>
+                        특히 원광대학교는 우수한 교수진과 체계적인 커리큘럼을 갖추고 있으며, <strong class="text-blue-700">외국인 유학생을 위한 교육 및 지원 시스템이 매우 뛰어나다고 들어서</strong> 주저 없이 1순위로 지원했습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကိုရီးယားနိုင်ငံဟာ ကျွန်မ/ကျွန်တော် လျှောက်ထားတဲ့ <span class="text-red-600">[လျှောက်ထားမည့်မေဂျာ]</span> နယ်ပယ်မှာ ကမ္ဘာ့အဆင့်မီ သုတေသနရလဒ်တွေနဲ့ တိုးတက်မှုတွေကို ပြသနေပါတယ်။ အဲဒီ ခေတ်မီတိုးတက်နေတဲ့ စနစ်တွေကို မဖြစ်မနေ သင်ယူချင်ခဲ့တာပါ။<br>
+                            အထူးသဖြင့် ဝန်ဂွမ်တက္ကသိုလ်မှာ 훌륭တဲ့ ပါမောက္ခတွေနဲ့ စနစ်ကျတဲ့ သင်ရိုးညွှန်းတမ်းတွေရှိပြီး <strong class="text-blue-700">နိုင်ငံတကာကျောင်းသားတွေအတွက် ပညာရေးနဲ့ ထောက်ပံ့မှုစနစ်က အရမ်းကောင်းတယ်လို့ ကြားသိရတဲ့အတွက်</strong> တုံ့ဆိုင်းမနေဘဲ ပထမဦးစားပေးအနေနဲ့ လျှောက်ထားခဲ့တာပါ။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-sm">Q3</span> 본인의 어학 능력(한국어/영어)은 어느 정도인가요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ရဲ့ ဘာသာစကားစွမ်းရည် (ကိုရီးယား/အင်္ဂလိပ်) က ဘယ်လောက်အဆင့်လောက် ရှိလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        저는 대학원 학업을 무사히 마치기 위해 어학 공부를 열심히 해왔습니다.<br>
+                        영어는 전공 원서를 읽고 기본적인 의사소통을 할 수 있으며, 한국어 역시 미얀마 JKLC 어학원에서 꾸준히 공부하여 기초 소통이 가능합니다.<br>
+                        원광대학교에 입학하면 대학원 수업과 어학당 수업을 병행하여, <strong class="text-emerald-700">한국어로도 전문적인 토론이 가능하도록 최선을 다하겠습니다.</strong>
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်က ဘွဲ့လွန်ပညာသင်ယူမှုကို အောင်မြင်စွာ ပြီးဆုံးနိုင်ဖို့အတွက် ဘာသာစကားကို ကြိုးကြိုးစားစား လေ့လာခဲ့ပါတယ်။<br>
+                            အင်္ဂလိပ်စာဆိုရင် မေဂျာစာအုပ်တွေကို ဖတ်နိုင်ပြီး အခြေခံ ပြောဆိုဆက်သွယ်နိုင်ပါတယ်။ ကိုရီးယားစာကိုလည်း မြန်မာနိုင်ငံ JKLC သင်တန်းကျောင်းမှာ အမြဲလေ့လာခဲ့လို့ အခြေခံ ပြောဆိုဆက်သွယ်နိုင်ပါတယ်။<br>
+                            ဝန်ဂွမ်တက္ကသိုလ်ကို ဝင်ခွင့်ရရင် ဘွဲ့လွန်သင်တန်းနဲ့ ဘာသာစကားကျောင်းကို တွဲတက်ပြီး <strong class="text-emerald-700">ကိုရီးယားလို ကျွမ်းကျင်စွာ ဆွေးနွေးနိုင်တဲ့အထိ အစွမ်းကုန် ကြိုးစားသွားပါမယ်။</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4 (Master's Research Plan) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-sm">Q4</span> 대학원에 진학하면 구체적으로 어떤 연구를 하고 싶나요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဘွဲ့လွန်ကျောင်းကို တက်ရင် တိတိကျကျ ဘယ်လိုသုတေသနမျိုးကို လုပ်ချင်တာလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        저는 <span class="highlight-blank">[ 지원 전공 ]</span> 분야 중에서도 특히 <span class="highlight-blank">[ 구체적인 관심 분야 / 예: 인공지능, 유통관리 등 ]</span> 에 대해 깊이 연구해 보고 싶습니다.<br>
+                        학부 시절 배운 기초 이론을 바탕으로, 한국의 선진화된 학문과 실무 사례들을 비교 분석하여 저만의 훌륭한 석사 논문을 작성하는 것이 목표입니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်က <span class="text-red-600">[လျှောက်ထားမည့်မေဂျာ]</span> နယ်ပယ်ထဲကမှ အထူးသဖြင့် <span class="text-red-600">[အသေးစိတ် စိတ်ဝင်စားသည့် နယ်ပယ် / ဥပမာ - AI၊ ထောက်ပံ့ပို့ဆောင်ရေး စသည်]</span> နဲ့ ပတ်သက်ပြီး နက်နက်ရှိုင်းရှိုင်း သုတေသနလုပ်ကြည့်ချင်ပါတယ်။<br>
+                            ဘွဲ့ကြိုတုန်းက သင်ယူခဲ့တဲ့ အခြေခံသီအိုရီတွေပေါ်မှာ အခြေခံပြီး ကိုရီးယားရဲ့ ခေတ်မီတိုးတက်နေတဲ့ ပညာရပ်တွေနဲ့ လက်တွေ့ ဥပမာတွေကို နှိုင်းယှဉ်ခွဲခြမ်းစိတ်ဖြာပြီး ကိုယ်ပိုင် အကောင်းဆုံး မဟာဘွဲ့စာတမ်းတစ်စောင် ရေးသားဖို့က ရည်မှန်းချက်ပါ။
+                        </p>
+                    </div>
+                </div>
+                <p class="text-xs text-purple-600 font-bold mt-2">* 코칭 팁: 학생의 전공이 정해지면, 이 질문의 두 번째 빈칸에 "관련된 전문 단어 1~2개"를 꼭 넣어주세요.</p>
+            </div>
+
+            <!-- Q5 (Visa Defense - CRITICAL) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex flex-wrap items-center gap-2">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Q5</span> 학비와 한국에서의 생활비는 어떻게 해결할 것입니까?
+                    <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">비자 방어 중요</span>
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကျောင်းလခနဲ့ ကိုရီးယားမှာ နေထိုင်စရိတ်ကို ဘယ်လို ဖြေရှင်းမလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        제 학비와 생활비는 모두 <span class="highlight-blank">[ 부모님 ]</span>께서 전적으로 지원해 주십니다.<br>
+                        아버님께서는 미얀마에서 <span class="highlight-blank">[ 부모님 직업/사업 내용 ]</span>을 안정적으로 하고 계십니다.<br>
+                        그래서 저는 아르바이트나 돈 걱정 없이 오직 석사 학업과 연구에만 100% 집중할 수 있습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်ရဲ့ ကျောင်းလခနဲ့ နေထိုင်စရိတ်အားလုံးကို <span class="text-red-600">[မိဘများ]</span> က အပြည့်အဝ ထောက်ပံ့ပေးမှာပါ။<br>
+                            အဖေက မြန်မာနိုင်ငံမှာ <span class="text-red-600">[မိဘအလုပ်အကိုင်/စီးပွားရေး]</span> ကို တည်တည်ငြိမ်ငြိမ် လုပ်ကိုင်နေပါတယ်။<br>
+                            ဒါကြောင့် ကျွန်မ/ကျွန်တော်က အချိန်ပိုင်းအလုပ် (Part-time) ဒါမှမဟုတ် ငွေရေးကြေးရေး ပူပန်စရာမလိုဘဲ မဟာဘွဲ့ ပညာသင်ယူမှုနဲ့ သုတေသနအတွက်ပဲ ၁၀၀% အပြည့်အဝ အာရုံစိုက်နိုင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q6 (Visa Defense - CRITICAL) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex flex-wrap items-center gap-2">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Q6</span> 졸업을 마친 후의 향후 계획은 무엇인가요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဘွဲ့ရပြီးရင် ရှေ့ဆက်ဘာလုပ်ဖို့ အစီအစဉ်ရှိလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        석사 과정을 무사히 마치면, 저는 <strong class="text-red-600">반드시 미얀마로 돌아올 것입니다.</strong><br>
+                        원광대학교에서 배운 선진 지식을 바탕으로, 미얀마의 <span class="highlight-blank">[ 지원 전공 관련 기업 또는 대학교 ]</span> 에 취업하여 전문가로 활동하고 싶습니다. 이를 통해 조국의 발전에 기여하는 것이 제 최종 꿈입니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            မဟာဘွဲ့သင်တန်းကို အောင်မြင်စွာ ပြီးဆုံးတဲ့အခါ ကျွန်မ/ကျွန်တော်က <strong class="text-red-700">မြန်မာနိုင်ငံကို မဖြစ်မနေ ပြန်လာမှာပါ</strong>။<br>
+                            ဝန်ဂွမ်တက္ကသိုလ်ကနေ သင်ယူခဲ့တဲ့ အဆင့်မြင့်အသိပညာတွေကို အခြေခံပြီး မြန်မာနိုင်ငံက <span class="text-red-600">[မေဂျာနဲ့ သက်ဆိုင်တဲ့ ကုမ္ပဏီ ဒါမှမဟုတ် တက္ကသိုလ်]</span> မှာ အလုပ်ဝင်ပြီး ကျွမ်းကျင်သူအနေနဲ့ လှုပ်ရှားချင်ပါတယ်။ ဒီကနေတစ်ဆင့် နိုင်ငံရဲ့ ဖွံ့ဖြိုးတိုးတက်မှုမှာ အထောက်အကူပြုဖို့က ကျွန်မ/ကျွန်တော်ရဲ့ နောက်ဆုံးအိပ်မက်ပါ။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q7 (Emergency Defense) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-slate-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-sm">Q7</span> 혹시 어려운 전공 질문을 받아서 대답하기 힘들 때
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ခက်ခဲတဲ့ မေဂျာမေးခွန်းကို မေးခံရလို့ ဖြေဖို့ခက်ခဲတဲ့အခါ ဖြေဆိုနည်း</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        교수님, 죄송합니다. 그 부분에 대해서는 제가 아직 학부 수준이라 깊이 알지 못합니다.<br>
+                        하지만 제가 원광대학교 대학원에 입학하게 된다면, 교수님께서 질문하신 그 부분을 가장 먼저 찾아서 열심히 연구하고 배우겠습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ပါမောက္ခကြီးရှင်/ခင်ဗျာ၊ တောင်းပန်ပါတယ်။ အဲဒီအပိုင်းနဲ့ ပတ်သက်ပြီး ကျွန်မ/ကျွန်တော်က ဘွဲ့ကြိုအဆင့်ပဲ ရှိသေးလို့ နက်နက်ရှိုင်းရှိုင်း မသိသေးပါဘူး။<br>
+                            ဒါပေမယ့် ကျွန်မ/ကျွန်တော် ဝန်ဂွမ်တက္ကသိုလ် ဘွဲ့လွန်ကျောင်းကို တက်ရောက်ခွင့်ရမယ်ဆိုရင် ပါမောက္ခကြီး မေးခွန်းထုတ်လိုက်တဲ့ အဲဒီအပိုင်းကို အရင်ဆုံး ရှာဖွေပြီး ကြိုးစားသုတေသနလုပ် သင်ယူသွားပါမယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (No Print) -->
+    <footer class="no-print py-8 text-center mt-10 border-t border-slate-200">
+        <p class="text-[11px] font-black text-indigo-900 uppercase tracking-[0.2em] mb-1">
+            JOY KOREAN LANGUAGE CENTER <br><span class="font-normal opacity-70">YANGON · HLEDAN</span>
+        </p>
+        <p class="text-[10px] font-bold text-slate-400">Wonkwang University - Master's Program Interview (Common)</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
