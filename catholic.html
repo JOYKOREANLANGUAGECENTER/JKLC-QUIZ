@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - 가톨릭대 석사(D-2) 글로벌 경영 모의면접</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc;
+        }
+        .mm-text {
+            font-family: 'Pyidaungsu', sans-serif;
+            color: #0369a1; 
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+            .print-break { page-break-inside: avoid; margin-bottom: 24px; }
+            .shadow-sm, .shadow-md, .shadow-lg { box-shadow: none !important; border: 1px solid #cbd5e1; }
+            .mm-text { color: #334155; font-weight: bold; }
+            .bg-slate-50 { background-color: white !important; }
+            .print-only-logo { display: block !important; margin-bottom: 1rem; }
+        }
+        .print-only-logo { display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 pb-12">
+
+    <!-- Header (화면 상단 고정, 인쇄 시 숨김) -->
+    <div class="no-print bg-white shadow-sm sticky top-0 z-50 border-b-4 border-indigo-600">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- 로고 추가 -->
+                <img src="logo.png" alt="JKLC Logo" class="h-10 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-10 h-10 bg-indigo-900 text-white rounded-lg items-center justify-center font-black text-xl">J</div>
+                <div>
+                    <h1 class="font-black text-lg leading-tight">JKLC 1:1 모의면접 코칭</h1>
+                    <p class="text-xs text-slate-500 font-bold">가톨릭대 석사 - 글로벌 경영학과</p>
+                </div>
+            </div>
+            <button onclick="window.print()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-indigo-700 transition flex items-center gap-2">
+                <i data-lucide="printer" class="w-4 h-4"></i> 교안 프린트
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 mt-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Left Sidebar: 1 Hour Lesson Plan -->
+        <aside class="md:w-1/4 print-break">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 sticky top-24">
+                <h3 class="font-black text-indigo-900 mb-4 flex items-center gap-2 border-b pb-2">
+                    <i data-lucide="clock" class="w-5 h-5"></i> 60분 코칭 계획표
+                </h3>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-slate-400 bg-slate-100 w-fit px-2 py-0.5 rounded">0~10분</span>
+                        <span class="text-slate-800">1. 면접 기본 태도 점검</span>
+                        <span class="text-slate-500 text-xs">인사, 자신감, 시선 처리</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 w-fit px-2 py-0.5 rounded">10~30분</span>
+                        <span class="text-slate-800">2. 대학원 핵심 역량 질문</span>
+                        <span class="text-slate-500 text-xs">지원동기, 어학, 연구계획</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-red-600 bg-red-50 w-fit px-2 py-0.5 rounded">30~45분</span>
+                        <span class="text-slate-800">3. 비자 심사 필수 방어</span>
+                        <span class="text-slate-500 text-xs">재정 보증, 졸업 후 계획</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-green-600 bg-green-50 w-fit px-2 py-0.5 rounded">45~60분</span>
+                        <span class="text-slate-800">4. 실전 랜덤 시뮬레이션</span>
+                        <span class="text-slate-500 text-xs">질문지 없이 묻고 답하기</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Right Content: Q&A Scripts -->
+        <div class="md:w-3/4 space-y-6">
+            
+            <!-- 인쇄 시에만 보이는 로고 -->
+            <div class="print-only-logo text-center">
+                <img src="logo.png" alt="JKLC Logo" class="h-16 mx-auto mb-4 object-contain">
+            </div>
+
+            <div class="text-center md:text-left mb-8">
+                <h1 class="text-3xl font-black text-slate-900 mb-2">가톨릭대학교 석사(Master) 과정</h1>
+                <h2 class="text-xl font-bold text-indigo-600 mb-2">글로벌 비즈니스 학과 (Global Business Administration)</h2>
+                <p class="text-slate-500 font-bold mm-text !text-[#0369a1] !mt-0">Catholic University - Master of Global Business Administration</p>
+            </div>
+
+            <!-- Q1 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-sm">Q1</span> 자기소개를 해보세요.
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ကိုယ်ကို မိတ်ဆက်ပေးပါ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        안녕하십니까. 저는 미얀마에서 온 <span class="text-indigo-600 border-b border-indigo-600">[ 학생 이름 ]</span> 입니다.<br>
+                        저는 학부에서 <span class="text-indigo-600 border-b border-indigo-600">[ 학사 전공 ]</span>을 전공했습니다.<br>
+                        글로벌 시대에 맞는 전문 경영 지식을 깊이 배우고자 가톨릭대학교 <strong class="text-blue-700">글로벌 비즈니스 학과 석사 과정</strong>에 지원하게 되어 매우 영광입니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            မင်္ဂလာပါရှင်/ခင်ဗျာ။ ကျွန်မ/ကျွန်တော်ကတော့ မြန်မာနိုင်ငံကလာတဲ့ [နာမည်] ဖြစ်ပါတယ်။<br>
+                            ကျွန်မ/ကျွန်တော်က ဘွဲ့ကြိုတုန်းက [ဘွဲ့ရမေဂျာ] ကို သင်ယူခဲ့ပါတယ်။<br>
+                            ဂလိုဘယ်ခေတ်နဲ့ကိုက်ညီတဲ့ ကျွမ်းကျင်စီမံခန့်ခွဲမှုပညာရပ်တွေကို နက်နက်ရှိုင်းရှိုင်းသင်ယူချင်တဲ့အတွက် ကက်သလစ်တက္ကသိုလ်ရဲ့ <strong class="text-blue-700">ဂလိုဘယ် စီးပွားရေးစီမံခန့်ခွဲမှုပညာ မဟာဘွဲ့သင်တန်း</strong>ကို လျှောက်ထားခွင့်ရတဲ့အတွက် အလွန်ဂုဏ်ယူမိပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-sm">Q2</span> 왜 한국으로 유학을 결심했고, 왜 가톨릭대학교인가요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုရီးယားကို ဘာလို့ ပညာသင်လာဖို့ ဆုံးဖြတ်ခဲ့တာလဲ၊ ပြီးတော့ ဘာလို့ ကက်သလစ်တက္ကသိုလ်ကို ရွေးချယ်တာလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        한국 기업들은 뛰어난 혁신과 마케팅으로 전 세계 시장을 선도하고 있습니다. 저는 이러한 <strong class="text-blue-700">한국의 성공적인 글로벌 비즈니스 전략</strong>을 배우고 싶습니다.<br>
+                        특히 가톨릭대학교는 '진리와 사랑'이라는 이념 아래, 실무 중심의 글로벌 경영 커리큘럼과 훌륭한 교수진을 갖추고 있어 저의 학업 목표와 완벽히 일치하여 1순위로 지원했습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကိုရီးယားကုမ္ပဏီတွေဟာ ထူးချွန်တဲ့ တီထွင်ဆန်းသစ်မှုနဲ့ မားကတ်တင်းတွေကြောင့် တစ်ကမ္ဘာလုံးက ဈေးကွက်တွေကို ဦးဆောင်နေပါတယ်။ ဒီလိုမျိုး <strong class="text-blue-700">ကိုရီးယားရဲ့ အောင်မြင်တဲ့ ဂလိုဘယ်စီးပွားရေး မဟာဗျူဟာ</strong>တွေကို သင်ယူချင်ပါတယ်။<br>
+                            အထူးသဖြင့် ကက်သလစ်တက္ကသိုလ်ဟာ 'အမှန်တရားနဲ့ မေတ္တာ' ဆိုတဲ့ ခံယူချက်အောက်မှာ လက်တွေ့အသုံးချနိုင်တဲ့ ဂလိုဘယ်စီးပွားရေး သင်ရိုးညွှန်းတမ်းတွေနဲ့ 훌륭တဲ့ ပါမောက္ခတွေရှိတာကြောင့် ကျွန်မ/ကျွန်တော်ရဲ့ ပညာရေးရည်မှန်းချက်နဲ့ ကွက်တိကိုက်ညီလို့ ပထမဦးစားပေးအနေနဲ့ လျှောက်ထားခဲ့တာပါ။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3 (NEW: 어학능력) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-sm">Q3</span> 글로벌 비즈니스 학과에서는 어학 능력이 중요합니다. 본인의 어학 능력은 어떤가요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဂလိုဘယ် စီးပွားရေးမေဂျာမှာ ဘာသာစကားစွမ်းရည်က အရေးကြီးပါတယ်။ ကိုယ့်ရဲ့ ဘာသာစကားစွမ်းရည်က ဘယ်လိုရှိလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        저는 학부 때부터 영어를 꾸준히 공부하여 기본적인 비즈니스 영어 소통이 가능합니다.<br>
+                        또한, 미얀마 JKLC 어학원에서 한국어를 열심히 공부하여 한국어 기초 의사소통도 가능합니다.<br>
+                        한국에 가면 대학원 수업과 어학당 수업을 병행하여, <strong class="text-emerald-700">영어와 한국어 모두 완벽하게 구사하는 글로벌 인재</strong>가 되겠습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်က ဘွဲ့ကြိုတုန်းကတည်းက အင်္ဂလိပ်စာကို အမြဲလေ့လာခဲ့လို့ အခြေခံ စီးပွားရေးအင်္ဂလိပ်စာကို ပြောဆိုဆက်သွယ်နိုင်ပါတယ်။<br>
+                            ဒါ့အပြင် မြန်မာနိုင်ငံ JKLC သင်တန်းကျောင်းမှာ ကိုရီးယားစာကို ကြိုးကြိုးစားစား သင်ယူခဲ့လို့ ကိုရီးယားလို အခြေခံ ပြောဆိုဆက်သွယ်နိုင်ပါတယ်။<br>
+                            ကိုရီးယားကိုရောက်ရင် ဘွဲ့လွန်သင်တန်းနဲ့ ဘာသာစကားကျောင်းကို တွဲတက်ပြီး <strong class="text-emerald-700">အင်္ဂလိပ်စာရော ကိုရီးယားစာပါ ကျွမ်းကျင်စွာ ပြောဆိုနိုင်တဲ့ ဂလိုဘယ် လူရည်ချွန်</strong>တစ်ယောက် ဖြစ်လာအောင် လုပ်ပါမယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4 (Master's Specific: Business) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-sm">Q4</span> 글로벌 비즈니스 학과에서 구체적으로 어떤 연구를 하고 싶나요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဒီမေဂျာမှာ တိတိကျကျ ဘယ်လိုသုတေသနမျိုးကို လုပ်ချင်တာလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        저는 미얀마와 한국 간의 경제 교류가 늘어나는 것을 보며, <strong class="text-purple-700">한국 다국적 기업들의 동남아시아(미얀마) 진출 전략과 마케팅</strong>에 큰 관심을 가졌습니다.<br>
+                        가톨릭대학교에서 <strong class="text-purple-700">글로벌 마케팅과 국제 경영 전략</strong>을 깊이 연구하여, 성공적인 비즈니스 모델에 대한 석사 논문을 작성하고 싶습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            မြန်မာနဲ့ ကိုရီးယားကြား စီးပွားရေးပူးပေါင်းဆောင်ရွက်မှုတွေ တိုးလာတာကိုတွေ့ရတော့ <strong class="text-purple-700">ကိုရီးယား နိုင်ငံတကာကုမ္ပဏီများရဲ့ အရှေ့တောင်အာရှ (မြန်မာ) ဈေးကွက်ထိုးဖောက်ဝင်ရောက်မှု မဟာဗျူဟာနဲ့ မားကတ်တင်း</strong>ကို အရမ်းစိတ်ဝင်စားလာခဲ့ပါတယ်။<br>
+                            ကက်သလစ်တက္ကသိုလ်မှာ <strong class="text-purple-700">ဂလိုဘယ် မားကတ်တင်းနဲ့ နိုင်ငံတကာ စီးပွားရေးမဟာဗျူဟာ</strong>တွေကို နက်နက်ရှိုင်းရှိုင်း သုတေသနလုပ်ပြီး အောင်မြင်တဲ့ စီးပွားရေးမော်ဒယ်နဲ့ ပတ်သက်တဲ့ မဟာဘွဲ့စာတမ်းကို ရေးသားချင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q5 (NEW: 기업/이슈) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-sm">Q5</span> 최근 관심 있게 본 한국 기업이나 비즈니스 이슈가 있나요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">လတ်တလော စိတ်ဝင်တစား စောင့်ကြည့်နေတဲ့ ကိုရီးယားကုမ္ပဏီ ဒါမှမဟုတ် စီးပွားရေးသတင်း ရှိလား။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        네, 저는 <strong class="text-purple-700">삼성전자, 현대자동차</strong> 같은 한국의 글로벌 기업들이 동남아시아 시장에서 성공하는 과정을 관심 있게 보았습니다.<br>
+                        특히 현지 문화에 맞춘 <strong class="text-purple-700">'현지화 마케팅(Localization Marketing)' 전략</strong>이 매우 인상 깊었으며, 대학원에서 이런 사례들을 더 전문적으로 분석해 보고 싶습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ဟုတ်ကဲ့၊ ကျွန်မ/ကျွန်တော်က <strong class="text-purple-700">Samsung နဲ့ Hyundai</strong> လိုမျိုး ကိုရီးယား နိုင်ငံတကာကုမ္ပဏီတွေ အရှေ့တောင်အာရှဈေးကွက်မှာ အောင်မြင်လာတဲ့ လုပ်ငန်းစဉ်တွေကို စိတ်ဝင်တစား စောင့်ကြည့်နေခဲ့ပါတယ်။<br>
+                            အထူးသဖြင့် ဒေသခံယဉ်ကျေးမှုနဲ့ ကိုက်ညီအောင် လုပ်ဆောင်တဲ့ <strong class="text-purple-700">'ဒေသအလိုက် မားကတ်တင်း (Localization Marketing)' မဟာဗျူဟာ</strong>က အရမ်းစိတ်ဝင်စားစရာကောင်းပြီး ဘွဲ့လွန်ကျောင်းမှာ ဒီဥပမာတွေကို ပိုပြီးကျွမ်းကျင်စွာ ခွဲခြမ်းစိတ်ဖြာချင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q6 (NEW: 본인의 장점) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-sm">Q6</span> 본인의 장점은 무엇입니까? 글로벌 경영에 어떤 도움이 될까요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ရဲ့ အားသာချက်က ဘာလဲ။ ဂလိုဘယ် စီးပွားရေးကို လေ့လာရာမှာ ဘယ်လို အထောက်အကူဖြစ်မလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        제 장점은 <strong class="text-emerald-700">'도전 정신'과 '소통 능력'</strong>입니다.<br>
+                        글로벌 비즈니스는 다양한 문화적 배경을 가진 사람들과 협력해야 합니다. 저는 열린 마음으로 타인의 의견을 잘 듣고, 새로운 문제에 부딪혔을 때 포기하지 않고 해결책을 찾는 능력이 있습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်ရဲ့ အားသာချက်ကတော့ <strong class="text-emerald-700">'စိန်ခေါ်ရဲတဲ့ စိတ်ဓာတ်' နဲ့ 'ဆက်သွယ်ပြောဆိုနိုင်စွမ်း'</strong> ဖြစ်ပါတယ်။<br>
+                            ဂလိုဘယ် စီးပွားရေးဆိုတာ ယဉ်ကျေးမှုနောက်ခံအမျိုးမျိုးရှိတဲ့ လူတွေနဲ့ ပူးပေါင်းဆောင်ရွက်ရတာပါ။ ကျွန်မ/ကျွန်တော်က ပွင့်လင်းတဲ့စိတ်နဲ့ တခြားသူတွေရဲ့ အမြင်တွေကို သေချာနားထောင်ပြီး ပြဿနာအသစ်တွေနဲ့ ကြုံတွေ့လာရတဲ့အခါ လက်မလျှော့ဘဲ ဖြေရှင်းနည်းရှာနိုင်တဲ့ စွမ်းရည်ရှိပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q7 (Visa Defense - CRITICAL) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex flex-wrap items-center gap-2">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Q7</span> 학비와 한국에서의 생활비는 어떻게 해결할 것입니까?
+                    <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">비자 방어 중요</span>
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကျောင်းလခနဲ့ ကိုရီးယားမှာ နေထိုင်စရိတ်ကို ဘယ်လို ဖြေရှင်းမလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        제 학비와 생활비는 모두 <span class="text-red-600 border-b border-red-600">[ 부모님 ]</span>께서 전적으로 지원해 주십니다.<br>
+                        아버님께서는 미얀마에서 <span class="text-red-600 border-b border-red-600">[ 부모님 직업/사업 ]</span>을 안정적으로 하고 계십니다.<br>
+                        그래서 저는 돈 걱정 없이 오직 석사 학업과 연구에만 집중할 수 있습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်ရဲ့ ကျောင်းလခနဲ့ နေထိုင်စရိတ်အားလုံးကို [မိဘများ] က အပြည့်အဝ ထောက်ပံ့ပေးမှာပါ။<br>
+                            အဖေက မြန်မာနိုင်ငံမှာ [မိဘအလုပ်အကိုင်/စီးပွားရေး] ကို တည်တည်ငြိမ်ငြိမ် လုပ်ကိုင်နေပါတယ်။<br>
+                            ဒါကြောင့် ကျွန်မ/ကျွန်တော်က ငွေရေးကြေးရေး ပူပန်စရာမလိုဘဲ မဟာဘွဲ့ ပညာသင်ယူမှုနဲ့ သုတေသနအတွက်ပဲ အပြည့်အဝ အာရုံစိုက်နိုင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q8 (Visa Defense - CRITICAL) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex flex-wrap items-center gap-2">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Q8</span> 졸업을 마친 후의 향후 계획은 무엇인가요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဘွဲ့ရပြီးရင် ရှေ့ဆက်ဘာလုပ်ဖို့ အစီအစဉ်ရှိလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        석사 과정을 무사히 마치면, 저는 <strong class="text-red-600">반드시 미얀마로 귀국</strong>할 것입니다.<br>
+                        가톨릭대학교에서 배운 글로벌 비즈니스 전문 지식을 바탕으로, <strong class="text-red-600">미얀마에 진출한 한국계 다국적 기업에서 전문 경영인(매니저)</strong>으로 일하고 싶습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            မဟာဘွဲ့သင်တန်းကို အောင်မြင်စွာ ပြီးဆုံးတဲ့အခါ ကျွန်မ/ကျွန်တော်က <strong class="text-red-700">မြန်မာနိုင်ငံကို မဖြစ်မနေ ပြန်လာမှာပါ</strong>။<br>
+                            ကက်သလစ်တက္ကသိုလ်ကနေ သင်ယူခဲ့တဲ့ ဂလိုဘယ်စီးပွားရေး ကျွမ်းကျင်အသိပညာတွေကို အခြေခံပြီး <strong class="text-red-700">မြန်မာနိုင်ငံမှာ ဖွင့်လှစ်ထားတဲ့ ကိုရီးယား နိုင်ငံတကာကုမ္ပဏီတွေမှာ ကျွမ်းကျင်မန်နေဂျာ</strong>အနေနဲ့ အလုပ်လုပ်ချင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q9 (Emergency Defense) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-slate-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-sm">Q9</span> 혹시 어려운 질문이나 모르는 전공 질문을 받았을 때 방어법
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ခက်ခဲတဲ့ မေးခွန်း ဒါမှမဟုတ် မသိတဲ့ မေးခွန်းကို မေးခံရတဲ့အခါ ဖြေရှင်းနည်း</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        교수님, 죄송합니다. 그 부분에 대해서는 제가 아직 학부 수준이라 깊이 있게 알지 못합니다.<br>
+                        하지만 제가 가톨릭대학교 글로벌 비즈니스 학과에 입학하게 된다면, 그 부분을 가장 먼저 보완하고 열심히 연구하여 배우겠습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ပါမောက္ခကြီးရှင်/ခင်ဗျာ၊ တောင်းပန်ပါတယ်။ အဲဒီအပိုင်းနဲ့ ပတ်သက်ပြီး ကျွန်မ/ကျွန်တော်က ဘွဲ့ကြိုအဆင့်ပဲ ရှိသေးလို့ နက်နက်ရှိုင်းရှိုင်း မသိသေးပါဘူး။<br>
+                            ဒါပေမယ့် ကျွန်မ/ကျွန်တော် ကက်သလစ်တက္ကသိုလ် ဂလိုဘယ်စီးပွားရေး မဟာဘွဲ့သင်တန်းကို တက်ရောက်ခွင့်ရမယ်ဆိုရင် အဲဒီအပိုင်းကို အရင်ဆုံး ဖြည့်ဆည်းပြီး ကြိုးစားသုတေသနလုပ် သင်ယူသွားပါမယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (No Print) -->
+    <footer class="no-print py-8 text-center mt-10 border-t border-slate-200">
+        <p class="text-[11px] font-black text-indigo-900 uppercase tracking-[0.2em] mb-1">
+            JOY KOREAN LANGUAGE CENTER <br><span class="font-normal opacity-70">YANGON · HLEDAN</span>
+        </p>
+        <p class="text-[10px] font-bold text-slate-400">Catholic University - Global Business Admin Master's Interview</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
