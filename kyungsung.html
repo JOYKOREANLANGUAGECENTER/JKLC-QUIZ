@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKLC - 경성대 어학연수(D-4) 모의면접</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; 
+            background-color: #f8fafc;
+        }
+        .mm-text {
+            font-family: 'Pyidaungsu', sans-serif;
+            color: #0369a1; 
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        .highlight-blank {
+            color: #dc2626; /* 빨간색으로 빈칸 강조 */
+            font-weight: 900;
+            border-bottom: 2px solid #dc2626;
+            padding: 0 4px;
+            background-color: #fef2f2;
+        }
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+            .print-break { page-break-inside: avoid; margin-bottom: 24px; }
+            .shadow-sm, .shadow-md, .shadow-lg { box-shadow: none !important; border: 1px solid #cbd5e1; }
+            .mm-text { color: #334155; font-weight: bold; }
+            .bg-slate-50 { background-color: white !important; }
+            .print-only-logo { display: block !important; margin-bottom: 1rem; }
+            .highlight-blank { background-color: transparent; }
+        }
+        .print-only-logo { display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 pb-12">
+
+    <!-- Header (화면 상단 고정, 인쇄 시 숨김) -->
+    <div class="no-print bg-white shadow-sm sticky top-0 z-50 border-b-4 border-blue-600">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC Logo" class="h-10 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-10 h-10 bg-blue-900 text-white rounded-lg items-center justify-center font-black text-xl">J</div>
+                <div>
+                    <h1 class="font-black text-lg leading-tight">JKLC 1:1 모의면접 코칭</h1>
+                    <p class="text-xs text-slate-500 font-bold">경성대학교 어학연수 (D-4) 전형</p>
+                </div>
+            </div>
+            <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700 transition flex items-center gap-2">
+                <i data-lucide="printer" class="w-4 h-4"></i> 교안 프린트
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 mt-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Left Sidebar: Lesson Plan -->
+        <aside class="md:w-1/4 print-break">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 sticky top-24">
+                <h3 class="font-black text-blue-900 mb-4 flex items-center gap-2 border-b pb-2">
+                    <i data-lucide="mic" class="w-5 h-5"></i> D-4 면접 코칭 가이드
+                </h3>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-slate-500 bg-slate-100 w-fit px-2 py-0.5 rounded">기본기</span>
+                        <span class="text-slate-800">단답형보다는 문장으로</span>
+                        <span class="text-slate-500 text-xs">"네/아니오" 대신 1~2문장으로 또박또박 대답하게 하세요.</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 w-fit px-2 py-0.5 rounded">핵심 1</span>
+                        <span class="text-slate-800">목적을 분명하게</span>
+                        <span class="text-slate-500 text-xs">왜 부산인지, 왜 한국어인지 목표를 정확히 암기시킵니다.</span>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <span class="text-xs font-bold text-red-600 bg-red-50 w-fit px-2 py-0.5 rounded">핵심 2 (경고)</span>
+                        <span class="text-slate-800">비자 심사 필수 방어</span>
+                        <span class="text-slate-500 text-xs">아르바이트 절대 금지! 부모님 지원과 귀국/진학 플랜 강조</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Right Content: Q&A Scripts -->
+        <div class="md:w-3/4 space-y-6">
+            
+            <div class="print-only-logo text-center">
+                <img src="logo.png" alt="JKLC Logo" class="h-16 mx-auto mb-4 object-contain">
+            </div>
+
+            <div class="text-center md:text-left mb-8">
+                <h1 class="text-3xl font-black text-slate-900 mb-2">경성대학교 어학연수 (D-4)</h1>
+                <h2 class="text-xl font-bold text-blue-600 mb-2">한국어학당 입학 모의면접</h2>
+                <p class="text-slate-500 font-bold mm-text !text-[#0369a1] !mt-0">Kyung Sung University - Korean Language Program Interview</p>
+            </div>
+
+            <!-- Q1 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">Q1</span> 자기소개를 해보세요.
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုယ့်ကိုယ်ကို မိတ်ဆက်ပေးပါ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        안녕하십니까. 제 이름은 <span class="highlight-blank">[ 학생 이름 ]</span> 입니다. 미얀마 양곤에서 왔습니다.<br>
+                        저는 <span class="highlight-blank">[ 고등학교 / 대학교 ]</span>를 졸업했습니다.<br>
+                        경성대학교에서 한국어를 열심히 배우고 싶어서 어학연수에 지원했습니다. 만나서 반갑습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            မင်္ဂလာပါရှင်/ခင်ဗျာ။ ကျွန်မ/ကျွန်တော်ရဲ့ နာမည်ကတော့ <span class="text-red-600">[နာမည်]</span> ပါ။ မြန်မာနိုင်ငံ ရန်ကုန်ကနေ လာတာပါ။<br>
+                            ကျွန်မ/ကျွန်တော်က <span class="text-red-600">[အထက်တန်းကျောင်း / တက္ကသိုလ်]</span> ကို ပြီးမြောက်ထားပါတယ်။<br>
+                            Kyung Sung တက္ကသိုလ်မှာ ကိုရီးယားစာကို ကြိုးကြိုးစားစား သင်ယူချင်တဲ့အတွက် ဘာသာစကားသင်တန်းကို လျှောက်ထားခဲ့တာပါ။ တွေ့ရတာ ဝမ်းသာပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">Q2</span> 왜 한국어를 공부하려고 하나요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုရီးယားစာကို ဘာလို့ လေ့လာချင်တာလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        저는 평소에 한국 문화와 경제 발전에 관심이 많았습니다.<br>
+                        한국어를 완벽하게 배워서, 앞으로 <span class="highlight-blank">[ 한국의 대학교에 진학 / 미얀마에 있는 한국 기업에 취업 ]</span> 하는 것이 저의 꿈입니다.<br>
+                        그래서 기초부터 정확하게 한국어를 공부하고 싶습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်က ပုံမှန်အားဖြင့် ကိုရီးယားယဉ်ကျေးမှုနဲ့ စီးပွားရေးတိုးတက်မှုတွေကို အရမ်းစိတ်ဝင်စားပါတယ်။<br>
+                            ကိုရီးယားစာကို ကျွမ်းကျင်စွာ သင်ယူပြီး ရှေ့ဆက် <span class="text-red-600">[ကိုရီးယားတက္ကသိုလ်တက်ဖို့ / မြန်မာနိုင်ငံက ကိုရီးယားကုမ္ပဏီမှာ အလုပ်လုပ်ဖို့]</span> က ကျွန်မ/ကျွန်တော်ရဲ့ အိပ်မက်ပါ။<br>
+                            ဒါကြောင့် အခြေခံကစပြီး သေချာတိကျစွာ လေ့လာချင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+                <p class="text-xs text-blue-600 font-bold mt-2">* 코칭 팁: 학생 상황에 맞게 괄호 안의 내용을 '대학교 진학' 또는 '한국 기업 취업' 중 하나로 정해서 외우게 해주세요.</p>
+            </div>
+
+            <!-- Q3 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-sm">Q3</span> 한국의 많은 학교 중에서 왜 '부산'에 있는 '경성대학교'를 선택했나요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ကိုရီးယားက ကျောင်းတွေအများကြီးထဲကမှ ဘာလို့ 'Busan' မှာရှိတဲ့ 'Kyung Sung တက္ကသိုလ်' ကို ရွေးချယ်ခဲ့တာလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        첫째, 부산은 바다가 아름답고 활기찬 도시라서 꼭 가보고 싶었습니다.<br>
+                        둘째, 경성대학교는 유학생들을 잘 챙겨주고, 한국어학당 선생님들이 아주 열정적으로 잘 가르쳐주신다고 들었기 때문입니다.<br>
+                        좋은 환경에서 한국어 공부에만 집중하고 싶어서 경성대학교를 선택했습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ပထမအချက်ကတော့ Busan က ပင်လယ်ပြင်လှပပြီး တက်ကြွတဲ့မြို့ဖြစ်လို့ အရမ်းသွားချင်ခဲ့တာပါ။<br>
+                            ဒုတိယအချက်ကတော့ Kyung Sung တက္ကသိုလ်က နိုင်ငံတကာကျောင်းသားတွေကို သေချာစောင့်ရှောက်ပေးပြီး၊ ဘာသာစကားသင်တန်းက ဆရာ/ဆရာမတွေက စေတနာပါပါနဲ့ သေချာသင်ပေးတယ်လို့ ကြားသိရလို့ပါ။<br>
+                            ကောင်းမွန်တဲ့ ပတ်ဝန်းကျင်မှာ ကိုရီးယားစာလေ့လာဖို့ကိုပဲ အာရုံစိုက်ချင်လို့ Kyung Sung တက္ကသိုလ်ကို ရွေးချယ်ခဲ့တာပါ။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4 (Visa Defense - CRITICAL) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex flex-wrap items-center gap-2">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Q4</span> 어학연수 기간 동안 학비와 생활비는 어떻게 할 건가요?
+                    <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">가장 중요 (비자 방어)</span>
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဘာသာစကားသင်တန်းတက်နေစဉ်အတွင်း ကျောင်းလခနဲ့ နေထိုင်စရိတ်ကို ဘယ်လိုဖြေရှင်းမလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        제 학비와 생활비는 모두 <span class="highlight-blank">[ 부모님 ]</span>께서 전적으로 지원해 주십니다.<br>
+                        아버님께서는 미얀마에서 <span class="highlight-blank">[ 부모님 직업/하시는 일 ]</span>을 안정적으로 하고 계십니다.<br>
+                        그래서 저는 아르바이트를 하지 않고 오직 경성대에서 한국어 공부에만 집중할 수 있습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်ရဲ့ ကျောင်းလခနဲ့ နေထိုင်စရိတ်အားလုံးကို <span class="text-red-600">[မိဘများ]</span> က အပြည့်အဝ ထောက်ပံ့ပေးမှာပါ။<br>
+                            အဖေက မြန်မာနိုင်ငံမှာ <span class="text-red-600">[အဖေ့အလုပ်အကိုင်]</span> ကို တည်တည်ငြိမ်ငြိမ် လုပ်ကိုင်နေပါတယ်။<br>
+                            ဒါကြောင့် ကျွန်မ/ကျွန်တော်က အချိန်ပိုင်းအလုပ် (Part-time) လုံးဝမလုပ်ဘဲ Kyung Sung တက္ကသိုလ်မှာ ကိုရီးယားစာလေ့လာဖို့ကိုပဲ ၁၀၀% အာရုံစိုက်နိုင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+                <p class="text-sm text-red-600 font-black mt-3 p-2 bg-red-50 rounded border border-red-200">
+                    * 원장님 코칭 주의사항: 어학연수생이 한국에 가서 "아르바이트(Part-time job)를 하겠다"고 말하면 100% 불합격 및 비자 거절입니다. 무조건 부모님의 든든한 재정 지원을 강조하게 해주세요!
+                </p>
+            </div>
+
+            <!-- Q5 (Visa Defense - CRITICAL) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex flex-wrap items-center gap-2">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Q5</span> 어학연수가 모두 끝난 후에는 어떻게 할 계획입니까?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">ဘာသာစကားသင်တန်း ပြီးဆုံးသွားတဲ့အခါ ရှေ့ဆက် ဘာလုပ်ဖို့ အစီအစဉ်ရှိလဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        한국어능력시험(TOPIK) 4급 이상을 딴 후에, <strong class="text-red-600">경성대학교 대학교 학사 과정에 입학하여 전공 공부를 계속할 계획입니다.</strong><br>
+                        그리고 대학교까지 무사히 졸업하면, <strong class="text-red-600">반드시 미얀마로 귀국</strong>하여 한국계 기업에 취업할 것입니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကိုရီးယားဘာသာစကားအရည်အချင်းစစ်စာမေးပွဲ (TOPIK) Level 4 အထက် ရရှိပြီးတဲ့အခါ၊ <strong class="text-red-700">Kyung Sung တက္ကသိုလ် ဘွဲ့ကြိုသင်တန်းကို ဝင်ခွင့်လျှောက်ပြီး မေဂျာဘာသာရပ်ကို ဆက်လက်သင်ယူဖို့ အစီအစဉ်ရှိပါတယ်။</strong><br>
+                            တက္ကသိုလ်ပြီးဆုံးသွားတဲ့အခါ <strong class="text-red-700">မြန်မာနိုင်ငံကို မဖြစ်မနေ ပြန်လာပြီး</strong> ကိုရီးယားကုမ္ပဏီမှာ အလုပ်ဝင်ပါမယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-sm">Q6</span> 미얀마에서 한국어 공부를 얼마나 했나요?
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">မြန်မာနိုင်ငံမှာ ကိုရီးယားစာကို ဘယ်လောက်ကြာကြာ လေ့လာခဲ့လဲ။</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        저는 미얀마 양곤에 있는 JOY 한국어학원(JKLC)에서 약 <span class="highlight-blank">[ 기간 / 예: 6개월 ]</span> 동안 한국어를 열심히 공부했습니다.<br>
+                        아직 완벽하지는 않지만, 읽고 쓰고 기본적인 대화는 할 수 있습니다. 경성대에서 더 열심히 배워서 꼭 한국어를 잘하고 싶습니다.
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            ကျွန်မ/ကျွန်တော်က ရန်ကုန်မှာရှိတဲ့ JOY Korean Language Center (JKLC) မှာ ကိုရီးယားစာကို <span class="text-red-600">[အချိန်ကာလ / ဥပမာ - ၆ လ]</span> လောက် ကြိုးကြိုးစားစား သင်ယူခဲ့ပါတယ်။<br>
+                            အရမ်းမကျွမ်းကျင်သေးပေမယ့် ဖတ်နိုင်၊ ရေးနိုင်ပြီး အခြေခံစကားပြောနိုင်ပါတယ်။ Kyung Sung တက္ကသိုလ်မှာ ပိုကြိုးစားသင်ယူပြီး ကိုရီးယားစာ အရမ်းတော်တဲ့သူ ဖြစ်ချင်ပါတယ်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q7 (Emergency Defense) -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 print-break relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-slate-500"></div>
+                <h3 class="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+                    <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-sm">Q7</span> (대처법) 질문이 빠르거나 모르는 단어가 나와서 못 알아들었을 때
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 font-bold">မေးခွန်းကမြန်နေလို့ ဒါမှမဟုတ် မသိတဲ့စကားလုံးပါလာလို့ နားမလည်လိုက်တဲ့အခါ ဖြေရှင်းနည်း</p>
+                
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <p class="text-slate-800 font-bold leading-relaxed mb-3">
+                        (당황하거나 가만히 있지 말고 공손하게 인사하며)<br>
+                        선생님, 죄송합니다. 제가 아직 한국어가 부족해서 잘 못 들었습니다. 천천히 다시 한 번만 말씀해 주시겠습니까?
+                    </p>
+                    <div class="border-t border-slate-300 pt-3">
+                        <p class="mm-text font-bold">
+                            (မထိတ်လန့်ဘဲ ဒါမှမဟုတ် ငြိမ်မနေဘဲ ယဉ်ယဉ်ကျေးကျေးဖြင့်)<br>
+                            ဆရာ/ဆရာမ၊ တောင်းပန်ပါတယ်။ ကျွန်တော်/ကျွန်မ ကိုရီးယားစာ အားနည်းသေးလို့ သေချာမကြားလိုက်ပါဘူး။ ဖြည်းဖြည်းချင်း နောက်တစ်ခေါက်လောက် ပြန်ပြောပေးလို့ရမလားရှင်/ခင်ဗျာ။
+                        </p>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 font-bold mt-2">* Tip: 침묵은 최악입니다. 못 알아들었을 때 한국어로 예의 바르게 다시 질문을 요청하는 것만으로도 합격 점수를 받을 수 있습니다.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (No Print) -->
+    <footer class="no-print py-8 text-center mt-10 border-t border-slate-200">
+        <p class="text-[11px] font-black text-blue-900 uppercase tracking-[0.2em] mb-1">
+            JOY KOREAN LANGUAGE CENTER <br><span class="font-normal opacity-70">YANGON · HLEDAN</span>
+        </p>
+        <p class="text-[10px] font-bold text-slate-400">Kyung Sung University - D-4 Program Mock Interview</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
