@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (05.30)</title>
+    <link class="flex items-center gap-3" rel="icon" href="favicon1.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; -webkit-user-select: none; user-select: none; }
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        .news-card { transition: all 0.3s; border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        .burmese-text { line-height: 1.8; }
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 9999; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.08; transform: rotate(-20deg); }
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC" class="h-8 relative z-10" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+                <span class="text-xs font-black text-slate-400 border-l pl-3 uppercase tracking-widest">Global News</span>
+            </a>
+            <div class="flex gap-2">
+                <a href="newslist.html" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition">List</a>
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6 shadow-sm relative overflow-hidden">
+            <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="newspaper" class="w-8 h-8"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900">오늘의 글로벌 뉴스</h1>
+                    <span class="text-xs font-bold text-slate-500 bg-white/80 px-3 py-1 rounded-full tracking-tighter">2026. 05. 30</span>
+                </div>
+                <p class="text-xs font-medium text-slate-500 burmese-text">ယနေ့ ကမ္ဘာ့သတင်း ၄ ခုကို ဖတ်ပြီး ကိုရီးယားဘာသာကို အတူလေ့လာကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80" alt="Smart Clothing" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Smart Textile</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="shirt" class="w-3.5 h-3.5"></i> 기술 / 섬유</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">입기만 해도 체온 조절! 한국 '스마트 의류' 상용화 가속</h2>
+                    <p class="text-slate-500 text-sm font-medium">한국의 연구진과 패션 기업들이 주변 온도에 따라 스스로 온도를 조절하는 스마트 의류 개발에 성공했습니다. 미세한 센서가 부착된 섬유가 인체의 체온을 실시간으로 감시하여 여름에는 시원하게, 겨울에는 따뜻하게 유지해 줍니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ဝတ်ဆင်ရုံရုံဖြင့် ခန္ဓာကိုယ်အပူချိန်ကို အလိုအလျောက်ထိန်းညှိပေးသည့် စမတ်အဝတ်အထည်</h2>
+                    <p class="text-slate-500 text-xs">ဝတ်ဆင်ရုံရုံဖြင့် ခန္ဓာကိုယ်အပူချိန်ကို အလိုအလျောက်ထိန်းညှိပေးသည့် ကိုရီးယား၏ စမတ်အဝတ်အထည်နည်းပညာသည် လက်တွေ့အသုံးပြုနိုင်သည့်အဆင့်သို့ ရောက်ရှိလာပြီဖြစ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600&q=80" alt="K-Drink" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-red-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">K-Food</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-red-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="cup-straw" class="w-3.5 h-3.5"></i> 문화 / 음식</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">전통 음료의 화려한 외출! 전 세계 사로잡은 'K-디저트 음료'</h2>
+                    <p class="text-slate-500 text-sm font-medium">한국의 전통 음료인 식혜와 수정과가 현대적인 감각의 탄산음료나 슬러시로 변신하여 해외 시장에서 열풍을 일으키고 있습니다. 건강을 생각하는 웰빙 트렌드와 결합하여 자극적이지 않고 깊은 맛이 큰 인기를 얻고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">ကမ္ဘာတစ်ဝှမ်း ခေတ်စားလျက်ရှိသည့် ကိုရီးယားရိုးရာဖျော်ရည်များ</h2>
+                    <p class="text-slate-500 text-xs">ကိုရီးယားရိုးရာဖျော်ရည်များဖြစ်သည့် ဆစ်ခေ (Sikhye) နှင့် ဆူဂျောခွါ (Sujeonggwa) တို့ကို ခေတ်မီစတိုင်ဖြင့် ပြောင်းလဲထုတ်လုပ်ထားသည့် ဖျော်ရည်များ ကမ္ဘာတစ်ဝှမ်း ခေတ်စားလျက်ရှိသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?w=600&q=80" alt="Eco Sweeper" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Green Tech</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="wind" class="w-3.5 h-3.5"></i> 환경 / 로봇</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">먼지 흡입과 정화를 동시에! '자율주행 친환경 청소 로봇' 도입</h2>
+                    <p class="text-slate-500 text-sm font-medium">한국의 도심 광장과 도로에 미세먼지를 강력하게 흡입하고 깨끗한 공기를 배출하는 자율주행 청소 로봇이 배치되었습니다. 수소 연료 전지를 동력으로 사용하여 소음이 거의 없고 공기 정화 효율성도 뛰어납니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">အလိုအလျောက်မောင်းနှင်သော ပတ်ဝန်းကျင်ထိန်းသိမ်းရေး စက်ရုပ်များ</h2>
+                    <p class="text-slate-500 text-xs">ဖုန်မှုန့်များကို စုပ်ယူသန့်စင်ပေးသည့် အလိုအလျောက်မောင်းနှင်သော ပတ်ဝန်းကျင်ထိန်းသိမ်းရေး စက်ရုပ်များကို မြို့ပြလမ်းမများတွင် စတင်နေရာချထားလိုက်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&q=80" alt="Metaverse Study" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-purple-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Meta Class</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-purple-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="smile" class="w-3.5 h-3.5"></i> 교육 / 미래</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">교실 밖 가상 공간에서 대화! '메타버스 한국어 교실' 열기</h2>
+                    <p class="text-slate-500 text-sm font-medium">전 세계 학생들이 가상 공간에 구축된 한국의 명소를 아바타로 누비며 한국어 대화를 연습하는 메타버스 한국어 수업이 큰 주목을 받고 있습니다. 흥미진진한 체험식 학습이 학생들의 공부 동기부여를 극대화하고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">Metaverse စာသင်ခန်းများတွင် ကိုရီးယားဘာသာစကားကို လေ့လာခြင်း</h2>
+                    <p class="text-slate-500 text-xs">ကိုရီးယားရိုးရာနေရာများကို အခြေခံဖန်တီးထားသည့် Metaverse စာသင်ခန်းများတွင် ကိုရီးယားဘာသာစကားကို ပိုမိုတက်ကြွပျော်ရွှင်စွာ လေ့လာသင်ယူနေကြသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                <div class="vocab-item"><h3 class="text-lg font-bold">조절하다 <span class="text-xs font-normal text-slate-400 ml-2">(Adjust/Control)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထိန်းညှိသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">부착하다 <span class="text-xs font-normal text-slate-400 ml-2">(Attach)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကပ်ထားသည် / တပ်ဆင်သည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">열풍 <span class="text-xs font-normal text-slate-400 ml-2">(Craze/Fever)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ခေတ်စားမှုလှိုင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">배치하다 <span class="text-xs font-normal text-slate-400 ml-2">(Deploy/Arrange)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">နေရာချထားသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">효율성 <span class="text-xs font-normal text-slate-400 ml-2">(Efficiency)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စွမ်းဆောင်ရည်မြှင့်မားမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">상용화 <span class="text-xs font-normal text-slate-400 ml-2">(Commercialization)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လက်တွေ့အသုံးပြုနိုင်ခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">가상 <span class="text-xs font-normal text-slate-400 ml-2">(Virtual)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လက်တွေ့မဟုတ်သော / စိတ်ကူးယဉ်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">체험하다 <span class="text-xs font-normal text-slate-400 ml-2">(Experience)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">လက်တွေ့ကြုံတွေ့ခံစားသည်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">정화하다 <span class="text-xs font-normal text-slate-400 ml-2">(Purify)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">သန့်စင်စေခြင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">동기부여 <span class="text-xs font-normal text-slate-400 ml-2">(Motivation)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စိတ်ဓာတ်လှုံ့ဆော်မှုပေးခြင်း</p></div>
+            </div>
+        </article>
+
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl p-8 md:p-10 text-white text-center">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full"><i data-lucide="help-circle" class="w-12 h-12"></i></div>
+                    <h2 class="text-3xl font-black">어휘 퀴즈 도전!</h2>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">시작하기</button>
+                </div>
+            </div>
+            <div id="quiz-play-view" class="hidden text-left">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Question 1 / 10</span>
+                    <span id="score-display" class="font-bold">0</span>
+                </div>
+                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10 text-center"></h3>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black shadow-md tracking-tighter">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            </div>
+            <div id="quiz-result-view" class="hidden space-y-8">
+                <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                <p class="text-blue-100 font-bold">오늘도 훌륭한 한국어 학습이었습니다!</p>
+                <button onclick="location.reload()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg">다시 하기</button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
+            <p class="text-[9px] font-bold text-slate-300">© 2026 JKLC Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+
+        const quizData = [
+            { q: "조절하다", a: "ထိန်းညှိသည်", choices: ["ထိန်းညှိသည်", "ကပ်ထားသည် / တပ်ဆင်သည်", "နေရာချထားသည်", "သန့်စင်စေခြင်း"] },
+            { q: "부착하다", a: "ကပ်ထားသည် / တပ်ဆင်သည်", choices: ["ကပ်ထားသည် / တပ်ဆင်သည်", "ခေတ်စားမှုလှိုင်း", "လက်တွေ့မဟုတ်သော", "စိတ်ဓာတ်လှုံ့ဆော်မှုပေးခြင်း"] },
+            { q: "열풍", a: "ခေတ်စားမှုလှိုင်း", choices: ["ခေတ်စားမှုလှိုင်း", "စွမ်းဆောင်ရည်မြှင့်မားမှု", "လက်တွေ့ကြုံတွေ့ခံစားသည်", "ထိန်းညှိသည်"] },
+            { q: "배치하다", a: "နေရာချထားသည်", choices: ["နေရာချထားသည်", "ကပ်ထားသည် / တပ်ဆင်သည်", "သန့်စင်စေခြင်း", "လက်တွေ့အသုံးပြုနိုင်ခြင်း"] },
+            { q: "효율성", a: "စွမ်းဆောင်ရည်မြှင့်မားမှု", choices: ["စွမ်းဆောင်ရည်မြှင့်မားမှု", "ခေတ်စားမှုလှိုင်း", "စိတ်ဓာတ်လှုံ့ဆော်မှုပေးခြင်း", "လက်တွေ့မဟုတ်သော"] },
+            { q: "상용화", a: "လက်တွေ့အသုံးပြုနိုင်ခြင်း", choices: ["လက်တွေ့အသုံးပြုနိုင်ခြင်း", "သန့်စင်စေခြင်း", "ထိန်းညှိသည်", "နေရာချထားသည်"] },
+            { q: "가상", a: "လက်တွေ့မဟုတ်သော / စိတ်ကူးယဉ်", choices: ["လက်တွေ့မဟုတ်သော / စိတ်ကူးယဉ်", "လက်တွေ့ကြုံတွေ့ခံစားသည်", "စွမ်းဆောင်ရည်မြှင့်မားမှု", "ကပ်ထားသည် / တပ်ဆင်သည်"] },
+            { q: "체험하다", a: "လက်တွေ့ကြုံတွေ့ခံစားသည်", choices: ["လက်တွေ့ကြုံတွေ့ခံစားသည်", "စိတ်ဓာတ်လှုံ့ဆော်မှုပေးခြင်း", "သန့်စင်စေခြင်း", "ခေတ်စားမှုလှိုင်း"] },
+            { q: "정화하다", a: "သန့်စင်စေခြင်း", choices: ["သန့်စင်စေခြင်း", "ထိန်းညှိသည်", "လက်တွေ့မဟုတ်သော", "စွမ်းဆောင်ရည်မြှင့်မားမှု"] },
+            { q: "동기부여", a: "စိတ်ဓာတ်လှုံ့ဆော်မှုပေးခြင်း", choices: ["စိတ်ဓာတ်လှုံ့ဆော်မှုပေးခြင်း", "လက်တွေ့ကြုံတွေ့ခံစားသည်", "လက်တွေ့အသုံးပြုနိုင်ခြင်း", "ကပ်ထားသည် / တပ်ဆင်သည်"] }
+        ];
+
+        let currentIndex = 0, score = 0, canAnswer = true;
+        const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+        function startQuiz() {
+            document.getElementById('vocab-section').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true; const data = quizData[currentIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은?`;
+            document.getElementById('next-btn').classList.add('hidden');
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            shuffle([...data.choices]).forEach(choice => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-center shadow-sm';
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (!canAnswer) return; canAnswer = false;
+                    if (choice === data.a) { btn.classList.add('correct'); score++; document.getElementById('score-display').innerText = score; }
+                    else { btn.classList.add('wrong'); Array.from(grid.children).forEach(c => { if(c.innerText === data.a) c.classList.add('correct'); }); }
+                    document.getElementById('next-btn').classList.remove('hidden');
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < 10) showQuestion();
+            else {
+                document.getElementById('quiz-play-view').classList.add('hidden');
+                document.getElementById('quiz-result-view').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / 10`;
+            }
+        }
+    </script>
+</body>
+</html>
