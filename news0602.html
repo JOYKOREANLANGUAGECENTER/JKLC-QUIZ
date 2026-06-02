@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Global News (06.02)</title>
+    <link rel="icon" href="favicon1.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --j: #FFD700; --k: #0070BB; --l: #228B22; --c: #ED1C24; }
+        body { font-family: 'Noto Sans KR', 'Pyidaungsu', sans-serif; background: #f8fafc; -webkit-user-select: none; user-select: none; }
+        .jklc-top-bar { height: 8px; background: linear-gradient(to right, var(--j), var(--k), var(--l), var(--c)); }
+        .news-card { transition: all 0.3s; border: 1px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--k); box-shadow: 0 20px 25px -5px rgba(0, 112, 187, 0.05); }
+        .burmese-text { line-height: 1.8; }
+        .vocab-item { border-left: 3px solid var(--k); padding-left: 1rem; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 9999; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.08; transform: rotate(-20deg); }
+        .quiz-option { transition: all 0.2s; cursor: pointer; border: 2px solid #f1f5f9; }
+        .quiz-option:hover { border-color: var(--k); background-color: #f0f9ff; }
+        .quiz-option.correct { border-color: #22c55e; background-color: #f0fdf4; color: #15803d; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: #fef2f2; color: #b91c1c; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative overflow-x-hidden">
+    <div class="watermark-bg"></div>
+    <div class="jklc-top-bar"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="JKLC" class="h-8 relative z-10" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+                <span class="text-xs font-black text-slate-400 border-l pl-3 uppercase tracking-widest">Global News</span>
+            </a>
+            <div class="flex gap-2">
+                <a href="newslist.html" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition">List</a>
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-blue-700 transition">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-4xl mx-auto px-4 py-10 w-full">
+        <div class="bg-blue-50 border border-blue-100 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-6 shadow-sm relative overflow-hidden">
+            <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 shrink-0 relative z-10">
+                <i data-lucide="newspaper" class="w-8 h-8"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <h1 class="text-2xl md:text-3xl font-black text-slate-900">오늘의 글로벌 뉴스</h1>
+                    <span class="text-xs font-bold text-slate-500 bg-white/80 px-3 py-1 rounded-full tracking-tighter">2026. 06. 02</span>
+                </div>
+                <p class="text-xs font-medium text-slate-500 burmese-text">ယနေ့ ကမ္ဘာ့သတင်း ၄ ခုကို ဖတ်ပြီး ကိုရီးယားဘာသာကို အတူလေ့လာကြရအောင်။</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 space-y-8 w-full flex-grow relative z-10">
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="AI data center" onerror="this.src='https://images.unsplash.com/photo-1563770660941-10a6360762a5?w=600&q=80'" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">AI Tech</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-blue-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> 기술 / 경제</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">엔비디아 CEO, “AI 성장 수요는 크지만 공급 제약은 남아 있다”</h2>
+                    <p class="text-slate-500 text-sm font-medium">엔비디아의 젠슨 황 CEO는 대만 컴퓨텍스 기간 기자회견에서 CPU와 GPU의 강한 성장 수요에 대응할 공급을 확보했지만, 여전히 공급 제약이 있다고 밝혔습니다. 엔비디아는 AI 시대에 맞춰 PC에 직접 AI 기능을 넣는 새 칩도 준비하고 있습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">Nvidia CEO က AI chip ဝယ်လိုအား မြင့်မားနေပြီး supply အခက်အခဲများ ကျန်ရှိနေသေးကြောင်း ပြော</h2>
+                    <p class="text-slate-500 text-xs">AI boom ကြောင့် chip လိုအပ်ချက်များ တိုးလာနေပြီး Nvidia သည် AI PC အတွက် chip အသစ်များကိုလည်း ပြင်ဆင်နေသည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&q=80" alt="climate" onerror="this.src='https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&q=80'" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-orange-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Climate</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-orange-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="sun" class="w-3.5 h-3.5"></i> 환경 / 기후</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">UN, “엘니뇨로 세계 기온 더 오를 수 있다” 경고</h2>
+                    <p class="text-slate-500 text-sm font-medium">세계기상기구는 중간 또는 강한 수준의 엘니뇨가 발생할 가능성이 있으며, 이로 인해 앞으로 몇 달 동안 세계 기온이 오르고 폭염·가뭄·폭우 위험이 커질 수 있다고 밝혔습니다. 특히 6월부터 8월까지 많은 지역에서 평균보다 높은 기온이 예상됩니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">UN က El Niño ကြောင့် ကမ္ဘာ့အပူချိန် ပိုမြင့်နိုင်ကြောင်း သတိပေး</h2>
+                    <p class="text-slate-500 text-xs">အပူလှိုင်း၊ မိုးသည်းထန်ခြင်းနှင့် မိုးခေါင်ခြင်းများ ပိုမိုဖြစ်နိုင်သောကြောင့် ကြိုတင်ပြင်ဆင်ရန် လိုအပ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2">
+                <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=600&q=80&v=2" alt="FIFA football" onerror="this.src='https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=600&q=80&v=2'" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-green-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">World Cup</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-green-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="trophy" class="w-3.5 h-3.5"></i> 스포츠 / 방송</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">FIFA, 인도 Zee와 월드컵 중계권 계약 체결</h2>
+                    <p class="text-slate-500 text-sm font-medium">FIFA는 2026 월드컵 개막을 앞두고 인도 Zee Entertainment와 중계권 계약을 맺었습니다. 이번 계약으로 인도 시청자들은 월드컵을 볼 수 있게 되었고, Zee는 앞으로 8년 동안 여러 FIFA 대회 중계권도 확보했습니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">FIFA က India ရှိ Zee နှင့် World Cup ထုတ်လွှင့်ခွင့် စာချုပ်ချုပ်ဆို</h2>
+                    <p class="text-slate-500 text-xs">World Cup စတင်ရန် နီးကပ်လာချိန်တွင် India ပရိသတ်များအတွက် ကြည့်ရှုနိုင်မည့် လမ်းကြောင်းတစ်ခု ပြင်ဆင်လိုက်ခြင်းဖြစ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-2/5 h-56 md:h-auto relative p-2 md:order-last">
+                <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80" alt="Basketball" onerror="this.src='https://images.unsplash.com/photo-1519861531473-9200262188bf?w=600&q=80'" class="w-full h-full object-cover rounded-[2rem]">
+                <span class="absolute bottom-6 left-6 bg-purple-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Sports Brand</span>
+            </div>
+            <div class="p-6 md:p-8 md:w-3/5">
+                <div class="mb-5">
+                    <div class="flex items-center text-purple-600 text-xs font-black uppercase mb-2 gap-1.5"><i data-lucide="badge-dollar-sign" class="w-3.5 h-3.5"></i> 스포츠 / 브랜드</div>
+                    <h2 class="text-xl font-black text-slate-900 mb-3 leading-snug">스테픈 커리, 중국 스포츠 브랜드 리닝과 장기 계약</h2>
+                    <p class="text-slate-500 text-sm font-medium">NBA 골든스테이트의 스타 스테픈 커리가 중국 스포츠웨어 회사 리닝과 장기 신발·의류 계약을 맺었습니다. 커리 브랜드는 농구뿐 아니라 골프와 라이프스타일 분야에서도 세계적인 영향력을 넓히겠다는 계획입니다.</p>
+                </div>
+                <div class="h-px w-full bg-slate-100 my-4"></div>
+                <div class="burmese-text">
+                    <h2 class="text-base font-bold text-slate-800 mb-2">Stephen Curry က တရုတ် sportswear brand Li-Ning နှင့် ရေရှည်စာချုပ်ချုပ်ဆို</h2>
+                    <p class="text-slate-500 text-xs">Curry Brand သည် basketball၊ golf နှင့် lifestyle ကဏ္ဍများတွင် ကမ္ဘာလုံးဆိုင်ရာ reach ကို ပိုမိုချဲ့ထွင်ရန် ရည်ရွယ်သည်။</p>
+                </div>
+            </div>
+        </article>
+
+        <article id="vocab-section" class="news-card bg-white rounded-[2.5rem] shadow-sm border border-slate-50 p-8">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <h2 class="text-xl font-black text-slate-900">오늘의 뉴스 어휘 (10단어)</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                <div class="vocab-item"><h3 class="text-lg font-bold">공급 <span class="text-xs font-normal text-slate-400 ml-2">(Supply)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထောက်ပံ့ရေး / ပေးဝေမှု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">제약 <span class="text-xs font-normal text-slate-400 ml-2">(Constraint)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကန့်သတ်ချက်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">반도체 <span class="text-xs font-normal text-slate-400 ml-2">(Semiconductor)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ဆီမီကွန်ဒတ်တာ / chip</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">기후 <span class="text-xs font-normal text-slate-400 ml-2">(Climate)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ရာသီဥတု</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">엘니뇨 <span class="text-xs font-normal text-slate-400 ml-2">(El Niño)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ပစိဖိတ်သမုဒ္ဒရာအပူချိန် မြင့်တက်သည့် ရာသီဥတုပုံစံ</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">폭염 <span class="text-xs font-normal text-slate-400 ml-2">(Heat wave)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အပူလှိုင်း</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">중계권 <span class="text-xs font-normal text-slate-400 ml-2">(Broadcasting rights)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ထုတ်လွှင့်ခွင့်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">월드컵 <span class="text-xs font-normal text-slate-400 ml-2">(World Cup)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">ကမ္ဘာ့ဖလား</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">계약 <span class="text-xs font-normal text-slate-400 ml-2">(Contract)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">စာချုပ်</p></div>
+                <div class="vocab-item"><h3 class="text-lg font-bold">브랜드 <span class="text-xs font-normal text-slate-400 ml-2">(Brand)</span></h3><p class="text-sm text-slate-600 burmese-text mt-1">အမှတ်တံဆိပ်</p></div>
+            </div>
+        </article>
+
+        <article id="quiz-container" class="bg-blue-600 rounded-[2.5rem] shadow-xl p-8 md:p-10 text-white text-center">
+            <div id="quiz-start-view">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="bg-white/20 p-4 rounded-full"><i data-lucide="help-circle" class="w-12 h-12"></i></div>
+                    <h2 class="text-3xl font-black">어휘 퀴즈 도전!</h2>
+                    <button onclick="startQuiz()" class="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-50 transition transform hover:scale-105 active:scale-95">시작하기</button>
+                </div>
+            </div>
+            <div id="quiz-play-view" class="hidden text-left">
+                <div class="flex justify-between items-center mb-8">
+                    <span id="question-counter" class="bg-blue-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Question 1 / 10</span>
+                    <span id="score-display" class="font-bold">0</span>
+                </div>
+                <h3 id="question-text" class="text-2xl font-black leading-tight mb-10 text-center"></h3>
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-8 ml-auto flex items-center gap-2 px-8 py-3 bg-white text-blue-600 rounded-xl font-black shadow-md tracking-tighter">다음 문제 <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            </div>
+            <div id="quiz-result-view" class="hidden space-y-8">
+                <h2 class="text-5xl font-black mb-2" id="final-score">0 / 10</h2>
+                <p class="text-blue-100 font-bold">오늘도 훌륭한 한국어 학습이었습니다!</p>
+                <button onclick="location.reload()" class="px-8 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg">다시 하기</button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center mt-auto relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <img src="logo.png" alt="JKLC" class="h-10 mx-auto mb-6 opacity-80" onerror="this.src='https://via.placeholder.com/150?text=JKLC'">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-4">JOY KOREAN LANGUAGE CENTER <br> HLEDAN, YANGON</p>
+            <p class="text-[9px] font-bold text-slate-300">© 2026 JKLC Global News. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+
+        const quizData = [
+            { q: "공급", a: "ထောက်ပံ့ရေး / ပေးဝေမှု", choices: ["ထောက်ပံ့ရေး / ပေးဝေမှု", "ကန့်သတ်ချက်", "အပူလှိုင်း", "စာချုပ်"] },
+            { q: "제약", a: "ကန့်သတ်ချက်", choices: ["ကန့်သတ်ချက်", "ကမ္ဘာ့ဖလား", "အမှတ်တံဆိပ်", "ရာသီဥတု"] },
+            { q: "반도체", a: "ဆီမီကွန်ဒတ်တာ / chip", choices: ["ဆီမီကွန်ဒတ်တာ / chip", "ထုတ်လွှင့်ခွင့်", "စာချုပ်", "အပူလှိုင်း"] },
+            { q: "기후", a: "ရာသီဥတု", choices: ["ရာသီဥတု", "ကမ္ဘာ့ဖလား", "အမှတ်တံဆိပ်", "ထောက်ပံ့ရေး / ပေးဝေမှု"] },
+            { q: "엘니뇨", a: "ပစိဖိတ်သမုဒ္ဒရာအပူချိန် မြင့်တက်သည့် ရာသီဥတုပုံစံ", choices: ["ပစိဖိတ်သမုဒ္ဒရာအပူချိန် မြင့်တက်သည့် ရာသီဥတုပုံစံ", "စာချုပ်", "ဆီမီကွန်ဒတ်တာ / chip", "ထုတ်လွှင့်ခွင့်"] },
+            { q: "폭염", a: "အပူလှိုင်း", choices: ["အပူလှိုင်း", "ကန့်သတ်ချက်", "ကမ္ဘာ့ဖလား", "အမှတ်တံဆိပ်"] },
+            { q: "중계권", a: "ထုတ်လွှင့်ခွင့်", choices: ["ထုတ်လွှင့်ခွင့်", "ရာသီဥတု", "စာချုပ်", "ထောက်ပံ့ရေး / ပေးဝေမှု"] },
+            { q: "월드컵", a: "ကမ္ဘာ့ဖလား", choices: ["ကမ္ဘာ့ဖလား", "ဆီမီကွန်ဒတ်တာ / chip", "အပူလှိုင်း", "ကန့်သတ်ချက်"] },
+            { q: "계약", a: "စာချုပ်", choices: ["စာချုပ်", "အမှတ်တံဆိပ်", "ရာသီဥတု", "ထုတ်လွှင့်ခွင့်"] },
+            { q: "브랜드", a: "အမှတ်တံဆိပ်", choices: ["အမှတ်တံဆိပ်", "ထောက်ပံ့ရေး / ပေးဝေမှု", "ကမ္ဘာ့ဖလား", "ပစိဖိတ်သမုဒ္ဒရာအပူချိန် မြင့်တက်သည့် ရာသီဥတုပုံစံ"] }
+        ];
+
+        let currentIndex = 0, score = 0, canAnswer = true;
+        const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+        function startQuiz() {
+            document.getElementById('vocab-section').classList.add('hidden');
+            document.getElementById('quiz-start-view').classList.add('hidden');
+            document.getElementById('quiz-play-view').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            canAnswer = true; const data = quizData[currentIndex];
+            document.getElementById('question-counter').innerText = `Question ${currentIndex + 1} / 10`;
+            document.getElementById('question-text').innerText = `"${data.q}" 의 뜻은?`;
+            document.getElementById('next-btn').classList.add('hidden');
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            shuffle([...data.choices]).forEach(choice => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option bg-white text-slate-800 p-5 rounded-2xl font-bold text-center shadow-sm';
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (!canAnswer) return; canAnswer = false;
+                    if (choice === data.a) { btn.classList.add('correct'); score++; document.getElementById('score-display').innerText = score; }
+                    else { btn.classList.add('wrong'); Array.from(grid.children).forEach(c => { if(c.innerText === data.a) c.classList.add('correct'); }); }
+                    document.getElementById('next-btn').classList.remove('hidden');
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < 10) showQuestion();
+            else {
+                document.getElementById('quiz-play-view').classList.add('hidden');
+                document.getElementById('quiz-result-view').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / 10`;
+            }
+        }
+    </script>
+</body>
+</html>
