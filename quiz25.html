@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOY Korean Language Center - Korean Home & Living Space Quiz</title>
+    <link rel="icon" href="favicon1.png" type="image/png">	
+    <link rel="apple-touch-icon" href="favicon1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Myanmar:wght@400;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --jklc-blue: #0070BB; --jklc-yellow: #FFD700; --jklc-red: #ED1C24; --jklc-green: #228B22; }
+        body { font-family: 'Noto Sans KR', 'Noto Sans Myanmar', 'Pyidaungsu', sans-serif; background-color: #f0f4f8; line-height: 1.6; user-select: none; }
+        .quiz-container { max-width: 500px; margin: 0 auto; min-height: 100vh; background: white; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .option-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .option-btn:active { transform: scale(0.98); }
+        .correct { background-color: #10b981 !important; color: white !important; border-color: #10b981 !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-watermark { opacity: 0.3; pointer-events: none; user-select: none; }
+        .watermark-bg { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 0; background-image: url('logo.png'); background-repeat: repeat; background-size: 375px; opacity: 0.05; transform: rotate(-20deg); }
+    </style>
+</head>
+<body class="antialiased" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="watermark-bg"></div>
+    <div id="app" class="quiz-container relative overflow-hidden">
+        <!-- 상단 4색 브랜드 탑바 -->
+        <div class="h-2 w-full flex sticky top-0 z-50">
+            <div class="flex-1 bg-[#FFD700]"></div><div class="flex-1 bg-[#0070BB]"></div><div class="flex-1 bg-[#228B22]"></div><div class="flex-1 bg-[#ED1C24]"></div>
+        </div>
+
+        <!-- 네비게이션 -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-100 px-4 py-3 sticky top-2 z-40 flex justify-between items-center text-left">
+            <div class="flex gap-2 relative z-10">
+                <a href="index.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm"><i data-lucide="home" class="w-4 h-4"></i></a>
+                <a href="quiz.html" class="p-2 bg-slate-50 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition shadow-sm"><i data-lucide="list" class="w-4 h-4"></i></a>
+            </div>
+            <img src="logo.png" alt="JKLC Logo" class="h-8 w-auto relative z-10">
+            <div class="w-10"></div> 
+        </nav>
+
+        <!-- 시작 화면 -->
+        <div id="start-screen" class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in relative z-10">
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-inner"><i data-lucide="home" class="w-10 h-10"></i></div>
+            <h1 class="text-3xl font-black text-slate-800 mb-2 leading-tight">한국의 집과 생활공간</h1>
+            <p class="text-blue-600 font-bold text-sm mb-10 italic uppercase tracking-widest">Korean Home & Living Space</p>
+            <div class="bg-blue-50/90 backdrop-blur-sm p-6 rounded-3xl mb-12 text-left border-l-4 border-blue-500 w-full shadow-sm">
+                <p class="text-[10px] text-blue-900 font-black mb-1 tracking-widest uppercase">Daily Quiz Day 25 · 2026.06.02</p>
+                <p class="text-sm text-blue-800 font-medium leading-relaxed">집, 방, 거실, 월세 등 한국 생활에 꼭 필요한 주거 표현을 배웁니다!<br><span class="font-bold">ကိုရီးယားတွင် နေထိုင်ရာ၌ လိုအပ်သော အိမ်နှင့် နေထိုင်မှုဆိုင်ရာ စကားလုံးများကို လေ့လာကြရအောင်။</span></p>
+            </div>
+            <button onclick="quiz.start()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl text-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3"><i data-lucide="play-circle" class="w-6 h-6"></i> 시작하기 (စတင်ပါ)</button>
+        </div>
+
+        <!-- 퀴즈 플레이 화면 -->
+        <div id="quiz-screen" class="hidden flex-1 flex flex-col p-6 fade-in relative z-10">
+            <div class="flex justify-between items-center mb-8"><div class="flex space-x-1 flex-1 mr-4" id="progress-dots"></div><span id="q-counter" class="text-[10px] font-black bg-slate-100 text-slate-500 px-3 py-1 rounded-full whitespace-nowrap">1 / 10</span></div>
+            <div class="mb-6 text-left"><h2 id="question-text" class="text-xl font-black text-slate-800 leading-snug mb-2"></h2><p id="question-myanmar" class="text-sm text-slate-500 font-medium font-['Pyidaungsu']"></p></div>
+            <div class="flex justify-center my-4 content-watermark"><img src="logo.png" alt="JKLC" class="h-10 w-auto"></div>
+            <div id="options-container" class="space-y-3 mb-6 flex-1"></div>
+
+            <!-- 피드백 구역 -->
+            <div id="feedback-area" class="hidden text-left">
+                <div id="feedback-card" class="p-5 rounded-[2rem] mb-6 shadow-sm border transition-all duration-300"><div class="flex items-center mb-2"><span id="result-icon" class="text-2xl mr-2"></span><h3 id="result-title" class="font-black text-lg tracking-tight"></h3></div><p id="rationale-text" class="text-xs font-bold leading-relaxed mb-3"></p><div id="hint-display" class="bg-white/50 p-3 rounded-xl border border-dashed border-current opacity-80"><p class="text-[10px] font-black uppercase tracking-wider mb-1">Teacher's Hint</p><p id="hint-text" class="text-xs font-medium italic"></p></div></div>
+                <button id="next-btn" onclick="quiz.next()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl hover:bg-black transition transform active:scale-95 flex items-center justify-center gap-2">다음 문제 (နောက်တစ်ခု) <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result-screen" class="hidden flex-1 flex flex-col items-center p-8 text-center fade-in overflow-y-auto relative z-10">
+            <img src="logo.png" alt="JKLC Logo" class="h-12 mb-4 opacity-50"><h2 class="text-3xl font-black text-slate-800 mb-2">수고하셨습니다!</h2><p class="text-slate-400 font-bold mb-8 tracking-widest uppercase text-[10px]">Quiz Completed</p>
+            <div class="w-full bg-blue-600 rounded-[3rem] p-8 mb-6 text-white shadow-2xl relative overflow-hidden text-left"><div class="absolute -top-6 -right-6 opacity-10"><i data-lucide="award" class="w-32 h-32 text-white"></i></div><p class="text-[10px] font-black opacity-70 mb-2 tracking-widest uppercase">Your Score</p><div class="text-7xl font-black tracking-tighter" id="final-score">0</div><p class="mt-4 font-bold text-sm leading-snug" id="final-comment"></p></div>
+            <button onclick="location.reload()" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl hover:bg-blue-700 transition shadow-lg mb-4 flex items-center justify-center gap-2"><i data-lucide="refresh-cw" class="w-5 h-5"></i> 다시 하기 (Restart)</button>
+            <button onclick="location.href='quiz.html'" class="w-full bg-slate-100/90 text-slate-500 font-black py-5 rounded-2xl hover:bg-slate-200 transition flex items-center justify-center gap-2"><i data-lucide="list" class="w-4 h-4"></i> 목록으로 돌아가기</button>
+        </div>
+
+        <footer class="p-6 text-center border-t border-slate-100 mt-auto relative z-10"><img src="logo.png" alt="JKLC Logo" class="h-8 mx-auto mb-4 opacity-50"><p class="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase">© JOY KOREAN LANGUAGE CENTER</p></footer>
+    </div>
+
+    <script>
+        const sndCorrect = new Audio('correct.mp3'); const sndWrong = new Audio('wrong.mp3');
+        const quizData = [
+            {
+                        "q": "사람이 살고 생활하는 곳을 뜻하는 한국어 단어는 무엇입니까?",
+                        "m": "လူများနေထိုင်ပြီး ဘဝကိုဖြတ်သန်းသည့်နေရာကို ကိုရီးယားလို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "집",
+                                    "학교",
+                                    "회사",
+                                    "공항"
+                        ],
+                        "correct": 0,
+                        "hint": "가장 기본적인 생활 공간을 뜻합니다။",
+                        "rationale": "집은 사람이 살고 쉬는 가장 기본적인 생활 공간을 뜻합니다."
+            },
+            {
+                        "q": "잠을 자는 방을 무엇이라고 합니까?",
+                        "m": "အိပ်ရာဝင်သော အခန်းကို ကိုရီးယားလို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "거실",
+                                    "침실",
+                                    "부엌",
+                                    "현관"
+                        ],
+                        "correct": 1,
+                        "hint": "침대가 있는 방이라고 생각하면 쉽습니다။",
+                        "rationale": "침실은 잠을 자거나 쉬는 방을 뜻합니다."
+            },
+            {
+                        "q": "가족이 함께 TV를 보거나 쉬는 공간은 무엇입니까?",
+                        "m": "မိသားစုအတူ TV ကြည့်ပြီး အနားယူသော နေရာကို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "욕실",
+                                    "거실",
+                                    "부엌",
+                                    "베란다"
+                        ],
+                        "correct": 1,
+                        "hint": "집에서 가장 넓은 공용 공간인 경우가 많습니다။",
+                        "rationale": "거실은 가족이나 손님이 함께 앉아 쉬는 공간입니다."
+            },
+            {
+                        "q": "요리를 하는 공간을 무엇이라고 합니까?",
+                        "m": "ဟင်းချက်သည့် နေရာကို ကိုရီးယားလို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "부엌",
+                                    "방",
+                                    "현관",
+                                    "계단"
+                        ],
+                        "correct": 0,
+                        "hint": "밥을 만들고 설거지를 하는 곳입니다။",
+                        "rationale": "부엌은 요리하고 음식을 준비하는 공간입니다."
+            },
+            {
+                        "q": "씻거나 샤워하고 화장실을 사용하는 공간은 무엇입니까?",
+                        "m": "ရေချိုးခြင်း၊ မျက်နှာသစ်ခြင်း၊ အိမ်သာသုံးခြင်း ပြုလုပ်သောနေရာမှာ?",
+                        "options": [
+                                    "거실",
+                                    "욕실",
+                                    "마당",
+                                    "주방"
+                        ],
+                        "correct": 1,
+                        "hint": "욕실은 bathroom의 의미입니다။",
+                        "rationale": "욕실은 씻거나 샤워하고 화장실을 이용하는 공간을 말합니다."
+            },
+            {
+                        "q": "집에 들어가고 나갈 때 신발을 벗거나 신는 공간은 무엇입니까?",
+                        "m": "အိမ်ထဲဝင်/ထွက်ရာတွင် ဖိနပ်ချွတ် သို့မဟုတ် စီးသည့်နေရာကို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "현관",
+                                    "침실",
+                                    "창문",
+                                    "천장"
+                        ],
+                        "correct": 0,
+                        "hint": "한국 집에서는 보통 여기서 신발을 벗습니다။",
+                        "rationale": "현관은 집의 출입구이며, 한국에서는 보통 현관에서 신발을 벗습니다."
+            },
+            {
+                        "q": "혼자 사는 사람이 많이 사는 작은 주거 형태는 무엇입니까?",
+                        "m": "တစ်ယောက်တည်း နေထိုင်သူများ မကြာခဏ နေထိုင်သော သေးငယ်သည့် အခန်းအမျိုးအစားမှာ?",
+                        "options": [
+                                    "원룸",
+                                    "운동장",
+                                    "도서관",
+                                    "식당"
+                        ],
+                        "correct": 0,
+                        "hint": "방 하나에 침실, 주방, 생활공간이 함께 있는 경우가 많습니다။",
+                        "rationale": "원룸은 방 하나 안에 여러 생활 기능이 함께 있는 작은 주거 형태입니다."
+            },
+            {
+                        "q": "학생들이 학교 근처에서 함께 생활하는 숙소를 무엇이라고 합니까?",
+                        "m": "ကျောင်းသားများ ကျောင်းအနီးတွင် အတူနေထိုင်သော နေရာကို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "기숙사",
+                                    "은행",
+                                    "병원",
+                                    "시장"
+                        ],
+                        "correct": 0,
+                        "hint": "대학생이나 유학생들이 많이 이용합니다။",
+                        "rationale": "기숙사는 학생들이 학교 생활을 하며 머무는 공동 숙소입니다."
+            },
+            {
+                        "q": "집을 빌릴 때 매달 내는 돈을 무엇이라고 합니까?",
+                        "m": "အိမ်ငှားရာတွင် လစဉ်ပေးရသော ငွေကို ကိုရီးယားလို မည်သို့ခေါ်သနည်း။",
+                        "options": [
+                                    "보증금",
+                                    "월세",
+                                    "영수증",
+                                    "주소"
+                        ],
+                        "correct": 1,
+                        "hint": "월 = month, 세 = rent 입니다။",
+                        "rationale": "월세는 집을 빌려 살 때 매달 내는 집세를 뜻합니다."
+            },
+            {
+                        "q": "집의 위치를 나타내는 말로 알맞은 것은?",
+                        "m": "အိမ်၏ တည်နေရာကို ဖော်ပြသော စကားလုံးမှာ?",
+                        "options": [
+                                    "주소",
+                                    "침대",
+                                    "냉장고",
+                                    "커튼"
+                        ],
+                        "correct": 0,
+                        "hint": "택배를 받을 때 꼭 필요한 정보입니다။",
+                        "rationale": "주소는 집이나 건물의 위치를 나타내는 정보입니다."
+            }
+];
+        let state = { currentIndex: 0, score: 0, answered: false };
+        const quiz = {
+            start: () => { document.getElementById('start-screen').classList.add('hidden'); document.getElementById('quiz-screen').classList.remove('hidden'); quiz.renderProgress(); quiz.renderQuestion(); },
+            renderProgress: () => { document.getElementById('progress-dots').innerHTML = quizData.map((_, i) => `<div id="dot-${i}" class="flex-1 h-1.5 rounded-full bg-slate-200 transition-all duration-300"></div>`).join(''); },
+            renderQuestion: () => {
+                const current = quizData[state.currentIndex]; state.answered = false;
+                document.getElementById('q-counter').innerText = `${state.currentIndex + 1} / 10`;
+                document.getElementById('question-text').innerText = current.q; document.getElementById('question-myanmar').innerText = current.m;
+                const container = document.getElementById('options-container'); container.innerHTML = '';
+                current.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 font-bold text-slate-700 bg-white/90 shadow-sm relative z-10";
+                    btn.innerText = opt; btn.onclick = () => quiz.checkAnswer(i, btn); container.appendChild(btn);
+                });
+                document.getElementById(`dot-${state.currentIndex}`).className = "flex-1 h-1.5 rounded-full bg-blue-500";
+                document.getElementById('feedback-area').classList.add('hidden');
+            },
+            checkAnswer: (idx, btn) => {
+                if (state.answered) return; state.answered = true;
+                const current = quizData[state.currentIndex]; const isCorrect = idx === current.correct;
+                if (isCorrect) { state.score += 10; btn.classList.add('correct'); sndCorrect.play().catch(()=>{}); }
+                else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[current.correct].classList.add('correct'); sndWrong.play().catch(()=>{}); }
+                document.getElementById('result-icon').innerText = isCorrect ? "🎉" : "💡"; document.getElementById('result-title').innerText = isCorrect ? "정답입니다!" : "아쉬워요!";
+                document.getElementById('rationale-text').innerText = current.rationale; document.getElementById('hint-text').innerText = current.hint;
+                document.getElementById('feedback-card').className = `p-5 rounded-[2rem] mb-6 border relative z-10 ${isCorrect ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'}`;
+                document.getElementById('feedback-area').classList.remove('hidden');
+            },
+            next: () => { state.currentIndex++; if (state.currentIndex < 10) quiz.renderQuestion(); else quiz.showResult(); },
+            showResult: () => {
+                document.getElementById('quiz-screen').classList.add('hidden'); document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = state.score;
+                document.getElementById('final-comment').innerHTML = state.score >= 80 ? "대단해요! 아주 잘했어요! <br>(အရမ်းကောင်းတယ်!)" : "조금 더 노력해봐요! <br>(ကြိုးစားပါဦး!)";
+                lucide.createIcons();
+            }
+        };
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
