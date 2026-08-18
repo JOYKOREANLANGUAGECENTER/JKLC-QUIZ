@@ -1,0 +1,329 @@
+\documentclass[11pt, a4paper]{article}
+
+% Page Geometry Setup
+\usepackage[a4paper, top=2cm, bottom=2cm, left=1.8cm, right=1.8cm]{geometry}
+\usepackage{fontspec}
+
+\usepackage[korean, bidi=basic, provide=*]{babel}
+
+\babelprovide[import, onchar=ids fonts]{korean}
+\babelprovide[import, onchar=ids fonts]{myanmar}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Font Declarations using Noto Fonts
+\babelfont{rm}{Noto Sans}
+\babelfont[korean]{rm}{Noto Sans CJK KR}
+\babelfont[myanmar]{rm}{Noto Sans Myanmar}
+
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+% Color Definitions (CNU Blue & Gold Theme)
+\definecolor{cnublue}{RGB}{0, 51, 102}
+\definecolor{cnulightblue}{RGB}{235, 243, 250}
+\definecolor{accentgold}{RGB}{180, 130, 0}
+\definecolor{goldlight}{RGB}{254, 249, 231}
+\definecolor{darkgray}{RGB}{50, 50, 50}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+
+% Section Title Styling
+\titleformat{\section}
+  {\Large\bfseries\color{cnublue}}
+  {\thesection.}{0.5em}{}
+  [\titlerule]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{darkgray}}
+  {\thesubsection}{0.5em}{}
+
+% Custom tcolorbox Environments
+\newtcolorbox{qbox}[1]{
+  colback=cnulightblue,
+  colframe=cnublue,
+  fonttitle=\bfseries\color{white},
+  title={#1},
+  arc=3mm,
+  breakable,
+  boxrule=1pt,
+  left=4mm, right=4mm, top=3mm, bottom=3mm
+}
+
+\newtcolorbox{tipbox}[1]{
+  colback=goldlight,
+  colframe=accentgold,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  title={#1},
+  arc=2mm,
+  breakable,
+  boxrule=0.8pt,
+  left=3mm, right=3mm, top=2.5mm, bottom=2.5mm
+}
+
+\newtcolorbox{infobox}[1]{
+  colback=white,
+  colframe=cnublue,
+  fonttitle=\bfseries\color{white},
+  title={#1},
+  arc=2mm,
+  breakable,
+  boxrule=0.8pt,
+  left=3mm, right=3mm, top=2.5mm, bottom=2.5mm
+}
+
+% Hyperref must be the last loaded package
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{tcolorbox}[colback=cnublue, colframe=cnublue, arc=0mm, center, top=4mm, bottom=4mm]
+  \centering
+  {\LARGE \bfseries \color{white} 충남대학교 D-2 학사과정 면접 인터뷰 종합 가이드} \\[2mm]
+  {\small \color{white} Chungnam National University Bachelor's Degree Interview Master Guide} \\[1mm]
+  {\footnotesize \color{white} (한국어 - 미얀마어 완벽 병기 자료 / Korean-Myanmar Bilingual Master Edition)}
+\end{tcolorbox}
+
+\vspace{2mm}
+
+\begin{infobox}{📌 면접자 기본 프로필 (Student Profile)}
+  \centering
+  \begin{tabular}{ll|ll}
+    \textbf{학생 이름 (Student):} & Yu Yu & \textbf{국적 (Nationality):} & 미얀마 (Myanmar) \\
+    \textbf{지원 대학 (University):} & 충남대학교 (CNU) & \textbf{비자 유형 (Visa Type):} & D-2-2 학사 과정 (Bachelor) \\
+    \textbf{지원 목표 (Goal):} & D-2 비자 면접 최종 합격 & \textbf{지도 기관 (Academy):} & 학원 맞춤형 유학 면접 대비반 \\
+  \end{tabular}
+\end{infobox}
+
+\vspace{3mm}
+
+\section{충남대학교 면접 기본 핵심 전략 및 태도 (Core Interview Strategy \& Etiquette)}
+
+\begin{tipbox}{💡 면접관에게 최고의 인상을 주는 실전 행동 수칙 (Actionable Guidelines)}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{입실 및 퇴실 예절 (Entrance \& Exit Manners):}
+  \begin{itemize}
+    \item 면접실에 들어설 때 밝은 미소로 "안녕하십니까!"라고 인사를 하고, 의자 옆에 서서 목례를 한 뒤 앉으라는 안내를 받은 후 앉습니다.
+    \item စာမေးပွဲခန်းသို့ ဝင်ရောက်သည့်အခါ ပြုံးရွှင်စွာဖြင့် "안녕하십니까!" ဟု နှုတ်ဆက်ပြီး၊ ထိုင်ရန် ပြောကြားမှ ထိုင်ပါ။
+  \end{itemize}
+
+  \item \textbf{당당하고 명확한 한국어 발음 (Voice \& Pronunciation):}
+  \begin{itemize}
+    \item 한국어로 진행되는 면접이므로 문장의 끝(~입니다, ~했습니다)을 분명하게 끊어서 당당하게 답변하세요.
+    \item အသံကို ရှင်းရှင်းလင်းလင်းနှင့် ယုံကြည်ချက်ရှိရှိ စကားဆုံးအောင် ပြောဆိုပါ။
+  \end{itemize}
+
+  \item \textbf{충남대학교(국립대) 선택의 당위성 (Why CNU?):}
+  \begin{itemize}
+    \item 충남대학교가 거점국립대학교로서 갖는 우수한 교육 환경과 연구 역량을 강조하세요.
+    \item ချုံနမ်တက္ကသိုလ်သည် ထိပ်တန်းအမျိုးသားတက္ကသိုလ်တစ်ခုဖြစ်ပြီး ကောင်းမွန်သော ပညာရေးပတ်ဝန်းကျင်ရှိကြောင်း အလေးပေးပြောကြားပါ။
+  \end{itemize}
+
+  \item \textbf{구체적인 학업 및 진로 계획 (Concrete Study \& Career Plan):}
+  \begin{itemize}
+    \item 막연히 "공부하겠습니다"가 아닌 1~4학년 학년별 한국어 공부 및 전공 탐구 계획을 제시하세요.
+    \item အတန်းစဉ်အလိုက် ကိုရီးယားဘာသာစကားနှင့် အဓိကဘာသာရပ် လေ့လာရေးအစီအစဉ်များကို စနစ်တကျ ပြောကြားပါ။
+  \end{itemize}
+
+  \item \textbf{한국 생활 적응 의지와 긍정적 태도 (Adaptability \& Positivity):}
+  \begin{itemize}
+    \item 문화 차이나 언어장벽이 있더라도 대학 내 외국인 지원 인프라를 활용해 극복하겠다는 태도를 보여주세요.
+    \item အခက်အခဲများရှိလာပါက တက္ကသိုလ်၏ ကူညီထောက်ပံ့ရေးစနစ်များကို အသုံးပြု၍ ကျော်လွှားမည်ဟု အပြုသဘောဆောင်စွာ ပြောဆိုပါ။
+  \end{itemize}
+\end{enumerate}
+\end{tipbox}
+
+\vspace{4mm}
+
+\section{주요 심화 예상 면접 질문 및 모범 답변 (Comprehensive Interview Questions \& Answers)}
+
+\begin{qbox}{Q1. 간단한 자기소개와 충남대학교 지원동기를 말해보세요.}
+  \textbf{[질문 (Myanmar)]} မိမိကိုယ်ကို မိတ်ဆက်ပြီး ချုံနမ်တက္ကသိုလ်သို့ လျှောက်ထားရသည့် အကြောင်းအရင်းကို ပြောပြပါ။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "안녕하십니까. 충남대학교 학사 과정에 지원하게 된 미얀마 출신 \textbf{Yu Yu}입니다. 저는 충남대학교가 한국의 대표적인 거점국립대학교로서 우수한 교수진과 체계적인 외국인 학생 지원 프로그램을 갖추고 있다는 점에 깊은 인상을 받았습니다. 입학 후 성실하고 주도적으로 학업에 임하여 전문 지식을 갖춘 글로컬 인재로 성장하고자 지원하게 되었습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "မင်္ဂလာပါ။ ချုံနမ်အမျိုးသားတက္ကသိုလ် ဘွဲ့ကြိုသင်တန်းသို့ လျှောက်ထားသော မြန်မာနိုင်ငံမှ \textbf{Yu Yu} ဖြစ်ပါတယ်။ ချုံနမ်တက္ကသိုလ်သည် ကိုရီးယားနိုင်ငံ၏ ထိပ်တန်းအမျိုးသားတက္ကသိုလ်တစ်ခုဖြစ်ပြီး ထူးချွန်သော ဆရာ/ဆရာမများနှင့် စနစ်ကျသော နိုင်ငံတကာကျောင်းသား ကူညီထောက်ပံ့ရေး အစီအစဉ်များရှိသည့်အတွက် လျှောက်ထားရခြင်းဖြစ်ပါတယ်။ ကျောင်းဝင်ပြီးပါက ကြိုးစားအားထုတ်စွာ လေ့လာပြီး ကျွမ်းကျင်သော လူတော်တစ်ယောက်ဖြစ်အောင် ကြိုးစားသွားပါမည်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q2. 왜 미얀마가 아닌 한국 유학을 선택했나요?}
+  \textbf{[질문 (Myanmar)]} ဘာကြောင့် မြန်မာနိုင်ငံ မဟုတ်ဘဲ ကိုရီးယားမှာ ပညာသင်ယူဖို့ ရွေးချယ်ခဲ့တာလဲ။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "한국은 세계적인 수준의 높은 교육 시스템과 선진 기술을 자랑합니다. 또한 학문적 지식뿐만 아니라 한국어와 전문 역량을 동시에 기를 수 있는 최고의 환경입니다. 한국에서의 유학 경험은 제 전문성을 확장하고 미래 경쟁력을 확보하는 데 큰 발판이 될 것이라 확신합니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "ကိုရီးယားနိုင်ငံသည် ကမ္ဘာ့အဆင့်မီ ပညာရေးစနစ်နှင့် အဆင့်မြင့် နည်းပညာများကို ပိုင်ဆိုင်ထားပါတယ်။ အထူးပြုဘာသာရပ်ဆိုင်ရာ အသိပညာများအပြင် ကိုရီးယားဘာသာစကားနှင့် ကျွမ်းကျင်မှုများကိုပါ တစ်ပြိုင်နက်တည်း လေ့လာနိုင်သော အကောင်းဆုံး ပတ်ဝန်းကျင်ဖြစ်ပါတယ်။ ကိုရီးယားတွင် ပညာသင်ယူခြင်းသည် အနာဂတ်အတွက် ခိုင်မာသော ခြေလှမ်းတစ်ခု ဖြစ်လာမည်ဟု ယုံကြည်ပါတယ်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q3. 지원한 전공을 선택한 특별한 이유가 있나요?}
+  \textbf{[질문 (Myanmar)]} ဤအဓိကဘာသာရပ်ကို ရွေးချယ်ရသည့် အထူးအကြောင်းအရင်း ရှိပါသလား။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "저는 평소 이 전공 분야의 중요성과 발전 가능성에 깊은 관심을 가져왔습니다. 충남대학교의 전공 커리큘럼은 이론과 실습이 균형 있게 구성되어 있어, 이론적 기초를 다지는 동시에 실무 능력까지 고루 갖출 수 있다고 판단하여 지원했습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "ကျွန်မသည် ဤအဓိကဘာသာရပ်၏ အရေးပါမှုနှင့် ဖွံ့ဖြိုးတိုးတက်နိုင်ခြေများကို အမြဲမပြတ် စိတ်ပါဝင်စားခဲ့ပါတယ်။ ချုံနမ်တက္ကသိုလ်၏ သင်ရိုးညွှန်းတမ်းသည် သီအိုရီနှင့် လက်တွေ့ကို မျှတစွာ စီစဉ်ထားသောကြောင့် စာတွေ့ရော လက်တွေ့ပါ ကျွမ်းကျင်သူတစ်ဦး ဖြစ်လာနိုင်မည်ဟု ယူဆ၍ ရွေးချယ်ခဲ့ခြင်းဖြစ်ပါတယ်။"
+\end{qbox}
+
+\newpage
+
+\begin{qbox}{Q4. 충남대학교 입학 후 학년별 학업 계획을 말씀해 주세요.}
+  \textbf{[질문 (Myanmar)]} ချုံနမ်တက္ကသိုလ် တက်ရောက်ပြီးနောက် အတန်းစဉ်အလိုက် ပညာသင်ယူရေး အစီအစဉ်ကို ပြောပြပေးပါ။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "1~2학년 때는 전공 기초 과목을 철저히 학습함과 동시에 꾸준히 한국어 능력을 향상시켜 TOPIK 고급 자격을 취득하겠습니다. 3~4학년에는 전공 심화 과목에 집중하고, 프로젝트 및 학과 활동에 적극 참여하여 깊이 있는 전공 역량을 쌓겠습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "၁ တန်းနှင့် ၂ တန်းတွင် အဓိကဘာသာရပ် အခြေခံများကို သေချာစွာ လေ့လာပြီး ကိုရီးယားဘာသာစကား အရည်အသွေးကို မြှင့်တင်ကာ TOPIK အထက်တန်း အဆင့်ကို ရယူပါမည်။ ၃ တန်းနှင့် ၄ တန်းတွင် အဆင့်မြင့် ဘာသာရပ်များကို အဓိကထား လေ့လာပြီး ပရောဂျက်များနှင့် ဌာနတွင်း လှုပ်ရှားမှုများတွင် တက်ကြွစွာ ပါဝင်သွားပါမည်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q5. 한국어로 전공 수업을 들을 때 언어적 어려움은 어떻게 극복할 것인가요?}
+  \textbf{[질문 (Myanmar)]} ကိုရီးယားဘာသာစကားဖြင့် သင်ခန်းစာများ သင်ယူသည့်အခါ ဘာသာစကား အခက်အခဲကို မည်သို့ ဖြေရှင်းမည်နည်း။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "수업 전 전공 용어를 미리 예습하고, 수업 후에는 녹음이나 노트 정리를 통해 철저히 복습하겠습니다. 또한 교수님께 적극적으로 질문하고 충남대학교의 외국인 튜터링 및 멘토링 프로그램을 활용하여 부족한 점을 채워나가겠습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "အတန်းမစမီ အဓိက ဝေါဟာရများကို ကြိုတင်လေ့လာပြီး အတန်းပြီးပါက မှတ်စုများကို သေချာ ပြန်လည်ကြည့်ရှုပါမည်။ ဆရာ/ဆရာမများကို မရှင်းသည်များကို မေးမြန်းပြီး ချုံနမ်တက္ကသိုလ်၏ ကျောင်းသားကူညီရေး အစီအစဉ်များကို အသုံးပြု၍ ဖြည့်ဆည်းသွားပါမည်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q6. 유학 기간 동안 등록금과 생활비는 어떻게 준비했나요?}
+  \textbf{[질문 (Myanmar)]} ပညာသင်ယူစဉ်ကာလ ကျောင်းလခနှင့် နေထိုင်စရိတ်ကို မည်သို့ ပြင်ဆင်ထားသနည်း။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "부모님의 적극적인 재정적 지원과 준비된 유학 자금을 통해 학업에 필요한 등록금과 생활비를 안정적으로 마련했습니다. 유학 기간 동안 경제적인 걱정 없이 오직 학업과 전공 공부에만 전념할 수 있도록 준비가 완료되어 있습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "မိဘများ၏ ထောက်ပံ့မှုဖြင့် ကျောင်းလခနှင့် နေထိုင်စရိတ်များကို အပြည့်အဝ ပြင်ဆင်ထားပြီး ဖြစ်ပါတယ်။ ပညာသင်ယူစဉ်ကာလအတွင်း စီးပွားရေးဆိုင်ရာ စိုးရိမ်မှုမရှိဘဲ စာပေလေ့လာရေးတွင်သာ အပြည့်အဝ အာရုံစိုက်နိုင်ရန် ပြင်ဆင်ထားပါတယ်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q7. 한국 생활 중 문화 차이나 외로움이 생기면 어떻게 대처하겠습니까?}
+  \textbf{[질문 (Myanmar)]} ကိုရီးယားတွင် နေထိုင်စဉ် ယဉ်ကျေးမှု ကွာခြားချက် သို့မဟုတ် အထီးကျန်မှုများ ရှိလာပါက မည်သို့ ဖြေရှင်းမည်နည်း။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "문화적 차이는 배움의 과정이라 생각하고 열린 마음으로 받아들이겠습니다. 외로움이 생길 때는 충남대학교의 동아리 활동이나 한국인 및 외국인 친구들과 소통하며 건강한 생활 루틴을 유지하겠습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "ယဉ်ကျေးမှု ကွာခြားချက်များကို သင်ယူမှုတစ်ခုအဖြစ် လက်ခံပါမည်။ အထီးကျန်မှုများ ရှိလာပါက တက္ကသိုလ်၏ အသင်းအဖွဲ့ လှုပ်ရှားမှုများတွင် ပါဝင်ပြီး မိတ်ဆွေများနှင့် ကူးလူးဆက်ဆံကာ ကျန်းမာသော နေထိုင်မှုပုံစံကို ထိန်းသိမ်းသွားပါမည်။"
+\end{qbox}
+
+\newpage
+
+\begin{qbox}{Q8. 대학 졸업 후 향후 진로 및 장기적 비전은 무엇인가요?}
+  \textbf{[질문 (Myanmar)]} ဘွဲ့ရရှိပြီးနောက် အနာဂတ် အစီအစဉ်နှင့် ရေရှည် မျှော်မှန်းချက်က ဘာလဲ။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "졸업 후 충남대학교에서 배운 전문 지식과 한국어 능력을 바탕으로, 관련 전문 분야나 한국-미얀마 교류 관련 기업에 취업하고 싶습니다. 양국 간의 경제적, 문화적 교류를 증진시키는 가교 역할을 하는 전문가가 되겠습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "ဘွဲ့ရရှိပြီးပါက ချုံနမ်တက္ကသိုလ်မှ သင်ယူခဲ့သော အသိပညာများကို အခြေခံ၍ မြန်မာ-ကိုရီးယား ပူးပေါင်းဆောင်ရွက်သော လုပ်ငန်းခွင်များတွင် ပါဝင်လုပ်ကိုင်ချင်ပါတယ်။ နှစ်နိုင်ငံအကြား ကူးလူးဆက်ဆံရေးကို မြှင့်တင်ပေးနိုင်သော ကျွမ်းကျင်သူတစ်ဦး ဖြစ်လာလိုပါတယ်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q9. 충남대학교가 위치한 대전광역시에 대해 알고 있는 점이 있나요?}
+  \textbf{[질문 (Myanmar)]} ချုံနမ်တက္ကသိုလ် တည်ရှိရာ ဒေဂျွန်မြို့အကြောင်း သိရှိထားသည်များ ရှိပါသလား။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "대전은 한국의 과학 기술과 교통의 중심지로서 쾌적하고 연구에 집중하기 좋은 도시로 알고 있습니다. 대덕연구개발특구 등 최첨단 인프라가 갖춰져 있어 공부하고 성장하기에 최고의 환경입니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "ဒေဂျွန်မြို့သည် ကိုရီးယားနိုင်ငံ၏ သိပ္ပံနည်းပညာနှင့် လမ်းပန်းဆက်သွယ်ရေး ဗဟိုချက်ဖြစ်ပြီး စာပေလေ့လာရန် အလွန်ကောင်းမွန်သော မြို့ဖြစ်ကြောင်း သိရှိထားပါတယ်။ အဆင့်မြင့် နည်းပညာ စခန်းများရှိသဖြင့် ပညာသင်ယူရန် အကောင်းဆုံး ပတ်ဝန်းကျင်ဖြစ်ပါတယ်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q10. 본인의 가장 큰 장점은 무엇이며 학업에 어떻게 도움이 될까요?}
+  \textbf{[질문 (Myanmar)]} မိမိ၏ အကြီးမားဆုံး အားသာချက်မှာ ဘာလဲ၊ ထိုအရာက စာပေလေ့လာရာတွင် မည်သို့ အထောက်အကူပြုမည်နည်း။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "저의 가장 큰 장점은 끝까지 포기하지 않는 끈기와 책임감입니다. 어렵거나 낯선 학업 과제가 주어지더라도 목표를 달성할 때까지 성실하게 노력하여 좋은 결과를 만들어내는 능력이 있습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀မာ어 번역 (Burmese Translation)]} \\
+  "ကျွန်မ၏ အကြီးမားဆုံး အားသာချက်မှာ လက်မလျှော့သော ဇွဲလုံ့လနှင့် တာဝန်ယူမှုရှိခြင်း ဖြစ်ပါတယ်။ အခက်အခဲရှိသော စာပေသင်ခန်းစာများ ရှိလာပါကလည်း ပန်းတိုင်ရောက်သည်အထိ ကြိုးစားဆောင်ရွက်နိုင်သော အရည်အချင်း ရှိပါတယ်။"
+\end{qbox}
+
+\vspace{3mm}
+
+\begin{qbox}{Q11. 전공 학업 외에 대학 생활 동안 해보고 싶은 활동이 있나요?}
+  \textbf{[질문 (Myanmar)]} စာပေလေ့လာခြင်းအပြင် တက္ကသိုလ်ကျောင်းသူဘဝတွင် မည်သည့် လှုပ်ရှားမှုများ ပြုလုပ်ချင်သနည်း။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "전공 공부뿐만 아니라 충남대학교의 글로벌 서포터즈나 다문화 교류 동아리에 참가하여 다양한 친구들과 교류하고 싶습니다. 한국 문화 체험 프로그램에도 적극 동참하여 폭넓은 경험을 쌓겠습니다." \\[3mm]
+  \textbf{\color{darkgray} [미얀မာ어 번역 (Burmese Translation)]} \\
+  "စာပေလေ့လာခြင်းအပြင် ချုံနမ်တက္ကသိုလ်၏ နိုင်ငံတကာ ကျောင်းသား အသင်းအဖွဲ့များတွင် ပါဝင်ပြီး မိတ်ဆွေများနှင့် ကူးလူးဆက်ဆံချင်ပါတယ်။ ကိုရီးယား ယဉ်ကျေးမှု လေ့လာရေး အစီအစဉ်များတွင်လည်း တက်ကြွစွာ ပါဝင်သွားပါမည်။"
+\end{qbox}
+
+\newpage
+
+\begin{qbox}{Q12. 마지막으로 하고 싶은 말이나 질문이 있나요?}
+  \textbf{[질문 (Myanmar)]} နောက်ဆုံးအနေဖြင့် ပြောကြားလိုသည့် စကား သို့မဟုတ် မေးခွန်းရှိပါသလား။ \\[2mm]
+  \textbf{\color{cnublue} [한국어 답변 모범 예시]} \\
+  "오늘 면접 기회를 주신 교수님들께 진심으로 감사드립니다. 충남대학교의 일원이 된다면 자부심을 가지고 성실히 학업에 정진하여 대학의 이름을 빛내는 자랑스러운 학생이 되겠습니다. 감사합니다!" \\[3mm]
+  \textbf{\color{darkgray} [미얀마어 번역 (Burmese Translation)]} \\
+  "ယနေ့ အင်တာဗျူး အခွင့်အရေးပေးခဲ့သည့် ဆရာ/ဆရာမများကို အထူးကျေးဇူးတင်ရှိပါတယ်။ ချုံနမ်တက္ကသိုလ်၏ ကျောင်းသူတစ်ဦး ဖြစ်လာပါက ဂုဏ်ယူစွာဖြင့် ကြိုးစားလေ့လာသွားပါမည်။ ကျေးဇူးတင်ပါတယ်။"
+\end{qbox}
+
+\vspace{4mm}
+
+\section{면접 돌발 상황별 대처 팁 및 필수 한국어 멘트 (Handling Tricky Situations)}
+
+\begin{tipbox}{🚨 돌발 상황 발생 시 유용한 한국어 표현 (Useful Korean Expressions)}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{질문을 잘 이해하지 못했을 때 (When you didn't understand the question):}
+  \begin{itemize}
+    \item "죄송하지만, 다시 한번 말씀해 주시겠습니까?"
+    \item မေတ္တာရပ်ခံပါတယ်၊ နောက်တစ်ကြိမ် မေးပေးလို့ ရမလားရှင့်။
+  \end{itemize}
+
+  \item \textbf{답변을 생각할 시간이 필요할 때 (When you need a moment to think):}
+  \begin{itemize}
+    \item "잠시 생각할 시간을 주시겠습니까?"
+    \item ခဏစဉ်းစားချိန် ပေးလို့ရမလားရှင့်။
+  \end{itemize}
+
+  \item \textbf{긴장해서 답변을 실수했을 때 (When you made a minor mistake):}
+  \begin{itemize}
+    \item "죄송합니다. 다시 정정해서 말씀드리겠습니다."
+    \item တောင်းပန်ပါတယ်။ ပြန်လည် ပြင်ဆင်ပြောပါရစေရှင့်။
+  \end{itemize}
+
+  \item \textbf{질문의 핵심 단어를 모를 때 (When you don't know a key word):}
+  \begin{itemize}
+    \item "죄송하지만, 혹시 방금 말씀하신 단어의 뜻을 쉬운 단어로 설명해 주실 수 있습니까?"
+    \item မေတ္တာရပ်ခံပါတယ်၊ ခုနက စကားလုံး၏ အဓိပ္ပာယ်ကို လွယ်ကူသော စကားလုံးဖြင့် ရှင်းပြပေးလို့ ရမလားရှင့်။
+  \end{itemize}
+\end{enumerate}
+\end{tipbox}
+
+\vspace{4mm}
+
+\section{실전 모의 면접 평가 및 점검 체크리스트 (Comprehensive Evaluation Checklist)}
+
+\begin{table}[h!]
+\centering
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{5.8cm}|p{6.8cm}|c|}
+\hline
+\rowcolor{cnublue} \color{white}\textbf{No.} & \color{white}\textbf{한국어 평가 항목 (Korean Checklist)} & \color{white}\textbf{미얀마어 설명 (Burmese Description)} & \color{white}\textbf{점검 (Check)} \\ \hline
+1 & 바른 자세와 밝은 미소로 인사하기 & အမူအရာမှန်ကန်စွာဖြင့် ပြုံးရွှင်စွာ နှုတ်ဆက်ခြင်း & $\square$ \\ \hline
+2 & 자기소개를 1분 내외로 명확히 말하기 & မိမိကိုယ်ကို အတိုချုပ် မိတ်ဆက်နိုင်ခြင်း & $\square$ \\ \hline
+3 & 충남대 지원 이유를 자신감 있게 말하기 & ချုံနမ်တက္ကသိုလ် ရွေးချယ်ရသည့် အကြောင်းအရင်း & $\square$ \\ \hline
+4 & 1~4학년 학업 계획을 구체적으로 설명하기 & သင်ယူရေး အစီအစဉ်ကို စနစ်တကျ ပြောနိုင်ခြင်း & $\square$ \\ \hline
+5 & 유학 경비(등록금/생활비) 준비 상태 설명하기 & ပညာသင်စရိတ် ပြင်ဆင်ထားမှုကို ရှင်းပြနိုင်ခြင်း & $\square$ \\ \hline
+6 & 졸업 후 진로 목표를 명확하게 밝히기 & ဘွဲ့ရပြီးနောက် အနာဂတ် အစီအစဉ်ကို ပြောနိုင်ခြင်း & $\square$ \\ \hline
+7 & 모르는 질문에도 당황하지 않고 대처하기 & မသိသော မေးခွန်းများကို တည်ငြိမ်စွာ ဖြေရှင်းခြင်း & $\square$ \\ \hline
+8 & 답변 시 시선 처리(면접관 아이컨택) 유지하기 & အင်တာဗျူးသူများကို သေချာ ကြည့်ရှုပြောဆိုခြင်း & $\square$ \\ \hline
+9 & 발음이 명확하고 끝음처리가 분명한지 점검 & အသံထွက် ရှင်းလင်းပြတ်သားမှု ရှိမရှိ စစ်ဆေးခြင်း & $\square$ \\ \hline
+10 & 퇴실 인사까지 예의 바르게 마무리하기 & အင်တာဗျူးအပြီး စနစ်တကျ နှုတ်ဆက်ထွက်ခွာခြင်း & $\square$ \\ \hline
+\end{tabular}
+\end{table}
+
+\vspace{5mm}
+
+\begin{tcolorbox}[colback=cnublue, colframe=cnublue, center, top=3.5mm, bottom=3.5mm]
+  \centering
+  \bfseries \color{white}
+  {\Large Yu Yu 학생의 충남대학교 합격을 진심으로 응원합니다!} \\[1.5mm]
+  {\small Yu Yu အား ချုံနမ်တက္ကသိုလ် အင်တာဗျူး အောင်မြင်ပါစေကြောင်း ဆုမွန်ကောင်းတောင်းအပ်ပါသည်။}
+\end{tcolorbox}
+
+\end{document}
